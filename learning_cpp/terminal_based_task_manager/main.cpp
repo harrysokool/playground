@@ -1,50 +1,67 @@
 #include <iostream>
+#include <limits>
+#include <string>
 #include <vector>
 
-using namespace std;
+void addTasks(std::vector<std::string>& tasks, const std::string& name);
 
-void addTasks(vector<string>& tasks,const string& name);
-void display_tasks(const vector<string>& tasks);
+void displayTasks(const std::vector<std::string>& tasks);
 
 int main() {
-    string name;
-    vector<string> tasks;
+    std::string name;
+    std::vector<std::string> tasks;
 
-    cout << "What is your name: ";
-    cin >> name;
+    std::cout << "What is your name? ";
+    std::getline(std::cin, name);
+
     addTasks(tasks, name);
-    display_tasks(tasks);
+    displayTasks(tasks);
 
     return 0;
 }
 
+void addTasks(std::vector<std::string>& tasks, const std::string& name) {
+    int taskCount = 0;
 
-void addTasks(vector<string>& tasks,const string& name) {
-    int task_count = 0;
-    cout << "Hello " << name 
-        << " How many tasks do you want to complete today?";
-    cin >> task_count;
+    std::cout << "Hello " << name
+              << ". How many tasks do you want to complete today? ";
 
-    if (task_count <= 0 || task_count >= 11) {
-        cout << "GET OUT!";
-    } else {
-        for (int i = 1; i <= task_count; i++) {
-            string task;
-            cout << "Task " << i << ": ";
-            cin >> task;
-            tasks.push_back(task);
-        }
+    std::cin >> taskCount;
+
+    if (taskCount < 1 || taskCount > 10)
+    {
+        std::cout << "Please enter a number between 1 and 10.\n";
+        return;
+    }
+
+    std::cin.ignore(
+        std::numeric_limits<std::streamsize>::max(),
+        '\n'
+    );
+
+    for (int i = 1; i <= taskCount; ++i)
+    {
+        std::string task;
+
+        std::cout << "Task " << i << ": ";
+        std::getline(std::cin, task);
+
+        tasks.push_back(task);
     }
 }
 
-void display_tasks(const vector<string>& tasks) {
-    if (tasks.empty()) {
-        cout << "GET OUT";
-    } else {
-        cout << "These are your tasks: \n";
-        for (int i = 0; i < tasks.size(); i++) {
-            cout << "Task " << i+1 << ": " << tasks[i] << "\n";
-        }
+void displayTasks(const std::vector<std::string>& tasks) {
+    if (tasks.empty())
+    {
+        std::cout << "No tasks were added.\n";
+        return;
+    }
+
+    std::cout << "\nThese are your tasks:\n";
+
+    for (std::size_t i = 0; i < tasks.size(); ++i)
+    {
+        std::cout << "Task " << i + 1
+                  << ": " << tasks[i] << '\n';
     }
 }
-
