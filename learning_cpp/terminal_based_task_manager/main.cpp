@@ -3,14 +3,21 @@
 #include <string>
 #include <vector>
 
+struct Task {
+    std::string title;
+    std::string description = "";
+    bool completed = false;
+};
+
 void startTaskManager();
 
-void addTasks(std::vector<std::string>& tasks);
+void addTasks(std::vector<Task>& tasks);
 
-void deleteTask(std::vector<std::string>& tasks);
+void deleteTask(std::vector<Task>& tasks);
 
-void displayTasks(const std::vector<std::string>& tasks);
+void displayTasks(const std::vector<Task>& tasks);
 
+void completeTask(std::vector<Task>& tasks);
 
 int main() {
     startTaskManager();
@@ -18,16 +25,17 @@ int main() {
 }
 
 void startTaskManager() {
-    std::vector<std::string> tasks;
+    std::vector<Task> tasks;
 
     while (true){
         int choiceNo;
 
         std::cout << "===== Task Manager =====\n" 
-            << "1. Add tasks\n"
-            << "2. Display tasks\n"
-            << "3. Delete task\n"
-            << "4. Exit\n"
+            << "1. Add tasks \n"
+            << "2. Display tasks \n"
+            << "3. Delete task \n"
+            << "4. Complete a Task \n"
+            << "5. Exit \n"
             << "Enter your choice: ";
 
         if (!(std::cin >> choiceNo)) {
@@ -38,17 +46,15 @@ void startTaskManager() {
                 std::numeric_limits<std::streamsize>::max(),
                 '\n'
             );
-
             continue;
         }
 
         // need to check input from user
-        if (choiceNo <= 0 || choiceNo > 4) {
+        if (choiceNo <= 0 || choiceNo > 5) {
             std::cout << "GET OUT!" << std::endl;
             continue;
         }
         
-        // add tasks
         if (choiceNo == 1) {
             addTasks(tasks);
         } 
@@ -59,6 +65,9 @@ void startTaskManager() {
             deleteTask(tasks);
         } 
         if (choiceNo == 4) {
+            completeTask(tasks);
+        }
+        if (choiceNo == 5) {
             break;
         }
     }
@@ -66,10 +75,10 @@ void startTaskManager() {
     std::cout << "GET OUT!" << std::endl;
 }
 
-void addTasks(std::vector<std::string>& tasks) {
+void addTasks(std::vector<Task>& tasks) {
     int taskCount = 0;
 
-    std::cout << "Hello there. How many tasks do you want to complete today? ";
+    std::cout << "How many tasks do you want to complete today? ";
     if (!(std::cin >> taskCount)) {
         std::cout << "Please enter a number.\n";
 
@@ -78,7 +87,6 @@ void addTasks(std::vector<std::string>& tasks) {
             std::numeric_limits<std::streamsize>::max(),
             '\n'
         );
-
         return;
     }
 
@@ -93,22 +101,26 @@ void addTasks(std::vector<std::string>& tasks) {
     );
 
     for (int i = 1; i <= taskCount; ++i) {
-        std::string task;
+        Task task;
 
         std::cout << "Task " << i << ": ";
-        std::getline(std::cin, task);
+        std::getline(std::cin, task.title);
 
         tasks.push_back(task);
     }
 }
 
-void deleteTask(std::vector<std::string>& tasks) {
+void deleteTask(std::vector<Task>& tasks) {
     if (tasks.empty()) {
         std::cout << "No tasks available! \n";
         return;
     }
+
     std::cout << "Tasks: \n";
-    for (size_t i = 0; i < tasks.size(); i++) std::cout << i + 1 << ". " << tasks[i] << "\n";
+    
+    for (std::size_t i = 0; i < tasks.size(); i++) {
+        std::cout << i + 1 << ". " << tasks[i].title << "\n";
+    }
 
     int idx;
     std::cout << "Enter Task number to remove: ";
@@ -136,8 +148,46 @@ void deleteTask(std::vector<std::string>& tasks) {
     displayTasks(tasks);
 }
 
+void completeTask(std::vector<Task>& tasks) {
+    if (tasks.empty()) {
+        std::cout << "Nothing to complete";
+        return;
+    }
 
-void displayTasks(const std::vector<std::string>& tasks) {
+    // list out all the tasks
+    displayTasks(tasks);
+
+    // ask user which task is compeleted
+    int idx;
+    std::cout << "Enter task number to be mark completed: ";
+
+    // check the input
+    if (!(std::cin >> idx)) {
+        std::cout << "Please enter a number.\n";
+
+        std::cin.clear();
+        std::cin.ignore(
+            std::numeric_limits<std::streamsize>::max(),
+            '\n'
+        );
+        return;
+    }
+
+    if (idx <= 0 || idx > static_cast<int>(tasks.size())) {
+        std::cout << "GET OUT";
+        return;
+    }
+
+    // mark the task as completed
+    tasks[idx-1].completed = true;
+
+    // display all tasks
+    displayTasks(tasks);
+}
+
+
+
+void displayTasks(const std::vector<Task>& tasks) {
     if (tasks.empty()) {
         std::cout << "No tasks were added.\n";
         return;
@@ -146,7 +196,9 @@ void displayTasks(const std::vector<std::string>& tasks) {
     std::cout << "\nThese are your tasks:\n";
 
     for (std::size_t i = 0; i < tasks.size(); ++i) {
-        std::cout << "Task " << i + 1
-                  << ": " << tasks[i] << '\n';
+        std::cout << i + 1 << ". "
+          << (tasks[i].completed ? "[x] " : "[ ] ")
+          << tasks[i].title
+          << '\n';
     }
 }
