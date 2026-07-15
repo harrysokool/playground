@@ -2,6 +2,7 @@
 #include <limits>
 #include <string>
 #include <vector>
+#include <fstream>
 
 struct Task {
     std::string title;
@@ -19,6 +20,11 @@ void displayTasks(const std::vector<Task>& tasks);
 
 void completeTask(std::vector<Task>& tasks);
 
+void loadTasks(std::vector<Task>& tasks);
+
+void saveTasks(const std::vector<Task>& tasks);
+
+
 int main() {
     startTaskManager();
     return 0;
@@ -26,6 +32,7 @@ int main() {
 
 void startTaskManager() {
     std::vector<Task> tasks;
+    loadTasks(tasks);
 
     while (true){
         int choiceNo;
@@ -72,6 +79,7 @@ void startTaskManager() {
         }
     }
 
+    saveTasks(tasks);
     std::cout << "GET OUT!" << std::endl;
 }
 
@@ -117,7 +125,7 @@ void deleteTask(std::vector<Task>& tasks) {
     }
 
     std::cout << "Tasks: \n";
-    
+
     for (std::size_t i = 0; i < tasks.size(); i++) {
         std::cout << i + 1 << ". " << tasks[i].title << "\n";
     }
@@ -185,8 +193,6 @@ void completeTask(std::vector<Task>& tasks) {
     displayTasks(tasks);
 }
 
-
-
 void displayTasks(const std::vector<Task>& tasks) {
     if (tasks.empty()) {
         std::cout << "No tasks were added.\n";
@@ -201,4 +207,12 @@ void displayTasks(const std::vector<Task>& tasks) {
           << tasks[i].title
           << '\n';
     }
+}
+
+void loadTasks(std::vector<Task>& tasks) {
+    ;
+}
+
+void saveTasks(const std::vector<Task>& tasks) {
+    ;
 }

@@ -1,0 +1,9 @@
+Add, edit, delete, complete, and reopen tasks
+Save and load tasks from a file
+Priorities, due dates, search, or sorting
+Strong input validation
+Multiple .h and .cpp files
+CMake build configuration
+Automated tests
+Git commit history
+A clear README with build instructions and screenshots or sample output
