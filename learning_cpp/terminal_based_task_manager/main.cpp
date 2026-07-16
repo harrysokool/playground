@@ -37,7 +37,7 @@ void startTaskManager() {
     while (true){
         int choiceNo;
 
-        std::cout << "===== Task Manager =====\n" 
+        std::cout << "\n===== Task Manager =====\n" 
             << "1. Add tasks \n"
             << "2. Display tasks \n"
             << "3. Delete task \n"
@@ -48,7 +48,9 @@ void startTaskManager() {
         if (!(std::cin >> choiceNo)) {
             std::cout << "Please enter a number.\n";
 
+            // this is to clear the error state
             std::cin.clear();
+            // this is to clear the input from the user previously entered
             std::cin.ignore(
                 std::numeric_limits<std::streamsize>::max(),
                 '\n'
@@ -214,5 +216,18 @@ void loadTasks(std::vector<Task>& tasks) {
 }
 
 void saveTasks(const std::vector<Task>& tasks) {
-    ;
+    std::ofstream outFile("tasks.txt");
+
+    if (!outFile) {
+        std::cout << "Error: could not save to file \n";
+        return;
+    }
+
+    for (const auto& task : tasks) {
+        outFile << task.title << "\n";
+        outFile << task.completed << "\n";
+    }
+
+    std::cout << "Save to tasks.txt \n";
+    return;
 }
