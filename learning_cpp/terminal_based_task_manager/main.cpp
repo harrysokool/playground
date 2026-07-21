@@ -22,6 +22,8 @@ void completeTask(std::vector<Task>& tasks);
 
 void editTask(std::vector<Task>& tasks);
 
+void reopenTask(std::vector<Task>& tasks);
+
 void loadTasks(std::vector<Task>& tasks);
 
 void saveTasks(const std::vector<Task>& tasks);
@@ -45,7 +47,8 @@ void startTaskManager() {
             << "3. Delete task \n"
             << "4. Complete a task \n"
             << "5. Edit task\n"
-            << "6. Exit \n"
+            << "6. Reopen task\n"
+            << "7. Exit \n"
             << "Enter your choice: ";
 
         if (!(std::cin >> choiceNo)) {
@@ -62,7 +65,7 @@ void startTaskManager() {
         }
 
         // need to check input from user
-        if (choiceNo <= 0 || choiceNo > 6) {
+        if (choiceNo <= 0 || choiceNo > 7) {
             std::cout << "GET OUT!" << std::endl;
             continue;
         }
@@ -83,6 +86,9 @@ void startTaskManager() {
             editTask(tasks);
         }
         if (choiceNo == 6) {
+            reopenTask(tasks);
+        }
+        if (choiceNo == 7) {
             break;
         }
     }
@@ -132,11 +138,8 @@ void deleteTask(std::vector<Task>& tasks) {
         return;
     }
 
-    std::cout << "Tasks: \n";
-
-    for (std::size_t i = 0; i < tasks.size(); i++) {
-        std::cout << i + 1 << ". " << tasks[i].title << "\n";
-    }
+    // here maybe can use displayTask instead.
+    displayTasks(tasks);
 
     int idx;
     std::cout << "Enter Task number to remove: ";
@@ -262,10 +265,50 @@ void editTask(std::vector<Task>& tasks) {
         return;
     }
 
-    tasks[idx-1].title = newTitle
+    tasks[idx-1].title = newTitle;
 
     // display all tasks
     std::cout << "Task updated successfully.\n";
+    displayTasks(tasks);
+}
+
+void reopenTask(std::vector<Task>& tasks) {
+    if (tasks.empty()) {
+        std::cout << "No tasks available";
+        return;
+    }
+
+    // then maybe let user to select which task he wants to reopen, while displaying the existing tasks
+    displayTasks(tasks);
+
+    int idx;
+    std::cout << "Enter Task number to reopen: ";
+
+    if (!(std::cin >> idx)) {
+        std::cout << "Please enter a number.\n";
+
+        std::cin.clear();
+        std::cin.ignore(
+            std::numeric_limits<std::streamsize>::max(),
+            '\n'
+        );
+
+        return;
+    }
+
+    if (idx <= 0 || idx > static_cast<int>(tasks.size())) {
+        std::cout << "Please enter a valid task number.";
+        return;
+    }
+
+    if (!tasks[idx-1].completed) {
+        std::cout << "Task is incomplete, so cannot reopen";
+        return;
+    }
+
+    tasks[idx-1].completed = false;
+
+    std::cout << "Task reopened successfully.\n";
     displayTasks(tasks);
 }
 
