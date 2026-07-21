@@ -212,7 +212,21 @@ void displayTasks(const std::vector<Task>& tasks) {
 }
 
 void loadTasks(std::vector<Task>& tasks) {
-    ;
+    std::ifstream file("tasks.txt");
+    std::string title;
+    std::string completed;
+
+    while (getline(file, title) && getline(file, completed)) {
+        Task task;
+
+        task.title = title;
+        if (completed == "0") task.completed = false;
+        else if (completed == "1") task.completed = true;
+
+        tasks.push_back(task);
+    }
+
+    file.close();
 }
 
 void saveTasks(const std::vector<Task>& tasks) {
@@ -229,5 +243,5 @@ void saveTasks(const std::vector<Task>& tasks) {
     }
 
     std::cout << "Save to tasks.txt \n";
-    return;
+    outFile.close();
 }
