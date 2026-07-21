@@ -213,16 +213,18 @@ void displayTasks(const std::vector<Task>& tasks) {
 
 void loadTasks(std::vector<Task>& tasks) {
     std::ifstream file("tasks.txt");
+    // check if file exist
+    if (!file) {
+        return;
+    }
+
     std::string title;
     std::string completed;
 
     while (getline(file, title) && getline(file, completed)) {
         Task task;
-
         task.title = title;
-        if (completed == "0") task.completed = false;
-        else if (completed == "1") task.completed = true;
-
+        task.completed = (completed == "1");
         tasks.push_back(task);
     }
 
