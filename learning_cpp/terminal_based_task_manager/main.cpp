@@ -20,6 +20,8 @@ void displayTasks(const std::vector<Task>& tasks);
 
 void completeTask(std::vector<Task>& tasks);
 
+void editTask(std::vector<Task>& tasks);
+
 void loadTasks(std::vector<Task>& tasks);
 
 void saveTasks(const std::vector<Task>& tasks);
@@ -41,8 +43,9 @@ void startTaskManager() {
             << "1. Add tasks \n"
             << "2. Display tasks \n"
             << "3. Delete task \n"
-            << "4. Complete a Task \n"
-            << "5. Exit \n"
+            << "4. Complete a task \n"
+            << "5. Edit task\n"
+            << "6. Exit \n"
             << "Enter your choice: ";
 
         if (!(std::cin >> choiceNo)) {
@@ -59,7 +62,7 @@ void startTaskManager() {
         }
 
         // need to check input from user
-        if (choiceNo <= 0 || choiceNo > 5) {
+        if (choiceNo <= 0 || choiceNo > 6) {
             std::cout << "GET OUT!" << std::endl;
             continue;
         }
@@ -77,12 +80,15 @@ void startTaskManager() {
             completeTask(tasks);
         }
         if (choiceNo == 5) {
+            editTask(tasks);
+        }
+        if (choiceNo == 6) {
             break;
         }
     }
 
     saveTasks(tasks);
-    std::cout << "GET OUT!" << std::endl;
+    std::cout << "Goodbye!" << std::endl;
 }
 
 void addTasks(std::vector<Task>& tasks) {
@@ -211,6 +217,57 @@ void displayTasks(const std::vector<Task>& tasks) {
     }
 }
 
+void editTask(std::vector<Task>& tasks) {
+    if (tasks.empty()) {
+        std::cout << "Nothing to edit";
+        return;
+    }
+
+    // list out all the tasks
+    displayTasks(tasks);
+
+    // ask user which task to edit
+    int idx;
+    std::cout << "Enter task number to edit: ";
+
+    // check the input
+    if (!(std::cin >> idx)) {
+        std::cout << "Please enter a number.\n";
+
+        std::cin.clear();
+        std::cin.ignore(
+            std::numeric_limits<std::streamsize>::max(),
+            '\n'
+        );
+        return;
+    }
+
+    if (idx <= 0 || idx > static_cast<int>(tasks.size())) {
+        std::cout << "Task number does not exist!";
+        return;
+    }
+
+    // now let the user to edit the title of the task
+    std::string newTitle;
+    std::cout << "Enter new task title: ";
+
+    if (!(std::cin >> newTitle)) {
+        std::cout << "Please enter a valid title.\n";
+
+        std::cin.clear();
+        std::cin.ignore(
+            std::numeric_limits<std::streamsize>::max(),
+            '\n'
+        );
+        return;
+    }
+
+    tasks[idx-1].title = newTitle;
+
+    // display all tasks
+    displayTasks(tasks);
+}
+
 void loadTasks(std::vector<Task>& tasks) {
     std::ifstream file("tasks.txt");
     // check if file exist
@@ -220,15 +277,17 @@ void loadTasks(std::vector<Task>& tasks) {
 
     std::string title;
     std::string completed;
-
+    
     while (getline(file, title) && getline(file, completed)) {
+        if (completed != "0" && completed != "1") {
+            continue;
+        }
+
         Task task;
         task.title = title;
         task.completed = (completed == "1");
         tasks.push_back(task);
     }
-
-    file.close();
 }
 
 void saveTasks(const std::vector<Task>& tasks) {
@@ -245,5 +304,4 @@ void saveTasks(const std::vector<Task>& tasks) {
     }
 
     std::cout << "Save to tasks.txt \n";
-    outFile.close();
 }
