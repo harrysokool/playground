@@ -248,23 +248,24 @@ void editTask(std::vector<Task>& tasks) {
     }
 
     // now let the user to edit the title of the task
+    std::cin.ignore(
+        std::numeric_limits<std::streamsize>::max(),
+        '\n'
+    );
+
+    std::cout << "New title: ";
     std::string newTitle;
-    std::cout << "Enter new task title: ";
+    std::getline(std::cin, newTitle);
 
-    if (!(std::cin >> newTitle)) {
-        std::cout << "Please enter a valid title.\n";
-
-        std::cin.clear();
-        std::cin.ignore(
-            std::numeric_limits<std::streamsize>::max(),
-            '\n'
-        );
+    if (newTitle.empty()) {
+        std::cout << "Task title cannot be empty.\n";
         return;
     }
 
-    tasks[idx-1].title = newTitle;
+    tasks[idx-1].title = newTitle
 
     // display all tasks
+    std::cout << "Task updated successfully.\n";
     displayTasks(tasks);
 }
 
