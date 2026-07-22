@@ -36,65 +36,7 @@ int main() {
 
 void startTaskManager() {
     std::vector<Task> tasks;
-    loadTasks(tasks);
 
-    while (true){
-        int choiceNo;
-
-        std::cout << "\n===== Task Manager =====\n" 
-            << "1. Add tasks \n"
-            << "2. Display tasks \n"
-            << "3. Delete task \n"
-            << "4. Complete a task \n"
-            << "5. Edit task\n"
-            << "6. Reopen task\n"
-            << "7. Exit \n"
-            << "Enter your choice: ";
-
-        if (!(std::cin >> choiceNo)) {
-            std::cout << "Please enter a number.\n";
-
-            // this is to clear the error state
-            std::cin.clear();
-            // this is to clear the input from the user previously entered
-            std::cin.ignore(
-                std::numeric_limits<std::streamsize>::max(),
-                '\n'
-            );
-            continue;
-        }
-
-        // need to check input from user
-        if (choiceNo <= 0 || choiceNo > 7) {
-            std::cout << "GET OUT!" << std::endl;
-            continue;
-        }
-        
-        if (choiceNo == 1) {
-            addTasks(tasks);
-        } 
-        if (choiceNo == 2) {
-            displayTasks(tasks);
-        }
-        if (choiceNo == 3)  {
-            deleteTask(tasks);
-        } 
-        if (choiceNo == 4) {
-            completeTask(tasks);
-        }
-        if (choiceNo == 5) {
-            editTask(tasks);
-        }
-        if (choiceNo == 6) {
-            reopenTask(tasks);
-        }
-        if (choiceNo == 7) {
-            break;
-        }
-    }
-
-    saveTasks(tasks);
-    std::cout << "Goodbye!" << std::endl;
 }
 
 void addTasks(std::vector<Task>& tasks) {
