@@ -17,9 +17,10 @@ class TaskManager {
         void reopenTask();
         void loadTasks();
         void saveTasks() const;
+        bool hasNoTasks() const;
 
     public:
-        run();
+        void run();
 };
 
 
