@@ -94,8 +94,12 @@ void TaskManager::addTasks() {
     for (int i = 1; i <= taskCount; ++i) {
         Task task;
 
-        std::cout << "Task " << i << ": ";
+        std::cout << "Task" << i << ": \n";
+        std::cout << "Task title: ";
         std::getline(std::cin, task.title);
+
+        std::cout << "Task Description: ";
+        std::getline(std::cin, task.description);
 
         tasks.push_back(task);
     }
@@ -184,6 +188,8 @@ void TaskManager::displayTasks() const {
         std::cout << i + 1 << ". "
           << (tasks[i].completed ? "[x] " : "[ ] ")
           << tasks[i].title
+          << "\n"
+          << tasks[i].description
           << '\n';
     }
 }
@@ -263,6 +269,7 @@ void TaskManager::saveTasks() const {
     for (const auto& task : tasks) {
         outFile << task.title << "\n";
         outFile << task.completed << "\n";
+        outFile << task.description << "\n";
     }
 
     std::cout << "Save to tasks.txt \n";
@@ -277,14 +284,16 @@ void TaskManager::loadTasks() {
 
     std::string title;
     std::string completed;
+    std::string description;
     
-    while (getline(file, title) && getline(file, completed)) {
+    while (getline(file, title) && getline(file, completed) && getline(file, description)) {
         if (completed != "0" && completed != "1") {
             continue;
         }
 
         Task task;
         task.title = title;
+        task.description = description;
         task.completed = (completed == "1");
         tasks.push_back(task);
     }
@@ -298,3 +307,4 @@ bool TaskManager::hasNoTasks() const {
 
     return false;
 }
+
