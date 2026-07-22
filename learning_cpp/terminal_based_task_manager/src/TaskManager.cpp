@@ -175,6 +175,17 @@ void TaskManager::editTask() {
 
     tasks[idx-1].title = newTitle;
 
+    std::cout << "New Description: ";
+    std::string newDescription;
+    std::getline(std::cin, newDescription);
+
+    if (newDescription.empty()) {
+        std::cout << "New task description is empty, so not updated.";
+        return;
+    }
+
+    tasks[idx-1].description = newDescription;
+
     std::cout << "Task updated successfully.\n";
     displayTasks();
 }
