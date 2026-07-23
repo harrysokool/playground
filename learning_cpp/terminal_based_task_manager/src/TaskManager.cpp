@@ -4,6 +4,7 @@
 #include <iostream>
 #include <limits>
 #include <string>
+#include <algorithm>
 
 
 void TaskManager::run() {
@@ -133,11 +134,13 @@ void TaskManager::addTasks() {
                 task.priority = Priority::Medium;
 
         }
-
+        
+        task.id = nextTaskId++;
         tasks.push_back(task);
     }
 }
 
+// Todo: use id instead of idx
 void TaskManager::deleteTask() {
     if (hasNoTasks()) return;
 
@@ -168,6 +171,7 @@ void TaskManager::deleteTask() {
     displayTasks();
 }
 
+// Todo: use id instead of idx
 void TaskManager::editTask() {
     if (hasNoTasks()) return;
 
@@ -229,17 +233,17 @@ void TaskManager::displayTasks() const {
     std::cout << "\nThese are your tasks:\n";
 
     for (std::size_t i = 0; i < tasks.size(); ++i) {
-        std::cout << i + 1 << ". "
-          << (tasks[i].completed ? "[x] " : "[ ] ")
-          << tasks[i].title
-          << " | Priority: "
-          << priorityToString(tasks[i].priority)
-          << '\n';
-          << "\n"
-          << tasks[i].description
+        std::cout << "ID " << tasks[i].id << ": "
+                  << (tasks[i].completed ? "[x] " : "[ ] ")
+                  << tasks[i].title
+                  << " | Priority: "
+                  << priorityToString(tasks[i].priority)
+                  << '\n';
+                  << tasks[i].description
     }
 }
 
+// Todo: use id instead of idx
 void TaskManager::completeTask() {
     if (hasNoTasks()) return;
 
@@ -269,6 +273,7 @@ void TaskManager::completeTask() {
     displayTasks();
 }
 
+// Todo: use id instead of idx
 void TaskManager::reopenTask() {
     if (hasNoTasks()) return;
 
@@ -313,9 +318,11 @@ void TaskManager::saveTasks() const {
     }
 
     for (const auto& task : tasks) {
+        outFile << task.id << "\n";
         outFile << task.title << "\n";
-        outFile << task.completed << "\n";
         outFile << task.description << "\n";
+        outFile << priorityToString(task.priority) << "\n";
+        outFile << task.completed << "\n";
     }
 
     std::cout << "Save to tasks.txt \n";
@@ -328,21 +335,38 @@ void TaskManager::loadTasks() {
         return;
     }
 
+    std::string id;
     std::string title;
-    std::string completed;
     std::string description;
+    std::string priority;
+    std::string completed;
+
+    int nextId = 1;
     
-    while (getline(file, title) && getline(file, completed) && getline(file, description)) {
+    while (getline(file, id) 
+        && getline(file, comptitleleted) 
+        && getline(file, description)
+        && getline(file, priority)
+        && getline(file, completed)) 
+    {
         if (completed != "0" && completed != "1") {
             continue;
         }
 
         Task task;
+        
+        task.id = static_cast<int>(id);
         task.title = title;
         task.description = description;
+        task.priority = stringToPriority(priority);
         task.completed = (completed == "1");
+        
+        nextId = std::max(nextId, task.id)
+
         tasks.push_back(task);
+
     }
+    nextTaskId = nextId + 1;
 }
 
 bool TaskManager::hasNoTasks() const {
@@ -365,4 +389,10 @@ std::string priorityToString(Priority priority) const {
     }
 
     return "Unknown";
+}
+
+Priority stringToPriority(const std::string& priority) const {
+    if (priority == "Low") return Priority::Low;
+    if (priority == "High") return Priority::High; 
+    return Priority::Medium; 
 }

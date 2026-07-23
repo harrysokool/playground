@@ -8,6 +8,7 @@
 class TaskManager {
     private:
         std::vector<Task> tasks;
+        int nextTaskId = 1;
 
         void addTasks();
         void deleteTask();
@@ -19,6 +20,7 @@ class TaskManager {
         void saveTasks() const;
         bool hasNoTasks() const;
         std::string priorityToString(Priority priority) const;
+        Priority stringToPriority(const std::string& priority) const;
 
     public:
         void run();
