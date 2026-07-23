@@ -3,8 +3,9 @@
 #include <fstream>
 #include <iostream>
 #include <limits>
-#include <string>
 #include <algorithm>
+#include <stdexcept>
+#include <string>
 
 
 void TaskManager::run() {
@@ -134,8 +135,14 @@ void TaskManager::addTasks() {
                 task.priority = Priority::Medium;
 
         }
+
+        std::cin.ignore(
+            std::numeric_limits<std::streamsize>::max(),
+            '\n'
+        );
         
-        task.id = nextTaskId++;
+        task.id = nextTaskId;
+        nextTaskId++;
         tasks.push_back(task);
     }
 }
@@ -238,8 +245,9 @@ void TaskManager::displayTasks() const {
                   << tasks[i].title
                   << " | Priority: "
                   << priorityToString(tasks[i].priority)
-                  << '\n';
+                  << "\n"
                   << tasks[i].description
+                  << "\n";
     }
 }
 
@@ -341,10 +349,10 @@ void TaskManager::loadTasks() {
     std::string priority;
     std::string completed;
 
-    int nextId = 1;
+    int highestId = 1;
     
     while (getline(file, id) 
-        && getline(file, comptitleleted) 
+        && getline(file, title) 
         && getline(file, description)
         && getline(file, priority)
         && getline(file, completed)) 
@@ -353,20 +361,24 @@ void TaskManager::loadTasks() {
             continue;
         }
 
-        Task task;
-        
-        task.id = static_cast<int>(id);
-        task.title = title;
-        task.description = description;
-        task.priority = stringToPriority(priority);
-        task.completed = (completed == "1");
-        
-        nextId = std::max(nextId, task.id)
-
-        tasks.push_back(task);
-
+        try {
+            Task task;
+            
+            task.id = std::stoi(id);
+            task.title = title;
+            task.description = description;
+            task.priority = stringToPriority(priority);
+            task.completed = (completed == "1");
+            
+            highestId = std::max(highestId, task.id);
+            tasks.push_back(task);
+        } catch (const std::invalid_argument&) {
+            std::cout << "Warning: invalid task ID ignored.\n";
+        } catch (const std::out_of_range&) {
+            std::cout << "Warning: task ID is too large.\n";
+        }
     }
-    nextTaskId = nextId + 1;
+    nextTaskId = highestId + 1;
 }
 
 bool TaskManager::hasNoTasks() const {
@@ -378,20 +390,20 @@ bool TaskManager::hasNoTasks() const {
     return false;
 }
 
-std::string priorityToString(Priority priority) const {
+std::string TaskManager::priorityToString(Priority priority) const {
     switch (priority) {
         case Priority::Low:
             return "Low";
         case Priority::Medium:
-            return "Low";
+            return "Medium";
         case Priority::High:
-            return "Low";
+            return "High";
     }
 
     return "Unknown";
 }
 
-Priority stringToPriority(const std::string& priority) const {
+Priority TaskManager::stringToPriority(const std::string& priority) const {
     if (priority == "Low") return Priority::Low;
     if (priority == "High") return Priority::High; 
     return Priority::Medium; 
