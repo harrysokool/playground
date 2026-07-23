@@ -95,11 +95,44 @@ void TaskManager::addTasks() {
         Task task;
 
         std::cout << "Task" << i << ": \n";
-        std::cout << "Task title: ";
+        std::cout << "Task Title: ";
         std::getline(std::cin, task.title);
 
         std::cout << "Task Description: ";
         std::getline(std::cin, task.description);
+
+        int priorityChoice;
+        std::cout << "Priority:\n"
+                    << "1. Low\n"
+                    << "2. Medium\n"
+                    << "3. High\n"
+                    << "Enter priority: ";
+
+        if (!(std::cin >> priorityChoice)) {
+            std::cout << "Please enter a number!\n";
+            std::cin.clear();
+            std::cin.ignore(
+                std::numeric_limits<std::streamsize>::max(),
+                '\n'
+            );
+            return;
+        }
+
+        switch (priorityChoice) {
+            case 1:
+                task.priority = Priority::Low;
+                break;
+            case 2:
+                task.priority = Priority::Medium;
+                break;
+            case 3:
+                task.priority = Priority::High;
+                break;
+            default:
+                std::cout << "Invalid priority. Using Medium.\n";
+                task.priority = Priority::Medium;
+
+        }
 
         tasks.push_back(task);
     }
@@ -199,9 +232,11 @@ void TaskManager::displayTasks() const {
         std::cout << i + 1 << ". "
           << (tasks[i].completed ? "[x] " : "[ ] ")
           << tasks[i].title
+          << " | Priority: "
+          << priorityToString(tasks[i].priority)
+          << '\n';
           << "\n"
           << tasks[i].description
-          << '\n';
     }
 }
 
@@ -319,3 +354,15 @@ bool TaskManager::hasNoTasks() const {
     return false;
 }
 
+std::string priorityToString(Priority priority) const {
+    switch (priority) {
+        case Priority::Low:
+            return "Low";
+        case Priority::Medium:
+            return "Low";
+        case Priority::High:
+            return "Low";
+    }
+
+    return "Unknown";
+}

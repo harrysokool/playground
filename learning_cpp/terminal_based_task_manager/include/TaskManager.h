@@ -18,6 +18,7 @@ class TaskManager {
         void loadTasks();
         void saveTasks() const;
         bool hasNoTasks() const;
+        std::string priorityToString(Priority priority) const;
 
     public:
         void run();
