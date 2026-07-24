@@ -25,6 +25,8 @@ class TaskManager {
         Task* findTaskById(int id);
         bool readInteger(const std::string& prompt, int& value);
         bool readInteger(const std::string& prompt, int& value, int min, int max);
+        void filterTaskByStatus(bool status) const;
+        void filterTaskByPriority(Priority priority) const;
 
     public:
         void run();

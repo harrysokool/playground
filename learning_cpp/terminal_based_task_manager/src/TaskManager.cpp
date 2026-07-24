@@ -443,3 +443,11 @@ bool TaskManager::readInteger(
 
     return true;
 }
+
+void filterTaskByStatus(bool status) const {
+
+}
+
+void filterTaskByPriority(Priority priority) const{
+    
+}
