@@ -408,3 +408,13 @@ Priority TaskManager::stringToPriority(const std::string& priority) const {
     if (priority == "High") return Priority::High; 
     return Priority::Medium; 
 }
+
+Task* TaskManager::findTaskById(int id) {
+    for (auto& task: tasks) {
+        if (task.id == id) {
+            return &task;
+        }
+    }
+
+    return nullptr;
+}

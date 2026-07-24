@@ -22,6 +22,7 @@ class TaskManager {
         bool hasNoTasks() const;
         std::string priorityToString(Priority priority) const;
         Priority stringToPriority(const std::string& priority) const;
+        Task* findTaskById(int id);
 
     public:
         void run();
