@@ -153,10 +153,10 @@ void TaskManager::deleteTask() {
 
     displayTasks();
 
-    int idx;
+    int id;
     std::cout << "Enter Task number to remove: ";
 
-    if (!(std::cin >> idx)) {
+    if (!(std::cin >> id)) {
         std::cout << "Please enter a number.\n";
 
         std::cin.clear();
@@ -167,14 +167,26 @@ void TaskManager::deleteTask() {
         return;
     }
     
-    if (idx <= 0 || idx > static_cast<int>(tasks.size())) {
-        std::cout << "Not a valid option";
+    // remove the task by id, 
+    // use iterator start to end, stop the iterator when id matches.
+    auto taskIter = std::find_if(
+        tasks.begin(),
+        tasks.end(),
+        const Task& task {
+            return task.id == id;
+        }
+    )
+
+    // if the iterator is at the end, which means not found
+    if (taskIter == tasks.end()) {
+        std::cout << "Task not found";
         return;
     }
 
-    tasks.erase(tasks.begin() + idx-1);
-    std::cout << "Task removed. \n";
+    tasks.erase(taskIter);
+    saveTasks();
 
+    std::cout << "Task removed. \n";
     displayTasks();
 }
 
