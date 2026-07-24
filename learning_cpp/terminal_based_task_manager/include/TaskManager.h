@@ -9,7 +9,7 @@
 class TaskManager {
     private:
         std::vector<Task> tasks;
-        int nextTaskId = 1;
+        int nextTaskId = 0;
 
         void addTasks();
         void deleteTask();

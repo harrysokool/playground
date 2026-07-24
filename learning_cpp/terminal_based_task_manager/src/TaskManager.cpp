@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <string>
+#include <cctype>
 
 
 void TaskManager::run() {
@@ -145,16 +146,17 @@ void TaskManager::addTasks() {
         nextTaskId++;
         tasks.push_back(task);
     }
+
+    saveTasks();
 }
 
-// Todo: use id instead of idx
 void TaskManager::deleteTask() {
     if (hasNoTasks()) return;
 
     displayTasks();
 
     int id;
-    std::cout << "Enter Task number to remove: ";
+    std::cout << "Enter Task ID to remove: ";
 
     if (!(std::cin >> id)) {
         std::cout << "Please enter a number.\n";
@@ -166,6 +168,11 @@ void TaskManager::deleteTask() {
         );
         return;
     }
+
+    std::cin.ignore(
+        std::numeric_limits<std::streamsize>::max(),
+        '\n'
+    );
     
     // remove the task by id, 
     // use iterator start to end, stop the iterator when id matches.
@@ -175,7 +182,7 @@ void TaskManager::deleteTask() {
         const Task& task {
             return task.id == id;
         }
-    )
+    );
 
     // if the iterator is at the end, which means not found
     if (taskIter == tasks.end()) {
@@ -190,16 +197,15 @@ void TaskManager::deleteTask() {
     displayTasks();
 }
 
-// Todo: use id instead of idx
 void TaskManager::editTask() {
     if (hasNoTasks()) return;
 
     displayTasks();
 
-    int idx;
-    std::cout << "Enter task number to edit: ";
+    int id;
+    std::cout << "Enter task ID to edit: ";
 
-    if (!(std::cin >> idx)) {
+    if (!(std::cin >> id)) {
         std::cout << "Please enter a number.\n";
 
         std::cin.clear();
@@ -210,8 +216,56 @@ void TaskManager::editTask() {
         return;
     }
 
-    if (idx <= 0 || idx > static_cast<int>(tasks.size())) {
-        std::cout << "Task number does not exist!";
+    std::cin.ignore(
+        std::numeric_limits<std::streamsize>::max(),
+        '\n'
+    );
+
+    // now find the task in the vector list
+    Task* task = findTaskById(id);
+    if (task == nullptr) {
+        std::cout << "Task not found";
+        return;
+    }
+
+    // get new title
+    std::cout << "New title: ";
+    std::string newTitle;
+    std::getline(std::cin, newTitle);
+    if (newTitle.empty()) {
+        std::cout << "Task title cannot be empty.\n";
+        return;
+    }
+    
+    // get new description
+    std::cout << "New Description: ";
+    std::string newDescription;
+    std::getline(std::cin, newDescription);
+    if (newDescription.empty()) {
+        std::cout << "New task description is empty, so not updated.";
+        return;
+    }
+
+    // get new priority
+    std::cout << "New Priority (Low, Medium, High): ";
+    std::string newPriority;    
+    if (!(std::cin >> newPriority)) {
+        std::cout << "Please enter valid priority.\n";
+
+        std::cin.clear();
+        std::cin.ignore(
+            std::numeric_limits<std::streamsize>::max(),
+            '\n'
+        );
+        return;
+    }
+
+    for (char &ch : newPriority) {
+        ch = static_cast<char>(std::tolower(static_cast<unsigned char>(ch)));
+    }
+    
+    if (newPriority!="low" && newPriority!="medium" && newPriority!="high") {
+        std::cout << "Invalid priority.\n";
         return;
     }
 
@@ -219,30 +273,13 @@ void TaskManager::editTask() {
         std::numeric_limits<std::streamsize>::max(),
         '\n'
     );
-
-    std::cout << "New title: ";
-    std::string newTitle;
-    std::getline(std::cin, newTitle);
-
-    if (newTitle.empty()) {
-        std::cout << "Task title cannot be empty.\n";
-        return;
-    }
-
-    tasks[idx-1].title = newTitle;
-
-    std::cout << "New Description: ";
-    std::string newDescription;
-    std::getline(std::cin, newDescription);
-
-    if (newDescription.empty()) {
-        std::cout << "New task description is empty, so not updated.";
-        return;
-    }
-
-    tasks[idx-1].description = newDescription;
+    
+    task->title = newTitle;
+    task->description = newDescription;
+    task->priority = stringToPriority(newPriority);
 
     std::cout << "Task updated successfully.\n";
+    saveTasks();
     displayTasks();
 }
 
@@ -263,16 +300,15 @@ void TaskManager::displayTasks() const {
     }
 }
 
-// Todo: use id instead of idx
 void TaskManager::completeTask() {
     if (hasNoTasks()) return;
 
     displayTasks();
 
-    int idx;
-    std::cout << "Enter task number to be mark completed: ";
+    int id;
+    std::cout << "Enter task ID to be mark completed: ";
 
-    if (!(std::cin >> idx)) {
+    if (!(std::cin >> id)) {
         std::cout << "Please enter a number.\n";
 
         std::cin.clear();
@@ -283,26 +319,31 @@ void TaskManager::completeTask() {
         return;
     }
 
-    if (idx <= 0 || idx > static_cast<int>(tasks.size())) {
-        std::cout << "GET OUT";
+    std::cin.ignore(
+        std::numeric_limits<std::streamsize>::max(),
+        '\n'
+    );
+
+    Task* task = findTaskById(id);
+    if (task == nullptr) {
+        std::cout << "Task not found";
         return;
     }
 
-    tasks[idx-1].completed = true;
-
+    task->completed = true;
+    saveTasks();
     displayTasks();
 }
 
-// Todo: use id instead of idx
 void TaskManager::reopenTask() {
     if (hasNoTasks()) return;
 
     displayTasks();
 
-    int idx;
-    std::cout << "Enter Task number to reopen: ";
+    int id;
+    std::cout << "Enter Task ID to reopen: ";
 
-    if (!(std::cin >> idx)) {
+    if (!(std::cin >> id)) {
         std::cout << "Please enter a number.\n";
 
         std::cin.clear();
@@ -313,19 +354,26 @@ void TaskManager::reopenTask() {
         return;
     }
 
-    if (idx <= 0 || idx > static_cast<int>(tasks.size())) {
-        std::cout << "Please enter a valid task number.";
+    std::cin.ignore(
+        std::numeric_limits<std::streamsize>::max(),
+        '\n'
+    );
+
+    Task* task = findTaskById(id);
+    if (task == nullptr) {
+        std::cout << "Task not found";
         return;
     }
 
-    if (!tasks[idx-1].completed) {
+    if (!task->completed) {
         std::cout << "Task is incomplete, so cannot reopen";
         return;
     }
 
-    tasks[idx-1].completed = false;
+    task->completed = false;
 
     std::cout << "Task reopened successfully.\n";
+    saveTasks();
     displayTasks();
 }
 
@@ -416,9 +464,15 @@ std::string TaskManager::priorityToString(Priority priority) const {
 }
 
 Priority TaskManager::stringToPriority(const std::string& priority) const {
-    if (priority == "Low") return Priority::Low;
-    if (priority == "High") return Priority::High; 
-    return Priority::Medium; 
+    if (priority == "Low" || priority == "low") {
+        return Priority::Low;
+    }
+
+    if (priority == "High" || priority == "high") {
+        return Priority::High;
+    }
+
+    return Priority::Medium;
 }
 
 Task* TaskManager::findTaskById(int id) {
