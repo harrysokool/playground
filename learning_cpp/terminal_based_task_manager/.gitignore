@@ -1,0 +1,47 @@
+# Build folders
+build/
+out/
+bin/
+
+# Compiled files
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+# Debug files
+*.dSYM/
+*.pdb
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+CMakeUserPresets.json
+
+# Program executable
+/task_manager
+
+# Saved task data
+data/tasks.txt
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VS Code local settings
+.vscode/
+
+# JetBrains IDE files
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.swp
+*~

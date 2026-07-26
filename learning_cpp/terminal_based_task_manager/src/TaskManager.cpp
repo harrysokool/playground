@@ -444,10 +444,10 @@ bool TaskManager::readInteger(
     return true;
 }
 
-void filterTaskByStatus(bool status) const {
+void TaskManager::filterTaskByStatus(bool status) const {
 
 }
 
-void filterTaskByPriority(Priority priority) const{
+void TaskManager::filterTaskByPriority(Priority priority) const{
     
 }
