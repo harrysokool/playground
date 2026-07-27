@@ -30,10 +30,9 @@ class TaskManager {
         void displayTask(const Task& task) const;
         void sortTasksById() const;
         void sortTasksByPriority() const;
-        std::string lower(std::string str) const;
         void searchTaskByTitle() const;
-
-    public:
+        
+        public:
         void run();
 };
 

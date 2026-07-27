@@ -1,4 +1,5 @@
 #include "TaskManager.h"
+#include "StringUtils.h"
 
 #include <algorithm>
 #include <cctype>
@@ -539,16 +540,6 @@ void TaskManager::sortTasksByPriority() const {
     for (const auto& task: sortedTasks) {
         displayTask(task);
     }   
-}
-
-std::string TaskManager::lower(std::string str) const{
-    for (char& c:str) {
-        c = static_cast<char>(
-            std::tolower(static_cast<unsigned char>(c))
-        );
-    }
-
-    return str;
 }
 
 void TaskManager::searchTaskByTitle() const {
