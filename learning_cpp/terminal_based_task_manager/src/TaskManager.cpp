@@ -451,11 +451,11 @@ void TaskManager::displayTask(const Task& task) const {
                     << '\n';
 }
 
-void TaskManager::filterTaskByStatus(bool status) const {
+void TaskManager::filterTasksByStatus(bool status) const {
     if (hasNoTasks()) {
         return;
     }
-    
+
     bool found = false;
 
     for (const auto& task: tasks) {
@@ -470,7 +470,7 @@ void TaskManager::filterTaskByStatus(bool status) const {
     }
 }
 
-void TaskManager::filterTaskByPriority(Priority priority) const{
+void TaskManager::filterTasksByPriority(Priority priority) const{
     if (hasNoTasks()) {
         return;
     }
@@ -486,5 +486,28 @@ void TaskManager::filterTaskByPriority(Priority priority) const{
 
     if (!found) {
         std::cout << "No matching tasks found.\n";
+    }
+}
+
+void TaskManager::sortTasksById() const {
+    if (hasNoTasks()) {
+        return;
+    }
+
+    // first make a copy of the original task list
+    std::vector<Task> sortedTasks = tasks;
+
+    // now we sort it
+    std::sort(
+        sortedTasks.begin(),
+        sortedTasks.end(),
+        [] (const Task& task1, const Task& task2) {
+            return task1.id < task2.id;
+        }
+    );
+
+    // noe display it
+    for (const auto& task: sortedTasks) {
+        displayTask(task);
     }
 }
