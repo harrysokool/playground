@@ -19,6 +19,8 @@ class InventoryManager {
         void findProduct() const;     // find 1 product by id
         void saveProducts() const;
         void loadProducts() const;
+        bool readInteger(const std::string& prompt, int& value);
+        bool readInteger(const std::string& prompt, int& value, int min, int max);
 
     public:
         void run();

@@ -1,4 +1,4 @@
-#include "Product.h"
+#include "InventoryManager.h"
 #include "StringUtils.h"
 
 #include <string>
@@ -8,3 +8,7 @@
 #include <algorithm>
 
 #include <nlohmann/json.hpp>
+
+void InventoryManager::run() {
+    
+}
