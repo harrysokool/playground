@@ -444,10 +444,47 @@ bool TaskManager::readInteger(
     return true;
 }
 
-void TaskManager::filterTaskByStatus(bool status) const {
+void TaskManager::displayTask(const Task& task) const {
+    std::cout << "ID " << task.id << ": "
+                    << (task.completed ? "[x] " : "[ ] ")
+                    << task.title
+                    << '\n';
+}
 
+void TaskManager::filterTaskByStatus(bool status) const {
+    if (hasNoTasks()) {
+        return;
+    }
+    
+    bool found = false;
+
+    for (const auto& task: tasks) {
+        if (task.completed == status) {
+            displayTask(task);
+            found = true;
+        }
+    }
+
+    if (!found) {
+        std::cout << "No matching tasks found.\n";
+    }
 }
 
 void TaskManager::filterTaskByPriority(Priority priority) const{
+    if (hasNoTasks()) {
+        return;
+    }
     
+    bool found = false;
+
+    for (const auto& task: tasks) {
+        if (task.priority == priority) {
+            displayTask(task);
+            found = true;
+        }
+    }
+
+    if (!found) {
+        std::cout << "No matching tasks found.\n";
+    }
 }
