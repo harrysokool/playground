@@ -9,6 +9,10 @@
 #include <stdexcept>
 #include <string>
 
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
+
 void TaskManager::run() {
     loadTasks();
 
@@ -301,63 +305,54 @@ void TaskManager::reopenTask() {
 }
 
 void TaskManager::saveTasks() const {
-    std::ofstream outFile("data/tasks.txt");
+    std::ofstream outFile("data/tasks.json");
 
     if (!outFile) {
         std::cout << "Error: could not save tasks.\n";
         return;
     }
 
+    json tasksJson = json::array();
+
     for (const auto& task : tasks) {
-        outFile << task.id << '\n';
-        outFile << task.title << '\n';
-        outFile << task.description << '\n';
-        outFile << priorityToString(task.priority) << '\n';
-        outFile << task.completed << '\n';
+        json taskJson = {
+            {"id", task.id},
+            {"title", task.title},
+            {"description", task.description},
+            {"priority", priorityToString(task.priority)},
+            {"completed", task.completed}
+        };
+        
+        tasksJson.push_back(taskJson);
     }
+
+    outFile << tasksJson.dump(4);
 }
 
 void TaskManager::loadTasks() {
     tasks.clear();
-    std::ifstream file("data/tasks.txt");
+    std::ifstream file("data/tasks.json");
 
     if (!file) {
         return;
     }
 
-    std::string id;
-    std::string title;
-    std::string description;
-    std::string priority;
-    std::string completed;
+    json tasksJson;
+    file >> tasksJson;
+
     int highestId = 0;
 
-    while (std::getline(file, id) &&
-           std::getline(file, title) &&
-           std::getline(file, description) &&
-           std::getline(file, priority) &&
-           std::getline(file, completed)) {
-        if (completed != "0" && completed != "1") {
-            continue;
-        }
+    for (const auto& item: tasksJson) {
+        Task task;
 
-        try {
-            Task task;
-            task.id = std::stoi(id);
-            task.title = title;
-            task.description = description;
-            task.priority = stringToPriority(priority);
-            task.completed = completed == "1";
-
-            highestId = std::max(highestId, task.id);
-            tasks.push_back(task);
-        }
-        catch (const std::invalid_argument&) {
-            std::cout << "Warning: invalid task ID ignored.\n";
-        }
-        catch (const std::out_of_range&) {
-            std::cout << "Warning: task ID is too large.\n";
-        }
+        task.id = item["id"];
+        task.title = item["title"];
+        task.description = item["description"];
+        task.priority = stringToPriority(item["priority"]);
+        task.completed = item["completed"];
+        
+        highestId = std::max(highestId, task.id);
+        tasks.push_back(task);
     }
 
     nextTaskId = highestId + 1;
