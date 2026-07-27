@@ -509,7 +509,7 @@ void TaskManager::sortTasksById() const {
         }
     );
 
-    // noe display it
+    // now display it
     for (const auto& task: sortedTasks) {
         displayTask(task);
     }
@@ -539,4 +539,44 @@ void TaskManager::sortTasksByPriority() const {
     for (const auto& task: sortedTasks) {
         displayTask(task);
     }   
+}
+
+std::string TaskManager::lower(std::string str) const{
+    for (char& c:str) {
+        c = static_cast<char>(
+            std::tolower(static_cast<unsigned char>(c))
+        );
+    }
+
+    return str;
+}
+
+void TaskManager::searchTaskByTitle() const {
+    if (hasNoTasks()) {
+        return;
+    }
+
+    bool found = false;
+    std::string keyword;
+    std::cout << "Enter search keyword: ";
+    std::getline(std::cin, keyword);
+
+    if (keyword == "") {
+        return;
+    }
+
+    keyword = lower(keyword);
+
+    for (const auto& task: tasks) {
+        std::string taskTitle = lower(task.title);
+
+        if (taskTitle.find(keyword) != std::string::npos) {
+            displayTask(task);
+            found = true;
+        }
+    }
+
+    if (!found) {
+        std::cout << "No matching tasks found.\n";
+    }
 }
