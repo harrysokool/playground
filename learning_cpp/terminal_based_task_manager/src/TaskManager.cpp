@@ -188,6 +188,7 @@ void TaskManager::editTask() {
         return;
     }
 
+    // TODO: change this so user enter int instead of string
     std::string newPriority;
     std::cout << "New priority (Low, Medium, High): ";
     std::getline(std::cin, newPriority);
@@ -204,6 +205,7 @@ void TaskManager::editTask() {
         std::cout << "Invalid priority.\n";
         return;
     }
+    // change this part 
 
     task->title = newTitle;
     task->description = newDescription;
@@ -315,6 +317,7 @@ void TaskManager::saveTasks() const {
 }
 
 void TaskManager::loadTasks() {
+    tasks.clear();
     std::ifstream file("data/tasks.txt");
 
     if (!file) {
@@ -501,8 +504,8 @@ void TaskManager::sortTasksById() const {
     std::sort(
         sortedTasks.begin(),
         sortedTasks.end(),
-        [] (const Task& task1, const Task& task2) {
-            return task1.id < task2.id;
+        [] (const Task& a, const Task& b) {
+            return a.id < b.id;
         }
     );
 
@@ -510,4 +513,30 @@ void TaskManager::sortTasksById() const {
     for (const auto& task: sortedTasks) {
         displayTask(task);
     }
+}
+
+void TaskManager::sortTasksByPriority() const {
+    if (hasNoTasks()) {
+        return;
+    }
+
+    // first make a copy of the original task list
+    std::vector<Task> sortedTasks = tasks;
+
+    // now we sort it
+    std::sort(
+        sortedTasks.begin(),
+        sortedTasks.end(),
+        [] (const Task& a, const Task& b) {
+            if (a.priority != b.priority) {
+                return a.priority > b.priority;
+            }
+            return a.id < b.id; 
+        }
+    );
+
+    // noe display it
+    for (const auto& task: sortedTasks) {
+        displayTask(task);
+    }   
 }

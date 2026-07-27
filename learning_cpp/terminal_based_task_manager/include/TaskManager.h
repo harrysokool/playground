@@ -29,6 +29,7 @@ class TaskManager {
         void filterTasksByPriority(Priority priority) const;
         void displayTask(const Task& task) const;
         void sortTasksById() const;
+        void sortTasksByPriority() const;
 
     public:
         void run();
