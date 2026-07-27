@@ -2,16 +2,24 @@
 
 #include "Product.h"
 
-// #include <string>
+#include <string>
 #include <unordered_map>
 
 class InventoryManager {
     private:
-        // <product id, product obj>  
-        std::unordered_map<int, Product> products;
+        // ATTR
+        std::unordered_map<int, Product> products; // <product id, product obj>  
         int nextProductId = 1;
+
+        // FUNC
+        void addProducts();           // allow user to add 1-10 products one time
+        void deleteProduct();         // delete 1 product by id
+        void updateProduct();         // update 1 product by id
+        void displayProducts() const; // display all products
+        void findProduct() const;     // find 1 product by id
+        void saveProducts() const;
+        void loadProducts() const;
 
     public:
         void run();
-
 };
