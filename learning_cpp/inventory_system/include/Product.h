@@ -1,5 +1,4 @@
-#ifndef PRODUCT_H
-#define PRODUCT_H
+#pragma once
 
 #include <string>
 
@@ -9,5 +8,3 @@ struct Product {
     int quantity;
     double price;
 };
-
-#endif

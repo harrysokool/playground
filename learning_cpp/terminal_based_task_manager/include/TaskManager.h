@@ -32,7 +32,7 @@ class TaskManager {
         void sortTasksByPriority() const;
         void searchTaskByTitle() const;
         
-        public:
+    public:
         void run();
 };
 
