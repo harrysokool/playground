@@ -1,0 +1,7 @@
+Cindy, they want to find ways to automate the process of manually checking if the document is updated or not
+the big picture is like in the excel, each row is a document entry, and one of the field is like the last updated
+another field is like the link or there is a link to a website that shows all the documents. 
+What tommy doing currently is first go to excel, check the row, find the document number, then go to the website, find the corresponding document, then inside the document, they if there is a updated date or is it the same as the one on excel.
+if there is a newer version, then just mark it in the corresponding row in the excel.  
+Hong Kong e-Legislation - Chapter Number Index
+https://www.elegislation.gov.hk/index/chapternumber?QS_CAP_NO=485&p0=1&TYPE=1&TYPE=2&TYPE=3&LANGUAGE=E#tag485
