@@ -237,7 +237,7 @@ void InventoryManager::displayProduct(const Product& product) const {
     std::cout << '\n';
 }
 
-void InventoryManager::findProduct() const {
+void InventoryManager::findProduct() {
     if (products.empty()) {
         std::cout << "No products available.\n";
         return;
@@ -262,7 +262,7 @@ void InventoryManager::findProduct() const {
     std::cout << "Product ID not found.\n";
 }
 
-const Product* InventoryManager::findProductById(int id) const {
+Product* InventoryManager::findProductById(int id) {
     auto it = products.find(id);
 
     if (it == products.end()) {
@@ -273,7 +273,27 @@ const Product* InventoryManager::findProductById(int id) const {
 }
 
 void InventoryManager::saveProducts() const {
-    
+    std::ofstream file("data/products.json");
+
+    if (!file) {
+        std::cout << "Error: could not save products.\n";
+        return;
+    }
+
+    json productsJson = json::array();
+
+    for (const auto& [id, product] : products) {
+        json productJson = {
+            {"id", product.id},
+            {"name", product.name},
+            {"quantity", product.quantity},
+            {"price", product.price},
+        };
+
+        productsJson.push_back(productJson);
+    }
+
+    file << productsJson.dump(4);
 }
 
 void InventoryManager::loadProducts() {
