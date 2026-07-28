@@ -386,3 +386,34 @@ bool InventoryManager::readDouble(const std::string& prompt, double& value) {
 
     return true;
 }
+
+void InventoryManager::inventoryValueReport() const {
+    if (products.empty()) {
+        std::cout << "No products available.\n";
+        return;
+    }
+
+    double totalValue = 0;
+
+    for (const auto& [id, product]: products) {
+        totalValue += product.quantity * product.price;
+    }
+
+    std::cout << "Total Inventory Value: $"
+                << totalValue
+                << '\n';
+}
+
+void InventoryManager::lowStockReport() const {
+    if (products.empty()) {
+        std::cout << "No products available.\n";
+        return;
+    }
+
+    std::cout << "Low-stock Report:\n";
+    for (const auto& [id, product]: products) {
+        if (product.quantity < lowStockThreshold) {
+            std::cout << product.name << "\n";
+        }
+    }
+}

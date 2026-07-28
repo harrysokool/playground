@@ -10,6 +10,7 @@ class InventoryManager {
         // ATTR
         std::unordered_map<int, Product> products; // <product id, product obj>  
         int nextProductId = 1;
+        int lowStockThreshold = 10;
 
         // FUNC
         void addProducts();           // allow user to add 1-10 products one time
@@ -24,6 +25,8 @@ class InventoryManager {
         bool readInteger(const std::string& prompt, int& value);
         bool readInteger(const std::string& prompt, int& value, int minimum, int maximum);
         bool readDouble(const std::string& prompt, double& value);
+        void inventoryValueReport() const;
+        void lowStockReport() const;
 
 
     public:
