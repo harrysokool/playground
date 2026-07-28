@@ -20,7 +20,7 @@ class InventoryManager {
         void saveProducts() const;
         void loadProducts() const;
         bool readInteger(const std::string& prompt, int& value);
-        bool readInteger(const std::string& prompt, int& value, int min, int max);
+        bool readInteger(const std::string& prompt, int& value, int minimum, int maximum);
 
     public:
         void run();
