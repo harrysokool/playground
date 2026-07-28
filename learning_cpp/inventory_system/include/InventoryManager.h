@@ -16,11 +16,15 @@ class InventoryManager {
         void deleteProduct();         // delete 1 product by id
         void updateProduct();         // update 1 product by id
         void displayProducts() const; // display all products
-        void findProduct() const;     // find 1 product by id
+        void displayProduct(const Product& product) const; // only showing 1 product
+        void findProduct() const;
+        const Product* findProduct(int id) const;     // find 1 product by id
         void saveProducts() const;
-        void loadProducts() const;
+        void loadProducts();
         bool readInteger(const std::string& prompt, int& value);
         bool readInteger(const std::string& prompt, int& value, int minimum, int maximum);
+        bool readDouble(const std::string& prompt, double& value);
+
 
     public:
         void run();

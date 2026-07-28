@@ -105,7 +105,7 @@ void InventoryManager::addProducts() {
         
         // price
         double price;
-        if (!readInteger(
+        if (!readDouble(
             "Enter product price: ",
             price
         )) {
@@ -136,35 +136,70 @@ void InventoryManager::updateProduct() {
     
 }
 
-void InventoryManager::displayProducts() const{
+void InventoryManager::displayProducts() const {
     if (products.empty()) {
         std::cout << "No products available.\n";
         return;
     }
 
     for (const auto& [id, product] : products) {
-        std::cout << "ID: " << product.id << '\n';
-        std::cout << "Name: " << product.name << '\n';
-        std::cout << "Quantity: " << product.quantity << '\n';
-        std::cout << "Price: " << product.price << '\n';
-        std::cout << '\n';
+        displayProduct(product);
     }
 
 }
 
-void InventoryManager::findProduct() const{
+void InventoryManager::displayProduct(const Product& product) const {
+    std::cout << "ID: " << product.id << '\n';
+    std::cout << "Name: " << product.name << '\n';
+    std::cout << "Quantity: " << product.quantity << '\n';
+    std::cout << "Price: " << product.price << '\n';
+    std::cout << '\n';
+}
+
+void InventoryManager::findProduct() const {
+    if (products.empty()) {
+        std::cout << "No products available.\n";
+        return;
+    }
+
+    int queryId;
+    if (!readInteger(
+        "Enter product ID: ",
+        queryId
+    )) 
+    {
+        std::cout << "Invalid product ID.\n";
+        return;
+    }
+
+    auto product = findProduct(queryId);
+    if (product != nullptr) {
+        displayProduct(*product);
+        return;
+    }
+    
+    std::cout << "Product ID not found.\n";
+}
+
+const Product* InventoryManager::findProductById(int id) const {
+    auto it = products.find(id);
+
+    if (it == products.end()) {
+        return nullptr;
+    }
+
+    return &it->second;
+}
+
+void InventoryManager::saveProducts() const {
     
 }
 
-void InventoryManager::saveProducts() const{
+void InventoryManager::loadProducts() {
     
 }
 
-void InventoryManager::loadProducts() const{
-    
-}
-
-bool TaskManager::readInteger(const std::string& prompt, int& value) {
+bool InventoryManager::readInteger(const std::string& prompt, int& value) {
     std::cout << prompt;
 
     if (!(std::cin >> value)) {
@@ -185,7 +220,7 @@ bool TaskManager::readInteger(const std::string& prompt, int& value) {
     return true;
 }
 
-bool TaskManager::readInteger(
+bool InventoryManager::readInteger(
     const std::string& prompt,
     int& value,
     int minimum,
@@ -201,6 +236,27 @@ bool TaskManager::readInteger(
                   << maximum << ".\n";
         return false;
     }
+
+    return true;
+}
+
+bool InventoryManager::readDouble(const std::string& prompt, double& value) {
+    std::cout << prompt;
+
+    if (!(std::cin >> value)) {
+        std::cout << "Please enter a valid double.\n";
+        std::cin.clear();
+        std::cin.ignore(
+            std::numeric_limits<std::streamsize>::max(),
+            '\n'
+        );
+        return false;
+    }
+
+    std::cin.ignore(
+        std::numeric_limits<std::streamsize>::max(),
+        '\n'
+    );
 
     return true;
 }
