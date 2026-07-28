@@ -155,7 +155,67 @@ void InventoryManager::deleteProduct() {
 }
 
 void InventoryManager::updateProduct() {
+    if (products.empty()) {
+        std::cout << "No products available.\n";
+        return;
+    }
+
+    int queryId;
+    if (!readInteger(
+        "Enter product ID: ",
+        queryId
+    )) {
+        std::cout << "Invalid product ID.\n";
+        return;
+    }
+
+    Product* product = findProductById(queryId);
+    if (product == nullptr) {
+        std::cout << "Product ID not found.\n";
+        return;
+    }
+    displayProduct(*product);
+
+    // name
+    std::cout << "Enter product name: ";
+    std::getline(std::cin, product->name);
+
+    if (product->name.empty()) {
+        std::cout << "Product name cannot be empty.\n";
+        return;
+    }
+
+    // quantity
+    int quantity;
+    if (!readInteger(
+        "Enter product quantity: ",
+        quantity
+    )) {
+        std::cout << "Invalid quantity entered.\n";
+        return;
+    }
+
+    if (quantity < 0) {
+        std::cout << "invalid quantity entered.\n";
+        return;
+    }
+    product->quantity = quantity;
     
+    // price
+    double price;
+    if (!readDouble(
+        "Enter product price: ",
+        price
+    )) {
+        std::cout << "Invalid price entered.\n";
+        return;
+    }
+    
+    if (price < 0) {
+        std::cout << "invalid price entered.\n";
+        return;
+    }
+    product->price = price;
 }
 
 void InventoryManager::displayProducts() const {
@@ -167,7 +227,6 @@ void InventoryManager::displayProducts() const {
     for (const auto& [id, product] : products) {
         displayProduct(product);
     }
-
 }
 
 void InventoryManager::displayProduct(const Product& product) const {
