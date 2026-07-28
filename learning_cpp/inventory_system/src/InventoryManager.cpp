@@ -136,19 +136,31 @@ void InventoryManager::updateProduct() {
     
 }
 
-void InventoryManager::displayProducts() {
+void InventoryManager::displayProducts() const{
+    if (products.empty()) {
+        std::cout << "No products available.\n";
+        return;
+    }
+
+    for (const auto& [id, product] : products) {
+        std::cout << "ID: " << product.id << '\n';
+        std::cout << "Name: " << product.name << '\n';
+        std::cout << "Quantity: " << product.quantity << '\n';
+        std::cout << "Price: " << product.price << '\n';
+        std::cout << '\n';
+    }
+
+}
+
+void InventoryManager::findProduct() const{
     
 }
 
-void InventoryManager::findProduct() {
+void InventoryManager::saveProducts() const{
     
 }
 
-void InventoryManager::saveProducts() {
-    
-}
-
-void InventoryManager::loadProducts() {
+void InventoryManager::loadProducts() const{
     
 }
 
