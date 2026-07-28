@@ -297,7 +297,32 @@ void InventoryManager::saveProducts() const {
 }
 
 void InventoryManager::loadProducts() {
-    
+    products.clear();
+    std::ifstream file("data/products.json");
+
+    if (!file) {
+        return;
+    }
+
+    json productsJson;
+    file >> productsJson;
+
+    // now save the data
+    int highestId = 0;
+
+    for (const auto& item: productsJson) {
+        Product product;
+
+        product.id = item["id"];
+        product.name = item["name"];
+        product.quantity = item["quantity"];
+        product.price = item["price"];
+
+        highestId = std::max(highestId, product.id);
+        products[product.id] = product;
+    }
+
+    nextProductId = highestId + 1;
 }
 
 bool InventoryManager::readInteger(const std::string& prompt, int& value) {
