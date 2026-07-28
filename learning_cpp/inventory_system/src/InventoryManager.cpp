@@ -129,7 +129,29 @@ void InventoryManager::addProducts() {
 }
 
 void InventoryManager::deleteProduct() {
-    
+    if (products.empty()) {
+        std::cout << "No products available.\n";
+        return;
+    }
+
+    int queryId;
+    if (!readInteger(
+        "Enter product ID: ",
+        queryId
+    )) {
+        std::cout << "Invalid product ID.\n";
+        return;
+    }
+
+    auto it = products.find(queryId);
+
+    if (it == products.end()) {
+        std::cout << "Product ID not found.\n";
+        return;
+    }
+
+    products.erase(it);
+    std::cout << "Product ID deleted.\n";
 }
 
 void InventoryManager::updateProduct() {
