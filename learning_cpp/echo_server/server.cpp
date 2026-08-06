@@ -40,53 +40,57 @@ int main() {
         return 1;
     }
 
+    
     std::cout << "Waiting for a client...\n";
-
+    
     // accept() waits for a client to connect.
     int clientSocket = accept(serverSocket, nullptr, nullptr);
     if (clientSocket == -1) {
         std::cerr << "Accept failed.\n";
         return 1;
     }
-
+    
     std::cout << "Client connected\n";
+    
+    // multiple chat instead of just one
+    while (true) {
+        char buffer[1024];
+        int bytesReceived = recv(
+            clientSocket,
+            buffer,
+            sizeof(buffer)-1,
+            0
+        );
 
-    char buffer[1024];
-    int bytesReceived = recv(
-        clientSocket,
-        buffer,
-        sizeof(buffer)-1,
-        0
-    );
+        if (bytesReceived == -1) {
+            std::cerr << "Receive failed\n";
+            return 1;
+        }
 
-    if (bytesReceived == -1) {
-        std::cerr << "Receive failed\n";
-        return 1;
+        if (bytesReceived == 0) {
+            std::cout << "Client disconnected\n";
+            return 0;
+        }
+
+        buffer[bytesReceived] = '\0';
+
+        std::cout << "Received: " << buffer << '\n';
+
+        int bytesSent = send(
+            clientSocket,
+            buffer,
+            bytesReceived,
+            0
+        );
+
+        if (bytesSent == -1) {
+            std::cerr << "Send failed\n";
+            close(clientSocket);
+            close(serverSocket);
+            return 1;
+        }
     }
-
-    if (bytesReceived == 0) {
-        std::cout << "Client disconnected\n";
-        return 0;
-    }
-
-    buffer[bytesReceived] = '\0';
-
-    std::cout << "Received: " << buffer << '\n';
-
-    int bytesSent = send(
-        clientSocket,
-        buffer,
-        bytesReceived,
-        0
-    );
-
-    if (bytesSent == -1) {
-        std::cerr << "Send failed\n";
-        close(clientSocket);
-        close(serverSocket);
-        return 1;
-    }
-
+    
     close(clientSocket);
     close(serverSocket);
 
