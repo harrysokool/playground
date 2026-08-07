@@ -1,8 +1,9 @@
 #include <iostream>
+#include <string>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <string>
+#include <unistd.h>
 
 
 int main() {
@@ -33,19 +34,53 @@ int main() {
 
     std::cout << "Connected to server\n";
 
-    std::string msg = "Hello from the other side.";
+    while (true){
+        // now we send the msg
+        std::string msg;
+        std::cout << "Client: ";
+        std::getline(std::cin, msg);
 
-    int bytesSent = send(
-        clientSocket,
-        msg.c_str(),
-        msg.size(),
-        0
-    );
+        // msg.c_str() = Give send() the message as raw characters.
+        int bytesSent = send(
+            clientSocket,
+            msg.c_str(),
+            msg.size(),
+            0
+        );
 
-    if (bytesSent == -1) {
-        std::cerr << "Send failed\n";
-        return 1;
+        if (bytesSent == -1) {
+            std::cerr << "Send failed\n";
+            close(clientSocket);
+            return 1;
+        }
+
+        // now we try to recieve the msg
+        char buffer[1024];
+        int bytesReceived = recv(
+            clientSocket,
+            buffer,
+            sizeof(buffer)-1,
+            0
+        );
+
+        if (bytesReceived == -1) {
+            std::cerr << "Receive failed\n";
+            close(clientSocket);
+            return 1;
+        }
+
+        if (bytesReceived == 0) {
+            std::cout << "Server disconnected\n";
+            close(clientSocket);
+            return 0;
+        }
+
+        buffer[bytesReceived] = '\0';
+
+        std::cout << "Server: " << buffer << '\n';
     }
+
+    close(clientSocket);
 
     return 0;
 }

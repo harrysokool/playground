@@ -74,7 +74,7 @@ int main() {
 
         buffer[bytesReceived] = '\0';
 
-        std::cout << "Received: " << buffer << '\n';
+        std::cout << "Client: " << buffer << '\n';
 
         int bytesSent = send(
             clientSocket,
@@ -89,6 +89,8 @@ int main() {
             close(serverSocket);
             return 1;
         }
+
+        std::cout << "Server: " << buffer << '\n';
     }
     
     close(clientSocket);
