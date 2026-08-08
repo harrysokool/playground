@@ -5,6 +5,18 @@
 #include <unistd.h>
 #include <sstream>
 
+struct Request {
+    std::string method;
+    std::string path;
+    std::string version;
+};
+
+struct Response {
+    std::string response;
+    std::string body;
+    std::string status;
+};
+
 
 void handleClient(int clientSocket) {
     // get request from client
@@ -28,35 +40,30 @@ void handleClient(int clientSocket) {
     // turn trying to extract the method and route
     std::string request(buffer);
     std::istringstream requestStream(request);
+    Request req;
 
-    std::string method;
-    std::string path;
-    std::string version;
+    requestStream >> req.method >> req.path >> req.version;
 
-    requestStream >> method >> path >> version;
-    
     // build response
-    std::string response;
-    std::string body;
-    std::string status;
+    Response res;
     
-    if (method == "GET" && path == "/") {
-        status = "200 OK";
-        body = "Hello from C++";
-    } else if (method == "GET" && path == "/about") {
-        status = "200 OK";
-        body = "About page";
+    if (req.method == "GET" && req.path == "/") {
+        res.status = "200 OK";
+        res.body = "Hello from C++";
+    } else if (req.method == "GET" && req.path == "/about") {
+        res.status = "200 OK";
+        res.body = "About page";
     } else {
-        status = "404 Not Found";
-        body = "route not found";
+        res.status = "404 Not Found";
+        res.body = "route not found";
     }
 
-    response =
-        "HTTP/1.1 " + status + "\r\n" +
+    std::string response =
+        "HTTP/1.1 " + res.status + "\r\n" +
         "Content-Type: text/plain\r\n"
-        "Content-Length: " + std::to_string(body.size()) + "\r\n"
+        "Content-Length: " + std::to_string(res.body.size()) + "\r\n"
         "\r\n" +
-        body;
+        res.body;
 
     int bytesSent = send(
         clientSocket,
