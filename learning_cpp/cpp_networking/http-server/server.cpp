@@ -69,6 +69,12 @@ int main() {
 
     std::cout << "\nClient: " << buffer << '\n';
 
+    // trying to extract the method and route
+    std::string request(buffer);
+    if (request.find("GET /about ") == 0) {
+        std::cout << "about route requested\n";
+    }
+
 
     std::string response =
         "HTTP/1.1 200 OK\r\n"
@@ -90,5 +96,6 @@ int main() {
 
     close(serverSocket);
     close(clientSocket);
+
     return 0;
 }
