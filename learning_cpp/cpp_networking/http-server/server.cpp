@@ -3,6 +3,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <sstream>
 
 int main() {
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -50,48 +51,63 @@ int main() {
 
     std::cout << "Client connected\n";
 
-    char buffer[1024];
-    int bytesReceived = recv(
-        clientSocket,
-        buffer,
-        sizeof(buffer)-1,
-        0
-    );
+    while (true) {
+        char buffer[1024];
 
-    if (bytesReceived <= 0) {
-        std::cout << "Disconnected\n";
-        close(serverSocket);
-        close(clientSocket);
-        return 1;
-    }
+        // get request from client
+        int bytesReceived = recv(
+            clientSocket,
+            buffer,
+            sizeof(buffer)-1,
+            0
+        );
+    
+        if (bytesReceived <= 0) {
+            std::cout << "Disconnected\n";
+            break;
+        }
+    
+        buffer[bytesReceived] = '\0';
+    
+        std::cout << "\nClient: " << buffer << '\n';
+        
+        // turn trying to extract the method and route
+        std::string request(buffer);
+        
+        // build response
+        std::string response;
+        std::string body;
+        std::string status;
+        
+        if (request.find("GET / ") == 0) {
+            status = "200 OK";
+            body = "Hello from C++";
+        } else if (request.find("GET /about ") == 0) {
+            status = "200 OK";
+            body = "About page";
+        } else {
+            status = "404 Not Found";
+            body = "route not found";
+        }
 
-    buffer[bytesReceived] = '\0';
-
-    std::cout << "\nClient: " << buffer << '\n';
-
-    // trying to extract the method and route
-    std::string request(buffer);
-    if (request.find("GET /about ") == 0) {
-        std::cout << "about route requested\n";
-    }
-
-
-    std::string response =
-        "HTTP/1.1 200 OK\r\n"
-        "Content-Type: text/plain\r\n"
-        "Content-Length: 14\r\n"
-        "\r\n"
-        "Hello from C++";
-
-    int bytesSent = send(
-        clientSocket,
-        response.c_str(),
-        response.size(),
-        0
-    );
-
-    if (bytesSent == -1) {
-        std::cout << "Send failed\n";
+        response =
+            "HTTP/1.1 " + status + "\r\n" +
+            "Content-Type: text/plain\r\n"
+            "Content-Length: " + std::to_string(body.size()) + "\r\n"
+            "\r\n" +
+            body;
+    
+        int bytesSent = send(
+            clientSocket,
+            response.c_str(),
+            response.size(),
+            0
+        );
+    
+        if (bytesSent == -1) {
+            std::cout << "Send failed\n";
+            break;
+        }
     }
 
     close(serverSocket);
