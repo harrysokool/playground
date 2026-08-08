@@ -4,6 +4,30 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <thread>
+
+
+void receiveMsg(int clientSocket) {
+    while (true) {
+        char buffer[1024];
+
+        int bytesReceived = recv(
+            clientSocket,
+            buffer,
+            sizeof(buffer)-1,
+            0
+        );
+    
+        if (bytesReceived <= 0) {
+            std::cout << "Disconnected\n";
+            break;
+        }
+    
+        buffer[bytesReceived] = '\0';
+    
+        std::cout << "\nServer: " << buffer << '\n';
+    }
+}
 
 
 int main() {
@@ -23,7 +47,7 @@ int main() {
         AF_INET,
         "127.0.0.1",
         &serverAddr.sin_addr
-    ) == -1) {
+    ) != 1) {
         std::cerr << "Invalid IP address\n";
         return 1;
     }
@@ -42,12 +66,18 @@ int main() {
 
     std::cout << "Connected to server\n";
 
+    std::thread receiver(receiveMsg, clientSocket);
+
     while (true){
         // now we send the msg
         std::string msg;
         std::cout << "Client: ";
         std::getline(std::cin, msg);
 
+        if (msg == "quit") {
+            break;
+        }
+        
         // msg.c_str() = Give send() the message as raw characters.
         int bytesSent = send(
             clientSocket,
@@ -58,35 +88,14 @@ int main() {
 
         if (bytesSent == -1) {
             std::cerr << "Send failed\n";
-            close(clientSocket);
-            return 1;
+            break;
         }
 
-        // now we try to recieve the msg
-        char buffer[1024];
-        int bytesReceived = recv(
-            clientSocket,
-            buffer,
-            sizeof(buffer)-1,
-            0
-        );
-
-        if (bytesReceived == -1) {
-            std::cerr << "Receive failed\n";
-            close(clientSocket);
-            return 1;
-        }
-
-        if (bytesReceived == 0) {
-            std::cout << "Server disconnected\n";
-            close(clientSocket);
-            return 0;
-        }
-
-        buffer[bytesReceived] = '\0';
-
-        std::cout << "Server: " << buffer << '\n';
     }
+
+    shutdown(clientSocket, SHUT_RDWR);
+
+    receiver.join();
 
     close(clientSocket);
 

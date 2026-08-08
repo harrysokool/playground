@@ -3,6 +3,31 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <thread>
+
+
+void receiveMsg(int clientSocket) {
+    while (true) {
+        char buffer[1024];
+
+        int bytesReceived = recv(
+            clientSocket,
+            buffer,
+            sizeof(buffer)-1,
+            0
+        );
+
+        if (bytesReceived <= 0) {
+            std::cout << "Disconnected\n";
+            break;
+        }
+
+        buffer[bytesReceived] = '\0';
+
+        std::cout << "\nClient: " << buffer << '\n';
+    }
+}
+
 
 int main() {
     // create the socket here, this is the endpoint, imagine this is a phone
@@ -57,37 +82,17 @@ int main() {
     }
     
     std::cout << "Client connected\n";
+
+    std::thread receiver(receiveMsg, clientSocket);
     
     while (true) {
-        char buffer[1024];
-        int bytesReceived = recv(
-            clientSocket,
-            buffer,
-            sizeof(buffer)-1,
-            0
-        );
-
-        if (bytesReceived == -1) {
-            std::cerr << "Receive failed\n";
-            close(clientSocket);
-            close(serverSocket);
-            return 1;
-        }
-
-        if (bytesReceived == 0) {
-            std::cout << "Client disconnected\n";
-            close(clientSocket);
-            close(serverSocket);
-            return 0;
-        }
-
-        buffer[bytesReceived] = '\0';
-
-        std::cout << "Client: " << buffer << '\n';
-
         std::string msg;
-        std::cout << "Server: ";
+        std::cout << "Server: " << std::flush;
         std::getline(std::cin, msg);
+
+        if (msg == "quit") {
+            break;
+        }
 
         int bytesSent = send(
             clientSocket,
@@ -98,13 +103,14 @@ int main() {
 
         if (bytesSent == -1) {
             std::cerr << "Send failed\n";
-            close(clientSocket);
-            close(serverSocket);
-            return 1;
+            break;
         }
 
-        // std::cout << "Server: " << buffer << '\n';
     }
+
+    shutdown(clientSocket, SHUT_RDWR);
+
+    receiver.join();
     
     close(clientSocket);
     close(serverSocket);
