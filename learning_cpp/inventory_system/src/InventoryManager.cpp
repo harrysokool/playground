@@ -134,6 +134,8 @@ void InventoryManager::deleteProduct() {
         return;
     }
 
+    displayProducts();
+
     int queryId;
     if (!readInteger(
         "Enter product ID: ",
@@ -160,6 +162,8 @@ void InventoryManager::updateProduct() {
         return;
     }
 
+    displayProducts();
+
     int queryId;
     if (!readInteger(
         "Enter product ID: ",
@@ -174,6 +178,7 @@ void InventoryManager::updateProduct() {
         std::cout << "Product ID not found.\n";
         return;
     }
+
     displayProduct(*product);
 
     // name
@@ -253,7 +258,7 @@ void InventoryManager::findProduct() {
         return;
     }
 
-    auto product = findProduct(queryId);
+    auto product = findProductById(queryId);
     if (product != nullptr) {
         displayProduct(*product);
         return;
