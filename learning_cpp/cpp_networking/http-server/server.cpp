@@ -50,6 +50,43 @@ int main() {
 
     std::cout << "Client connected\n";
 
+    char buffer[1024];
+    int bytesReceived = recv(
+        clientSocket,
+        buffer,
+        sizeof(buffer)-1,
+        0
+    );
+
+    if (bytesReceived <= 0) {
+        std::cout << "Disconnected\n";
+        close(serverSocket);
+        close(clientSocket);
+        return 1;
+    }
+
+    buffer[bytesReceived] = '\0';
+
+    std::cout << "\nClient: " << buffer << '\n';
+
+
+    std::string response =
+        "HTTP/1.1 200 OK\r\n"
+        "Content-Type: text/plain\r\n"
+        "Content-Length: 14\r\n"
+        "\r\n"
+        "Hello from C++";
+
+    int bytesSent = send(
+        clientSocket,
+        response.c_str(),
+        response.size(),
+        0
+    );
+
+    if (bytesSent == -1) {
+        std::cout << "Send failed\n";
+    }
 
     close(serverSocket);
     close(clientSocket);
