@@ -5,6 +5,73 @@
 #include <unistd.h>
 #include <sstream>
 
+
+void handleClient(int clientSocket) {
+    // get request from client
+    char buffer[1024];
+    int bytesReceived = recv(
+        clientSocket,
+        buffer,
+        sizeof(buffer)-1,
+        0
+    );
+
+    if (bytesReceived <= 0) {
+        std::cout << "Disconnected\n";
+        return;
+    }
+
+    buffer[bytesReceived] = '\0';
+
+    std::cout << "\nClient: " << buffer << '\n';
+    
+    // turn trying to extract the method and route
+    std::string request(buffer);
+    std::istringstream requestStream(request);
+
+    std::string method;
+    std::string path;
+    std::string version;
+
+    requestStream >> method >> path >> version;
+    
+    // build response
+    std::string response;
+    std::string body;
+    std::string status;
+    
+    if (method == "GET" && path == "/") {
+        status = "200 OK";
+        body = "Hello from C++";
+    } else if (method == "GET" && path == "/about") {
+        status = "200 OK";
+        body = "About page";
+    } else {
+        status = "404 Not Found";
+        body = "route not found";
+    }
+
+    response =
+        "HTTP/1.1 " + status + "\r\n" +
+        "Content-Type: text/plain\r\n"
+        "Content-Length: " + std::to_string(body.size()) + "\r\n"
+        "\r\n" +
+        body;
+
+    int bytesSent = send(
+        clientSocket,
+        response.c_str(),
+        response.size(),
+        0
+    );
+
+    if (bytesSent == -1) {
+        std::cout << "Send failed\n";
+        return;
+    }
+}
+
+
 int main() {
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (serverSocket == -1) {
@@ -42,76 +109,22 @@ int main() {
 
     std::cout << "Waiting for a client...\n";
 
-    int clientSocket = accept(serverSocket, nullptr, nullptr);
-    if (clientSocket == -1) {
-        std::cerr << "Accept failed.\n";
-        close(serverSocket);
-        return 1;
-    }
-
-    std::cout << "Client connected\n";
-
+    
     while (true) {
-        char buffer[1024];
+        // try to get more than 1 client
+        int clientSocket = accept(serverSocket, nullptr, nullptr);
+        if (clientSocket == -1) {
+            std::cerr << "Accept failed.\n";
+            continue;
+        }
+        std::cout << "Client connected\n";
 
-        // get request from client
-        int bytesReceived = recv(
-            clientSocket,
-            buffer,
-            sizeof(buffer)-1,
-            0
-        );
-    
-        if (bytesReceived <= 0) {
-            std::cout << "Disconnected\n";
-            break;
-        }
-    
-        buffer[bytesReceived] = '\0';
-    
-        std::cout << "\nClient: " << buffer << '\n';
-        
-        // turn trying to extract the method and route
-        std::string request(buffer);
-        
-        // build response
-        std::string response;
-        std::string body;
-        std::string status;
-        
-        if (request.find("GET / ") == 0) {
-            status = "200 OK";
-            body = "Hello from C++";
-        } else if (request.find("GET /about ") == 0) {
-            status = "200 OK";
-            body = "About page";
-        } else {
-            status = "404 Not Found";
-            body = "route not found";
-        }
+        handleClient(clientSocket);
 
-        response =
-            "HTTP/1.1 " + status + "\r\n" +
-            "Content-Type: text/plain\r\n"
-            "Content-Length: " + std::to_string(body.size()) + "\r\n"
-            "\r\n" +
-            body;
-    
-        int bytesSent = send(
-            clientSocket,
-            response.c_str(),
-            response.size(),
-            0
-        );
-    
-        if (bytesSent == -1) {
-            std::cout << "Send failed\n";
-            break;
-        }
+        close(clientSocket);
     }
 
     close(serverSocket);
-    close(clientSocket);
 
     return 0;
 }
