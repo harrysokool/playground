@@ -70,7 +70,6 @@ int main() {
         std::cerr << "Listen failed.\n";
         return 1;
     }
-
     
     std::cout << "Waiting for a client...\n";
     
