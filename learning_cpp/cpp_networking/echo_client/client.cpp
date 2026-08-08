@@ -10,15 +10,23 @@ int main() {
     // this is the "phone" we will use to dial in
     int clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 
+    if (clientSocket == -1) {
+        std::cerr << "Socket creation failed\n";
+        return 1;
+    }
+
     // locate the addr we want to dial in
     sockaddr_in serverAddr{};
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(8080);
-    inet_pton(
+    if (inet_pton(
         AF_INET,
         "127.0.0.1",
         &serverAddr.sin_addr
-    );
+    ) == -1) {
+        std::cerr << "Invalid IP address\n";
+        return 1;
+    }
     
     // now dial into that address
     int connectRes = connect(

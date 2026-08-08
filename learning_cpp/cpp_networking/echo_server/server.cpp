@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -9,6 +10,11 @@ int main() {
     // AF_INET = ip4
     // SOCK_STREAM = tcp
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+
+    if (serverSocket == -1) {
+        std::cerr << "Socket creation failed\n";
+        return 1;
+    }
 
     // serverAddress stores the server's network address.
     sockaddr_in serverAddr{};
@@ -52,7 +58,6 @@ int main() {
     
     std::cout << "Client connected\n";
     
-    // multiple chat instead of just one
     while (true) {
         char buffer[1024];
         int bytesReceived = recv(
@@ -64,11 +69,15 @@ int main() {
 
         if (bytesReceived == -1) {
             std::cerr << "Receive failed\n";
+            close(clientSocket);
+            close(serverSocket);
             return 1;
         }
 
         if (bytesReceived == 0) {
             std::cout << "Client disconnected\n";
+            close(clientSocket);
+            close(serverSocket);
             return 0;
         }
 
@@ -76,10 +85,14 @@ int main() {
 
         std::cout << "Client: " << buffer << '\n';
 
+        std::string msg;
+        std::cout << "Server: ";
+        std::getline(std::cin, msg);
+
         int bytesSent = send(
             clientSocket,
-            buffer,
-            bytesReceived,
+            msg.c_str(),
+            msg.size(),
             0
         );
 
@@ -90,7 +103,7 @@ int main() {
             return 1;
         }
 
-        std::cout << "Server: " << buffer << '\n';
+        // std::cout << "Server: " << buffer << '\n';
     }
     
     close(clientSocket);
