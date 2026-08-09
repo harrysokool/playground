@@ -9,6 +9,7 @@ struct Request {
     std::string method;
     std::string path;
     std::string version;
+    std::string body;
 };
 
 struct Response {
@@ -22,6 +23,7 @@ void handleClient(int clientSocket) {
     std::string request;
     char buffer[1024];
 
+    // get the header first
     while (request.find("\r\n\r\n") == std::string::npos) {
         int bytesReceived = recv(
             clientSocket,
@@ -41,13 +43,45 @@ void handleClient(int clientSocket) {
     std::cout << "\nRequest:\n" << buffer << '\n';
 
     // parse here
-    // first get header
+    // separate header and body
     size_t headerEnd = request.find("\r\n\r\n");
     std::string headers = request.substr(0, headerEnd);
     std::string body = request.substr(headerEnd+4);
 
     std::cout << "Headers:\n" << headers << '\n';
     std::cout << "Body: " << body << '\n';
+
+    // now need to find the content length
+    // we also need another loop for the content
+    // first we try to see how mnay bytes we should receive
+    size_t contentLength = 0;
+    size_t pos = headers.find("Content-Length:");
+
+    if (pos != std::string::npos) {
+        size_t valueStart = pos + 15;
+
+        contentLength = std::stoul(
+            headers.substr(valueStart)
+        );
+    }
+
+    // at this point we have 2 info, body.size() and contentLength
+    while (body.size() < contentLength) {
+        int bytesReceived = recv(
+            clientSocket,
+            buffer,
+            sizeof(buffer),
+            0
+        );
+
+        if (bytesReceived <= 0) {
+            std::cout << "Disconnected\n";
+            return;
+        }
+
+        body.append(buffer, bytesReceived);
+    }
+    
     
     // turn trying to extract the method and route
     std::string request(buffer);
@@ -55,6 +89,7 @@ void handleClient(int clientSocket) {
     Request req;
 
     requestStream >> req.method >> req.path >> req.version;
+    req.body = body;
 
     // build response
     Response res;
