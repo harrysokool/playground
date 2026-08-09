@@ -12,7 +12,6 @@ struct Request {
 };
 
 struct Response {
-    std::string response;
     std::string body;
     std::string status;
 };
@@ -20,22 +19,35 @@ struct Response {
 
 void handleClient(int clientSocket) {
     // get request from client
+    std::string request;
     char buffer[1024];
-    int bytesReceived = recv(
-        clientSocket,
-        buffer,
-        sizeof(buffer)-1,
-        0
-    );
 
-    if (bytesReceived <= 0) {
-        std::cout << "Disconnected\n";
-        return;
+    while (request.find("\r\n\r\n") == std::string::npos) {
+        int bytesReceived = recv(
+            clientSocket,
+            buffer,
+            sizeof(buffer),
+            0
+        );
+        
+        if (bytesReceived <= 0) {
+            std::cout << "Disconnected\n";
+            return;
+        }
+
+        request.append(buffer, bytesReceived);
     }
 
-    buffer[bytesReceived] = '\0';
+    std::cout << "\nRequest:\n" << buffer << '\n';
 
-    std::cout << "\nClient: " << buffer << '\n';
+    // parse here
+    // first get header
+    size_t headerEnd = request.find("\r\n\r\n");
+    std::string headers = request.substr(0, headerEnd);
+    std::string body = request.substr(headerEnd+4);
+
+    std::cout << "Headers:\n" << headers << '\n';
+    std::cout << "Body: " << body << '\n';
     
     // turn trying to extract the method and route
     std::string request(buffer);
@@ -115,7 +127,6 @@ int main() {
     }
 
     std::cout << "Waiting for a client...\n";
-
     
     while (true) {
         // try to get more than 1 client
