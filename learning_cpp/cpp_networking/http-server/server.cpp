@@ -40,23 +40,17 @@ void handleClient(int clientSocket) {
         request.append(buffer, bytesReceived);
     }
 
-    std::cout << "\nRequest:\n" << buffer << '\n';
-
     // parse here
     // separate header and body
     size_t headerEnd = request.find("\r\n\r\n");
     std::string headers = request.substr(0, headerEnd);
     std::string body = request.substr(headerEnd+4);
 
-    std::cout << "Headers:\n" << headers << '\n';
-    std::cout << "Body: " << body << '\n';
-
     // now need to find the content length
     // we also need another loop for the content
     // first we try to see how mnay bytes we should receive
     size_t contentLength = 0;
     size_t pos = headers.find("Content-Length:");
-
     if (pos != std::string::npos) {
         size_t valueStart = pos + 15;
 
@@ -82,14 +76,14 @@ void handleClient(int clientSocket) {
         body.append(buffer, bytesReceived);
     }
     
-    
-    // turn trying to extract the method and route
-    std::string request(buffer);
+    // trying to extract the method and route
     std::istringstream requestStream(request);
     Request req;
 
     requestStream >> req.method >> req.path >> req.version;
     req.body = body;
+
+    std::cout << "\nRequest:\n" << request << '\n';
 
     // build response
     Response res;
