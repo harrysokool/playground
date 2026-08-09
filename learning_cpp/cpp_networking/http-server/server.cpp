@@ -4,11 +4,13 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <sstream>
+#include <unordered_map>
 
 struct Request {
     std::string method;
     std::string path;
     std::string version;
+    std::unordered_map<std::string, std::string> headers;
     std::string body;
 };
 
@@ -78,10 +80,37 @@ void handleClient(int clientSocket) {
     
     // trying to extract the method and route
     std::istringstream requestStream(request);
+    std::istringstream headerStream(headers);
+    std::string line;
     Request req;
 
     requestStream >> req.method >> req.path >> req.version;
     req.body = body;
+
+    // get the headers
+    std::getline(headerStream, line);
+    while (std::getline(headerStream, line)) {
+        //
+        if (!line.empty() && line.back() == '\r') {
+            line.pop_back();
+        }
+
+        // first fine the : position
+        size_t colonPos = line.find(":");
+        if (colonPos == std::string::npos) {
+            continue;
+        }
+
+        // now get the k/v
+        std::string key = line.substr(0, colonPos);
+        std::string val = line.substr(colonPos+1);
+
+        if (!val.empty() && val.front() == ' ') {
+            val.erase(0, 1);
+        }
+
+        req.headers[key] = val;
+    }
 
     std::cout << "\nRequest:\n" << request << '\n';
 
