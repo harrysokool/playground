@@ -12,6 +12,7 @@ struct Request {
     std::string version;
     std::unordered_map<std::string, std::string> headers;
     std::string body;
+    bool valid = false;
 };
 
 struct Response {
@@ -94,6 +95,7 @@ Request readRequest(int clientSocket) {
         req.headers[key] = val;
     }
 
+    req.valid = true;
     return req;
 }
 
@@ -105,9 +107,34 @@ std::string buildResponse(const Response& res) {
         res.body;
 }
 
+bool sendAll(int clientSocket, const std::string& data) {
+    size_t totalSent = 0;
+
+    while (totalSent < data.size()) {
+        int bytesSent = send(
+            clientSocket,
+            data.c_str() + totalSent,
+            data.size() - totalSent,
+            0
+        );
+
+        if (bytesSent <= 0) {
+            return false;
+        }
+
+        totalSent += bytesSent;
+    }
+
+    return true;
+
+}
+
 
 void handleClient(int clientSocket) {
     Request req = readRequest(clientSocket);
+    if (!req.valid) {
+        return;
+    }
 
     // build response
     Response res;
@@ -128,14 +155,7 @@ void handleClient(int clientSocket) {
 
     std::string response = buildResponse(res);
 
-    int bytesSent = send(
-        clientSocket,
-        response.c_str(),
-        response.size(),
-        0
-    );
-
-    if (bytesSent == -1) {
+    if (!sendAll(clientSocket, response)) {
         std::cout << "Send failed\n";
         return;
     }
