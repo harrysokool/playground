@@ -19,89 +19,71 @@ struct Response {
     std::string status;
 };
 
-
-void handleClient(int clientSocket) {
-    // get request from client
+Request readRequest(int clientSocket) {
+    Request req;
     std::string request;
     char buffer[1024];
 
-    // get the header first
     while (request.find("\r\n\r\n") == std::string::npos) {
         int bytesReceived = recv(
             clientSocket,
             buffer,
-            sizeof(buffer),
+            sizeof(buffer), 
             0
         );
-        
+
         if (bytesReceived <= 0) {
             std::cout << "Disconnected\n";
-            return;
+            return req;
         }
-
         request.append(buffer, bytesReceived);
     }
 
-    // parse here
-    // separate header and body
     size_t headerEnd = request.find("\r\n\r\n");
     std::string headers = request.substr(0, headerEnd);
     std::string body = request.substr(headerEnd+4);
 
-    // now need to find the content length
-    // we also need another loop for the content
-    // first we try to see how mnay bytes we should receive
     size_t contentLength = 0;
     size_t pos = headers.find("Content-Length:");
     if (pos != std::string::npos) {
         size_t valueStart = pos + 15;
 
-        contentLength = std::stoul(
-            headers.substr(valueStart)
-        );
+        contentLength = std::stoul(headers.substr(valueStart));
     }
 
-    // at this point we have 2 info, body.size() and contentLength
     while (body.size() < contentLength) {
         int bytesReceived = recv(
             clientSocket,
-            buffer,
+            buffer, 
             sizeof(buffer),
             0
         );
 
         if (bytesReceived <= 0) {
             std::cout << "Disconnected\n";
-            return;
+            return req;
         }
-
         body.append(buffer, bytesReceived);
     }
-    
-    // trying to extract the method and route
+
     std::istringstream requestStream(request);
     std::istringstream headerStream(headers);
     std::string line;
-    Request req;
 
     requestStream >> req.method >> req.path >> req.version;
     req.body = body;
 
-    // get the headers
     std::getline(headerStream, line);
     while (std::getline(headerStream, line)) {
-        //
         if (!line.empty() && line.back() == '\r') {
             line.pop_back();
         }
 
-        // first fine the : position
         size_t colonPos = line.find(":");
         if (colonPos == std::string::npos) {
             continue;
         }
 
-        // now get the k/v
         std::string key = line.substr(0, colonPos);
         std::string val = line.substr(colonPos+1);
 
@@ -112,7 +94,12 @@ void handleClient(int clientSocket) {
         req.headers[key] = val;
     }
 
-    std::cout << "\nRequest:\n" << request << '\n';
+    return req;
+}
+
+
+void handleClient(int clientSocket) {
+    Request req = readRequest(clientSocket);
 
     // build response
     Response res;
@@ -123,6 +110,9 @@ void handleClient(int clientSocket) {
     } else if (req.method == "GET" && req.path == "/about") {
         res.status = "200 OK";
         res.body = "About page";
+    } else if (req.method == "POST" && req.path == "/message") {
+        res.status = "200 OK";
+        res.body = "Received: " + req.body;
     } else {
         res.status = "404 Not Found";
         res.body = "route not found";
