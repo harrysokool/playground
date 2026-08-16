@@ -97,6 +97,14 @@ Request readRequest(int clientSocket) {
     return req;
 }
 
+std::string buildResponse(const Response& res) {
+    return "HTTP/1.1 " + res.status + "\r\n" +
+        "Content-Type: text/plain\r\n"
+        "Content-Length: " + std::to_string(res.body.size()) + "\r\n"
+        "\r\n" +
+        res.body;
+}
+
 
 void handleClient(int clientSocket) {
     Request req = readRequest(clientSocket);
@@ -118,12 +126,7 @@ void handleClient(int clientSocket) {
         res.body = "route not found";
     }
 
-    std::string response =
-        "HTTP/1.1 " + res.status + "\r\n" +
-        "Content-Type: text/plain\r\n"
-        "Content-Length: " + std::to_string(res.body.size()) + "\r\n"
-        "\r\n" +
-        res.body;
+    std::string response = buildResponse(res);
 
     int bytesSent = send(
         clientSocket,
