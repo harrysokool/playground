@@ -47,7 +47,7 @@ Request readRequest(int clientSocket) {
         request.append(buffer, bytesReceived);
 
         if (request.size() > MAX_HEADER_SIZE) {
-            req.error = "Request headers too large\n";
+            req.error = "Request headers too large";
             return req;
         }
     }
@@ -63,11 +63,11 @@ Request readRequest(int clientSocket) {
         try {
             contentLength = std::stoul(headers.substr(valueStart));
             if (contentLength > MAX_BODY_SIZE) {
-                req.error = "Request body too large\n";
+                req.error = "Request body too large";
                 return req;
             }
-        } catch (const std::exception& e) {
-            req.error = "Invalid Content-Length\n";
+        } catch (const std::exception&) {
+            req.error = "Invalid Content-Length";
             return req;
         }
     }
@@ -91,7 +91,7 @@ Request readRequest(int clientSocket) {
     std::istringstream headerStream(headers);
     std::string line;
 
-    if (!(requestStream >> req.method >> req.path >> req.version;)) {
+    if (!(requestStream >> req.method >> req.path >> req.version)) {
         req.error = "Malformed request line";
         return req;
     }
@@ -172,7 +172,6 @@ void handleClient(int clientSocket) {
     }
 
     // build response
-    
     if (req.method == "GET" && req.path == "/") {
         res.status = "200 OK";
         res.body = "Hello from C++";
