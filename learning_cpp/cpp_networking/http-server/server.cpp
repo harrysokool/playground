@@ -102,7 +102,8 @@ Request readRequest(int clientSocket) {
 std::string buildResponse(const Response& res) {
     return "HTTP/1.1 " + res.status + "\r\n" +
         "Content-Type: text/plain\r\n"
-        "Content-Length: " + std::to_string(res.body.size()) + "\r\n"
+        "Content-Length: " + std::to_string(res.body.size()) + "\r\n" +
+        "Connection: close\r\n" +
         "\r\n" +
         res.body;
 }
@@ -164,9 +165,24 @@ void handleClient(int clientSocket) {
 
 int main() {
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+
     if (serverSocket == -1) {
         std::cerr << "Socket creation failed\n";
         return 1;
+    }
+
+    int reuseAddr = 1;
+
+    if (setsockopt(
+        serverSocket,
+        SOL_SOCKET,
+        SO_REUSEADDR,
+        &reuseAddr,
+        sizeof(reuseAddr)
+        ) == -1) {
+            std::cerr << "Failed to set SO_REUSEADDR.\n";
+            close(serverSocket);
+            return 1;
     }
 
     sockaddr_in serverAddr{};
