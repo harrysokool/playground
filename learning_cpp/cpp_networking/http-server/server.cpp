@@ -6,10 +6,18 @@
 #include <sstream>
 #include <unordered_map>
 #include <thread>
+#include <queue>
+#include <mutex>
+#include <condition_variable>
+#include <vector>
 
 
 constexpr size_t MAX_HEADER_SIZE = 8192;
 constexpr size_t MAX_BODY_SIZE = 1024*1024;
+
+std::queue<int> clientQueue;
+std::mutex queueMutex;
+std::condition_variable queueCondition;
 
 
 struct Request {
@@ -47,7 +55,7 @@ bool receiveHeaders(int clientSocket, Request& req, std::string& request) {
         request.append(buffer, bytesReceived);
         
         size_t headerEnd = request.find("\r\n\r\n");
-        
+
         if (headerEnd == std::string::npos) {
             if (request.size() > MAX_HEADER_SIZE) {
                 req.error = "Request headers too large";
@@ -239,7 +247,35 @@ void handleClient(int clientSocket) {
 }
 
 
+void workerLoop() {
+    while (true) {
+        int clientSocket;
+
+        {
+            std::unique_lock<std::mutex> lock(queueMutex);
+
+            queueCondition.wait(lock, [] {
+                return !clientQueue.empty();
+            });
+
+            clientSocket = clientQueue.front();
+            clientQueue.pop();
+        }
+
+        handleClient(clientSocket);
+        close(clientSocket);
+    }    
+}
+
+
 int main() {
+    constexpr int WORKER_COUNT = 4;
+    std::vector<std::thread> workers;
+
+    for (int i = 0; i < WORKER_COUNT; i++) {
+        workers.emplace_back(workerLoop);
+    }
+
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
 
     if (serverSocket == -1) {
@@ -299,13 +335,12 @@ int main() {
         }
         std::cout << "Client connected\n";
         
-        std::thread worker(
-            [clientSocket] () {
-            handleClient(clientSocket);
-            close(clientSocket);
-        });
-        
-        worker.detach();
+        {
+            std::lock_guard<std::mutex> lock(queueMutex);
+            clientQueue.push(clientSocket);
+        }
+
+        queueCondition.notify_one();
     }
 
     close(serverSocket);
