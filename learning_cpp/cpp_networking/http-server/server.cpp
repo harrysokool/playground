@@ -48,8 +48,12 @@ Request readRequest(int clientSocket) {
     size_t pos = headers.find("Content-Length:");
     if (pos != std::string::npos) {
         size_t valueStart = pos + 15;
-
-        contentLength = std::stoul(headers.substr(valueStart));
+        try {
+            contentLength = std::stoul(headers.substr(valueStart));
+        } catch (const std::exception& e) {
+            std::cerr << "Invalid Content-Length\n";
+            return req;
+        }
     }
 
     while (body.size() < contentLength) {
@@ -172,7 +176,7 @@ int main() {
     }
 
     int reuseAddr = 1;
-
+    // Allow this socket to bind to the address and port even if an earlier connection using them is still being cleaned up.
     if (setsockopt(
         serverSocket,
         SOL_SOCKET,
