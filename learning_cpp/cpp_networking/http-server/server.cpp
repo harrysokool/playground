@@ -28,9 +28,7 @@ struct Response {
 };
 
 
-Request readRequest(int clientSocket) {
-    Request req;
-    std::string request;
+bool receiveHeaders(int clientSocket, Request& req, std::string& request) {
     char buffer[1024];
 
     while (request.find("\r\n\r\n") == std::string::npos) {
@@ -43,21 +41,30 @@ Request readRequest(int clientSocket) {
 
         if (bytesReceived <= 0) {
             std::cout << "Disconnected\n";
-            return req;
+            return false;
         }
-        request.append(buffer, bytesReceived);
 
-        if (request.size() > MAX_HEADER_SIZE) {
+        request.append(buffer, bytesReceived);
+        
+        size_t headerEnd = request.find("\r\n\r\n");
+        
+        if (headerEnd == std::string::npos) {
+            if (request.size() > MAX_HEADER_SIZE) {
+                req.error = "Request headers too large";
+                return false;
+            }
+        }
+        else (request.size() > MAX_HEADER_SIZE) {
             req.error = "Request headers too large";
-            return req;
+            return false;
         }
     }
 
-    size_t headerEnd = request.find("\r\n\r\n");
-    std::string headers = request.substr(0, headerEnd);
-    std::string body = request.substr(headerEnd+4);
+    return true;
+}
 
-    size_t contentLength = 0;
+
+bool parseContentLength(const std::string& headers, Request& req, size_t& contentLength) {
     size_t pos = headers.find("Content-Length:");
     if (pos != std::string::npos) {
         size_t valueStart = pos + 15;
@@ -65,14 +72,20 @@ Request readRequest(int clientSocket) {
             contentLength = std::stoul(headers.substr(valueStart));
             if (contentLength > MAX_BODY_SIZE) {
                 req.error = "Request body too large";
-                return req;
+                return false;
             }
         } catch (const std::exception&) {
             req.error = "Invalid Content-Length";
-            return req;
+            return false;
         }
     }
 
+    return true;
+}
+
+
+bool receiveBody(int clientSocket, std::string& body,const size_t contentLength) {
+    char buffer[1024];
     while (body.size() < contentLength) {
         int bytesReceived = recv(
             clientSocket,
@@ -83,9 +96,39 @@ Request readRequest(int clientSocket) {
 
         if (bytesReceived <= 0) {
             std::cout << "Disconnected\n";
-            return req;
+            return false;
         }
+
         body.append(buffer, bytesReceived);        
+    }
+
+    return true;
+}
+
+
+Request readRequest(int clientSocket) {
+    Request req;
+    std::string request;
+
+    // get the request first
+    if (!receiveHeaders(clientSocket, req, request)) {
+        return req;
+    }
+
+    // parse the request
+    size_t headerEnd = request.find("\r\n\r\n");
+    std::string headers = request.substr(0, headerEnd);
+    std::string body = request.substr(headerEnd+4);
+
+    // get the content length
+    size_t contentLength = 0;
+    if (!parseContentLength(headers, req, contentLength)) {
+        return req;
+    }
+
+    // now get the actual content
+    if (!receiveBody(clientSocket, body, contentLength)) {
+        return req;
     }
 
     std::istringstream requestStream(request);
@@ -249,7 +292,6 @@ int main() {
     std::cout << "Waiting for a client...\n";
     
     while (true) {
-        // try to get more than 1 client
         int clientSocket = accept(serverSocket, nullptr, nullptr);
         if (clientSocket == -1) {
             std::cerr << "Accept failed.\n";
