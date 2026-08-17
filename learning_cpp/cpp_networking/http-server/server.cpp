@@ -62,8 +62,7 @@ bool receiveHeaders(int clientSocket, Request& req, std::string& request) {
                 req.error = "Request headers too large";
                 return false;
             }
-        }
-        else (request.size() > MAX_HEADER_SIZE) {
+        } else if (request.size() > MAX_HEADER_SIZE) {
             req.error = "Request headers too large";
             return false;
         }
@@ -339,7 +338,7 @@ int main() {
 
         {
             std::lock_guard<std::mutex> lock(queueMutex);
-            if (queue.size() < MAX_QUEUE_SIZE) {
+            if (clientQueue.size() < MAX_QUEUE_SIZE) {
                 clientQueue.push(clientSocket);
                 queued = true;
             }
@@ -347,7 +346,7 @@ int main() {
         if (queued) {
             queueCondition.notify_one();
         } else {
-            std::cerr < "Client queue is full\n";
+            std::cerr << "Client queue is full\n";
             close(clientSocket);
         }
     }
