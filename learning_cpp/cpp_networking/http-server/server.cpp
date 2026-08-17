@@ -8,7 +8,7 @@
 
 
 constexpr size_t MAX_HEADER_SIZE = 8192;
-constexpr size_t MAX_BODY_SIZE = 8192;
+constexpr size_t MAX_BODY_SIZE = 1024*1024;
 
 
 struct Request {
@@ -18,6 +18,7 @@ struct Request {
     std::unordered_map<std::string, std::string> headers;
     std::string body;
     bool valid = false;
+    std::string error;
 };
 
 struct Response {
@@ -46,7 +47,7 @@ Request readRequest(int clientSocket) {
         request.append(buffer, bytesReceived);
 
         if (request.size() > MAX_HEADER_SIZE) {
-            std::cerr << "Request headers too large\n";
+            req.error = "Request headers too large\n";
             return req;
         }
     }
@@ -62,11 +63,11 @@ Request readRequest(int clientSocket) {
         try {
             contentLength = std::stoul(headers.substr(valueStart));
             if (contentLength > MAX_BODY_SIZE) {
-               std::cerr << "Request body too large\n";
+                req.error = "Request body too large\n";
                 return req;
             }
         } catch (const std::exception& e) {
-            std::cerr << "Invalid Content-Length\n";
+            req.error = "Invalid Content-Length\n";
             return req;
         }
     }
@@ -90,7 +91,14 @@ Request readRequest(int clientSocket) {
     std::istringstream headerStream(headers);
     std::string line;
 
-    requestStream >> req.method >> req.path >> req.version;
+    if (!(requestStream >> req.method >> req.path >> req.version;)) {
+        req.error = "Malformed request line";
+        return req;
+    }
+    if (req.version != "HTTP/1.1" && req.version != "HTTP/1.0") {
+        req.error = "Unsupported HTTP version";
+        return req;
+    }
     req.body = body;
 
     std::getline(headerStream, line);
@@ -146,19 +154,24 @@ bool sendAll(int clientSocket, const std::string& data) {
     }
 
     return true;
-
 }
 
 
 void handleClient(int clientSocket) {
     Request req = readRequest(clientSocket);
+    Response res;
 
     if (!req.valid) {
+        res.status = "400 Bad Request";
+        res.body = req.error.empty()
+            ? "Invalid HTTP request"
+            : req.error;
+
+        sendAll(clientSocket, buildResponse(res));
         return;
     }
 
     // build response
-    Response res;
     
     if (req.method == "GET" && req.path == "/") {
         res.status = "200 OK";
