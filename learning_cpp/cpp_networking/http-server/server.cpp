@@ -269,13 +269,6 @@ void workerLoop() {
 
 
 int main() {
-    constexpr int WORKER_COUNT = 4;
-    std::vector<std::thread> workers;
-
-    for (int i = 0; i < WORKER_COUNT; i++) {
-        workers.emplace_back(workerLoop);
-    }
-
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
 
     if (serverSocket == -1) {
@@ -323,6 +316,13 @@ int main() {
         std::cerr << "Listen failed.\n";
         close(serverSocket);
         return 1;
+    }
+
+    constexpr int WORKER_COUNT = 4;
+    std::vector<std::thread> workers;
+
+    for (int i = 0; i < WORKER_COUNT; i++) {
+        workers.emplace_back(workerLoop);
     }
 
     std::cout << "Waiting for a client...\n";
