@@ -6,6 +6,11 @@
 #include <sstream>
 #include <unordered_map>
 
+
+constexpr size_t MAX_HEADER_SIZE = 8192;
+constexpr size_t MAX_BODY_SIZE = 8192;
+
+
 struct Request {
     std::string method;
     std::string path;
@@ -19,6 +24,7 @@ struct Response {
     std::string body;
     std::string status;
 };
+
 
 Request readRequest(int clientSocket) {
     Request req;
@@ -38,6 +44,11 @@ Request readRequest(int clientSocket) {
             return req;
         }
         request.append(buffer, bytesReceived);
+
+        if (request.size() > MAX_HEADER_SIZE) {
+            std::cerr << "Request headers too large\n";
+            return req;
+        }
     }
 
     size_t headerEnd = request.find("\r\n\r\n");
@@ -50,6 +61,10 @@ Request readRequest(int clientSocket) {
         size_t valueStart = pos + 15;
         try {
             contentLength = std::stoul(headers.substr(valueStart));
+            if (contentLength > MAX_BODY_SIZE) {
+               std::cerr << "Request body too large\n";
+                return req;
+            }
         } catch (const std::exception& e) {
             std::cerr << "Invalid Content-Length\n";
             return req;
@@ -68,7 +83,7 @@ Request readRequest(int clientSocket) {
             std::cout << "Disconnected\n";
             return req;
         }
-        body.append(buffer, bytesReceived);
+        body.append(buffer, bytesReceived);        
     }
 
     std::istringstream requestStream(request);
@@ -137,6 +152,7 @@ bool sendAll(int clientSocket, const std::string& data) {
 
 void handleClient(int clientSocket) {
     Request req = readRequest(clientSocket);
+
     if (!req.valid) {
         return;
     }
