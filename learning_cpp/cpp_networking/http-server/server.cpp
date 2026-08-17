@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <sstream>
 #include <unordered_map>
+#include <thread>
 
 
 constexpr size_t MAX_HEADER_SIZE = 8192;
@@ -255,10 +256,14 @@ int main() {
             continue;
         }
         std::cout << "Client connected\n";
-
-        handleClient(clientSocket);
-
-        close(clientSocket);
+        
+        std::thread worker(
+            [clientSocket] () {
+            handleClient(clientSocket);
+            close(clientSocket);
+        });
+        
+        worker.detach();
     }
 
     close(serverSocket);
