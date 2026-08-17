@@ -14,6 +14,7 @@
 
 constexpr size_t MAX_HEADER_SIZE = 8192;
 constexpr size_t MAX_BODY_SIZE = 1024*1024;
+constexpr size_t MAX_QUEUE_SIZE = 100;
 
 std::queue<int> clientQueue;
 std::mutex queueMutex;
@@ -334,13 +335,21 @@ int main() {
             continue;
         }
         std::cout << "Client connected\n";
-        
+        bool queued = false;
+
         {
             std::lock_guard<std::mutex> lock(queueMutex);
-            clientQueue.push(clientSocket);
+            if (queue.size() < MAX_QUEUE_SIZE) {
+                clientQueue.push(clientSocket);
+                queued = true;
+            }
         }
-
-        queueCondition.notify_one();
+        if (queued) {
+            queueCondition.notify_one();
+        } else {
+            std::cerr < "Client queue is full\n";
+            close(clientSocket);
+        }
     }
 
     close(serverSocket);
