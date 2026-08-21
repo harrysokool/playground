@@ -3,9 +3,13 @@
 #include <iostream>
 
 void OrderBook::addOrder(const Order& order) {
-    std::cout << "Adding order " << order.id << '\n';
+    if (order.side == Side::Buy) {
+        bids_[order.price].push_back(order);
+    } else {
+        asks_[order.price].push_back(order);
+    }
 }
 
 void OrderBook::printBook() const {
-    std::cout << "Order book is currently empty.\n";
+    std::cout << "==============Order Book==============\n";
 }
