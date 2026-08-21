@@ -9,7 +9,23 @@ void OrderBook::addOrder(const Order& order) {
         asks_[order.price].push_back(order);
     }
 }
-
+/*
+    BIDS
+    $101.00: 50
+    $100.00: 80
+     
+    ASKS
+    $102.00: 40
+    $103.00: 60
+*/
 void OrderBook::printBook() const {
     std::cout << "==============Order Book==============\n";
+    std::cout << "\nASKS\n";
+    for (const auto&[price, orders] : asks_) {
+        Quantity quantity = 0;
+
+        for (const )
+
+
+    }
 }
