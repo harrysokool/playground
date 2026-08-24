@@ -5,15 +5,15 @@ int main() {
 
     orderBook.addOrder({
         1,
-        Side::Sell,
-        10200,
+        Side::Buy,
+        10300,
         40
     });
 
     orderBook.addOrder({
         2,
-        Side::Sell,
-        10300,
+        Side::Buy,
+        10200,
         50
     });
 
@@ -21,8 +21,8 @@ int main() {
 
     orderBook.addOrder({
         3,
-        Side::Buy,
-        10300,
+        Side::Sell,
+        10200,
         70
     });
 

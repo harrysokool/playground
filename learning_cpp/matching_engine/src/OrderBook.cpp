@@ -64,7 +64,7 @@ void OrderBook::printBook() const {
                     << '\n';
     }
     
-    std::cout << "==============Order Book==============\n";
+    std::cout << "======================================\n";
 }
 
 
