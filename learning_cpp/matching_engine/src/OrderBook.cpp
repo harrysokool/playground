@@ -22,10 +22,35 @@ void OrderBook::printBook() const {
     std::cout << "==============Order Book==============\n";
     std::cout << "\nASKS\n";
     for (const auto&[price, orders] : asks_) {
-        Quantity quantity = 0;
+        Quantity totalQuantity = 0;
 
-        for (const )
+        // for each price there are a queue of orders with the same price,
+        // we just counting how many shares are selling
+        for (const auto& order: orders) {
+            totalQuantity += order.quantity;
+        }
 
-
+        std::cout << "$" << std::fixed << std::setprecision(2)
+                    << static_cast<double>(price) / 100.00
+                    << " | Quantity: " << totalQuantity
+                    << '\n';
     }
+
+    std::cout << "\nBIDS\n";
+    for (const auto&[price, orders] : asks_) {
+        Quantity totalQuantity = 0;
+
+        // for each price there are a queue of orders with the same price,
+        // we just counting how many shares are selling
+        for (const auto& order: orders) {
+            totalQuantity += order.quantity;
+        }
+
+        std::cout << "$" << std::fixed << std::setprecision(2)
+                    << static_cast<double>(price) / 100.00
+                    << " | Quantity: " << totalQuantity
+                    << '\n';
+    }
+    
+    std::cout << "==============Order Book==============\n";
 }
