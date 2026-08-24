@@ -111,5 +111,39 @@ void OrderBook::matchBuyOrder(Order& order) {
 
 
 void OrderBook::matchSellOrder(Order& order) {
-    
+    while (order.quantity > 0 && !bids_.empty()) {
+        // get the best bid (highest)
+        auto bestBid = bids_.begin();
+
+        // check the price see if it mathces the asking price
+        Price bidPrice = bestBid->first;
+        if (order.price > bidPrice) {
+            break;
+        }
+
+        // now we get the queue
+        std::deque<Order>& ordersAtPrice = bestBid->second;
+        Order& restingOrder = ordersAtPrice.front();
+
+        // now we trade
+        Quantity tradedQuantity = std::min(order.quantity, restingOrder.quantity);
+        order.quantity -= tradedQuantity;
+        restingOrder.quantity -= tradedQuantity;
+
+        std::cout << "TRADE: "
+                    << tradedQuantity
+                    << " units at $"
+                    << std::fixed
+                    << std::setprecision(2)
+                    << static_cast<double>(bidPrice) / 100.0
+                    << '\n';
+
+        if (restingOrder.quantity == 0) {
+            ordersAtPrice.pop_front();
+        }
+
+        if (ordersAtPrice.empty()) {
+            bids_.erase(bestBid);
+        }
+    }
 }
