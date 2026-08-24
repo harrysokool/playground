@@ -184,3 +184,51 @@ void OrderBook::matchSellOrder(Order& order) {
         }
     }
 }
+
+
+std::optional<Price> OrderBook::bestBid() const {
+    if (bids_.empty()){
+        return std::nullopt;
+    }
+
+    return bids_.begin()->first;
+}
+
+
+std::optional<Price> OrderBook::bestAsk() const {
+    if (asks_.empty()) {
+        return std::nullopt;
+    }
+
+    return asks_.begin()->first;
+}
+
+
+Quantity OrderBook::bidQuantityAt(Price price) const {
+    auto priceLevel = bids_.find(price);
+    if (priceLevel == bids_.end()) {
+        return 0;
+    }
+
+    Quantity total = 0;
+    for (const Order& order : priceLevel->second) {
+        total += order.quantity;
+    }
+
+    return total;
+}
+
+
+Quantity OrderBook::askQuantityAt(Price price) const {
+    auto priceLevel = asks_.find(price);
+    if (priceLevel == asks_.end()) {
+        return 0;
+    }
+
+    Quantity total = 0;
+    for (const Order& order : priceLevel->second) {
+        total += order.quantity;
+    }
+
+    return total;
+}

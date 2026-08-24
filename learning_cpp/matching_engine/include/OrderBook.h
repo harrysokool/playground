@@ -5,12 +5,18 @@
 #include <deque>
 #include <functional>
 #include <map>
+#include <optional>
 
 class OrderBook {
 public:
     void addOrder(const Order& order);
     bool cancelOrder(OrderId orderId);
     void printBook() const;
+
+    std::optional<Price> bestBid() const;
+    std::optional<Price> bestAsk() const;
+    Quantity bidQuantityAt(Price price) const;
+    Quantity askQuantityAt(Price price) const;
 
 private:
     void matchBuyOrder(Order& order);
