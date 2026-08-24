@@ -3,14 +3,41 @@
 int main() {
     OrderBook orderBook;
 
-    Order order {
-        1, 
+    orderBook.addOrder({
+        1,
         Side::Buy,
-        10125, 
-        100
-    };
+        10100,
+        50
+    });
 
-    orderBook.addOrder(order);
+    orderBook.addOrder({
+        2,
+        Side::Buy,
+        10000,
+        80
+    });
+
+    orderBook.addOrder({
+        3,
+        Side::Sell,
+        10200,
+        40
+    });
+
+    orderBook.addOrder({
+        4,
+        Side::Sell,
+        10300,
+        60
+    });
+
+    orderBook.addOrder({
+        5,
+        Side::Buy,
+        10100,
+        25
+    });
+
     orderBook.printBook();
 
     return 0;
