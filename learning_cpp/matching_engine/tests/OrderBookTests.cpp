@@ -1,0 +1,76 @@
+#include "OrderBook.h"
+
+#include <cassert>
+#include <iostream>
+
+void testAddOrders() {
+    OrderBook book;
+
+    book.addOrder({1, Side::Buy, 10100, 50});
+    book.addOrder({2, Side::Sell, 10300, 40});
+
+    assert(book.bestBid().has_value());
+    assert(book.bestBid().value() == 10100);
+    assert(book.bidQuantityAt(10100) == 50);
+
+    assert(book.bestAsk().has_value());
+    assert(book.bestAsk().value() == 10300);
+    assert(book.askQuantityAt(10300) == 40);
+}
+
+void testFullFill() {
+    OrderBook book;
+
+    book.addOrder({1, Side::Sell, 10200, 50});
+    book.addOrder({2, Side::Buy, 10200, 50});
+
+    assert(!book.bestBid().has_value());
+    assert(!book.bestAsk().has_value());
+}
+
+void testPartialFill() {
+    OrderBook book;
+
+    book.addOrder({1, Side::Sell, 10200, 80});
+    book.addOrder({2, Side::Buy, 10200, 50});
+
+    assert(!book.bestBid().has_value());
+    assert(book.bestAsk().value() == 10200);
+    assert(book.askQuantityAt(10200) == 30);
+}
+
+void testMultiplePriceLevels() {
+    OrderBook book;
+
+    book.addOrder({1, Side::Sell, 10100, 30});
+    book.addOrder({2, Side::Sell, 10200, 40});
+    book.addOrder({3, Side::Sell, 10300, 50});
+
+    book.addOrder({4, Side::Buy, 10200, 60});
+
+    assert(book.askQuantityAt(10100) == 0);
+    assert(book.askQuantityAt(10200) == 10);
+    assert(book.askQuantityAt(10300) == 50);
+    assert(book.bestAsk().value() == 10200);
+}
+
+void testCancellation() {
+    OrderBook book;
+
+    book.addOrder({1, Side::Buy, 10100, 50});
+
+    assert(book.cancelOrder(1));
+    assert(!book.bestBid().has_value());
+    assert(!book.cancelOrder(999));
+}
+
+int main() {
+    testAddOrders();
+    testFullFill();
+    testPartialFill();
+    testMultiplePriceLevels();
+    testCancellation();
+
+    std::cout << "All tests passed.\n";
+    return 0;
+}

@@ -18,3 +18,16 @@ target_compile_options(matching_engine PRIVATE
 -Wextra
 -Wpedantic
 )
+
+add_executable(order_book_tests
+    tests/OrderBookTests.cpp
+    src/OrderBook.cpp
+)
+
+target_include_directories(order_book_tests PRIVATE include)
+
+target_compile_options(order_book_tests PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
+)
