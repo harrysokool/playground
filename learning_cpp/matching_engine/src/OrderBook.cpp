@@ -24,8 +24,6 @@ void OrderBook::printBook() const {
     for (const auto&[price, orders] : asks_) {
         Quantity totalQuantity = 0;
 
-        // for each price there are a queue of orders with the same price,
-        // we just counting how many shares are selling
         for (const auto& order: orders) {
             totalQuantity += order.quantity;
         }
@@ -40,8 +38,6 @@ void OrderBook::printBook() const {
     for (const auto&[price, orders] : asks_) {
         Quantity totalQuantity = 0;
 
-        // for each price there are a queue of orders with the same price,
-        // we just counting how many shares are selling
         for (const auto& order: orders) {
             totalQuantity += order.quantity;
         }
