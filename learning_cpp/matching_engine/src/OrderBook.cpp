@@ -250,3 +250,8 @@ std::optional<OrderId> OrderBook::firstAskOrderIdAt(Price price) const {
 
     return priceLevel->second.front().id;
 }
+
+
+const std::vector<Trade>& OrderBook::trades() const {
+    return trades_;
+}

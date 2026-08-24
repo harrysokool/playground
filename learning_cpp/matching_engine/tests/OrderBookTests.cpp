@@ -79,6 +79,26 @@ void testPriceTimePriority() {
 }
 
 
+void testTradeRecord() {
+    OrderBook book;
+
+    book.addOrder({1, Side::Sell, 10200, 40});
+    book.addOrder({2, Side::Buy, 10300, 25});
+
+    const std::vector<Trade>& trades = book.trades();
+
+    assert(trades.size() == 1);
+
+    const Trade& trade = trades.front();
+
+    assert(trade.buyOrderId == 2);
+    assert(trade.sellOrderId == 1);
+    assert(trade.price == 10200);
+    assert(trade.quantity == 25);
+
+    assert(book.askQuantityAt(10200) == 15);
+}
+
 int main() {
     testAddOrders();
     testFullFill();
@@ -86,6 +106,7 @@ int main() {
     testMultiplePriceLevels();
     testCancellation();
     testPriceTimePriority();
+    testTradeRecord();
 
     std::cout << "All tests passed.\n";
     return 0;
