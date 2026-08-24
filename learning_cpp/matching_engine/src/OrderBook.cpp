@@ -126,13 +126,12 @@ void OrderBook::matchBuyOrder(Order& order) {
         order.quantity -= tradedQuantity;
         restingOrder.quantity -= tradedQuantity;
         
-        std::cout << "TRADE: "
-                    << tradedQuantity
-                    << " units at $"
-                    << std::fixed
-                    << std::setprecision(2)
-                    << static_cast<double>(askPrice) / 100.0
-                    << '\n';
+        trades_.push_back({
+            order.id,
+            restingOrder.id,
+            askPrice,
+            tradedQuantity
+        });
         
         // after trading, if the sell order is 0, then remove it
         if (restingOrder.quantity == 0) {
@@ -167,13 +166,12 @@ void OrderBook::matchSellOrder(Order& order) {
         order.quantity -= tradedQuantity;
         restingOrder.quantity -= tradedQuantity;
 
-        std::cout << "TRADE: "
-                    << tradedQuantity
-                    << " units at $"
-                    << std::fixed
-                    << std::setprecision(2)
-                    << static_cast<double>(bidPrice) / 100.0
-                    << '\n';
+        trades_.push_back({
+            restingOrder.id,
+            order.id,
+            bidPrice,
+            tradedQuantity
+        });
 
         if (restingOrder.quantity == 0) {
             ordersAtPrice.pop_front();
