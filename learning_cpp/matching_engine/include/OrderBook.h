@@ -12,6 +12,9 @@ public:
     void printBook() const;
 
 private:
+    void matchBuyOrder(Order& order);
+    void matchSellOrder(Order& order);
+
     std::map<Price, std::deque<Order>, std::greater<Price>> bids_;
     std::map<Price, std::deque<Order>> asks_;
-}
+};
