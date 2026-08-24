@@ -9,6 +9,7 @@
 class OrderBook {
 public:
     void addOrder(const Order& order);
+    bool cancelOrder(OrderId orderId);
     void printBook() const;
 
 private:

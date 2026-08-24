@@ -25,6 +25,43 @@ void OrderBook::addOrder(const Order& order) {
 }
 
 
+bool OrderBook::cancelOrder(OrderId orderId) {
+    for (auto priceLevel = bids_.begin(); priceLevel != bids_.end(); ++priceLevel) {
+        std::deque<Order>& orders = priceLevel->second;
+
+        for (auto order = orders.begin(); order != orders.end(); ++order) {
+            if (order->id == orderId) {
+                orders.erase(order);
+
+                if (orders.empty()) {
+                    bids_.erase(priceLevel);
+                }
+
+                return true;
+            }
+        }
+    }    
+    
+    for (auto priceLevel = asks_.begin(); priceLevel != asks_.end(); ++priceLevel) {
+        std::deque<Order>& orders = priceLevel->second;
+
+        for (auto order = orders.begin(); order != orders.end(); ++order) {
+            if (order->id == orderId) {
+                orders.erase(order);
+
+                if (orders.empty()) {
+                    asks_.erase(priceLevel);
+                }
+
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+
 /*
     BIDS
     $101.00: 50
