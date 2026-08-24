@@ -64,13 +64,30 @@ void testCancellation() {
     assert(!book.cancelOrder(999));
 }
 
+void testPriceTimePriority() {
+    OrderBook book;
+
+    book.addOrder({1, Side::Sell, 10200, 40});
+    book.addOrder({2, Side::Sell, 10200, 50});
+
+    assert(book.firstAskOrderIdAt(10200).value() == 1);
+
+    book.addOrder({3, Side::Buy, 10200, 45});
+
+    assert(book.askQuantityAt(10200) == 45);
+    assert(book.firstAskOrderIdAt(10200).value() == 2);
+}
+
+
 int main() {
     testAddOrders();
     testFullFill();
     testPartialFill();
     testMultiplePriceLevels();
     testCancellation();
+    testPriceTimePriority();
 
     std::cout << "All tests passed.\n";
     return 0;
 }
+

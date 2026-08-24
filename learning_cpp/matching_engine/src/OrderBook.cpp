@@ -232,3 +232,23 @@ Quantity OrderBook::askQuantityAt(Price price) const {
 
     return total;
 }
+
+
+std::optional<OrderId> OrderBook::firstBidOrderIdAt(Price price) const {
+    auto priceLevel = bids_.find(price);
+    if (priceLevel == bids_.end() || priceLevel->second.empty()) {
+        return std::nullopt;
+    }
+
+    return priceLevel->second.front().id;
+}
+
+
+std::optional<OrderId> OrderBook::firstAskOrderIdAt(Price price) const {
+    auto priceLevel = asks_.find(price);
+    if (priceLevel == asks_.end() || priceLevel->second.empty()) {
+        return std::nullopt;
+    }
+
+    return priceLevel->second.front().id;
+}

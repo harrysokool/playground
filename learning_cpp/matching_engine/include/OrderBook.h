@@ -17,6 +17,8 @@ public:
     std::optional<Price> bestAsk() const;
     Quantity bidQuantityAt(Price price) const;
     Quantity askQuantityAt(Price price) const;
+    std::optional<OrderId> firstBidOrderIdAt(Price price) const;
+    std::optional<OrderId> firstAskOrderIdAt(Price price) const;
 
 private:
     void matchBuyOrder(Order& order);
