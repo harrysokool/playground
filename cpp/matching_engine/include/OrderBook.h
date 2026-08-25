@@ -40,7 +40,6 @@ private:
     std::map<Price, std::deque<Order>, std::greater<Price>> bids_;
     std::map<Price, std::deque<Order>> asks_;
     
-    std::unordered_set<OrderId> activeOrderIds_;
     // for faster cancel order
     std::unordered_map<Orderid, OrderLocation> orderIndex_;
 
