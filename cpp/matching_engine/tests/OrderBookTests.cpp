@@ -119,6 +119,45 @@ void testRejectDuplicateActiveOrderId() {
     assert(book.askQuantityAt(10300) == 0);
 }
 
+void testNonCrossingOrders() {
+    OrderBook book;
+
+    assert(book.addOrder({1, Side::Buy, 10000, 50}));
+    assert(book.addOrder({2, Side::Sell, 10100, 40}));
+
+    assert(book.bestBid().has_value());
+    assert(book.bestBid().value() == 10000);
+
+    assert(book.bestAsk().has_value());
+    assert(book.bestAsk().value() == 10100);
+
+    assert(book.bidQuantityAt(10000) == 50);
+    assert(book.askQuantityAt(10100) == 40);
+    assert(book.trades().empty());
+}
+
+void testIncomingBuyExceedsAvailableLiquidity() {
+    OrderBook book;
+
+    assert(book.addOrder({1, Side::Sell, 10100, 30}));
+    assert(book.addOrder({2, Side::Buy, 10100, 50}));
+
+    assert(book.bestBid().has_value());
+    assert(book.bestBid().value() == 10100);
+    assert(book.bidQuantityAt(10100) == 20);
+
+    assert(!book.bestAsk().has_value());
+
+    assert(book.trades().size() == 1);
+
+    const Trade& trade = book.trades().front();
+
+    assert(trade.buyOrderId == 2);
+    assert(trade.sellOrderId == 1);
+    assert(trade.price == 10100);
+    assert(trade.quantity == 30);
+}
+
 
 int main() {
     testAddOrders();
@@ -130,6 +169,7 @@ int main() {
     testTradeRecord();
     testRejectInvalidOrders();
     testRejectDuplicateActiveOrderId();
+    testNonCrossingOrders();
 
     std::cout << "All tests passed.\n";
     return 0;
