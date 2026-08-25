@@ -44,3 +44,16 @@ target_compile_options(matching_benchmark PRIVATE
     -Wextra
     -Wpedantic
 )
+
+option(ENABLE_SANITIZERS "Enable AddressSanitizer and UndefinedBehaviorSanitizer" OFF)
+
+if (ENABLE_SANITIZERS)
+    add_compile_options(
+        -fsanitize=address,undefined
+        -fno-omit-frame-pointer
+    )
+
+    add_link_options(
+        -fsanitize=address,undefined
+    )
+endif()
