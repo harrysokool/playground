@@ -7,7 +7,7 @@
 
 bool OrderBook::addOrder(const Order& order) {
     // safety check for ther order
-    if (order.price <= 0 || order.quantity <= 0) {
+    if (order.price <= 0 || order.quantity == 0) {
         return false;
     }
 
@@ -24,6 +24,12 @@ bool OrderBook::addOrder(const Order& order) {
         if (incomingOrder.quantity > 0) {
             bids_[incomingOrder.price].push_back(incomingOrder);
             activeOrderIds_.insert(incomingOrder.id);
+
+            OrderLocation orderLoc;
+            orderLoc.side = Side::Buy;
+            orderLoc.price = incomingOrder.price;
+
+            orderIndex_[incomingOrder.id] = orderLoc;
         }
     } else {
         matchSellOrder(incomingOrder);
@@ -31,6 +37,12 @@ bool OrderBook::addOrder(const Order& order) {
         if (incomingOrder.quantity > 0) {
             asks_[incomingOrder.price].push_back(incomingOrder);
             activeOrderIds_.insert(incomingOrder.id);
+
+            OrderLocation orderLoc;
+            orderLoc.side = Side::Sell;
+            orderLoc.price = incomingOrder.price;
+
+            orderIndex_[incomingOrder.id] = orderLoc;
         }
     }
 
@@ -39,13 +51,27 @@ bool OrderBook::addOrder(const Order& order) {
 
 
 bool OrderBook::cancelOrder(OrderId orderId) {
-    for (auto priceLevel = bids_.begin(); priceLevel != bids_.end(); ++priceLevel) {
-        std::deque<Order>& orders = priceLevel->second;
+    // first get the struct with the order id
+    auto it = orderIndex_.find(orderId);
+    if (it == orderIndex_.end()) {
+        return false;
+    }
+    const OrderLocation orderLoc = it->second;
 
+    if (orderLoc.side == Side::Buy) {
+        auto priceLevel = bids_.find(orderLoc.price);
+        if (priceLevel == bids_.end()) {
+            return false;
+        }
+
+        std::deque<Order>& orders = priceLevel->second;
+    
+        // loop through the deque to find the orderid
         for (auto order = orders.begin(); order != orders.end(); ++order) {
             if (order->id == orderId) {
-                activeOrderIds_.erase(orderId);
                 orders.erase(order);
+                activeOrderIds_.erase(orderId);
+                orderIndex_.erase(orderId);
 
                 if (orders.empty()) {
                     bids_.erase(priceLevel);
@@ -54,15 +80,20 @@ bool OrderBook::cancelOrder(OrderId orderId) {
                 return true;
             }
         }
-    }    
-    
-    for (auto priceLevel = asks_.begin(); priceLevel != asks_.end(); ++priceLevel) {
-        std::deque<Order>& orders = priceLevel->second;
+    } else {
+        auto priceLevel = asks_.find(orderLoc.price);
+        if (priceLevel == asks_.end()) {
+            return false;
+        }
 
+        std::deque<Order>& orders = priceLevel->second;
+    
+        // loop through the deque to find the orderid
         for (auto order = orders.begin(); order != orders.end(); ++order) {
             if (order->id == orderId) {
-                activeOrderIds_.erase(orderId);
                 orders.erase(order);
+                activeOrderIds_.erase(orderId);
+                orderIndex_.erase(orderId);
 
                 if (orders.empty()) {
                     asks_.erase(priceLevel);
@@ -151,6 +182,7 @@ void OrderBook::matchBuyOrder(Order& order) {
         // after trading, if the sell order is 0, then remove it
         if (restingOrder.quantity == 0) {
             activeOrderIds_.erase(restingOrder.id);
+            orderIndex_.erase(restingOrder.id);
             ordersAtPrice.pop_front();
         }
 
@@ -191,6 +223,7 @@ void OrderBook::matchSellOrder(Order& order) {
 
         if (restingOrder.quantity == 0) {
             activeOrderIds_.erase(restingOrder.id);
+            orderIndex_.erase(restingOrder.id);
             ordersAtPrice.pop_front();
         }
 
