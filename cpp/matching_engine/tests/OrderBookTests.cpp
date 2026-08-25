@@ -206,6 +206,7 @@ int main() {
     testNonCrossingOrders();
     testIncomingBuyExceedsAvailableLiquidity();
     testCancellationAfterPartialFill();
+    testOrderIdReusableAfterFullFill();
 
     std::cout << "All tests passed.\n";
     return 0;
