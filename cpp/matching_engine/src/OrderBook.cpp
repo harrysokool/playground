@@ -12,7 +12,7 @@ bool OrderBook::addOrder(const Order& order) {
     }
 
     // see if the order exist or not
-    if (activeOrderIds_.find(order.id) != activeOrderIds_.end()) {
+    if (orderIndex_.find(order.id) != orderIndex_.end()) {
         return false;
     }
 
@@ -23,7 +23,6 @@ bool OrderBook::addOrder(const Order& order) {
         
         if (incomingOrder.quantity > 0) {
             bids_[incomingOrder.price].push_back(incomingOrder);
-            activeOrderIds_.insert(incomingOrder.id);
 
             OrderLocation orderLoc;
             orderLoc.side = Side::Buy;
@@ -36,7 +35,6 @@ bool OrderBook::addOrder(const Order& order) {
         
         if (incomingOrder.quantity > 0) {
             asks_[incomingOrder.price].push_back(incomingOrder);
-            activeOrderIds_.insert(incomingOrder.id);
 
             OrderLocation orderLoc;
             orderLoc.side = Side::Sell;
@@ -70,7 +68,6 @@ bool OrderBook::cancelOrder(OrderId orderId) {
         for (auto order = orders.begin(); order != orders.end(); ++order) {
             if (order->id == orderId) {
                 orders.erase(order);
-                activeOrderIds_.erase(orderId);
                 orderIndex_.erase(orderId);
 
                 if (orders.empty()) {
@@ -92,7 +89,6 @@ bool OrderBook::cancelOrder(OrderId orderId) {
         for (auto order = orders.begin(); order != orders.end(); ++order) {
             if (order->id == orderId) {
                 orders.erase(order);
-                activeOrderIds_.erase(orderId);
                 orderIndex_.erase(orderId);
 
                 if (orders.empty()) {
@@ -181,12 +177,11 @@ void OrderBook::matchBuyOrder(Order& order) {
         
         // after trading, if the sell order is 0, then remove it
         if (restingOrder.quantity == 0) {
-            activeOrderIds_.erase(restingOrder.id);
             orderIndex_.erase(restingOrder.id);
             ordersAtPrice.pop_front();
         }
 
-        // if there are no more sell order, then remove that price in the asks_ map
+        // if there are no more sell order, then remove that price in the asks_
         if (ordersAtPrice.empty()) {
             asks_.erase(bestAsk);
         }
@@ -222,7 +217,6 @@ void OrderBook::matchSellOrder(Order& order) {
         });
 
         if (restingOrder.quantity == 0) {
-            activeOrderIds_.erase(restingOrder.id);
             orderIndex_.erase(restingOrder.id);
             ordersAtPrice.pop_front();
         }
