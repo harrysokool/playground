@@ -8,10 +8,12 @@
 #include <map>
 #include <optional>
 #include <vector>
+#include <unordered_set>
+
 
 class OrderBook {
 public:
-    void addOrder(const Order& order);
+    bool addOrder(const Order& order);
     bool cancelOrder(OrderId orderId);
     void printBook() const;
 
@@ -33,4 +35,5 @@ private:
     std::map<Price, std::deque<Order>, std::greater<Price>> bids_;
     std::map<Price, std::deque<Order>> asks_;
     std::vector<Trade> trades_;
+    std::unordered_set<OrderId> activeOrderIds_;
 };

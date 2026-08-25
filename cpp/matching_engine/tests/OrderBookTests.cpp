@@ -99,6 +99,27 @@ void testTradeRecord() {
     assert(book.askQuantityAt(10200) == 15);
 }
 
+void testRejectInvalidOrders() {
+    OrderBook book;
+
+    assert(!book.addOrder({1, Side::Buy, 0, 50}));
+    assert(!book.addOrder({2, Side::Buy, 10100, 0}));
+
+    assert(!book.bestBid().has_value());
+    assert(!book.bestAsk().has_value());
+}
+
+void testRejectDuplicateActiveOrderId() {
+    OrderBook book;
+
+    assert(book.addOrder({1, Side::Buy, 10100, 50}));
+    assert(!book.addOrder({1, Side::Sell, 10300, 40}));
+
+    assert(book.bidQuantityAt(10100) == 50);
+    assert(book.askQuantityAt(10300) == 0);
+}
+
+
 int main() {
     testAddOrders();
     testFullFill();
@@ -107,6 +128,8 @@ int main() {
     testCancellation();
     testPriceTimePriority();
     testTradeRecord();
+    testRejectInvalidOrders();
+    testRejectDuplicateActiveOrderId();
 
     std::cout << "All tests passed.\n";
     return 0;

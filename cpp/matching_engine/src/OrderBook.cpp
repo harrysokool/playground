@@ -2,11 +2,20 @@
 
 #include <iomanip>
 #include <iostream>
-
 #include <algorithm>
 
 
-void OrderBook::addOrder(const Order& order) {
+bool OrderBook::addOrder(const Order& order) {
+    // safety check for ther order
+    if (order.price <= 0 || order.quantity <= 0) {
+        return false;
+    }
+
+    // see if the order exist or not
+    if (activeOrderIds_.find(order.id) != activeOrderIds_.end()) {
+        return false;
+    }
+
     Order incomingOrder = order;
 
     if (order.side == Side::Buy) {
@@ -14,14 +23,18 @@ void OrderBook::addOrder(const Order& order) {
         
         if (incomingOrder.quantity > 0) {
             bids_[incomingOrder.price].push_back(incomingOrder);
+            activeOrderIds_.insert(incomingOrder.id);
         }
     } else {
         matchSellOrder(incomingOrder);
         
         if (incomingOrder.quantity > 0) {
             asks_[incomingOrder.price].push_back(incomingOrder);
+            activeOrderIds_.insert(incomingOrder.id);
         }
     }
+
+    return true;
 }
 
 
@@ -31,6 +44,7 @@ bool OrderBook::cancelOrder(OrderId orderId) {
 
         for (auto order = orders.begin(); order != orders.end(); ++order) {
             if (order->id == orderId) {
+                activeOrderIds_.erase(orderId);
                 orders.erase(order);
 
                 if (orders.empty()) {
@@ -47,6 +61,7 @@ bool OrderBook::cancelOrder(OrderId orderId) {
 
         for (auto order = orders.begin(); order != orders.end(); ++order) {
             if (order->id == orderId) {
+                activeOrderIds_.erase(orderId);
                 orders.erase(order);
 
                 if (orders.empty()) {
@@ -135,6 +150,7 @@ void OrderBook::matchBuyOrder(Order& order) {
         
         // after trading, if the sell order is 0, then remove it
         if (restingOrder.quantity == 0) {
+            activeOrderIds_.erase(restingOrder.id);
             ordersAtPrice.pop_front();
         }
 
@@ -174,6 +190,7 @@ void OrderBook::matchSellOrder(Order& order) {
         });
 
         if (restingOrder.quantity == 0) {
+            activeOrderIds_.erase(restingOrder.id);
             ordersAtPrice.pop_front();
         }
 
