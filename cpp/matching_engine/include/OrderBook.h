@@ -9,7 +9,7 @@
 #include <optional>
 #include <vector>
 #include <unordered_set>
-
+#include <unordered_map>
 
 class OrderBook {
 public:
@@ -29,11 +29,19 @@ public:
     const std::vector<Trade>& trades() const;
 
 private:
+    struct OrderLocation {
+        Side side;
+        Price price;
+    };
+
     void matchBuyOrder(Order& order);
     void matchSellOrder(Order& order);
 
     std::map<Price, std::deque<Order>, std::greater<Price>> bids_;
     std::map<Price, std::deque<Order>> asks_;
-    std::vector<Trade> trades_;
+    
     std::unordered_set<OrderId> activeOrderIds_;
+    std::unordered_map<Orderid, OrderLocation> orderIndex_;
+
+    std::vector<Trade> trades_;
 };

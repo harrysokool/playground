@@ -158,6 +158,27 @@ void testIncomingBuyExceedsAvailableLiquidity() {
     assert(trade.quantity == 30);
 }
 
+void testCancellationAfterPartialFill() {
+    OrderBook book;
+
+    assert(book.addOrder({1, Side::Sell, 10200, 100}));
+    assert(book.addOrder({2, Side::Buy, 10200, 40}));
+
+    assert(book.bestAsk().has_value());
+    assert(book.bestAsk().value() == 10200);
+    assert(book.askQuantityAt(10200) == 60);
+
+    assert(!book.bestBid().has_value());
+    assert(book.trades().size() == 1);
+
+    assert(book.cancelOrder(1));
+    assert(!book.bestAsk().has_value());
+    assert(book.askQuantityAt(10200) == 0);
+
+    // Confirms that order ID 1 was removed from activeOrderIds_.
+    assert(book.addOrder({1, Side::Sell, 10200, 100}));
+    assert(book.askQuantityAt(10200) == 100);
+}
 
 int main() {
     testAddOrders();
@@ -170,6 +191,8 @@ int main() {
     testRejectInvalidOrders();
     testRejectDuplicateActiveOrderId();
     testNonCrossingOrders();
+    testIncomingBuyExceedsAvailableLiquidity();
+    testCancellationAfterPartialFill();
 
     std::cout << "All tests passed.\n";
     return 0;
