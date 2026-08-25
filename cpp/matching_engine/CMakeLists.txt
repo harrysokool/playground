@@ -31,3 +31,16 @@ target_compile_options(order_book_tests PRIVATE
     -Wextra
     -Wpedantic
 )
+
+add_executable(matching_benchmark
+    benchmarks/MatchingBenchmark.cpp
+    src/OrderBook.cpp
+)
+
+target_include_directories(matching_benchmark PRIVATE include)
+
+target_compile_options(matching_benchmark PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
+)

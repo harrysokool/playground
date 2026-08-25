@@ -40,7 +40,7 @@ private:
     std::map<Price, std::deque<Order>> asks_;
     
     // for faster cancel order
-    std::unordered_map<Orderid, OrderLocation> orderIndex_;
+    std::unordered_map<OrderId, OrderLocation> orderIndex_;
 
     // for recording trades
     std::vector<Trade> trades_;
