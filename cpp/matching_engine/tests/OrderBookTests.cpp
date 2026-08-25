@@ -180,6 +180,19 @@ void testCancellationAfterPartialFill() {
     assert(book.askQuantityAt(10200) == 100);
 }
 
+void testOrderIdReusableAfterFullFill() {
+    OrderBook book;
+
+    assert(book.addOrder({1, Side::Sell, 10200, 50}));
+    assert(book.addOrder({2, Side::Buy, 10200, 50}));
+
+    assert(!book.bestAsk().has_value());
+    assert(!book.bestBid().has_value());
+
+    assert(book.addOrder({1, Side::Buy, 10100, 25}));
+    assert(book.bidQuantityAt(10100) == 25);
+}
+
 int main() {
     testAddOrders();
     testFullFill();
