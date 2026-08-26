@@ -10,6 +10,8 @@
 #include <vector>
 #include <unordered_map>
 
+using orderIterator = std::list<Order>::iterator;
+
 class OrderBook {
 public:
     bool addOrder(const Order& order);
@@ -28,16 +30,22 @@ public:
     const std::vector<Trade>& trades() const;
 
 private:
+    // this will store the locatin of the order
+    // side is to decide if the order is in bids_ or asks_
+    // price is to locate the linked list
+    // orderIt is to get the linked list node right away
     struct OrderLocation {
         Side side;
         Price price;
+        orderIterator orderIt;
     };
 
     void matchBuyOrder(Order& order);
     void matchSellOrder(Order& order);
 
-    std::map<Price, std::deque<Order>, std::greater<Price>> bids_;
-    std::map<Price, std::deque<Order>> asks_;
+    // we will not be using deque, will use linked list instead
+    std::map<Price, std::list<Order>, std::greater<Price>> bids_;
+    std::map<Price, std::list<Order>> asks_;
     
     // for faster cancel order
     std::unordered_map<OrderId, OrderLocation> orderIndex_;
