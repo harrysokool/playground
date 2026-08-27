@@ -22,7 +22,7 @@ bool OrderBook::addOrder(const Order& order) {
         matchBuyOrder(incomingOrder);
         
         if (incomingOrder.quantity > 0) {
-            std::list<Order>& priceLevel = bids_[incomingOrder.price]
+            std::list<Order>& priceLevel = bids_[incomingOrder.price];
             priceLevel.push_back(incomingOrder);
 
             OrderLocation orderLoc;
@@ -36,7 +36,7 @@ bool OrderBook::addOrder(const Order& order) {
         matchSellOrder(incomingOrder);
         
         if (incomingOrder.quantity > 0) {
-            std::list<Order>& priceLevel = asks_[incomingOrder.price]
+            std::list<Order>& priceLevel = asks_[incomingOrder.price];
             priceLevel.push_back(incomingOrder);
 
             OrderLocation orderLoc;
@@ -58,7 +58,7 @@ bool OrderBook::cancelOrder(OrderId orderId) {
     if (it == orderIndex_.end()) {
         return false;
     }
-    const OrderLocation orderLoc = it->second;
+    const OrderLocation& orderLoc = it->second;
 
     if (orderLoc.side == Side::Buy) {
         auto priceLevel = bids_.find(orderLoc.price);
@@ -150,8 +150,8 @@ void OrderBook::matchBuyOrder(Order& order) {
             break;
         }
         
-        // get the queue at that price
-        std::deque<Order>& ordersAtPrice = bestAsk->second;
+        // get the list at that price
+        std::list<Order>& ordersAtPrice = bestAsk->second;
         // get the first sell order at that price
         Order& restingOrder = ordersAtPrice.front();
 
@@ -192,8 +192,8 @@ void OrderBook::matchSellOrder(Order& order) {
             break;
         }
 
-        // now we get the queue
-        std::deque<Order>& ordersAtPrice = bestBid->second;
+        // now we get the list
+        std::list<Order>& ordersAtPrice = bestBid->second;
         Order& restingOrder = ordersAtPrice.front();
 
         // now we trade

@@ -9,6 +9,7 @@
 #include <optional>
 #include <vector>
 #include <unordered_map>
+#include <list>
 
 using orderIterator = std::list<Order>::iterator;
 
