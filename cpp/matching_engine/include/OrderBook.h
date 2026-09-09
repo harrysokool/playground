@@ -15,6 +15,7 @@ using orderIterator = std::list<Order>::iterator;
 
 class OrderBook {
 public:
+    // limit order
     bool addOrder(const Order& order);
     bool cancelOrder(OrderId orderId);
     void printBook() const;
@@ -22,16 +23,17 @@ public:
     std::optional<Price> bestBid() const;
     std::optional<Price> bestAsk() const;
 
+    // market order
+    bool addMarketOrder(Order order);
+    void matchMarketBuy(Order& order);
+    void matchMarketSell(Order& order);
+    
+    // helper funcions
     Quantity bidQuantityAt(Price price) const;
     Quantity askQuantityAt(Price price) const;
 
     std::optional<OrderId> firstBidOrderIdAt(Price price) const;
     std::optional<OrderId> firstAskOrderIdAt(Price price) const;
-
-    // market order
-    bool addMarketOrder(Order order);
-    void matchMarketBuy(Order& order);
-    void matchMarketSell(Order& order);
 
     const std::vector<Trade>& trades() const;
 

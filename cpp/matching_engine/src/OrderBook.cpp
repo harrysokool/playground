@@ -354,7 +354,7 @@ void OrderBook::matchMarketBuy(Order& order) {
 void OrderBook::matchMarketSell(Order& order) {
     // so we look at all the sellers (Asks) from the cheapest ones and try to fill the order
     // so while ask is not empty we keep filling
-    while (!bids_.empty()) {
+    while (order.quantity > 0 && !bids_.empty()) {
         // get the cheapest seller
         auto bestBid = bids_.begin();
 
