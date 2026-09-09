@@ -53,7 +53,7 @@ bool OrderBook::addOrder(const Order& order) {
 
 
 bool OrderBook::cancelOrder(OrderId orderId) {
-    // first get the struct with the order id
+    // first get the order location with the order id
     auto it = orderIndex_.find(orderId);
     if (it == orderIndex_.end()) {
         return false;
@@ -160,6 +160,7 @@ void OrderBook::matchBuyOrder(Order& order) {
         order.quantity -= tradedQuantity;
         restingOrder.quantity -= tradedQuantity;
         
+        // record the trade
         trades_.push_back({
             order.id,
             restingOrder.id,
@@ -201,6 +202,7 @@ void OrderBook::matchSellOrder(Order& order) {
         order.quantity -= tradedQuantity;
         restingOrder.quantity -= tradedQuantity;
 
+        // record the trade
         trades_.push_back({
             restingOrder.id,
             order.id,
@@ -285,6 +287,104 @@ std::optional<OrderId> OrderBook::firstAskOrderIdAt(Price price) const {
     }
 
     return priceLevel->second.front().id;
+}
+
+
+// Market orders
+bool OrderBook::addMarketOrder(Order order) {
+    // check if the order exist or not
+    if (orderIndex_.find(order.id) != orderIndex_.end()) {
+        return false;
+    }
+
+    // check if the order is valid or not
+    if (order.quantity == 0) {
+        return false;
+    }
+
+    Order incomingOrder = order;
+
+    if (order.side == Side::Buy) {
+        matchMarketBuy(incomingOrder);
+    } else {
+        matchMarketSell(incomingOrder);
+    }
+
+    return true;
+}
+
+
+void OrderBook::matchMarketBuy(Order& order) {
+    // so we look at all the sellers (Asks) from the cheapest ones and try to fill the order
+    // so while ask is not empty we keep filling
+    while (order.quantity > 0 && !asks_.empty()) {
+        // get the cheapest seller
+        auto bestAsk = asks_.begin();
+
+        // from that sell price get all the sell orders
+        Price askPrice = bestAsk->first;
+        std::list<Order>& ordersAtPrice = bestAsk->second;
+        Order& restingOrder = ordersAtPrice.front();
+
+        // now we trade
+        Quantity tradedQuantity = std::min(order.quantity, restingOrder.quantity);
+        order.quantity -= tradedQuantity;
+        restingOrder.quantity -= tradedQuantity;
+
+        // record the trade
+        trades_.push_back({
+            order.id,
+            restingOrder.id,
+            askPrice,
+            tradedQuantity
+        });
+
+        if (restingOrder.quantity == 0) {
+            orderIndex_.erase(restingOrder.id);
+            ordersAtPrice.pop_front();
+        }
+
+        if (ordersAtPrice.empty()) {
+            asks_.erase(bestAsk);
+        }
+    }
+}
+
+
+void OrderBook::matchMarketSell(Order& order) {
+    // so we look at all the sellers (Asks) from the cheapest ones and try to fill the order
+    // so while ask is not empty we keep filling
+    while (!bids_.empty()) {
+        // get the cheapest seller
+        auto bestBid = bids_.begin();
+
+        // from that sell price get all the sell orders
+        Price bidPrice = bestBid->first;
+        std::list<Order>& ordersAtPrice = bestBid->second;
+        Order& restingOrder = ordersAtPrice.front();
+
+        // now we trade
+        Quantity tradedQuantity = std::min(order.quantity, restingOrder.quantity);
+        order.quantity -= tradedQuantity;
+        restingOrder.quantity -= tradedQuantity;
+
+        // record the trade
+        trades_.push_back({
+            restingOrder.id,
+            order.id,
+            bidPrice,
+            tradedQuantity
+        });
+
+        if (restingOrder.quantity == 0) {
+            orderIndex_.erase(restingOrder.id);
+            ordersAtPrice.pop_front();
+        }
+
+        if (ordersAtPrice.empty()) {
+            bids_.erase(bestBid);
+        }
+    }
 }
 
 

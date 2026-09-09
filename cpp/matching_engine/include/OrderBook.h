@@ -28,6 +28,11 @@ public:
     std::optional<OrderId> firstBidOrderIdAt(Price price) const;
     std::optional<OrderId> firstAskOrderIdAt(Price price) const;
 
+    // market order
+    bool addMarketOrder(Order order);
+    void matchMarketBuy(Order& order);
+    void matchMarketSell(Order& order);
+
     const std::vector<Trade>& trades() const;
 
 private:
