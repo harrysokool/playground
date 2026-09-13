@@ -1,0 +1,31 @@
+{
+  "data": {
+    "lotteryDraws": [
+      {
+        "id": "1995001N",
+        "year": "1995",
+        "no": 1,
+        "openDate": "",
+        "closeDate": "",
+        "drawDate": "1995-01-03+08:00",
+        "status": "Result",
+        "snowballCode": "",
+        "snowballName_en": "",
+        "snowballName_ch": "",
+        "lotteryPool": {
+          "sell": false,
+          "status": "Payout",
+          "totalInvestment": "",
+          "jackpot": "",
+          "unitBet": 4,
+          "estimatedPrize": "",
+          "derivedFirstPrizeDiv": "",
+          "lotteryPrizes": [
+            {"type": 1, "winningUnit": 0, "dividend": "0"}
+          ]
+        },
+        "drawResult": {"drawnNo": [10, 11, 22, 27, 38, 39], "xDrawnNo": 43}
+      }
+    ]
+  }
+}

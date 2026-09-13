@@ -1,0 +1,61 @@
+# Python environments and bytecode
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+
+# Build and packaging output
+build/
+dist/
+*.egg-info/
+
+# Test, type-checker, and linter caches
+.pytest_cache/
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Jupyter and IPython state
+.ipynb_checkpoints/
+.jupyter/
+profile_default/
+
+# Local editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Downloaded and derived data (provenance manifests may be committed separately)
+data/raw/**
+data/interim/**
+data/processed/**
+data/external/**
+data/simulations/**
+
+# Reproducible local databases
+*.duckdb
+*.duckdb.wal
+
+# Generated research artifacts
+reports/generated/**
+reports/figures/**
+artifacts/simulations/**
+*.parquet.tmp
+
+# Local secrets and overrides
+.env
+.env.*
+!.env.example
+configs/local*.yaml
+
