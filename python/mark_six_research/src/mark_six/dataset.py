@@ -187,6 +187,7 @@ def _canonical_rows(
             "extra_numbers_selected": rule.extra_numbers_drawn,
             "unit_stake_hkd_cents": rule.unit_stake_hkd_cents,
             "unit_stake_status": rule.unit_stake_status,
+            "partial_unit_stake_hkd_cents": rule.partial_unit_stake_hkd_cents,
             "prize_division_count": rule.prize_divisions,
             "reported_prize_division_count": rule.reported_prize_division_count,
         }
@@ -333,6 +334,7 @@ def _schemas() -> dict[str, pa.Schema]:
                 ("extra_numbers_selected", pa.int16()),
                 ("unit_stake_hkd_cents", money),
                 ("unit_stake_status", pa.string()),
+                ("partial_unit_stake_hkd_cents", money),
                 ("prize_division_count", pa.int16()),
                 ("reported_prize_division_count", pa.int16()),
             ]

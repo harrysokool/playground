@@ -9,13 +9,16 @@ evidence of predictive advantage unless it survives the pre-specified out-of-sam
 
 ## Current scope
 
-Phase 3 publishes a provenance-linked development dataset from the measured populated coverage of
+Phase 4 adds exact, rule-versioned combinatorics to the frozen Phase 3 provenance-linked development
+dataset from the measured populated coverage of
 the official structured endpoint: draw 93/001 (1993-01-05) through draw 26/099 (2026-09-12). It
 includes immutable raw evidence, rule-aware parsing, classified validation, versioned Parquet,
 DuckDB views, reproducible reports, and a sealed prospective-holdout guard. It does not claim that
 Mark Six began in 1993; preserved empty queries show only that this endpoint's populated coverage
-begins there. No number-selection strategies, pattern exploration, prediction, or backtesting are
-part of Phase 3.
+begins there. The mathematical layer covers ordinary, Multiple, Banker, full-unit, and permitted
+partial-unit entries using integers and rational fractions. It keeps the unresolved 1996 pool
+boundary explicit and separates prize probabilities from variable payouts. No number-selection
+strategies, pattern exploration, prediction, or backtesting are part of Phase 4.
 
 ## Requirements
 
@@ -46,6 +49,13 @@ uv run mark-six validate
 uv run mark-six build-dataset
 uv run mark-six validate-dataset
 uv run mark-six dataset-info
+uv run mark-six mathematics prize-probabilities
+uv run mark-six mathematics odds
+uv run mark-six mathematics multiple --selections 8
+uv run mark-six mathematics banker --bankers 2 --legs 5
+uv run mark-six mathematics first-division --pool-size 47
+uv run mark-six mathematics simulate --trials 100000 --seed 20260913
+uv run mark-six mathematics reports
 ```
 
 `ingest` is resumable and reuses exact, hash-valid, structurally valid cached windows. Development
@@ -75,3 +85,9 @@ uv run pytest
 Downloaded data and generated artifacts are ignored by Git by default. Provenance manifests and
 small curated fixtures may be committed deliberately after their licensing and review policy is
 defined.
+
+See [`docs/mathematical_model.md`](docs/mathematical_model.md) for the exact derivations and system
+entry model. The reproducible generated output is
+[`reports/generated/prize_probabilities.md`](reports/generated/prize_probabilities.md),
+[`reports/generated/current_game_mathematics.md`](reports/generated/current_game_mathematics.md),
+and [`reports/generated/expected_value_foundation.md`](reports/generated/expected_value_foundation.md).

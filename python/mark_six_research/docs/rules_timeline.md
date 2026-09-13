@@ -1,6 +1,6 @@
 # Mark Six Rules Timeline
 
-**Status:** current interval verified; seven historical assignments intentionally partial  
+**Status:** current interval and current mathematics verified; historical assignments intentionally partial
 **Reviewed:** 2026-09-13
 
 Exact probability, validation, ticket-cost, and expected-value calculations must use the rule version
@@ -27,8 +27,18 @@ effective for each draw. Unknown boundaries are never filled from the current ru
 - **R9:** HKJC 2002/03 Annual Report: 6-out-of-49 effective 2002-07-03, First Division
   HKD 38 million ceiling removed, Seventh Prize of HKD 20 introduced:
   <https://www.hkjc.com/chinese/special/2003_annual_report/ar03_rev_racing.pdf>
-- **R10:** full retained GraphQL coverage. Source fields observe HKD 4 through draw 1995/041 and
-  HKD 5 from draw 1995/042, but this observation is not treated as a formal rule-effective date.
+- **R10:** full retained GraphQL coverage. Source fields observe HKD 4 through draw 1995/041 on
+  1995-05-25 and HKD 5 from draw 1995/042 on 1995-05-30. Draw 1996/046 on 1996-06-11 is the last
+  draw before the first observed result containing a number above 45; draw 1996/047 on 1996-06-13
+  contains 47. These observations are not treated as formal rule-effective dates.
+- **R11:** HKJC current prize-qualification page:
+  <https://special.hkjc.com/e-win/en-US/betting-info/marksix/prize-qualification/>
+- **R12:** HKJC current Multiple/Banker chance and cost table:
+  <https://special.hkjc.com/e-win/en-US/betting-info/marksix/chance-table/>
+- **R13:** HKJC 2026 Mark Six fun facts, publishing First Division odds of 1 in 13,983,816:
+  <https://campaigns.hkjc.com/2026-marksix/en/funfacts>
+- **R14:** HKJC 2022 Summer Snowball notice, including an eight-number Multiple example:
+  <https://racingnews.hkjc.com/english/2022/08/03/mark-six-summer-snowball-draw-to-be-held-next-tuesday-estimated-first-division-prize-fund-could-reach-50-million/>
 
 R1 and R2 exact bytes are preserved locally with SHA-256 prefixes `aa87a5d89fb0` and
 `4bbb55f07c55`. R3/R4 boundaries are corroborated by official GraphQL draw samples 2024/058 and
@@ -73,6 +83,11 @@ reviewed together; the interval remains open only as of the review date.
 - **Banker:** choose one to five bankers plus legs; every six-number combination includes every
   banker and enough legs to total six. Banker and leg numbers must be distinct (R1, R2, R6).
 
+R12 independently tabulates combination counts and costs for current Multiple and Banker entry
+sizes. R14's published example says an eight-number Multiple contains 28 combinations and, when it
+contains all six main numbers but not the Extra Number, pays one First, 12 Third, and 15 Fifth
+Division prizes. The Phase 4 closed-form model reproduces these counts exactly.
+
 ### Prize qualification
 
 | Division | Qualification | Current dividend rule | Evidence |
@@ -105,6 +120,22 @@ reviewed together; the interval remains open only as of the review date.
   the First Division jackpot of the next draw (R1, R5). The detailed reallocation sequence and
   rounding in R1 must be implemented before exact historical payout reconstruction.
 
+### Phase 4 prize-fund implementation boundary
+
+Phase 4 implements exact current calculations for the 54% Prize Fund share, fixed Division 4-7
+liability, the published Snowball Deduction, the initial 45%/15%/40% Division 1-3 allocation, the
+HKD 8 million First Division fund minimum top-up, ordinary prize sharing, and the no-winner
+reallocation/carry-forward rules in R1. Lottery Duty, Lotteries Fund contribution, commission,
+Prize Fund, Snowball Deduction, Snowball additions, carried Jackpot, and special-jackpot additions
+remain separately named values.
+
+R1 does not provide a unique adjustment algorithm for every minimum-prize conflict. Rule 3.16 also
+requires the available Snowball balance, all winning-unit information, and rateable rounding state
+when fixed prizes exceed 60% of the Prize Fund or total funds are insufficient. Rule 3.10 has special
+branches for a sole partial-unit winner, and Rule 3.17 rounds prizes down to the Unit Stake Amount.
+The standard calculator stops at these exceptional boundaries unless their complete state is
+provided; it does not guess a final dividend.
+
 The GraphQL field named `jackpot` is not equated automatically with either the Snowball Pool, the
 advertised estimate, or the final First Division fund. These remain separate source concepts.
 
@@ -136,6 +167,21 @@ explicitly a conservative upper bound, so legitimate records are not rejected us
 45→47 date. The audit retains 207 `requires_rule_research` rows: 101 draws in the 1995 source-stake
 split and 106 draws in the unresolved 1996 pool-transition year. Other partially verified periods
 are linked but do not create a false claim that all payout economics are known.
+
+### Phase 4 boundary research result
+
+Targeted searches of HKJC annual-report archives, HKJC press/anniversary material, and official
+HKSAR/LegCo material found no contemporaneous source establishing an exact 1995 stake-change draw or
+an exact 1996 pool-change draw. R4 remains the strongest formal chronology and identifies only the
+calendar years. R10 narrows what the current official results source observes, but source
+observation does not establish the policy-effective boundary: a transition could have occurred on
+an intervening non-draw date, and absence of 46/47 in one result does not prove a 45-ball pool.
+
+Accordingly, no rule-registry boundary was changed. The 1995 registry continues to resolve records
+by their source-reported stake, and the 1996 registry continues to use 47 only as a conservative
+validation upper bound. Phase 4 probability reporting presents both 6/45 and 6/47 candidates for
+1996. Historical six-division prize qualification and Extra Number mechanics also remain
+conditional because no contemporaneous formal rule text was found.
 
 ## Remaining rule research
 

@@ -25,6 +25,7 @@ class RuleVersion(BaseModel):
     extra_numbers_drawn: int = Field(ge=0)
     unit_stake_hkd_cents: int = Field(gt=0)
     unit_stake_status: Literal["verified", "source_observed"] = "verified"
+    partial_unit_stake_hkd_cents: int | None = Field(default=None, gt=0)
     prize_divisions: int = Field(gt=0)
     reported_prize_division_count: int | None = Field(default=None, gt=0)
 

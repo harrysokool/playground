@@ -4,6 +4,7 @@ import json
 import platform
 from collections import Counter
 from datetime import date
+from fractions import Fraction
 from pathlib import Path
 from typing import Annotated
 
@@ -20,8 +21,27 @@ from mark_six.dataset import (
     latest_dataset_manifest,
     validate_dataset_relationships,
 )
+from mark_six.domain.models import RuleVersion
 from mark_six.domain.rules import CURRENT_RULES, RULE_VERSIONS
 from mark_six.domain.validation import validate_draw
+from mark_six.mathematics.combinatorics import (
+    prize_outcome_odds,
+    probability_of_any_prize,
+    total_six_number_tickets,
+)
+from mark_six.mathematics.entries import (
+    banker_combination_count,
+    banker_first_division_probability,
+    banker_ticket_cost_cents,
+    multiple_combination_count,
+    multiple_first_division_probability,
+    multiple_ticket_cost_cents,
+)
+from mark_six.mathematics.reporting import (
+    write_mathematics_reports,
+    write_prize_probability_report,
+)
+from mark_six.mathematics.simulation import simulate_ticket_outcomes
 from mark_six.provenance import load_snapshot_metadata, store_http_snapshot, verify_snapshot
 from mark_six.revisions import revision_check
 from mark_six.sources.hkjc import (
@@ -40,6 +60,8 @@ app = typer.Typer(
 )
 source_app = typer.Typer(help="Inspect approved external evidence sources.")
 app.add_typer(source_app, name="source")
+mathematics_app = typer.Typer(help="Generate exact, non-predictive mathematical results.")
+app.add_typer(mathematics_app, name="mathematics")
 
 
 @app.callback()
@@ -49,6 +71,138 @@ def main() -> None:
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parents[2]
+
+
+def _fraction(value: Fraction) -> str:
+    return f"{value.numerator}/{value.denominator}"
+
+
+def _rule(rule_version_id: str) -> RuleVersion:
+    try:
+        return RULE_VERSIONS[rule_version_id]
+    except KeyError as error:
+        choices = ", ".join(sorted(RULE_VERSIONS))
+        raise typer.BadParameter(f"Unknown rule version; choose one of: {choices}") from error
+
+
+@mathematics_app.command("prize-probabilities")
+def prize_probabilities() -> None:
+    """Generate exact current and historical-candidate prize probability tables."""
+
+    project_root = _project_root()
+    report_path = write_prize_probability_report(
+        project_root / "reports" / "generated" / "prize_probabilities.md"
+    )
+    typer.echo(f"Report: {report_path.relative_to(project_root)}")
+
+
+@mathematics_app.command("odds")
+def mathematics_odds(
+    pool_size: Annotated[int, typer.Option(min=7)] = 49,
+    prize_divisions: Annotated[int, typer.Option(min=6, max=7)] = 7,
+) -> None:
+    """Show exact prize odds and the probability of any prize."""
+
+    typer.echo(f"Total combinations: {total_six_number_tickets(pool_size)}")
+    for item in prize_outcome_odds(pool_size, prize_divisions):
+        typer.echo(
+            f"{item.outcome}: count={item.winning_combinations} "
+            f"probability={_fraction(item.probability)} one_in={_fraction(item.one_in)}"
+        )
+    any_prize = probability_of_any_prize(pool_size, prize_divisions)
+    typer.echo(f"any_prize: probability={_fraction(any_prize)} one_in={_fraction(1 / any_prize)}")
+
+
+@mathematics_app.command("first-division")
+def mathematics_first_division(
+    pool_size: Annotated[int, typer.Option(min=7)] = 49,
+) -> None:
+    """Show the exact First Division probability for one ordinary ticket."""
+
+    total = total_six_number_tickets(pool_size)
+    typer.echo(f"Pool size: {pool_size}")
+    typer.echo(f"Total combinations: {total}")
+    typer.echo(f"First Division probability: 1/{total}")
+
+
+@mathematics_app.command("multiple")
+def mathematics_multiple(
+    selections: Annotated[int, typer.Option(min=7, max=49)],
+    pool_size: Annotated[int, typer.Option(min=7, max=49)] = 49,
+    partial_unit: bool = typer.Option(False, help="Use the verified partial unit where allowed."),
+    rule_version_id: str = typer.Option(CURRENT_RULES.rule_version_id),
+) -> None:
+    """Inspect a Multiple entry's combinations, cost, and First Division coverage."""
+
+    if selections > pool_size:
+        raise typer.BadParameter("selections cannot exceed pool-size")
+    rule = _rule(rule_version_id)
+    count = multiple_combination_count(selections)
+    cost = multiple_ticket_cost_cents(selections, rule, partial_unit=partial_unit)
+    probability = multiple_first_division_probability(selections, pool_size)
+    typer.echo(f"Rule version: {rule.rule_version_id}")
+    typer.echo(f"Combinations: {count}")
+    typer.echo(f"Cost cents: {cost}")
+    typer.echo(f"First Division probability: {_fraction(probability)}")
+
+
+@mathematics_app.command("banker")
+def mathematics_banker(
+    bankers: Annotated[int, typer.Option(min=1, max=5)],
+    legs: Annotated[int, typer.Option(min=2, max=48)],
+    pool_size: Annotated[int, typer.Option(min=7, max=49)] = 49,
+    partial_unit: bool = typer.Option(False, help="Use the verified partial unit where allowed."),
+    rule_version_id: str = typer.Option(CURRENT_RULES.rule_version_id),
+) -> None:
+    """Inspect a Banker entry's combinations, cost, and First Division coverage."""
+
+    if bankers + legs > pool_size:
+        raise typer.BadParameter("bankers plus legs cannot exceed pool-size")
+    rule = _rule(rule_version_id)
+    count = banker_combination_count(bankers, legs)
+    cost = banker_ticket_cost_cents(bankers, legs, rule, partial_unit=partial_unit)
+    probability = banker_first_division_probability(bankers, legs, pool_size)
+    typer.echo(f"Rule version: {rule.rule_version_id}")
+    typer.echo(f"Combinations: {count}")
+    typer.echo(f"Cost cents: {cost}")
+    typer.echo(f"First Division probability: {_fraction(probability)}")
+
+
+@mathematics_app.command("simulate")
+def mathematics_simulate(
+    trials: Annotated[int, typer.Option(min=1, max=10_000_000)] = 100_000,
+    seed: int = 20260913,
+    pool_size: Annotated[int, typer.Option(min=7, max=49)] = 49,
+    prize_divisions: Annotated[int, typer.Option(min=6, max=7)] = 7,
+) -> None:
+    """Run a seeded fair-draw simulation as an independent exact-math check."""
+
+    result = simulate_ticket_outcomes(
+        pool_size=pool_size,
+        prize_divisions=prize_divisions,
+        trials=trials,
+        seed=seed,
+        ticket=(1, 2, 3, 4, 5, 6),
+    )
+    typer.echo(f"Evidence: {result.evidence_type}")
+    typer.echo(f"Trials: {result.trials}")
+    typer.echo(f"Seed: {result.seed}")
+    for item in result.comparisons:
+        typer.echo(
+            f"{item.outcome}: observed={item.observed_count} "
+            f"estimated={_fraction(item.estimated_probability)} "
+            f"exact={_fraction(item.exact_probability)} "
+            f"within_tolerance={str(item.within_tolerance).lower()}"
+        )
+
+
+@mathematics_app.command("reports")
+def mathematics_reports() -> None:
+    """Generate all deterministic Phase 4 mathematics reports."""
+
+    project_root = _project_root()
+    for path in write_mathematics_reports(project_root):
+        typer.echo(f"Report: {path.relative_to(project_root)}")
 
 
 @app.command()

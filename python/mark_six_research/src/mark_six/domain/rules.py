@@ -14,6 +14,7 @@ CURRENT_RULES = RuleVersion(
     main_numbers_drawn=6,
     extra_numbers_drawn=1,
     unit_stake_hkd_cents=1_000,
+    partial_unit_stake_hkd_cents=500,
     prize_divisions=7,
     reported_prize_division_count=7,
 )
@@ -28,6 +29,7 @@ RULES_2010_PARTIAL = RuleVersion(
     main_numbers_drawn=6,
     extra_numbers_drawn=1,
     unit_stake_hkd_cents=1_000,
+    partial_unit_stake_hkd_cents=500,
     prize_divisions=7,
     reported_prize_division_count=7,
 )

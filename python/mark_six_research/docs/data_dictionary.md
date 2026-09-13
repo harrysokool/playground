@@ -1,6 +1,6 @@
 # Canonical Data Dictionary
 
-**Status:** implemented for the Phase 3 canonical development dataset  
+**Status:** Phase 3 canonical schema frozen; Phase 4 rule-model extension documented
 **Schema version:** 2
 
 The seven Phase 3 publication tables below describe implemented Parquet/DuckDB fields; later strategy
@@ -160,12 +160,15 @@ later be normalized into child tables rather than embedded as opaque text.
 | `extra_numbers_selected` | Count of Extra Numbers drawn | int16 | no | `1` | Official rules for interval |
 | `unit_stake_hkd_cents` | Cost of one unit stake | int64 | no | `1000` | Official rules converted to cents |
 | `unit_stake_status` | `verified` or `source_observed` | string enum | no | `verified` | Boundary evidence status |
+| `partial_unit_stake_hkd_cents` | Permitted partial-unit cost for Multiple/Banker, if verified | int64 | yes | `500` | Official rules converted to cents; null means not established for the interval |
 | `prize_division_count` | Number of defined prize divisions | int16 | no | `7` | Official rules for interval |
 | `reported_prize_division_count` | Expected divisions in the GraphQL result when verified | int16 | yes | `7` | Source contract and rule evidence |
 
-Prize qualification, allocation, minimums, rollovers, Banker, and Multiple rules require normalized
-child tables before probability work. Phase 2 verified their current meaning; physical child schemas
-remain a Phase 3 design task and must retain exact formulas rather than opaque prose.
+Prize qualification, allocation, minimums, rollovers, Banker, and Multiple rules may require
+normalized child tables in a later canonical schema. Phase 4 represents the verified current
+mathematics in tested code and exact formula documentation rather than embedding opaque prose in
+the Phase 3 dataset. Adding `partial_unit_stake_hkd_cents` to a future build schema does not mutate
+or republish the frozen `marksix-bc02467ec951c2d8` baseline.
 
 ## `source_records`
 
