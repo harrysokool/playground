@@ -9,7 +9,8 @@ evidence of predictive advantage unless it survives the pre-specified out-of-sam
 
 ## Current scope
 
-Phase 6 adds preregistered, leakage-resistant walk-forward forecasting to the frozen Phase 3 provenance-linked
+Phase 7 adds a one-time independent historical replication of the preregistered,
+leakage-resistant Phase 6 walk-forward forecasting family to the frozen Phase 3 provenance-linked
 development dataset from the measured populated coverage of
 the official structured endpoint: draw 93/001 (1993-01-05) through draw 26/099 (2026-09-12). It
 includes immutable raw evidence, rule-aware parsing, classified validation, versioned Parquet,
@@ -22,9 +23,13 @@ main and Extra Number frequencies, exact composition and overlap laws, sums, con
 gaps, pairs, preregistered triple maxima, serial dependence, and fixed-block stability against matched
 fair-history simulations. Phase 6 evaluates a deliberately small fixed family of generic historical
 models against the uniform baseline using exact whole-set probabilities, proper scores, paired
-sequential inference, and 500 complete fair-process simulations. The final 676 eligible 6/49 rows
-remain a metadata-only Phase 7 historical reserve. This phase does not analyse tickets, returns,
-prizes, jackpots, payouts, the prospective holdout, or any Phase 7 outcome.
+sequential inference, and 500 complete fair-process simulations. Phase 7 opened the final 676
+eligible 6/49 rows exactly once through a controlled path after freezing the protocol and passing
+the pre-opening quality gate. Every non-uniform model again had a negative mean primary log-score
+difference, so the negative Phase 6 conclusion replicated; no model met the conjunctive success
+criteria. The reserve manifest remains metadata-only, while the reserve is now consumed for
+confirmatory purposes. This phase does not analyse tickets, returns, prizes, jackpots, payouts, or
+the prospective holdout, which remains sealed with zero entries.
 
 ## Requirements
 
@@ -73,6 +78,10 @@ uv run mark-six predict models
 uv run mark-six predict run
 uv run mark-six predict report
 uv run mark-six predict verify
+uv run mark-six replicate run
+uv run mark-six replicate verify
+uv run mark-six replicate report
+uv run mark-six replicate compare
 ```
 
 `ingest` is resumable and reuses exact, hash-valid, structurally valid cached windows. Development
@@ -124,3 +133,13 @@ population. It creates 2,450 sequential forecasts after a 250-draw warm-up and v
 outcome-free 676-row Phase 7 reserve before running. Generated forecasts, diagnostics, simulation
 calibration, report, and manifest remain ignored artifacts; `mark-six predict verify` recomputes
 their hashes and all upstream integrity checks.
+
+The frozen Phase 7 opening rules, unchanged candidate family, independent inference, fair-history
+calibration, and conjunctive success criteria are in
+[`docs/decisions/0007_historical_replication_protocol.md`](docs/decisions/0007_historical_replication_protocol.md).
+`mark-six replicate run` uses all 2,700 eligible pre-reserve draws to initialize model state, then
+scores all 676 reserve targets strictly sequentially in four fixed blocks of 169. The generated
+report is `reports/generated/historical_replication.md`; supporting tables are under
+`reports/generated/phase7/`, and `mark-six replicate verify` validates the self-hashed analysis
+manifest plus all 11 recorded output hashes. Phase 6 and Phase 7 are compared independently rather
+than pooled. The consumed reserve must not be used to tune another confirmatory model.

@@ -5,6 +5,7 @@ from typer.testing import CliRunner
 
 from mark_six.cli import app
 from mark_six.prediction.analysis import PredictionRunResult
+from mark_six.replication.models import ReplicationRunResult
 from mark_six.statistics.analysis import AnalysisRunResult
 
 runner = CliRunner()
@@ -16,7 +17,7 @@ def test_info_command_starts_and_reports_environment() -> None:
     assert result.exit_code == 0
     assert "Project: Hong Kong Mark Six Research" in result.stdout
     assert "Python: 3.12." in result.stdout
-    assert "Status: phase_6_predictive_signal_testing" in result.stdout
+    assert "Status: phase_7_historical_replication" in result.stdout
 
 
 def test_probability_report_command(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -172,3 +173,45 @@ def test_prediction_run_reports_registered_scope(
     assert "Candidate models: 11" in result.stdout
     assert "Fair histories: 500" in result.stdout
     assert "Primary predictive signal: false" in result.stdout
+
+
+def test_replication_run_reports_registered_scope(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    report = tmp_path / "reports" / "generated" / "historical_replication.md"
+    manifest = tmp_path / "reports" / "generated" / "phase7_analysis_manifest.json"
+    monkeypatch.setattr("mark_six.cli._project_root", lambda: tmp_path)
+    monkeypatch.setattr(
+        "mark_six.replication.runner.run_historical_replication",
+        lambda _root: ReplicationRunResult(
+            report_path=report,
+            manifest_path=manifest,
+            output_directory=report.parent / "phase7",
+            reserve_draws=676,
+            candidate_models=11,
+            simulation_histories=500,
+            selected_best_model="gap_due",
+            successful_models=(),
+            phase6_conclusion_replicated=True,
+        ),
+    )
+
+    result = runner.invoke(app, ["replicate", "run"])
+
+    assert result.exit_code == 0, result.stdout
+    assert "Reserve draws: 676" in result.stdout
+    assert "Candidate models: 11" in result.stdout
+    assert "Fair histories: 500" in result.stdout
+    assert "Phase 6 conclusion replicated: true" in result.stdout
+
+
+def test_replication_inspection_commands_require_generated_outputs(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("mark_six.cli._project_root", lambda: tmp_path)
+
+    for command in ("report", "compare"):
+        result = runner.invoke(app, ["replicate", command])
+        assert result.exit_code != 0
+        assert "Phase 7" in result.stderr
+        assert "absent" in result.stderr

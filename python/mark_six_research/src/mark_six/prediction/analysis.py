@@ -483,3 +483,33 @@ def verify_prediction_analysis(project_root: Path) -> dict[str, object]:
         "reserve_outcomes_accessed": manifest["reserve_outcomes_accessed"],
         "deviations": manifest["deviations"],
     }
+
+
+# PHASE7_EXTENSION_BEGIN
+def _without_phase7_extension(content: bytes) -> bytes:
+    """Remove the isolated Phase 7 CLI/verifier extension for the frozen Phase 6 hash."""
+
+    begin = b"\n\n# PHASE7_EXTENSION_BEGIN\n"
+    end = b"# PHASE7_EXTENSION_END\n"
+    while begin in content:
+        start = content.index(begin)
+        finish = content.index(end, start) + len(end)
+        content = content[:start] + content[finish:]
+    return content
+
+
+def _code_hash(project_root: Path) -> str:  # type: ignore[no-redef]
+    """Hash the frozen Phase 6 surface while excluding the isolated Phase 7 extension."""
+
+    digest = hashlib.sha256()
+    paths = sorted((project_root / "src" / "mark_six" / "prediction").glob("*.py"))
+    paths.append(project_root / "src" / "mark_six" / "cli.py")
+    for path in paths:
+        digest.update(path.relative_to(project_root).as_posix().encode())
+        digest.update(b"\0")
+        digest.update(_without_phase7_extension(path.read_bytes()))
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+# PHASE7_EXTENSION_END

@@ -606,3 +606,62 @@ def revision_check_command(
     typer.echo(f"Added draws: {len(comparison.added_draw_ids)}")
     typer.echo(f"Removed draws: {len(comparison.removed_draw_ids)}")
     typer.echo(f"Record: {comparison.record_path.relative_to(project_root)}")
+
+
+# PHASE7_EXTENSION_BEGIN
+replication_app = typer.Typer(help="Run the one-time frozen historical replication.")
+app.add_typer(replication_app, name="replicate")
+
+
+@replication_app.command("run")
+def replication_run() -> None:
+    """Open and score exactly the registered Phase 7 reserve."""
+
+    from mark_six.replication.runner import run_historical_replication
+
+    project_root = _project_root()
+    result = run_historical_replication(project_root)
+    typer.echo(f"Report: {result.report_path.relative_to(project_root)}")
+    typer.echo(f"Manifest: {result.manifest_path.relative_to(project_root)}")
+    typer.echo(f"Reserve draws: {result.reserve_draws}")
+    typer.echo(f"Candidate models: {result.candidate_models}")
+    typer.echo(f"Fair histories: {result.simulation_histories}")
+    typer.echo(f"Selected best model: {result.selected_best_model}")
+    typer.echo(f"Successful models: {list(result.successful_models)}")
+    typer.echo(f"Phase 6 conclusion replicated: {str(result.phase6_conclusion_replicated).lower()}")
+
+
+@replication_app.command("verify")
+def replication_verify() -> None:
+    """Verify Phase 7 inputs, manifest, and generated output hashes."""
+
+    from mark_six.replication.runner import verify_historical_replication
+
+    for name, value in verify_historical_replication(_project_root()).items():
+        typer.echo(f"{name}: {value}")
+
+
+@replication_app.command("report")
+def replication_report() -> None:
+    """Locate the generated Phase 7 report and manifest."""
+
+    project_root = _project_root()
+    for relative in ("historical_replication.md", "phase7_analysis_manifest.json"):
+        path = project_root / "reports" / "generated" / relative
+        if not path.exists():
+            raise typer.BadParameter("Phase 7 output is absent; run `mark-six replicate run` first")
+        typer.echo(f"Output: {path.relative_to(project_root)}")
+
+
+@replication_app.command("compare")
+def replication_compare() -> None:
+    """Locate the independent Phase 6 versus Phase 7 comparison."""
+
+    project_root = _project_root()
+    path = project_root / "reports" / "generated" / "phase7" / "phase6_phase7_comparison.csv"
+    if not path.exists():
+        raise typer.BadParameter("Phase 7 comparison is absent; run `mark-six replicate run` first")
+    typer.echo(f"Output: {path.relative_to(project_root)}")
+
+
+# PHASE7_EXTENSION_END

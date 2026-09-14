@@ -12,4 +12,6 @@ a parser change produces a new derived artifact linked to the original content h
 
 The Phase 7 historical prediction reserve manifest is intentionally different from downloaded or
 processed data: it is small, versioned metadata containing only draw identifiers, dates, rule IDs,
-and sealed status. Winning numbers and other outcomes are prohibited from reserve manifests.
+and its original sealed status. Winning numbers and other outcomes are prohibited from reserve
+manifests. Phase 7 consumed those outcomes exactly once through the controlled canonical-dataset
+join; the manifest itself remains unchanged and outcome-free and is not a new development set.

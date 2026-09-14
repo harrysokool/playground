@@ -1,0 +1,107 @@
+analysis_version: "phase7-v1"
+protocol_version: "phase7-historical-replication-v1"
+baseline_commit: "c872af8a31217862e371eedd5dad8a4298e2319b"
+dataset_id: "marksix-bc02467ec951c2d8"
+dataset_manifest_sha256: "fcfdb77b153e7fc0d48b734c55cb400235108f574547163dcb474df564a76abf"
+phase6_manifest_path: "reports/generated/phase6_analysis_manifest.json"
+phase6_manifest_sha256: "2ed722e70bd86a99677a933206d6c2490cd0fdbc4e707307ed147203f235a74d"
+phase6_config_path: "configs/phase6_prediction.yaml"
+protocol_path: "docs/decisions/0007_historical_replication_protocol.md"
+reserve_manifest_path: "data/reserves/phase7_historical_reserve.json"
+reserve_manifest_sha256: "a874730ca6b8c14458745a7206f11983331b63452ce12941006a3caa24e3908b"
+initial_history_draws: 2700
+history_first_draw_id: "hkjc:02/053"
+history_start_date: "2002-07-03"
+initial_history_final_draw_id: "hkjc:21/077"
+initial_history_final_date: "2021-09-05"
+reserve:
+  period_id: "phase7_historical_reserve"
+  pool_size: 49
+  draw_count: 676
+  first_draw_id: "hkjc:21/078"
+  first_draw_date: "2021-09-07"
+  final_draw_id: "hkjc:26/099"
+  final_draw_date: "2026-09-12"
+models:
+  - name: "uniform"
+    kind: "uniform"
+    version: "v1"
+  - name: "expanding_frequency"
+    kind: "expanding_frequency"
+    version: "v1"
+    smoothing: 1.0
+  - name: "rolling_frequency_25"
+    kind: "rolling_frequency"
+    version: "v1"
+    window: 25
+    smoothing: 1.0
+  - name: "rolling_frequency_100"
+    kind: "rolling_frequency"
+    version: "v1"
+    window: 100
+    smoothing: 1.0
+  - name: "rolling_frequency_250"
+    kind: "rolling_frequency"
+    version: "v1"
+    window: 250
+    smoothing: 1.0
+  - name: "exponential_frequency_25"
+    kind: "exponential_frequency"
+    version: "v1"
+    half_life: 25.0
+    smoothing: 1.0
+  - name: "exponential_frequency_100"
+    kind: "exponential_frequency"
+    version: "v1"
+    half_life: 100.0
+    smoothing: 1.0
+  - name: "gap_due"
+    kind: "gap_due"
+    version: "v1"
+    half_life: 25.0
+    multiplier: 0.5
+  - name: "recent_appearance"
+    kind: "recent_appearance"
+    version: "v1"
+    half_life: 25.0
+    multiplier: 0.5
+  - name: "previous_draw_repeat"
+    kind: "previous_draw_multiplier"
+    version: "v1"
+    multiplier: 1.2
+  - name: "previous_draw_avoidance"
+    kind: "previous_draw_multiplier"
+    version: "v1"
+    multiplier: 0.8
+primary_metric: "whole_set_log_probability_nats"
+secondary_metrics:
+  - "marginal_brier_score"
+  - "brier_skill_vs_uniform"
+  - "top_six_hits"
+  - "mean_observed_rank"
+  - "fixed_bin_marginal_calibration"
+inference:
+  alpha: 0.05
+  correction: "holm"
+  bootstrap_seed: 2026091404
+  bootstrap_replicates: 2000
+  moving_block_length: 25
+simulation:
+  root_seed: 2026091403
+  histories: 500
+  total_draws: 3376
+  scored_draws: 676
+  batch_size: 25
+calibration:
+  probability_edges: [0.0, 0.08, 0.10, 0.115, 0.12244897959183673, 0.13, 0.145, 0.17, 1.0]
+stability:
+  blocks: 4
+  draws_per_block: 169
+success_criteria:
+  minimum_mean_log_improvement_nats: 0.001
+  require_confidence_interval_lower_above_zero: true
+  maximum_adjusted_p_value: 0.05
+  maximum_family_wide_p_value: 0.05
+  maximum_ece: 0.025
+  minimum_nonnegative_blocks: 3
+  minimum_block_mean_log_improvement_nats: -0.005
