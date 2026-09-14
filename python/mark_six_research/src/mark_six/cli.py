@@ -52,6 +52,7 @@ from mark_six.sources.hkjc import (
     fetch_recent_draws,
 )
 from mark_six.sources.hkjc_parser import parse_hkjc_payload
+from mark_six.statistics.analysis import run_randomness_analysis
 
 app = typer.Typer(
     name="mark-six",
@@ -62,6 +63,8 @@ source_app = typer.Typer(help="Inspect approved external evidence sources.")
 app.add_typer(source_app, name="source")
 mathematics_app = typer.Typer(help="Generate exact, non-predictive mathematical results.")
 app.add_typer(mathematics_app, name="mathematics")
+statistics_app = typer.Typer(help="Run preregistered, non-predictive randomness tests.")
+app.add_typer(statistics_app, name="stats")
 
 
 @app.callback()
@@ -203,6 +206,83 @@ def mathematics_reports() -> None:
     project_root = _project_root()
     for path in write_mathematics_reports(project_root):
         typer.echo(f"Report: {path.relative_to(project_root)}")
+
+
+@statistics_app.command("run")
+def statistics_run(
+    seed: int | None = typer.Option(
+        None, help="Deterministic root seed; default is preregistered."
+    ),
+    simulations: Annotated[
+        int | None, typer.Option(min=1, help="Fair histories per period; default is preregistered.")
+    ] = None,
+) -> None:
+    """Run the complete frozen Phase 5 analysis against development data only."""
+
+    project_root = _project_root()
+    result = run_randomness_analysis(project_root, seed=seed, simulations=simulations)
+    typer.echo(f"Report: {result.report_path.relative_to(project_root)}")
+    typer.echo(f"Manifest: {result.manifest_path.relative_to(project_root)}")
+    typer.echo(f"Included draws: {result.included_draws}")
+    typer.echo(f"Excluded draws: {result.excluded_draws}")
+    typer.echo(
+        f"Confirmatory hypotheses: {result.individual_hypotheses + result.omnibus_hypotheses}"
+    )
+    typer.echo(f"Raw significant findings: {result.raw_significant}")
+    typer.echo(f"Corrected significant findings: {result.corrected_significant}")
+    typer.echo(f"Meaningful fair-null deviations: {len(result.inconsistent_findings)}")
+
+
+def _show_statistics_output(relative_path: str) -> None:
+    project_root = _project_root()
+    path = project_root / "reports" / "generated" / relative_path
+    if not path.exists():
+        raise typer.BadParameter("Phase 5 output is absent; run `mark-six stats run` first")
+    typer.echo(f"Output: {path.relative_to(project_root)}")
+
+
+@statistics_app.command("frequencies")
+def statistics_frequencies() -> None:
+    """Locate the generated main and Extra Number frequency tables."""
+
+    _show_statistics_output("phase5/number_frequencies.csv")
+    _show_statistics_output("phase5/extra_number_frequencies.csv")
+
+
+@statistics_app.command("composition")
+def statistics_composition() -> None:
+    """Locate the generated odd/even and low/high table."""
+
+    _show_statistics_output("phase5/composition.csv")
+
+
+@statistics_app.command("overlap")
+def statistics_overlap() -> None:
+    """Locate the generated consecutive-draw overlap table."""
+
+    _show_statistics_output("phase5/draw_overlap.csv")
+
+
+@statistics_app.command("gaps")
+def statistics_gaps() -> None:
+    """Locate the generated number appearance-gap table."""
+
+    _show_statistics_output("phase5/gap_behavior.csv")
+
+
+@statistics_app.command("pairs")
+def statistics_pairs() -> None:
+    """Locate the corrected pair-frequency table."""
+
+    _show_statistics_output("phase5/pair_statistics.csv")
+
+
+@statistics_app.command("report")
+def statistics_report() -> None:
+    """Locate the generated main randomness report and analysis manifest."""
+
+    _show_statistics_output("randomness_analysis.md")
+    _show_statistics_output("phase5_analysis_manifest.json")
 
 
 @app.command()

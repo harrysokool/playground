@@ -9,16 +9,19 @@ evidence of predictive advantage unless it survives the pre-specified out-of-sam
 
 ## Current scope
 
-Phase 4 adds exact, rule-versioned combinatorics to the frozen Phase 3 provenance-linked development
-dataset from the measured populated coverage of
+Phase 5 adds preregistered, rule-aware randomness testing to the frozen Phase 3 provenance-linked
+development dataset from the measured populated coverage of
 the official structured endpoint: draw 93/001 (1993-01-05) through draw 26/099 (2026-09-12). It
 includes immutable raw evidence, rule-aware parsing, classified validation, versioned Parquet,
 DuckDB views, reproducible reports, and a sealed prospective-holdout guard. It does not claim that
 Mark Six began in 1993; preserved empty queries show only that this endpoint's populated coverage
-begins there. The mathematical layer covers ordinary, Multiple, Banker, full-unit, and permitted
+begins there. The Phase 4 mathematical layer covers ordinary, Multiple, Banker, full-unit, and permitted
 partial-unit entries using integers and rational fractions. It keeps the unresolved 1996 pool
-boundary explicit and separates prize probabilities from variable payouts. No number-selection
-strategies, pattern exploration, prediction, or backtesting are part of Phase 4.
+boundary explicit and separates prize probabilities from variable payouts. Phase 5 separately tests
+main and Extra Number frequencies, exact composition and overlap laws, sums, consecutive behavior,
+gaps, pairs, preregistered triple maxima, serial dependence, and fixed-block stability against matched
+fair-history simulations. No number-selection strategies, prediction, or backtesting are part of
+Phase 5.
 
 ## Requirements
 
@@ -56,6 +59,13 @@ uv run mark-six mathematics banker --bankers 2 --legs 5
 uv run mark-six mathematics first-division --pool-size 47
 uv run mark-six mathematics simulate --trials 100000 --seed 20260913
 uv run mark-six mathematics reports
+uv run mark-six stats run
+uv run mark-six stats frequencies
+uv run mark-six stats composition
+uv run mark-six stats overlap
+uv run mark-six stats gaps
+uv run mark-six stats pairs
+uv run mark-six stats report
 ```
 
 `ingest` is resumable and reuses exact, hash-valid, structurally valid cached windows. Development
@@ -91,3 +101,10 @@ entry model. The reproducible generated output is
 [`reports/generated/prize_probabilities.md`](reports/generated/prize_probabilities.md),
 [`reports/generated/current_game_mathematics.md`](reports/generated/current_game_mathematics.md),
 and [`reports/generated/expected_value_foundation.md`](reports/generated/expected_value_foundation.md).
+
+The frozen Phase 5 test family is in
+[`docs/decisions/0005-randomness-testing-protocol.md`](docs/decisions/0005-randomness-testing-protocol.md).
+`mark-six stats run` verifies the dataset and holdout before generating
+[`reports/generated/randomness_analysis.md`](reports/generated/randomness_analysis.md), supporting
+CSV tables, and a hash-linked Phase 5 analysis manifest. Statistical results are descriptive and
+confirmatory under the protocol; they do not imply that future draws are predictable.
