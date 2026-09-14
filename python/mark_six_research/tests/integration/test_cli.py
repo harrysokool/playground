@@ -4,6 +4,7 @@ import pytest
 from typer.testing import CliRunner
 
 from mark_six.cli import app
+from mark_six.prediction.analysis import PredictionRunResult
 from mark_six.statistics.analysis import AnalysisRunResult
 
 runner = CliRunner()
@@ -15,7 +16,7 @@ def test_info_command_starts_and_reports_environment() -> None:
     assert result.exit_code == 0
     assert "Project: Hong Kong Mark Six Research" in result.stdout
     assert "Python: 3.12." in result.stdout
-    assert "Status: phase_5_randomness_testing" in result.stdout
+    assert "Status: phase_6_predictive_signal_testing" in result.stdout
 
 
 def test_probability_report_command(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -132,3 +133,42 @@ def test_statistics_inspection_commands_require_generated_outputs(
 
     assert result.exit_code != 0
     assert "run `mark-six stats run` first" in result.stderr
+
+
+def test_prediction_models_lists_frozen_pair_free_family() -> None:
+    result = runner.invoke(app, ["predict", "models"])
+
+    assert result.exit_code == 0, result.stdout
+    assert "Protocol: phase6-predictive-signal-v1" in result.stdout
+    assert result.stdout.count('"name"') == 11
+    assert '"name": "uniform"' in result.stdout
+    assert "2-26" not in result.stdout
+
+
+def test_prediction_run_reports_registered_scope(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    report = tmp_path / "reports" / "generated" / "predictive_signal_analysis.md"
+    manifest = tmp_path / "reports" / "generated" / "phase6_analysis_manifest.json"
+    monkeypatch.setattr("mark_six.cli._project_root", lambda: tmp_path)
+    monkeypatch.setattr(
+        "mark_six.cli.run_predictive_analysis",
+        lambda _root: PredictionRunResult(
+            report_path=report,
+            manifest_path=manifest,
+            output_directory=report.parent / "phase6",
+            primary_scored_draws=2450,
+            candidate_models=11,
+            simulation_histories=500,
+            selected_best_model="gap_due",
+            primary_signal=False,
+        ),
+    )
+
+    result = runner.invoke(app, ["predict", "run"])
+
+    assert result.exit_code == 0, result.stdout
+    assert "Primary scored draws: 2450" in result.stdout
+    assert "Candidate models: 11" in result.stdout
+    assert "Fair histories: 500" in result.stdout
+    assert "Primary predictive signal: false" in result.stdout

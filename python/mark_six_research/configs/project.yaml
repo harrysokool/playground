@@ -1,7 +1,7 @@
 schema_version: "1"
 project_name: "Hong Kong Mark Six Research"
 project_slug: "mark-six-research"
-status: "phase_5_randomness_testing"
+status: "phase_6_predictive_signal_testing"
 timezone: "Asia/Hong_Kong"
 currency: "HKD"
 random_seed: 20260913

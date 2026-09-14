@@ -1,0 +1,103 @@
+analysis_version: "phase6-v1"
+protocol_version: "phase6-predictive-signal-v1"
+dataset_id: "marksix-bc02467ec951c2d8"
+dataset_manifest_sha256: "fcfdb77b153e7fc0d48b734c55cb400235108f574547163dcb474df564a76abf"
+baseline_commit: "e8382a4ff8cab319725316f597f1005dfa343d6a"
+protocol_path: "docs/decisions/0006_predictive_signal_protocol.md"
+reserve_manifest_path: "data/reserves/phase7_historical_reserve.json"
+primary:
+  period_id: "pool49_primary"
+  start: "2002-07-03"
+  end: "2026-09-12"
+  pool_size: 49
+  population_draws: 3376
+  phase6_draws: 2700
+  reserve_draws: 676
+  warmup_draws: 250
+  scored_draws: 2450
+secondary:
+  warmup_draws: 100
+  periods:
+    - period_id: "pool45_replication"
+      start: "1993-01-01"
+      end: "1995-12-31"
+      pool_size: 45
+    - period_id: "pool47_replication"
+      start: "1997-01-01"
+      end: "2002-07-02"
+      pool_size: 47
+excluded:
+  start: "1996-01-01"
+  end: "1996-12-31"
+  reason: "unresolved 45-to-47 pool transition"
+models:
+  - name: "uniform"
+    kind: "uniform"
+    version: "v1"
+  - name: "expanding_frequency"
+    kind: "expanding_frequency"
+    version: "v1"
+    smoothing: 1.0
+  - name: "rolling_frequency_25"
+    kind: "rolling_frequency"
+    version: "v1"
+    window: 25
+    smoothing: 1.0
+  - name: "rolling_frequency_100"
+    kind: "rolling_frequency"
+    version: "v1"
+    window: 100
+    smoothing: 1.0
+  - name: "rolling_frequency_250"
+    kind: "rolling_frequency"
+    version: "v1"
+    window: 250
+    smoothing: 1.0
+  - name: "exponential_frequency_25"
+    kind: "exponential_frequency"
+    version: "v1"
+    half_life: 25.0
+    smoothing: 1.0
+  - name: "exponential_frequency_100"
+    kind: "exponential_frequency"
+    version: "v1"
+    half_life: 100.0
+    smoothing: 1.0
+  - name: "gap_due"
+    kind: "gap_due"
+    version: "v1"
+    half_life: 25.0
+    multiplier: 0.5
+  - name: "recent_appearance"
+    kind: "recent_appearance"
+    version: "v1"
+    half_life: 25.0
+    multiplier: 0.5
+  - name: "previous_draw_repeat"
+    kind: "previous_draw_multiplier"
+    version: "v1"
+    multiplier: 1.2
+  - name: "previous_draw_avoidance"
+    kind: "previous_draw_multiplier"
+    version: "v1"
+    multiplier: 0.8
+inference:
+  alpha: 0.05
+  correction: "holm"
+  bootstrap_seed: 2026091402
+  bootstrap_replicates: 2000
+  moving_block_length: 25
+simulation:
+  root_seed: 2026091401
+  histories: 500
+  batch_size: 25
+calibration:
+  probability_edges: [0.0, 0.08, 0.10, 0.115, 0.12244897959183673, 0.13, 0.145, 0.17, 1.0]
+stability_blocks: 4
+success_criteria:
+  minimum_mean_log_improvement_nats: 0.001
+  maximum_adjusted_p_value: 0.05
+  maximum_family_wide_p_value: 0.05
+  maximum_ece: 0.025
+  minimum_nonnegative_blocks: 3
+  minimum_block_mean_log_improvement_nats: -0.005

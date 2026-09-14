@@ -9,7 +9,7 @@ evidence of predictive advantage unless it survives the pre-specified out-of-sam
 
 ## Current scope
 
-Phase 5 adds preregistered, rule-aware randomness testing to the frozen Phase 3 provenance-linked
+Phase 6 adds preregistered, leakage-resistant walk-forward forecasting to the frozen Phase 3 provenance-linked
 development dataset from the measured populated coverage of
 the official structured endpoint: draw 93/001 (1993-01-05) through draw 26/099 (2026-09-12). It
 includes immutable raw evidence, rule-aware parsing, classified validation, versioned Parquet,
@@ -20,8 +20,11 @@ partial-unit entries using integers and rational fractions. It keeps the unresol
 boundary explicit and separates prize probabilities from variable payouts. Phase 5 separately tests
 main and Extra Number frequencies, exact composition and overlap laws, sums, consecutive behavior,
 gaps, pairs, preregistered triple maxima, serial dependence, and fixed-block stability against matched
-fair-history simulations. No number-selection strategies, prediction, or backtesting are part of
-Phase 5.
+fair-history simulations. Phase 6 evaluates a deliberately small fixed family of generic historical
+models against the uniform baseline using exact whole-set probabilities, proper scores, paired
+sequential inference, and 500 complete fair-process simulations. The final 676 eligible 6/49 rows
+remain a metadata-only Phase 7 historical reserve. This phase does not analyse tickets, returns,
+prizes, jackpots, payouts, the prospective holdout, or any Phase 7 outcome.
 
 ## Requirements
 
@@ -66,6 +69,10 @@ uv run mark-six stats overlap
 uv run mark-six stats gaps
 uv run mark-six stats pairs
 uv run mark-six stats report
+uv run mark-six predict models
+uv run mark-six predict run
+uv run mark-six predict report
+uv run mark-six predict verify
 ```
 
 `ingest` is resumable and reuses exact, hash-valid, structurally valid cached windows. Development
@@ -108,3 +115,12 @@ The frozen Phase 5 test family is in
 [`reports/generated/randomness_analysis.md`](reports/generated/randomness_analysis.md), supporting
 CSV tables, and a hash-linked Phase 5 analysis manifest. Statistical results are descriptive and
 confirmatory under the protocol; they do not imply that future draws are predictable.
+
+The frozen Phase 6 forecast family, split, scoring rules, inference method, seeds, and conjunctive
+success criteria are in
+[`docs/decisions/0006_predictive_signal_protocol.md`](docs/decisions/0006_predictive_signal_protocol.md).
+`mark-six predict run` can access only the first 2,700 rows of the 3,376-draw primary 6/49
+population. It creates 2,450 sequential forecasts after a 250-draw warm-up and verifies the
+outcome-free 676-row Phase 7 reserve before running. Generated forecasts, diagnostics, simulation
+calibration, report, and manifest remain ignored artifacts; `mark-six predict verify` recomputes
+their hashes and all upstream integrity checks.

@@ -42,6 +42,8 @@ from mark_six.mathematics.reporting import (
     write_prize_probability_report,
 )
 from mark_six.mathematics.simulation import simulate_ticket_outcomes
+from mark_six.prediction.analysis import run_predictive_analysis, verify_prediction_analysis
+from mark_six.prediction.models import load_prediction_config
 from mark_six.provenance import load_snapshot_metadata, store_http_snapshot, verify_snapshot
 from mark_six.revisions import revision_check
 from mark_six.sources.hkjc import (
@@ -65,6 +67,8 @@ mathematics_app = typer.Typer(help="Generate exact, non-predictive mathematical 
 app.add_typer(mathematics_app, name="mathematics")
 statistics_app = typer.Typer(help="Run preregistered, non-predictive randomness tests.")
 app.add_typer(statistics_app, name="stats")
+prediction_app = typer.Typer(help="Run preregistered walk-forward predictive-signal tests.")
+app.add_typer(prediction_app, name="predict")
 
 
 @app.callback()
@@ -239,6 +243,54 @@ def _show_statistics_output(relative_path: str) -> None:
     if not path.exists():
         raise typer.BadParameter("Phase 5 output is absent; run `mark-six stats run` first")
     typer.echo(f"Output: {path.relative_to(project_root)}")
+
+
+@prediction_app.command("run")
+def prediction_run() -> None:
+    """Run the complete frozen Phase 6 analysis without reserve outcomes."""
+
+    project_root = _project_root()
+    result = run_predictive_analysis(project_root)
+    typer.echo(f"Report: {result.report_path.relative_to(project_root)}")
+    typer.echo(f"Manifest: {result.manifest_path.relative_to(project_root)}")
+    typer.echo(f"Primary scored draws: {result.primary_scored_draws}")
+    typer.echo(f"Candidate models: {result.candidate_models}")
+    typer.echo(f"Fair histories: {result.simulation_histories}")
+    typer.echo(f"Selected best model: {result.selected_best_model}")
+    typer.echo(f"Primary predictive signal: {str(result.primary_signal).lower()}")
+
+
+@prediction_app.command("models")
+def prediction_models() -> None:
+    """List the frozen Phase 6 candidates and parameters."""
+
+    project_root = _project_root()
+    config = load_prediction_config(project_root / "configs" / "phase6_prediction.yaml")
+    typer.echo(f"Protocol: {config.protocol_version}")
+    for model in config.models:
+        parameters = model.model_dump(exclude_none=True)
+        typer.echo(json.dumps(parameters, sort_keys=True))
+
+
+@prediction_app.command("report")
+def prediction_report() -> None:
+    """Locate the generated Phase 6 report and manifest."""
+
+    project_root = _project_root()
+    for relative in ("predictive_signal_analysis.md", "phase6_analysis_manifest.json"):
+        path = project_root / "reports" / "generated" / relative
+        if not path.exists():
+            raise typer.BadParameter("Phase 6 output is absent; run `mark-six predict run` first")
+        typer.echo(f"Output: {path.relative_to(project_root)}")
+
+
+@prediction_app.command("verify")
+def prediction_verify() -> None:
+    """Verify Phase 6 inputs, reserve guard, manifest, and output hashes."""
+
+    result = verify_prediction_analysis(_project_root())
+    for name, value in result.items():
+        typer.echo(f"{name}: {value}")
 
 
 @statistics_app.command("frequencies")
