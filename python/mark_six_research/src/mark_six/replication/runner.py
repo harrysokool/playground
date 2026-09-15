@@ -477,3 +477,33 @@ def verify_historical_replication(project_root: Path) -> dict[str, object]:
         "phase6_conclusion_replicated": manifest["phase6_conclusion_replicated"],
         "deviations": manifest["deviations"],
     }
+
+
+# PHASE8_EXTENSION_BEGIN
+def _without_phase8_extension(content: bytes) -> bytes:
+    """Remove isolated Phase 8 extensions when recomputing the frozen Phase 7 hash."""
+
+    begin = b"\n\n# PHASE8_EXTENSION_BEGIN\n"
+    end = b"# PHASE8_EXTENSION_END\n"
+    while begin in content:
+        start = content.index(begin)
+        finish = content.index(end, start) + len(end)
+        content = content[:start] + content[finish:]
+    return content
+
+
+def _code_hash(project_root: Path) -> str:  # type: ignore[no-redef]
+    """Hash Phase 7 code while excluding the explicitly marked Phase 8 surface."""
+
+    digest = hashlib.sha256()
+    paths = sorted((project_root / "src" / "mark_six" / "replication").glob("*.py"))
+    paths.append(project_root / "src" / "mark_six" / "cli.py")
+    for path in paths:
+        digest.update(path.relative_to(project_root).as_posix().encode())
+        digest.update(b"\0")
+        digest.update(_without_phase8_extension(path.read_bytes()))
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+# PHASE8_EXTENSION_END

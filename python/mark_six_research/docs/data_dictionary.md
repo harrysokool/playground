@@ -1,6 +1,6 @@
 # Canonical Data Dictionary
 
-**Status:** Phase 3 canonical schema frozen; Phase 4 rule-model extension documented
+**Status:** Phase 3 canonical schema frozen; Phase 8 economic interpretation documented
 **Schema version:** 2
 
 The seven Phase 3 publication tables below describe implemented Parquet/DuckDB fields; later strategy
@@ -129,6 +129,14 @@ draw.
 Phase 3 creates only a `special_designation` event when official Snowball code/name fields are
 present; it assigns no amount or publication time. A nonzero source field named `jackpot` does not
 establish whether it is an announcement, rollover, Snowball addition, or final accounting amount.
+
+Phase 8 reconciled draw 26/096 against a dated official notice: source `jackpot` equals that draw's
+HKD 185m carried Snowball and `reported_derived_first_prize_hkd_cents` equals its advertised HKD
+228m estimated First Division fund. This is high-confidence draw-specific evidence, not proof of
+invariant semantics across normal draws or historical eras. Canonical completed-draw rows lack a
+field publication timestamp, so these columns remain `source_reported_post_draw` unless a separate
+dated notice proves pre-draw availability. `estimated_first_prize_hkd_cents` remains null in the
+completed canonical samples and is never imputed.
 
 | Field | Meaning | Type | Nullable | Example | Source or derivation |
 |---|---|---:|:---:|---|---|

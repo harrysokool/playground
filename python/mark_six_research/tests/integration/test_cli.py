@@ -17,7 +17,7 @@ def test_info_command_starts_and_reports_environment() -> None:
     assert result.exit_code == 0
     assert "Project: Hong Kong Mark Six Research" in result.stdout
     assert "Python: 3.12." in result.stdout
-    assert "Status: phase_7_historical_replication" in result.stdout
+    assert "Status: phase_8_economic_analysis" in result.stdout
 
 
 def test_probability_report_command(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -215,3 +215,35 @@ def test_replication_inspection_commands_require_generated_outputs(
         assert result.exit_code != 0
         assert "Phase 7" in result.stderr
         assert "absent" in result.stderr
+
+
+@pytest.mark.parametrize(
+    ("arguments", "expected"),
+    [
+        (["economics", "expected-value"], "Expected payout HKD:"),
+        (["economics", "breakeven"], "Conditional required First Division fund HKD:"),
+        (["economics", "sharing"], "Sole winner probability:"),
+        (["economics", "multiple", "--selections", "7"], "Expanded expectation equal: true"),
+        (
+            ["economics", "banker", "--bankers", "2", "--legs", "5"],
+            "Expanded expectation equal: true",
+        ),
+        (["economics", "portfolio", "--budget-hkd", "100"], "duplicate: lines=10 unique=1"),
+    ],
+)
+def test_economics_inspection_commands(arguments: list[str], expected: str) -> None:
+    result = runner.invoke(app, arguments)
+
+    assert result.exit_code == 0, result.stdout
+    assert expected in result.stdout
+
+
+def test_economics_reports_require_generated_outputs(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("mark_six.cli._project_root", lambda: tmp_path)
+
+    result = runner.invoke(app, ["economics", "reports"])
+
+    assert result.exit_code != 0
+    assert "Phase 8 outputs are absent" in result.stderr

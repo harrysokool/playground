@@ -9,8 +9,9 @@ evidence of predictive advantage unless it survives the pre-specified out-of-sam
 
 ## Current scope
 
-Phase 7 adds a one-time independent historical replication of the preregistered,
-leakage-resistant Phase 6 walk-forward forecasting family to the frozen Phase 3 provenance-linked
+Phase 8 adds a preregistered economic analysis after the one-time independent Phase 7 historical
+replication of the leakage-resistant Phase 6 walk-forward forecasting family on the frozen Phase 3
+provenance-linked
 development dataset from the measured populated coverage of
 the official structured endpoint: draw 93/001 (1993-01-05) through draw 26/099 (2026-09-12). It
 includes immutable raw evidence, rule-aware parsing, classified validation, versioned Parquet,
@@ -28,8 +29,10 @@ eligible 6/49 rows exactly once through a controlled path after freezing the pro
 the pre-opening quality gate. Every non-uniform model again had a negative mean primary log-score
 difference, so the negative Phase 6 conclusion replicated; no model met the conjunctive success
 criteria. The reserve manifest remains metadata-only, while the reserve is now consumed for
-confirmatory purposes. This phase does not analyse tickets, returns, prizes, jackpots, payouts, or
-the prospective holdout, which remains sealed with zero entries.
+confirmatory purposes. Phase 8 models exact current prize-fund accounting, fixed and variable
+expected payout, jackpot/turnover scenarios, prize sharing, Multiple and Banker equivalence,
+portfolio overlap, and deterministic simulation. It does not reopen historical-number prediction.
+The prospective holdout remains sealed with zero entries.
 
 ## Requirements
 
@@ -82,6 +85,15 @@ uv run mark-six replicate run
 uv run mark-six replicate verify
 uv run mark-six replicate report
 uv run mark-six replicate compare
+uv run mark-six economics expected-value --turnover-hkd 100000000 --first-division-fund-hkd 50000000
+uv run mark-six economics breakeven --turnover-hkd 100000000 --target-return 1
+uv run mark-six economics sharing --turnover-hkd 100000000
+uv run mark-six economics multiple --selections 7
+uv run mark-six economics banker --bankers 2 --legs 5
+uv run mark-six economics portfolio --budget-hkd 100
+uv run mark-six economics run
+uv run mark-six economics reports
+uv run mark-six economics verify
 ```
 
 `ingest` is resumable and reuses exact, hash-valid, structurally valid cached windows. Development
@@ -143,3 +155,11 @@ report is `reports/generated/historical_replication.md`; supporting tables are u
 `reports/generated/phase7/`, and `mark-six replicate verify` validates the self-hashed analysis
 manifest plus all 11 recorded output hashes. Phase 6 and Phase 7 are compared independently rather
 than pooled. The consumed reserve must not be used to tune another confirmatory model.
+
+The frozen Phase 8 questions, time-state rules, evidence classes, sharing assumptions, scenario
+grids, simulation seed, and materiality rule are in
+[`docs/decisions/0008_economic_value_protocol.md`](docs/decisions/0008_economic_value_protocol.md).
+Calculation details and bounded source-field interpretations are in
+[`docs/economic_model.md`](docs/economic_model.md). `mark-six economics run` generates three reports,
+14 supporting tables, and a self-hashed manifest. Generated artifacts stay ignored. The historical
+table ends at draw 26/099; no Phase 8 path reads the prospective holdout.

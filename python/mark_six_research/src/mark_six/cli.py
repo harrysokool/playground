@@ -665,3 +665,202 @@ def replication_compare() -> None:
 
 
 # PHASE7_EXTENSION_END
+
+
+# PHASE8_EXTENSION_BEGIN
+economics_app = typer.Typer(help="Analyze Mark Six economics without predicting winning numbers.")
+app.add_typer(economics_app, name="economics")
+
+
+@economics_app.command("expected-value")
+def economics_expected_value(
+    turnover_hkd: Annotated[int, typer.Option(min=1)] = 100_000_000,
+    first_division_fund_hkd: Annotated[int, typer.Option(min=0)] = 50_000_000,
+    sharing_mode: str = typer.Option("uniform"),
+) -> None:
+    """Calculate one full-unit ticket's conditional expected value."""
+
+    from mark_six.economics.expected_value import expected_value
+    from mark_six.economics.state import build_current_state
+
+    state = build_current_state(turnover_hkd * 100)
+    result = expected_value(
+        {
+            1: first_division_fund_hkd * 100,
+            2: state.division_funds_hkd_cents[2],
+            3: state.division_funds_hkd_cents[3],
+        },
+        other_entries=turnover_hkd // 10 - 1,
+        sharing_mode=sharing_mode,
+    )
+    typer.echo(f"Ticket cost HKD: {state.ticket_cost_hkd_cents / 100:.2f}")
+    typer.echo(f"Expected payout HKD: {result.total_expected_payout_hkd_cents / 100:.8f}")
+    typer.echo(f"Expected profit HKD: {result.expected_profit_hkd_cents / 100:.8f}")
+    typer.echo(f"Return ratio: {result.expected_return_ratio:.8f}")
+    typer.echo(f"House disadvantage: {result.house_disadvantage:.8f}")
+    typer.echo(f"Expected value percent: {result.expected_value_percent:.6f}")
+
+
+@economics_app.command("breakeven")
+def economics_breakeven(
+    turnover_hkd: Annotated[int, typer.Option(min=1)] = 100_000_000,
+    target_return: Annotated[float, typer.Option(min=0.0)] = 1.0,
+    sharing_mode: str = typer.Option("uniform"),
+) -> None:
+    """Solve a conditional First Division fund threshold."""
+
+    from mark_six.economics.expected_value import first_fund_for_return_target
+    from mark_six.economics.state import build_current_state
+
+    state = build_current_state(turnover_hkd * 100)
+    required = first_fund_for_return_target(
+        target_return,
+        {2: state.division_funds_hkd_cents[2], 3: state.division_funds_hkd_cents[3]},
+        other_entries=turnover_hkd // 10 - 1,
+        sharing_mode=sharing_mode,
+    )
+    typer.echo(f"Conditional required First Division fund HKD: {required / 100:.2f}")
+
+
+@economics_app.command("sharing")
+def economics_sharing(
+    turnover_hkd: Annotated[int, typer.Option(min=10)] = 100_000_000,
+) -> None:
+    """Show the exact-binomial uniform First Division sharing benchmark."""
+
+    from mark_six.economics.sharing import binomial_sharing, poisson_sharing
+
+    probability = Fraction(1, 13_983_816)
+    result = binomial_sharing(turnover_hkd // 10 - 1, probability)
+    approximation = poisson_sharing(result.expected_other_winning_units)
+    typer.echo(f"Expected other winning units: {result.expected_other_winning_units:.8f}")
+    typer.echo(f"Expected payout share: {result.expected_share:.8f}")
+    typer.echo(f"Sole winner probability: {result.sole_winner_probability:.8f}")
+    typer.echo(f"Share with one probability: {result.share_with_one_probability:.8f}")
+    typer.echo(f"Share with multiple probability: {result.share_with_multiple_probability:.8f}")
+    typer.echo(f"Poisson expected share: {approximation.expected_share:.8f}")
+
+
+def _economic_dividends(
+    turnover_hkd: int, first_division_fund_hkd: int
+) -> dict[int, int | Fraction]:
+    from mark_six.economics.state import build_current_state
+    from mark_six.mathematics.payouts import CURRENT_FIXED_PRIZES_HKD_CENTS
+
+    state = build_current_state(turnover_hkd * 100)
+    return {
+        1: first_division_fund_hkd * 100,
+        2: state.division_funds_hkd_cents[2],
+        3: state.division_funds_hkd_cents[3],
+        **CURRENT_FIXED_PRIZES_HKD_CENTS,
+    }
+
+
+@economics_app.command("multiple")
+def economics_multiple(
+    selections: Annotated[int, typer.Option(min=7, max=12)] = 7,
+    turnover_hkd: Annotated[int, typer.Option(min=1)] = 100_000_000,
+    first_division_fund_hkd: Annotated[int, typer.Option(min=0)] = 50_000_000,
+) -> None:
+    """Compare a Multiple entry with its exact expanded ordinary lines."""
+
+    from mark_six.economics.portfolio import multiple_entry_economics
+
+    result = multiple_entry_economics(
+        selections, _economic_dividends(turnover_hkd, first_division_fund_hkd)
+    )
+    typer.echo("Payout scenario: explicit variable funds with no other winning units")
+    typer.echo(f"Combinations: {result.combination_count}")
+    typer.echo(f"Cost HKD: {result.cost_hkd_cents / 100:.2f}")
+    typer.echo(f"Expected payout HKD: {float(result.expected_payout_hkd_cents / 100):.8f}")
+    equal = result.expected_payout_hkd_cents == result.equivalent_ordinary_expected_payout_hkd_cents
+    typer.echo(f"Expanded expectation equal: {str(equal).lower()}")
+    typer.echo(f"Probability any prize: {float(result.probability_any_prize):.8f}")
+
+
+@economics_app.command("banker")
+def economics_banker(
+    bankers: Annotated[int, typer.Option(min=1, max=5)] = 2,
+    legs: Annotated[int, typer.Option(min=2, max=12)] = 5,
+    turnover_hkd: Annotated[int, typer.Option(min=1)] = 100_000_000,
+    first_division_fund_hkd: Annotated[int, typer.Option(min=0)] = 50_000_000,
+) -> None:
+    """Compare a Banker entry with its exact expanded ordinary lines."""
+
+    from mark_six.economics.portfolio import banker_entry_economics
+
+    result = banker_entry_economics(
+        bankers, legs, _economic_dividends(turnover_hkd, first_division_fund_hkd)
+    )
+    typer.echo("Payout scenario: explicit variable funds with no other winning units")
+    typer.echo(f"Combinations: {result.combination_count}")
+    typer.echo(f"Cost HKD: {result.cost_hkd_cents / 100:.2f}")
+    typer.echo(f"Expected payout HKD: {float(result.expected_payout_hkd_cents / 100):.8f}")
+    equal = result.expected_payout_hkd_cents == result.equivalent_ordinary_expected_payout_hkd_cents
+    typer.echo(f"Expanded expectation equal: {str(equal).lower()}")
+    typer.echo(f"Probability any prize: {float(result.probability_any_prize):.8f}")
+
+
+@economics_app.command("portfolio")
+def economics_portfolio(
+    budget_hkd: Annotated[int, typer.Option(min=10)] = 100,
+) -> None:
+    """Compare deterministic unique and duplicate fixed-budget coverage."""
+
+    from mark_six.economics.analysis import _portfolio_tickets
+    from mark_six.economics.portfolio import portfolio_metrics
+
+    lines = budget_hkd // 10
+    for offset, kind in enumerate(("diversified", "overlap", "duplicate")):
+        metrics = portfolio_metrics(
+            _portfolio_tickets(lines, kind, 2026091501 + offset + budget_hkd),
+            expected_payout_per_line_hkd_cents=0,
+        )
+        typer.echo(
+            f"{kind}: lines={metrics.ticket_count} unique={metrics.unique_combinations} "
+            f"duplicates={metrics.duplicate_units} number_coverage={metrics.unique_numbers} "
+            f"first_probability={_fraction(metrics.first_division_probability)}"
+        )
+
+
+@economics_app.command("run")
+def economics_run() -> None:
+    """Run the complete frozen Phase 8 analysis."""
+
+    from mark_six.economics.analysis import run_economic_analysis
+
+    result = run_economic_analysis(_project_root())
+    typer.echo(f"Manifest: {result.manifest_path.relative_to(_project_root())}")
+    typer.echo(f"Historical draws: {result.historical_draws}")
+    typer.echo(f"Simulation trials: {result.simulation_trials}")
+    for path in result.report_paths:
+        typer.echo(f"Report: {path.relative_to(_project_root())}")
+
+
+@economics_app.command("reports")
+def economics_reports() -> None:
+    """Locate the generated Phase 8 reports."""
+
+    for relative in (
+        "jackpot_economics.md",
+        "prize_sharing.md",
+        "ticket_construction.md",
+        "phase8_analysis_manifest.json",
+    ):
+        path = _project_root() / "reports/generated" / relative
+        if not path.exists():
+            raise typer.BadParameter("Phase 8 outputs are absent; run `mark-six economics run`")
+        typer.echo(f"Output: {path.relative_to(_project_root())}")
+
+
+@economics_app.command("verify")
+def economics_verify() -> None:
+    """Verify the Phase 8 manifest, outputs, frozen inputs, and holdout isolation."""
+
+    from mark_six.economics.analysis import verify_economic_analysis
+
+    for name, value in verify_economic_analysis(_project_root()).items():
+        typer.echo(f"{name}: {value}")
+
+
+# PHASE8_EXTENSION_END

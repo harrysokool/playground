@@ -1,0 +1,71 @@
+analysis_version: "phase8-v1"
+protocol_version: "phase8-economic-value-v1"
+baseline_commit: "aea6923df86e6e20623064abd8fe824cba3eb17a"
+dataset_id: "marksix-bc02467ec951c2d8"
+dataset_manifest_sha256: "fcfdb77b153e7fc0d48b734c55cb400235108f574547163dcb474df564a76abf"
+protocol_path: "docs/decisions/0008_economic_value_protocol.md"
+rule_version: "hkjc_mark_six_2024_05_21"
+historical_period:
+  first_draw_id: "hkjc:24/058"
+  start_date: "2024-05-21"
+  final_draw_id: "hkjc:26/099"
+  final_date: "2026-09-12"
+primary_ticket:
+  kind: "ordinary"
+  stake: "full_unit"
+  cost_hkd_cents: 1000
+  pool_size: 49
+  main_numbers: 6
+evidence_classes:
+  - "exact_rule_math"
+  - "official_pre_draw"
+  - "source_reported_post_draw"
+  - "derived_historical"
+  - "external_behavioral_evidence"
+  - "synthetic_assumption"
+  - "simulation_estimate"
+turnover_hkd: [50000000, 100000000, 200000000]
+first_division_fund_hkd: [8000000, 10000000, 20000000, 30000000, 50000000, 80000000, 100000000, 150000000]
+return_targets: [0.50, 0.75, 0.90, 1.00]
+sharing:
+  modes: ["no_sharing", "uniform", "higher_sharing"]
+  higher_sharing_probability_multiplier: 3.0
+  use_exact_binomial: true
+  validate_poisson: true
+budgets_hkd: [100, 500, 1000]
+portfolio_objectives:
+  - "expected_payout"
+  - "chance_any_prize"
+  - "first_division_coverage"
+  - "lower_variance"
+  - "lower_overlap"
+  - "number_pool_coverage"
+  - "hypothetical_split_risk"
+simulation:
+  root_seed: 2026091501
+  draws: 500000
+materiality:
+  return_ratio_percentage_points: 1.0
+  simulation_standard_errors: 3.0
+source_fields:
+  pre_draw_only_when_officially_dated:
+    - "advertised_first_division_fund"
+    - "special_snowball_announcement"
+    - "known_carryover"
+  source_qualified:
+    - "jackpot"
+    - "derivedFirstPrizeDiv"
+    - "estimatedPrize"
+    - "snowballCode"
+    - "snowballName"
+  post_draw:
+    - "turnover"
+    - "winningUnit"
+    - "dividend"
+outputs:
+  directory: "reports/generated/phase8"
+  manifest: "reports/generated/phase8_analysis_manifest.json"
+  reports:
+    - "reports/generated/jackpot_economics.md"
+    - "reports/generated/prize_sharing.md"
+    - "reports/generated/ticket_construction.md"
