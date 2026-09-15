@@ -489,7 +489,7 @@ def verify_prediction_analysis(project_root: Path) -> dict[str, object]:
 def _without_phase7_extension(content: bytes) -> bytes:
     """Remove isolated later-phase extensions for the frozen Phase 6 hash."""
 
-    for phase in (b"PHASE7", b"PHASE8"):
+    for phase in (b"PHASE7", b"PHASE8", b"PHASE9"):
         begin = b"\n\n# " + phase + b"_EXTENSION_BEGIN\n"
         end = b"# " + phase + b"_EXTENSION_END\n"
         while begin in content:

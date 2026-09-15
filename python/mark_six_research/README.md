@@ -34,6 +34,11 @@ expected payout, jackpot/turnover scenarios, prize sharing, Multiple and Banker 
 portfolio overlap, and deterministic simulation. It does not reopen historical-number prediction.
 The prospective holdout remains sealed with zero entries.
 
+Phase 9 integrates the closed historical research into a conservative pre-draw economic system.
+It accepts only timestamped official pre-draw evidence, uses a frozen explainable turnover range,
+reuses the Phase 8 economic engine, and emits `SKIP`, `WATCH`, or `ECONOMICALLY_INTERESTING` only
+under preregistered rules. It does not predict numbers or open the prospective holdout.
+
 ## Requirements
 
 - `uv`
@@ -95,6 +100,20 @@ uv run mark-six economics run
 uv run mark-six economics reports
 uv run mark-six economics verify
 ```
+
+Final-system commands:
+
+```bash
+uv run mark-six build-final-system
+uv run mark-six current --evidence path/to/predraw_evidence.json
+uv run mark-six evaluate --evidence path/to/predraw_evidence.json
+uv run mark-six tickets --budget 100 --entry-type uniform --seed 20260915
+uv run mark-six verify-all
+```
+
+Real evidence/evaluation records are timestamped, content-addressed, immutable, and ignored under
+`data/predraw/`. Phase 9 itself creates no real prospective evaluation. See Decision 0009 and the
+generated `system_guide.md` before any future use.
 
 `ingest` is resumable and reuses exact, hash-valid, structurally valid cached windows. Development
 commands reject any range ending after 2026-09-13. A deliberate controlled source-revision check is

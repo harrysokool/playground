@@ -481,14 +481,15 @@ def verify_historical_replication(project_root: Path) -> dict[str, object]:
 
 # PHASE8_EXTENSION_BEGIN
 def _without_phase8_extension(content: bytes) -> bytes:
-    """Remove isolated Phase 8 extensions when recomputing the frozen Phase 7 hash."""
+    """Remove isolated post-Phase 7 extensions from the frozen Phase 7 hash."""
 
-    begin = b"\n\n# PHASE8_EXTENSION_BEGIN\n"
-    end = b"# PHASE8_EXTENSION_END\n"
-    while begin in content:
-        start = content.index(begin)
-        finish = content.index(end, start) + len(end)
-        content = content[:start] + content[finish:]
+    for phase in (b"PHASE8", b"PHASE9"):
+        begin = b"\n\n# " + phase + b"_EXTENSION_BEGIN\n"
+        end = b"# " + phase + b"_EXTENSION_END\n"
+        while begin in content:
+            start = content.index(begin)
+            finish = content.index(end, start) + len(end)
+            content = content[:start] + content[finish:]
     return content
 
 

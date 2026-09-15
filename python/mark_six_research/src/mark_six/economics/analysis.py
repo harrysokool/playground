@@ -552,3 +552,33 @@ def verify_economic_analysis(project_root: Path) -> dict[str, object]:
         "holdout_entry_count": integrity["holdout_entry_count"],
         "historical_prediction_reopened": False,
     }
+
+
+# PHASE9_EXTENSION_BEGIN
+def _without_phase9_extension(content: bytes) -> bytes:
+    """Remove the isolated Phase 9 surface from the frozen Phase 8 code hash."""
+
+    begin = b"\n\n# PHASE9_EXTENSION_BEGIN\n"
+    end = b"# PHASE9_EXTENSION_END\n"
+    while begin in content:
+        start = content.index(begin)
+        finish = content.index(end, start) + len(end)
+        content = content[:start] + content[finish:]
+    return content
+
+
+def _code_hash(project_root: Path) -> str:  # type: ignore[no-redef]
+    """Hash the frozen Phase 8 package while excluding Phase 9 extensions."""
+
+    digest = hashlib.sha256()
+    paths = sorted((project_root / "src/mark_six/economics").glob("*.py"))
+    paths.append(project_root / "src/mark_six/cli.py")
+    for path in paths:
+        digest.update(path.relative_to(project_root).as_posix().encode())
+        digest.update(b"\0")
+        digest.update(_without_phase9_extension(path.read_bytes()))
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+# PHASE9_EXTENSION_END

@@ -328,3 +328,18 @@ versions, the development cutoff, the rule-document hash, and every input snapsh
 Its manifest records the input count, raw snapshot manifest SHA-256, canonical Parquet SHA-256 values,
 row counts, creation time, DuckDB path, and Git commit (null when unavailable). Dataset identity is
 therefore content/configuration-derived, not timestamp-derived.
+
+## Phase 9 pre-draw records
+
+`mark_six_pre_draw_evidence` is a strict outcome-free JSON record. Its material fields are
+`draw_id`, `draw_date`, `sales_close_at`, `frozen_at`, `draw_type`, `ticket_price_hkd_cents`,
+`official_first_division_fund_hkd_cents`, `official_first_division_description`,
+`known_carryover_hkd_cents`, `special_snowball_hkd_cents`, `exceptional_funding_status`, `sources`,
+`evidence_confidence`, and `turnover_forecast`. Source publication and retrieval timestamps must not
+follow `frozen_at`. The turnover forecast stores `lower_hkd`, `central_hkd`, `upper_hkd`, method,
+confidence, evidence class, and explanation; it is an estimate, not an official fact.
+
+`mark_six_prospective_evaluation` binds the evidence and configuration hashes to a frozen decision,
+central economics, break-even distance, turnover/sharing sensitivities, and all nine scenario rows.
+It structurally fixes `outcome_data_accessed` and `prospective_holdout_accessed` to false and
+`outcome_comparison_status` to `not_started`. Outcome comparison is outside Phase 9.

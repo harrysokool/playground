@@ -137,3 +137,11 @@ overlapping observations, and zero conflicting draw representations.
 - Can publication timestamps be recovered independently of current-page retrieval time?
 - Does the endpoint revise old responses? A small controlled check can detect changes only in the
   selected sample; zero detected revisions is not proof that revision never occurs.
+
+## Phase 9 source definitions
+
+| Source ID | Publisher | Location | Role | Time state | Limit |
+|---|---|---|---|---|---|
+| `phase9_official_draw_announcement` | HKJC | Draw-specific dated HTTPS URL stored in each evidence record | Official First Division and Snowball information | `official_pre_draw` only when published/retrieved before freeze | Must be reviewed per draw; completed GraphQL fields are not substitutes |
+| `phase9_official_rules` | HKJC | Current official rules or betting guide URL stored in evidence | Ticket price and rule state | `official_rule` | Cannot resolve an undisclosed exceptional funding state |
+| `phase9_turnover_forecast` | Project estimate | `configs/phase9_final_system.yaml` | Frozen draw-class median plus assumed fund response/range | Pre-draw estimate derived from frozen pre-holdout history | Not official, causal, or machine-learned; uses no post-cutoff outcomes |

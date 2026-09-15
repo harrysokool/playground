@@ -864,3 +864,164 @@ def economics_verify() -> None:
 
 
 # PHASE8_EXTENSION_END
+
+
+# PHASE9_EXTENSION_BEGIN
+@app.command("build-final-system")
+def build_final_system() -> None:
+    """Generate final Phase 9 reports and the self-verifying manifest."""
+
+    from mark_six.final_system.runner import build_phase9_outputs
+
+    project_root = _project_root()
+    path = build_phase9_outputs(project_root)
+    typer.echo(f"Manifest: {path.relative_to(project_root)}")
+    typer.echo("Prospective evaluation started: false")
+
+
+@app.command("current")
+def current_draw(
+    evidence_path: Annotated[
+        Path, typer.Option("--evidence", exists=True, dir_okay=False, help="Frozen evidence JSON.")
+    ],
+) -> None:
+    """Validate and display a supplied pre-draw evidence record without fetching outcomes."""
+
+    from mark_six.final_system.evidence import load_predraw_evidence
+
+    evidence = load_predraw_evidence(evidence_path)
+    typer.echo(f"Draw: {evidence.draw_id}")
+    typer.echo(f"Draw date: {evidence.draw_date.isoformat()}")
+    typer.echo(f"Frozen at: {evidence.frozen_at.isoformat()}")
+    typer.echo(f"Evidence confidence: {evidence.evidence_confidence}")
+    typer.echo(
+        "Turnover forecast HKD: "
+        f"{evidence.turnover_forecast.lower_hkd:,}.."
+        f"{evidence.turnover_forecast.central_hkd:,}.."
+        f"{evidence.turnover_forecast.upper_hkd:,}"
+    )
+    typer.echo("Outcome data accessed: false")
+
+
+@app.command("evaluate")
+def evaluate_current_draw(
+    evidence_path: Annotated[
+        Path, typer.Option("--evidence", exists=True, dir_okay=False, help="Frozen evidence JSON.")
+    ],
+    store: bool = typer.Option(
+        True, "--store/--no-store", help="Store immutable evidence and evaluation records."
+    ),
+) -> None:
+    """Evaluate one complete pre-draw record under frozen Phase 9 rules."""
+
+    import hashlib
+
+    from mark_six.final_system.evaluation import build_evaluation_record, evaluate_predraw
+    from mark_six.final_system.evidence import load_predraw_evidence
+    from mark_six.final_system.models import load_final_system_config
+    from mark_six.final_system.storage import store_immutable_record
+
+    project_root = _project_root()
+    config_path = project_root / "configs/phase9_final_system.yaml"
+    config = load_final_system_config(config_path)
+    evidence = load_predraw_evidence(evidence_path)
+    evaluation = evaluate_predraw(evidence, config)
+    record = build_evaluation_record(
+        evidence,
+        evaluation,
+        configuration_sha256=hashlib.sha256(config_path.read_bytes()).hexdigest(),
+    )
+    typer.echo(f"Decision: {evaluation.decision}")
+    typer.echo(f"Expected payout HKD: {evaluation.central_expected_payout_hkd:.8f}")
+    typer.echo(f"Expected profit HKD: {evaluation.central_expected_profit_hkd:.8f}")
+    typer.echo(f"Expected return percent: {evaluation.central_expected_return_percent:.6f}")
+    typer.echo(f"Break-even distance HKD: {evaluation.break_even_distance_hkd:.2f}")
+    typer.echo(f"Worst-case return ratio: {evaluation.worst_case_return_ratio:.8f}")
+    typer.echo(f"Best-case return ratio: {evaluation.best_case_return_ratio:.8f}")
+    if store:
+        evidence_path_stored = store_immutable_record(
+            project_root,
+            evidence,
+            draw_id=evidence.draw_id,
+            frozen_at=evidence.frozen_at,
+            kind=config.storage.evidence_kind,
+            storage_directory=config.storage.directory,
+        )
+        evaluation_path = store_immutable_record(
+            project_root,
+            record,
+            draw_id=evidence.draw_id,
+            frozen_at=record.frozen_at,
+            kind=config.storage.evaluation_kind,
+            storage_directory=config.storage.directory,
+        )
+        typer.echo(f"Evidence record: {evidence_path_stored.relative_to(project_root)}")
+        typer.echo(f"Evaluation record: {evaluation_path.relative_to(project_root)}")
+    else:
+        typer.echo("Records stored: false")
+    typer.echo("Outcome comparison status: not_started")
+
+
+def _number_list(value: str | None, name: str) -> tuple[int, ...] | None:
+    if value is None:
+        return None
+    try:
+        return tuple(int(part.strip()) for part in value.split(",") if part.strip())
+    except ValueError as error:
+        raise typer.BadParameter(f"{name} must be a comma-separated integer list") from error
+
+
+@app.command("tickets")
+def tickets(
+    budget_hkd: Annotated[int, typer.Option("--budget", min=10)] = 100,
+    entry_type: str = typer.Option("uniform", "--entry-type"),
+    seed: int = typer.Option(20260915),
+    selections: str | None = typer.Option(None, help="Comma-separated Multiple selections."),
+    bankers: str | None = typer.Option(None, help="Comma-separated banker numbers."),
+    legs: str | None = typer.Option(None, help="Comma-separated Banker leg numbers."),
+    split_risk_filter: bool = typer.Option(
+        False, help="Use assumption-based qualitative split-risk filtering."
+    ),
+) -> None:
+    """Create a unique, exact-cost uniform, Multiple, or Banker ticket plan."""
+
+    from typing import Literal, cast
+
+    from mark_six.final_system.models import TicketPlan
+    from mark_six.final_system.tickets import plan_tickets
+
+    if entry_type not in {"uniform", "multiple", "banker"}:
+        raise typer.BadParameter("entry-type must be uniform, multiple, or banker")
+    plan: TicketPlan = plan_tickets(
+        entry_type=cast("Literal['uniform', 'multiple', 'banker']", entry_type),
+        budget_hkd=budget_hkd,
+        seed=seed,
+        selections=_number_list(selections, "selections"),
+        bankers=_number_list(bankers, "bankers"),
+        legs=_number_list(legs, "legs"),
+        split_risk_filter=split_risk_filter,
+    )
+    typer.echo(f"Entry type: {plan.entry_type}")
+    typer.echo(f"Combinations: {plan.combination_count}")
+    typer.echo(f"Unique combinations: {plan.unique_combination_count}")
+    typer.echo(f"Exact cost HKD: {plan.exact_cost_hkd_cents / 100:.2f}")
+    typer.echo(f"Unused budget HKD: {plan.unused_budget_hkd_cents / 100:.2f}")
+    for ticket in plan.combinations:
+        typer.echo(" ".join(f"{number:02d}" for number in ticket))
+    typer.echo(plan.draw_probability_statement)
+    typer.echo(plan.packaging_statement)
+    if plan.split_risk_note:
+        typer.echo(plan.split_risk_note)
+
+
+@app.command("verify-all")
+def verify_all() -> None:
+    """Verify the full frozen research chain and final Phase 9 outputs."""
+
+    from mark_six.final_system.runner import verify_phase9_outputs
+
+    for name, value in verify_phase9_outputs(_project_root()).items():
+        typer.echo(f"{name}: {value}")
+
+
+# PHASE9_EXTENSION_END

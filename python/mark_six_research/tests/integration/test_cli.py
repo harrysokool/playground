@@ -17,7 +17,7 @@ def test_info_command_starts_and_reports_environment() -> None:
     assert result.exit_code == 0
     assert "Project: Hong Kong Mark Six Research" in result.stdout
     assert "Python: 3.12." in result.stdout
-    assert "Status: phase_8_economic_analysis" in result.stdout
+    assert "Status: phase_9_final_research_system" in result.stdout
 
 
 def test_probability_report_command(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -247,3 +247,32 @@ def test_economics_reports_require_generated_outputs(
 
     assert result.exit_code != 0
     assert "Phase 8 outputs are absent" in result.stderr
+
+
+def test_phase9_current_and_evaluate_synthetic_fixture() -> None:
+    fixture = (
+        Path(__file__).resolve().parents[2]
+        / "tests/fixtures/final_system/synthetic_predraw_watch.json"
+    )
+    current = runner.invoke(app, ["current", "--evidence", str(fixture)])
+    assert current.exit_code == 0, current.output
+    assert "Evidence confidence: Medium" in current.stdout
+    assert "Outcome data accessed: false" in current.stdout
+
+    evaluation = runner.invoke(app, ["evaluate", "--evidence", str(fixture), "--no-store"])
+    assert evaluation.exit_code == 0, evaluation.output
+    assert "Decision: WATCH" in evaluation.stdout
+    assert "Records stored: false" in evaluation.stdout
+    assert "Outcome comparison status: not_started" in evaluation.stdout
+
+
+def test_phase9_ticket_cli_is_unique_and_exact_cost() -> None:
+    result = runner.invoke(
+        app,
+        ["tickets", "--budget", "100", "--entry-type", "uniform", "--seed", "20260915"],
+    )
+    assert result.exit_code == 0, result.output
+    assert "Combinations: 10" in result.stdout
+    assert "Unique combinations: 10" in result.stdout
+    assert "Exact cost HKD: 100.00" in result.stdout
+    assert "same draw probability" in result.stdout
