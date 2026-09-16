@@ -391,3 +391,65 @@ void OrderBook::matchMarketSell(Order& order) {
 const std::vector<Trade>& OrderBook::trades() const {
     return trades_;
 }
+
+/*
+few things need to keep in mind when implementing this feature
+    1. when we decrease the quantity, we can just find the order and decrease it, no order change.
+    2. when increase the quantity, need to cancel the old order and add the new order
+    3. any change of price will change the order too
+    4. if no modification, then no change at all 
+*/
+bool OrderBook::modifyOrder(OrderId orderid, Price newPrice, Quantity newQuantity) {
+    // then we check if the new price and new quantity make sense
+    if (newPrice <= 0 || newQuantity <= 0) {
+        return false;
+    }
+
+    // we need to see if the order exist
+    auto it = orderIndex_.find(orderid);
+    if (it == orderIndex_.end()) {
+        return false;
+    }
+
+    // we can just grab the order with the order id using orderIndex_
+    const OrderLocation& orderLoc = it->second;
+    
+    // now see what is being modified, 
+    // no change
+    if (newPrice == orderLoc.price && newQuantity == orderLoc.quantity) {
+        return false;
+    } 
+    // only quantity change
+    else if (newPrice == orderLoc.price && newQuantity != orderLoc.quantity) {
+        if (newQuantity < orderLoc.quantity) {
+            Order& existingOrder = *orderLoc.orderIt;
+            existingOrder.quantity = newQuantity;
+        } else {
+            Order existingOrder = *orderLoc.orderIt;
+            existingOrder.quantity = newQuantity;
+            bool orderCancelled = cancelOrder(orderid);
+            if (!orderCancelled) {
+                return false;
+            }
+            bool orderAdded = addOrder(existingOrder);
+            if (!orderAdded) {
+                return false;
+            }
+        }
+    }
+    else {
+        Order existingOrder = *orderLoc.orderIt;
+        existingOrder.price = newPrice;
+        existingOrder.quantity = newQuantity;
+        bool orderCancelled = cancelOrder(orderid);
+        if (!orderCancelled) {
+            return false;
+        }
+        bool orderAdded = addOrder(existingOrder);
+        if (!orderAdded) {
+            return false;
+        }
+    }
+
+    return true;
+}

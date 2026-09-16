@@ -27,7 +27,10 @@ public:
     bool addMarketOrder(Order order);
     void matchMarketBuy(Order& order);
     void matchMarketSell(Order& order);
-    
+
+    // order modification
+    bool modifyOrder(OrderId orderid, Price newPrice, Quantity newQuantity);
+
     // helper funcions
     Quantity bidQuantityAt(Price price) const;
     Quantity askQuantityAt(Price price) const;
