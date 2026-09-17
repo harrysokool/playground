@@ -412,40 +412,22 @@ bool OrderBook::modifyOrder(OrderId orderid, Price newPrice, Quantity newQuantit
     }
 
     // we can just grab the order with the order id using orderIndex_
-    const OrderLocation& orderLoc = it->second;
+    Order& existingOrder = *it->second.orderIt;
     
-    // now see what is being modified, 
-    // no change
-    if (newPrice == orderLoc.price && newQuantity == orderLoc.quantity) {
-        return false;
-    } 
-    // only quantity change
-    else if (newPrice == orderLoc.price && newQuantity != orderLoc.quantity) {
-        if (newQuantity < orderLoc.quantity) {
-            Order& existingOrder = *orderLoc.orderIt;
-            existingOrder.quantity = newQuantity;
-        } else {
-            Order existingOrder = *orderLoc.orderIt;
-            existingOrder.quantity = newQuantity;
-            bool orderCancelled = cancelOrder(orderid);
-            if (!orderCancelled) {
-                return false;
-            }
-            bool orderAdded = addOrder(existingOrder);
-            if (!orderAdded) {
-                return false;
-            }
-        }
-    }
-    else {
-        Order existingOrder = *orderLoc.orderIt;
-        existingOrder.price = newPrice;
+    // now see what is being modified
+    if (newPrice == existingOrder.price && newQuantity == existingOrder.quantity) {
+        ;
+    } else if (newPrice == existingOrder.price && newQuantity < existingOrder.quantity) {
         existingOrder.quantity = newQuantity;
+    } else {
+        Order replacement = *it->second.orderIt;
+        replacement.price = newPrice;
+        replacement.quantity = newQuantity;
         bool orderCancelled = cancelOrder(orderid);
         if (!orderCancelled) {
             return false;
         }
-        bool orderAdded = addOrder(existingOrder);
+        bool orderAdded = addOrder(replacement);
         if (!orderAdded) {
             return false;
         }
