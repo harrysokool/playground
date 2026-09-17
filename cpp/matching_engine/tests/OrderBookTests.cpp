@@ -309,3 +309,46 @@ TEST(OrderBookTest, testOrderIdReusableAfterFullFill) {
 }
 
 
+TEST(OrderBookTest, testModifyOrderNoChange) {
+    OrderBook book;
+
+    ASSERT_TRUE(book.addOrder({1, Side::Sell, 10300, 50}));
+    ASSERT_TRUE(book.addOrder({2, Side::Buy, 10200, 50}));
+
+    ASSERT_TRUE(!book.bestAsk().has_value());
+    ASSERT_TRUE(!book.bestBid().has_value());
+
+    ASSERT_TRUE(book.modifyOrder(1, 10300, 50));
+    ASSERT_TRUE(book.modifyOrder(2, 10200, 50));
+}
+
+
+TEST(OrderBookTest, testModifyOrderChangePrice) {
+    OrderBook book;
+
+    ASSERT_TRUE(book.addOrder({1, Side::Sell, 10300, 50}));
+    ASSERT_TRUE(book.addOrder({2, Side::Buy, 10200, 50}));
+
+    ASSERT_TRUE(!book.bestAsk().has_value());
+    ASSERT_TRUE(!book.bestBid().has_value());
+
+    ASSERT_TRUE(book.modifyOrder(1, 10400, 50));
+    ASSERT_TRUE(book.modifyOrder(2, 10100, 50));
+}
+
+TEST(OrderBookTest, testModifyOrderChangeQuantity) {
+    OrderBook book;
+
+    ASSERT_TRUE(book.addOrder({1, Side::Sell, 10300, 50}));
+    ASSERT_TRUE(book.addOrder({2, Side::Buy, 10200, 50}));
+
+    ASSERT_TRUE(!book.bestAsk().has_value());
+    ASSERT_TRUE(!book.bestBid().has_value());
+
+    ASSERT_TRUE(book.modifyOrder(1, 10400, 100));
+    ASSERT_TRUE(book.modifyOrder(2, 10100, 100));
+}
+
+
+
+
