@@ -349,6 +349,28 @@ TEST(OrderBookTest, testModifyOrderChangeQuantity) {
     ASSERT_TRUE(book.modifyOrder(2, 10100, 100));
 }
 
+TEST(OrderBookTest, RejectsDuplicateActiveOrderId)
+{
+    OrderBook book;
 
+    ASSERT_TRUE(book.addOrder({1, Side::Sell, 10300, 50}));
+    ASSERT_FALSE(book.addOrder({1, Side::Buy, 10200, 50}));
 
+    ASSERT_TRUE(book.bestAsk().has_value());
+    ASSERT_FALSE(book.bestBid().has_value());
+}
+
+TEST(OrderBookTest, RejectsIdReuseAfterCancellation)
+{
+    OrderBook book;
+
+    ASSERT_TRUE(book.addOrder({1, Side::Sell, 10300, 50}));
+    ASSERT_TRUE(book.bestAsk().has_value());
+
+    ASSERT_TRUE(book.cancelOrder(1));
+    ASSERT_FALSE(book.addOrder({1, Side::Sell, 10300, 50}));
+
+    // The cancelled order must not return to the book.
+    ASSERT_FALSE(book.bestAsk().has_value());
+}
 
