@@ -9,6 +9,7 @@
 #include <optional>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <list>
 
 using orderIterator = std::list<Order>::iterator;
@@ -17,6 +18,7 @@ class OrderBook {
 public:
     // limit order
     bool addOrder(const Order& order);
+    void processLimitOrder(const Order& order);
     bool cancelOrder(OrderId orderId);
     void printBook() const;
 
@@ -29,7 +31,7 @@ public:
     void matchMarketSell(Order& order);
 
     // order modification
-    bool modifyOrder(OrderId orderid, Price newPrice, Quantity newQuantity);
+    bool modifyOrder(OrderId orderId, Price newPrice, Quantity newQuantity);
 
     // helper funcions
     Quantity bidQuantityAt(Price price) const;
@@ -58,8 +60,11 @@ private:
     std::map<Price, std::list<Order>, std::greater<Price>> bids_;
     std::map<Price, std::list<Order>> asks_;
     
-    // for faster cancel order
+    // this is to store all the valid orders and fast lookup for specific order
     std::unordered_map<OrderId, OrderLocation> orderIndex_;
+
+    // for checking unique order id history, and for checking if order id is valid or not
+    std::unordered_set<OrderId> usedOrderIds_;
 
     // for recording trades
     std::vector<Trade> trades_;

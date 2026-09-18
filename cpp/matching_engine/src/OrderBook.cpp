@@ -5,17 +5,7 @@
 #include <algorithm>
 
 
-bool OrderBook::addOrder(const Order& order) {
-    // safety check for ther order
-    if (order.price <= 0 || order.quantity == 0) {
-        return false;
-    }
-
-    // see if the order exist or not
-    if (orderIndex_.find(order.id) != orderIndex_.end()) {
-        return false;
-    }
-
+void OrderBook::processLimitOrder(const Order& order) {
     Order incomingOrder = order;
 
     if (order.side == Side::Buy) {
@@ -47,6 +37,24 @@ bool OrderBook::addOrder(const Order& order) {
             orderIndex_[incomingOrder.id] = orderLoc;
         }
     }
+}
+
+
+
+bool OrderBook::addOrder(const Order& order) {
+    // safety check for ther order
+    if (order.price <= 0 || order.quantity == 0) {
+        return false;
+    }
+
+    // we want to see if the order id is unique in history
+    if (usedOrderIds_.contains(order.id)) {
+        return false;
+    }
+
+    // order id is valid and unused
+    usedOrderIds_.insert(order.id);
+    processLimitOrder(order);
 
     return true;
 }
@@ -91,8 +99,6 @@ bool OrderBook::cancelOrder(OrderId orderId) {
 
         return true;
     }
-
-    return false;
 }
 
 
@@ -292,15 +298,18 @@ std::optional<OrderId> OrderBook::firstAskOrderIdAt(Price price) const {
 
 // Market orders
 bool OrderBook::addMarketOrder(Order order) {
-    // check if the order exist or not
-    if (orderIndex_.find(order.id) != orderIndex_.end()) {
-        return false;
-    }
-
     // check if the order is valid or not
     if (order.quantity == 0) {
         return false;
     }
+    
+    // check if the order exist or not
+    if (usedOrderIds_.contains(order.id)) {
+        return false;
+    }
+
+    // valid and unique order id
+    usedOrderIds_.insert(order.id);
 
     Order incomingOrder = order;
 
@@ -399,14 +408,14 @@ few things need to keep in mind when implementing this feature
     3. any change of price will change the order too
     4. if no modification, then no change at all 
 */
-bool OrderBook::modifyOrder(OrderId orderid, Price newPrice, Quantity newQuantity) {
+bool OrderBook::modifyOrder(OrderId orderId, Price newPrice, Quantity newQuantity) {
     // then we check if the new price and new quantity make sense
     if (newPrice <= 0 || newQuantity <= 0) {
         return false;
     }
 
     // we need to see if the order exist
-    auto it = orderIndex_.find(orderid);
+    auto it = orderIndex_.find(orderId);
     if (it == orderIndex_.end()) {
         return false;
     }
@@ -423,14 +432,11 @@ bool OrderBook::modifyOrder(OrderId orderid, Price newPrice, Quantity newQuantit
         Order replacement = *it->second.orderIt;
         replacement.price = newPrice;
         replacement.quantity = newQuantity;
-        bool orderCancelled = cancelOrder(orderid);
+        bool orderCancelled = cancelOrder(orderId);
         if (!orderCancelled) {
             return false;
         }
-        bool orderAdded = addOrder(replacement);
-        if (!orderAdded) {
-            return false;
-        }
+        processLimitOrder(replacement);
     }
 
     return true;
