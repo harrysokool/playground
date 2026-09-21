@@ -1,0 +1,21 @@
+Riley: AIA’s Virtual Remote Worker
+
+As AIA continues to grow and innovate, employees spend significant time navigating systems, gathering information, coordinating activities, and performing routine tasks across multiple applications. Although existing AI solutions can support individual activities, employees must still connect these capabilities themselves to complete end-to-end work.
+
+Riley is a virtual remote worker that employees can communicate with directly through Microsoft Teams. Employees simply describe the outcome they need. Riley interprets the request, develops an execution plan, works across approved systems and information sources, and delivers the completed work for review.
+
+Depending on the assignment and access permissions, Riley can retrieve documents, analyze data, prepare reports, coordinate activities, draft communications, interact with business systems, and use specialized AI solutions developed across AIA. Employees define the objective, while Riley manages much of the execution.
+
+For example, an employee could ask:
+
+“Review the latest customer complaints, identify the most common issues, compare them with the previous quarter, prepare a summary of key findings, and draft an email for my team.”
+
+Riley would gather the relevant information, perform the analysis, prepare the findings and communication, and submit the completed work for employee approval before any action is taken.
+
+Unlike conventional AI assistants that support isolated tasks, Riley is designed to complete entire workflows. It can also use specialized AI capabilities created by teams across AIA, connecting separate innovations within a single employee request. Every new solution integrated into Riley expands what the virtual worker can accomplish, increasing the value of AIA’s wider innovation ecosystem.
+
+Employees remain responsible for oversight, guidance, and final decisions. Riley operates within defined permissions, approval requirements, and governance controls. Employee feedback on completed assignments is captured to improve its understanding of business processes, tool selection, and output quality over time.
+
+The long-term vision is to give every AIA employee access to a reliable virtual worker that is available on demand, operates across approved applications, and supports increasingly complex business activities. By handling routine research, coordination, analysis, communication, and execution, Riley gives employees more capacity for customer relationships, innovation, critical thinking, and strategic decision-making.
+
+Riley is not another AI tool. Riley is a virtual colleague that helps every AIA employee accomplish more.
