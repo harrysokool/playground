@@ -9,7 +9,9 @@ evidence of predictive advantage unless it survives the pre-specified out-of-sam
 
 ## Current scope
 
-Phase 5 adds preregistered, rule-aware randomness testing to the frozen Phase 3 provenance-linked
+Phase 8 adds a preregistered economic analysis after the one-time independent Phase 7 historical
+replication of the leakage-resistant Phase 6 walk-forward forecasting family on the frozen Phase 3
+provenance-linked
 development dataset from the measured populated coverage of
 the official structured endpoint: draw 93/001 (1993-01-05) through draw 26/099 (2026-09-12). It
 includes immutable raw evidence, rule-aware parsing, classified validation, versioned Parquet,
@@ -20,8 +22,22 @@ partial-unit entries using integers and rational fractions. It keeps the unresol
 boundary explicit and separates prize probabilities from variable payouts. Phase 5 separately tests
 main and Extra Number frequencies, exact composition and overlap laws, sums, consecutive behavior,
 gaps, pairs, preregistered triple maxima, serial dependence, and fixed-block stability against matched
-fair-history simulations. No number-selection strategies, prediction, or backtesting are part of
-Phase 5.
+fair-history simulations. Phase 6 evaluates a deliberately small fixed family of generic historical
+models against the uniform baseline using exact whole-set probabilities, proper scores, paired
+sequential inference, and 500 complete fair-process simulations. Phase 7 opened the final 676
+eligible 6/49 rows exactly once through a controlled path after freezing the protocol and passing
+the pre-opening quality gate. Every non-uniform model again had a negative mean primary log-score
+difference, so the negative Phase 6 conclusion replicated; no model met the conjunctive success
+criteria. The reserve manifest remains metadata-only, while the reserve is now consumed for
+confirmatory purposes. Phase 8 models exact current prize-fund accounting, fixed and variable
+expected payout, jackpot/turnover scenarios, prize sharing, Multiple and Banker equivalence,
+portfolio overlap, and deterministic simulation. It does not reopen historical-number prediction.
+The prospective holdout remains sealed with zero entries.
+
+Phase 9 integrates the closed historical research into a conservative pre-draw economic system.
+It accepts only timestamped official pre-draw evidence, uses a frozen explainable turnover range,
+reuses the Phase 8 economic engine, and emits `SKIP`, `WATCH`, or `ECONOMICALLY_INTERESTING` only
+under preregistered rules. It does not predict numbers or open the prospective holdout.
 
 ## Requirements
 
@@ -66,7 +82,38 @@ uv run mark-six stats overlap
 uv run mark-six stats gaps
 uv run mark-six stats pairs
 uv run mark-six stats report
+uv run mark-six predict models
+uv run mark-six predict run
+uv run mark-six predict report
+uv run mark-six predict verify
+uv run mark-six replicate run
+uv run mark-six replicate verify
+uv run mark-six replicate report
+uv run mark-six replicate compare
+uv run mark-six economics expected-value --turnover-hkd 100000000 --first-division-fund-hkd 50000000
+uv run mark-six economics breakeven --turnover-hkd 100000000 --target-return 1
+uv run mark-six economics sharing --turnover-hkd 100000000
+uv run mark-six economics multiple --selections 7
+uv run mark-six economics banker --bankers 2 --legs 5
+uv run mark-six economics portfolio --budget-hkd 100
+uv run mark-six economics run
+uv run mark-six economics reports
+uv run mark-six economics verify
 ```
+
+Final-system commands:
+
+```bash
+uv run mark-six build-final-system
+uv run mark-six current --evidence path/to/predraw_evidence.json
+uv run mark-six evaluate --evidence path/to/predraw_evidence.json
+uv run mark-six tickets --budget 100 --entry-type uniform --seed 20260915
+uv run mark-six verify-all
+```
+
+Real evidence/evaluation records are timestamped, content-addressed, immutable, and ignored under
+`data/predraw/`. Phase 9 itself creates no real prospective evaluation. See Decision 0009 and the
+generated `system_guide.md` before any future use.
 
 `ingest` is resumable and reuses exact, hash-valid, structurally valid cached windows. Development
 commands reject any range ending after 2026-09-13. A deliberate controlled source-revision check is
@@ -108,3 +155,30 @@ The frozen Phase 5 test family is in
 [`reports/generated/randomness_analysis.md`](reports/generated/randomness_analysis.md), supporting
 CSV tables, and a hash-linked Phase 5 analysis manifest. Statistical results are descriptive and
 confirmatory under the protocol; they do not imply that future draws are predictable.
+
+The frozen Phase 6 forecast family, split, scoring rules, inference method, seeds, and conjunctive
+success criteria are in
+[`docs/decisions/0006_predictive_signal_protocol.md`](docs/decisions/0006_predictive_signal_protocol.md).
+`mark-six predict run` can access only the first 2,700 rows of the 3,376-draw primary 6/49
+population. It creates 2,450 sequential forecasts after a 250-draw warm-up and verifies the
+outcome-free 676-row Phase 7 reserve before running. Generated forecasts, diagnostics, simulation
+calibration, report, and manifest remain ignored artifacts; `mark-six predict verify` recomputes
+their hashes and all upstream integrity checks.
+
+The frozen Phase 7 opening rules, unchanged candidate family, independent inference, fair-history
+calibration, and conjunctive success criteria are in
+[`docs/decisions/0007_historical_replication_protocol.md`](docs/decisions/0007_historical_replication_protocol.md).
+`mark-six replicate run` uses all 2,700 eligible pre-reserve draws to initialize model state, then
+scores all 676 reserve targets strictly sequentially in four fixed blocks of 169. The generated
+report is `reports/generated/historical_replication.md`; supporting tables are under
+`reports/generated/phase7/`, and `mark-six replicate verify` validates the self-hashed analysis
+manifest plus all 11 recorded output hashes. Phase 6 and Phase 7 are compared independently rather
+than pooled. The consumed reserve must not be used to tune another confirmatory model.
+
+The frozen Phase 8 questions, time-state rules, evidence classes, sharing assumptions, scenario
+grids, simulation seed, and materiality rule are in
+[`docs/decisions/0008_economic_value_protocol.md`](docs/decisions/0008_economic_value_protocol.md).
+Calculation details and bounded source-field interpretations are in
+[`docs/economic_model.md`](docs/economic_model.md). `mark-six economics run` generates three reports,
+14 supporting tables, and a self-hashed manifest. Generated artifacts stay ignored. The historical
+table ends at draw 26/099; no Phase 8 path reads the prospective holdout.

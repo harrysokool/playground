@@ -1,0 +1,37 @@
+{
+  "draw_date": "2026-09-16",
+  "draw_id": "hkjc:26/100",
+  "draw_type": "normal",
+  "evidence_confidence": "Medium",
+  "exceptional_funding_status": "none_known",
+  "frozen_at": "2026-09-15T12:00:00+08:00",
+  "known_carryover_hkd_cents": 0,
+  "official_first_division_description": "official_estimated_first_division_fund",
+  "official_first_division_fund_hkd_cents": 12000000000,
+  "outcome_data_accessed": false,
+  "record_type": "mark_six_pre_draw_evidence",
+  "sales_close_at": "2026-09-16T21:00:00+08:00",
+  "schema_version": "1",
+  "sources": [
+    {
+      "confidence": "High",
+      "evidence_class": "official_pre_draw",
+      "published_at": "2026-09-15T10:00:00+08:00",
+      "publisher": "SYNTHETIC HKJC FIXTURE",
+      "retrieved_at": "2026-09-15T11:00:00+08:00",
+      "source_id": "synthetic_official_draw_notice",
+      "url": "https://www.hkjc.com/synthetic-fixture-not-fetched"
+    }
+  ],
+  "special_snowball_hkd_cents": 0,
+  "ticket_price_hkd_cents": 1000,
+  "turnover_forecast": {
+    "central_hkd": 75327267,
+    "confidence": "Medium",
+    "evidence_class": "estimate_from_frozen_pre_holdout_history_plus_assumption",
+    "explanation": "Frozen current-rule draw-class median plus a 0.25 HKD/HKD response to the amount above the HKD 8m reference. The response and range are assumptions informed by pre-holdout completed-draw associations, not causal or official forecasts.",
+    "lower_hkd": 52729087,
+    "method": "frozen_draw_class_median_plus_fund_response_v1",
+    "upper_hkd": 101691810
+  }
+}

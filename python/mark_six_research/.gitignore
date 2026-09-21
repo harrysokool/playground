@@ -42,6 +42,7 @@ data/interim/**
 data/processed/**
 data/external/**
 data/simulations/**
+data/predraw/**
 
 # Reproducible local databases
 *.duckdb
@@ -58,4 +59,3 @@ artifacts/simulations/**
 .env.*
 !.env.example
 configs/local*.yaml
-

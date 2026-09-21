@@ -1,0 +1,55 @@
+system_version: "phase9-v1"
+protocol_version: "phase9-final-system-v1"
+baseline_commit: "85dbaa01c4dfff728aa73a03ad39f8197ce40975"
+dataset_id: "marksix-bc02467ec951c2d8"
+dataset_manifest_sha256: "fcfdb77b153e7fc0d48b734c55cb400235108f574547163dcb474df564a76abf"
+protocol_path: "docs/decisions/0009_final_research_system.md"
+rule_version: "hkjc_mark_six_2024_05_21"
+previous_manifest_sha256:
+  phase5: "cd9bf51a448d5be5e66cea0967a093c4f24a763e2cbbc687c00fe2b6b6de40e2"
+  phase6: "2ed722e70bd86a99677a933206d6c2490cd0fdbc4e707307ed147203f235a74d"
+  phase7: "c01b718854e21bfb9f26bdf66453d85eb688df6fc0655ddccb5f529f032000d9"
+  phase8: "9e82b4595477bab300363b80724cf97decdc90556523512b568bf3efceadb8e3"
+turnover:
+  method: "frozen_draw_class_median_plus_fund_response_v1"
+  normal_baseline_hkd: 47327267
+  special_baseline_hkd: 165747171
+  reference_first_division_fund_hkd: 8000000
+  fund_response_hkd_per_hkd: 0.25
+  lower_multiplier: 0.70
+  upper_multiplier: 1.35
+  floor_hkd: 20000000
+  evidence_class: "estimate_from_frozen_pre_holdout_history_plus_assumption"
+sharing_scenarios:
+  - name: "lower_sharing"
+    first_division_popularity_multiplier: 0.5
+    evidence_class: "behavioral_assumption"
+  - name: "uniform"
+    first_division_popularity_multiplier: 1.0
+    evidence_class: "exact_under_uniform_selection_assumption"
+  - name: "higher_sharing"
+    first_division_popularity_multiplier: 3.0
+    evidence_class: "behavioral_assumption"
+decision_rules:
+  economically_interesting_minimum_worst_case_return_ratio: 1.02
+  watch_minimum_best_case_return_ratio: 0.95
+  minimum_confidence: "Medium"
+  low_confidence_action: "SKIP"
+  missing_evidence_action: "fail_closed"
+ticket_budgets_hkd: [100, 500, 1000]
+ticket_price_hkd_cents: 1000
+source_definitions:
+  official_draw_announcement: "Dated HKJC draw-specific page published before sales close"
+  official_rules: "Current HKJC Lotteries Rules or betting guide"
+  turnover_forecast: "Frozen explainable estimate; never an official fact"
+  sharing_sensitivity: "Uniform benchmark plus assumption-based lower and higher sharing"
+storage:
+  directory: "data/predraw"
+  evidence_kind: "evidence"
+  evaluation_kind: "evaluation"
+outputs:
+  manifest: "reports/generated/phase9_manifest.json"
+  reports:
+    - "reports/generated/final_research_summary.md"
+    - "reports/generated/system_guide.md"
+    - "reports/generated/limitations.md"

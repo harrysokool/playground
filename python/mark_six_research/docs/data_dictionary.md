@@ -1,6 +1,6 @@
 # Canonical Data Dictionary
 
-**Status:** Phase 3 canonical schema frozen; Phase 4 rule-model extension documented
+**Status:** Phase 3 canonical schema frozen; Phase 8 economic interpretation documented
 **Schema version:** 2
 
 The seven Phase 3 publication tables below describe implemented Parquet/DuckDB fields; later strategy
@@ -129,6 +129,14 @@ draw.
 Phase 3 creates only a `special_designation` event when official Snowball code/name fields are
 present; it assigns no amount or publication time. A nonzero source field named `jackpot` does not
 establish whether it is an announcement, rollover, Snowball addition, or final accounting amount.
+
+Phase 8 reconciled draw 26/096 against a dated official notice: source `jackpot` equals that draw's
+HKD 185m carried Snowball and `reported_derived_first_prize_hkd_cents` equals its advertised HKD
+228m estimated First Division fund. This is high-confidence draw-specific evidence, not proof of
+invariant semantics across normal draws or historical eras. Canonical completed-draw rows lack a
+field publication timestamp, so these columns remain `source_reported_post_draw` unless a separate
+dated notice proves pre-draw availability. `estimated_first_prize_hkd_cents` remains null in the
+completed canonical samples and is never imputed.
 
 | Field | Meaning | Type | Nullable | Example | Source or derivation |
 |---|---|---:|:---:|---|---|
@@ -320,3 +328,18 @@ versions, the development cutoff, the rule-document hash, and every input snapsh
 Its manifest records the input count, raw snapshot manifest SHA-256, canonical Parquet SHA-256 values,
 row counts, creation time, DuckDB path, and Git commit (null when unavailable). Dataset identity is
 therefore content/configuration-derived, not timestamp-derived.
+
+## Phase 9 pre-draw records
+
+`mark_six_pre_draw_evidence` is a strict outcome-free JSON record. Its material fields are
+`draw_id`, `draw_date`, `sales_close_at`, `frozen_at`, `draw_type`, `ticket_price_hkd_cents`,
+`official_first_division_fund_hkd_cents`, `official_first_division_description`,
+`known_carryover_hkd_cents`, `special_snowball_hkd_cents`, `exceptional_funding_status`, `sources`,
+`evidence_confidence`, and `turnover_forecast`. Source publication and retrieval timestamps must not
+follow `frozen_at`. The turnover forecast stores `lower_hkd`, `central_hkd`, `upper_hkd`, method,
+confidence, evidence class, and explanation; it is an estimate, not an official fact.
+
+`mark_six_prospective_evaluation` binds the evidence and configuration hashes to a frozen decision,
+central economics, break-even distance, turnover/sharing sensitivities, and all nine scenario rows.
+It structurally fixes `outcome_data_accessed` and `prospective_holdout_accessed` to false and
+`outcome_comparison_status` to `not_started`. Outcome comparison is outside Phase 9.
