@@ -1,0 +1,5 @@
+# Heavier PaddleOCR configuration: PP-OCRv5 server detection + recognition.
+engine_config_name: paddle_heavy
+text_detection_model_name: PP-OCRv5_server_det
+text_recognition_model_name: PP-OCRv5_server_rec
+device: cpu

@@ -1,0 +1,5 @@
+# Light PaddleOCR configuration: PP-OCRv5 mobile detection + recognition.
+engine_config_name: paddle_light
+text_detection_model_name: PP-OCRv5_mobile_det
+text_recognition_model_name: PP-OCRv5_mobile_rec
+device: cpu
