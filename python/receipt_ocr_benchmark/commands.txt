@@ -20,3 +20,15 @@ x-bce-flow-control-type: -1
 x-bce-is-transition: false
 x-bce-lcclocation: 
 x-bce-request-id: 38ed8bd7-2762-480e-a804-2efa628b135e
+
+
+mkdir -p models
+cd models
+
+curl -LO https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-OCRv5_mobile_det_infer.tar
+
+curl -LO https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-OCRv5_mobile_rec_infer.tar
+
+curl -LO https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-OCRv5_server_det_infer.tar
+
+curl -LO https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-OCRv5_server_rec_infer.tar
