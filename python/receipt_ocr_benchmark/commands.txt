@@ -1,0 +1,11 @@
+(.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark$ python -m receipt_bench.cli --help
+usage: cli.py [-h] --config CONFIG --input INPUT --output OUTPUT
+
+Run a PaddleOCR benchmark config over one receipt file or a directory of them. Usage: python -m receipt_bench.cli --config configs/paddle_light.yaml --input data/raw --output
+results/paddle_light
+
+options:
+  -h, --help       show this help message and exit
+  --config CONFIG  Engine config YAML.
+  --input INPUT    A receipt file or a directory of receipts.
+  --output OUTPUT  Directory to write JSON results to.
