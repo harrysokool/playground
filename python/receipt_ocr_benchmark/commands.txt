@@ -3,20 +3,46 @@ python -m receipt_bench.cli \
   --input data/raw \
   --output results/paddle_light
 
-(.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark$ ls -lah models
-total 186M
-drwxrwxrwx 2 root root    0 Sep 22 03:21 .
-drwxrwxrwx 2 root root    0 Sep 22 02:15 ..
--rwxrwxrwx 1 root root 4.8M Sep 22 03:21 PP-OCRv5_mobile_det_infer.tar
--rwxrwxrwx 1 root root  17M Sep 22 03:21 PP-OCRv5_mobile_rec_infer.tar
--rwxrwxrwx 1 root root  85M Sep 22 03:21 PP-OCRv5_server_det_infer.tar
--rwxrwxrwx 1 root root  81M Sep 22 03:21 PP-OCRv5_server_rec_infer.tar
--rwxrwxrwx 1 root root  872 Sep 22 03:28 README.md
-
-
- find models -maxdepth 2 -type f | head -50
-models/PP-OCRv5_mobile_det_infer.tar
-models/PP-OCRv5_mobile_rec_infer.tar
-models/PP-OCRv5_server_det_infer.tar
-models/PP-OCRv5_server_rec_infer.tar
-models/README.md
+ python -m receipt_bench.cli \
+  --config configs/paddle_light.yaml \
+  --input data/raw \
+  --output results/paddle_light
+Creating model: ('PP-OCRv5_mobile_det', 'models/PP-OCRv5_mobile_det_infer', None)
+/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddle/utils/cpp_extension/extension_utils.py:712: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md
+  warnings.warn(warning_message)
+Creating model: ('PP-OCRv5_mobile_rec', 'models/PP-OCRv5_mobile_rec_infer', None)
+Processing data/raw/receipt1.jpeg ...
+Resized image size (3024x4032) exceeds max_side_limit of 4000. Resizing to fit within limit.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/receipt_bench/cli.py", line 51, in <module>
+    main()
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/receipt_bench/cli.py", line 44, in main
+    result = engine.process(file_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/receipt_bench/paddle_engine.py", line 35, in process
+    page_predictions = self._ocr.predict(str(document_path))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddleocr/_pipelines/ocr.py", line 223, in predict
+    return list(
+           ^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/_parallel.py", line 161, in predict
+    yield from self._pipeline.predict(
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/ocr/pipeline.py", line 366, in predict
+    det_results = list(
+                  ^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/predictors/base_predictor.py", line 117, in __call__
+    yield from self.apply(input, **kwargs)
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/predictors/base_predictor.py", line 140, in apply
+    pred = self.process(batch_data, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/text_detection/predictor.py", line 145, in process
+    batch_preds = self.runner(x=x)
+                  ^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/runners/paddle_static/runner.py", line 297, in __call__
+    pred = self.infer(x)
+           ^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/runners/paddle_static/runner.py", line 265, in __call__
+    self.predictor.run()
+NotImplementedError: (Unimplemented) ConvertPirAttribute2RuntimeAttribute not support [pir::ArrayAttribute<pir::DoubleAttribute>]  (at /paddle/paddle/fluid/framework/new_executor/instruction/onednn/onednn_instruction.cc:116)
