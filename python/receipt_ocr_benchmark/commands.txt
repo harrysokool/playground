@@ -3,32 +3,60 @@ python -m receipt_bench.cli \
   --input data/raw \
   --output results/paddle_light
 
-(.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark$ curl -I https://paddle-model-ecology.bj.bcebos.com
-HTTP/1.1 200 OK
-Date: Tue, 22 Sep 2026 03:19:58 GMT
-Content-Length: 0
-Connection: keep-alive
-Server: BceBos
-X-Bce-Versioning: notEnabled
-x-bce-bucket-az-type: false
-x-bce-bucket-createtime: 1622110099
-x-bce-bucket-dedicated: false
-x-bce-bucket-region: bj
-x-bce-bucket-storageclass: STANDARD
-x-bce-debug-id: ITfSyfDXc/VMIEwn/76sWHU4FC+1CYGSlxsR3RRzx4KMRxY1rGjZt4D035mn+WB1Mgfc7Uf6/KqmwmJTXhnrXQ==
-x-bce-flow-control-type: -1
-x-bce-is-transition: false
-x-bce-lcclocation: 
-x-bce-request-id: 38ed8bd7-2762-480e-a804-2efa628b135e
-
-
-mkdir -p models
-cd models
-
-curl -LO https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-OCRv5_mobile_det_infer.tar
-
-curl -LO https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-OCRv5_mobile_rec_infer.tar
-
-curl -LO https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-OCRv5_server_det_infer.tar
-
-curl -LO https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-OCRv5_server_rec_infer.tar
+(.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark$ cd ..
+(.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python$ cd receipt_ocr_benchmark/
+(.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark$ python -m receipt_bench.cli   --config configs/paddle_light.yaml   --input data/raw   --output results/paddle_light
+Creating model: ('PP-OCRv5_mobile_det', 'models/PP-OCRv5_mobile_det_infer', None)
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/receipt_bench/cli.py", line 51, in <module>
+    main()
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/receipt_bench/cli.py", line 39, in main
+    engine = PaddleEngine(config)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/receipt_bench/paddle_engine.py", line 20, in __init__
+    self._ocr = PaddleOCR(
+                ^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddleocr/_pipelines/ocr.py", line 173, in __init__
+    super().__init__(**base_params)
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddleocr/_pipelines/base.py", line 67, in __init__
+    self.paddlex_pipeline = self._create_paddlex_pipeline()
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddleocr/_pipelines/base.py", line 105, in _create_paddlex_pipeline
+    return create_pipeline(config=self._merged_paddlex_config, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/__init__.py", line 169, in create_pipeline
+    pipeline = BasePipeline.get(pipeline_name)(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/utils/deps.py", line 208, in _wrapper
+    return old_init_func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/_parallel.py", line 135, in __init__
+    self._pipeline = self._create_internal_pipeline(config, self.device)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/_parallel.py", line 190, in _create_internal_pipeline
+    pipeline = self._pipeline_cls(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/ocr/pipeline.py", line 126, in __init__
+    self.text_det_model = self.create_model(
+                          ^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/base.py", line 143, in create_model
+    return create_predictor(
+           ^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/__init__.py", line 417, in create_predictor
+    model_name, model_dir_resolved, resolved_config = resolve_model_name(
+                                                      ^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/utils/model_resolver.py", line 34, in resolve_model_name
+    resolved_config = load_model_config(resolved_dir)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/utils/model_config.py", line 31, in load_model_config
+    return YAMLReader().read(get_model_config_path(model_dir))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/utils/io/readers.py", line 226, in read
+    return self._backend.read_file(str(in_path))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/utils/io/readers.py", line 620, in read_file
+    with open(in_path, "r", encoding="utf-8", **kwargs) as yaml_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'models/PP-OCRv5_mobile_det_infer/inference.yml'
