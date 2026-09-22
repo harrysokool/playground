@@ -2,3 +2,64 @@ python -m receipt_bench.cli \
   --config configs/paddle_light.yaml \
   --input data/raw \
   --output results/paddle_light
+
+
+  (.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark$ python -m receipt_bench.cli \
+  --config configs/paddle_light.yaml \
+  --input data/raw \
+  --output results/paddle_light
+Creating model: ('PP-OCRv5_mobile_det', None, None)
+Checking connectivity to the model hosters, this may take a while. To bypass this check, set `PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK` to `True`.
+No model hoster is available! Please check your network connection to one of the following model hoster: HuggingFace (https://huggingface.co), ModelScope (https://modelscope.cn), AIStudio (https://aistudio.baidu.com), or BOS (https://paddle-model-ecology.bj.bcebos.com). Otherwise, only local models can be used.
+No available model hosting platforms detected. Please check your network connection.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/receipt_bench/cli.py", line 51, in <module>
+    main()
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/receipt_bench/cli.py", line 39, in main
+    engine = PaddleEngine(config)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/receipt_bench/paddle_engine.py", line 20, in __init__
+    self._ocr = PaddleOCR(
+                ^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddleocr/_pipelines/ocr.py", line 173, in __init__
+    super().__init__(**base_params)
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddleocr/_pipelines/base.py", line 67, in __init__
+    self.paddlex_pipeline = self._create_paddlex_pipeline()
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddleocr/_pipelines/base.py", line 105, in _create_paddlex_pipeline
+    return create_pipeline(config=self._merged_paddlex_config, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/__init__.py", line 169, in create_pipeline
+    pipeline = BasePipeline.get(pipeline_name)(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/utils/deps.py", line 208, in _wrapper
+    return old_init_func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/_parallel.py", line 135, in __init__
+    self._pipeline = self._create_internal_pipeline(config, self.device)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/_parallel.py", line 190, in _create_internal_pipeline
+    pipeline = self._pipeline_cls(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/ocr/pipeline.py", line 126, in __init__
+    self.text_det_model = self.create_model(
+                          ^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/pipelines/base.py", line 143, in create_model
+    return create_predictor(
+           ^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/__init__.py", line 432, in create_predictor
+    model_dir_resolved = _resolve_local_model_dir(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/__init__.py", line 273, in _resolve_local_model_dir
+    return _resolve_model_dir(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/models/__init__.py", line 100, in _resolve_model_dir
+    official_models.get_model_path(
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/utils/official_models.py", line 985, in get_model_path
+    return self._get_model_local_path(download_model_names)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddlex/inference/utils/official_models.py", line 967, in _get_model_local_path
+    raise Exception(msg)
+Exception: No available model hosting platforms detected. Please check your network connection.
