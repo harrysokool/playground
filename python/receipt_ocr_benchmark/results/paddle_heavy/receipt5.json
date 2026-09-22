@@ -1,0 +1,1197 @@
+{
+  "document_id": "receipt5",
+  "engine_config": {
+    "engine_config_name": "paddle_heavy",
+    "text_detection_model_name": "PP-OCRv5_server_det",
+    "text_detection_model_dir": "models/PP-OCRv5_server_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_server_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_server_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 3024,
+      "height": 4032,
+      "blocks": [
+        {
+          "text": "MEDICAL RECEIPT TEMPLATE",
+          "confidence": 0.9445643424987793,
+          "polygon": [
+            [
+              887,
+              612
+            ],
+            [
+              1911,
+              569
+            ],
+            [
+              1914,
+              647
+            ],
+            [
+              890,
+              690
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "MEDICAL INVOICE",
+          "confidence": 0.9679762125015259,
+          "polygon": [
+            [
+              1677,
+              818
+            ],
+            [
+              2206,
+              802
+            ],
+            [
+              2208,
+              867
+            ],
+            [
+              1679,
+              884
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "Hospital NameSlogan Dr.Fung Ka Kit Paul",
+          "confidence": 0.8128002285957336,
+          "polygon": [
+            [
+              441,
+              916
+            ],
+            [
+              1553,
+              877
+            ],
+            [
+              1556,
+              966
+            ],
+            [
+              445,
+              1005
+            ]
+          ],
+          "reading_order": 2
+        },
+        {
+          "text": "Street Address :2528 Bayview,Ave.suite 35586",
+          "confidence": 0.9209608435630798,
+          "polygon": [
+            [
+              448,
+              1018
+            ],
+            [
+              1791,
+              965
+            ],
+            [
+              1794,
+              1043
+            ],
+            [
+              451,
+              1097
+            ]
+          ],
+          "reading_order": 3
+        },
+        {
+          "text": "North York,ontario,Ca mzl214",
+          "confidence": 0.867870032787323,
+          "polygon": [
+            [
+              765,
+              1063
+            ],
+            [
+              1819,
+              1037
+            ],
+            [
+              1821,
+              1118
+            ],
+            [
+              767,
+              1145
+            ]
+          ],
+          "reading_order": 4
+        },
+        {
+          "text": "City/State,Zip",
+          "confidence": 0.977495551109314,
+          "polygon": [
+            [
+              451,
+              1121
+            ],
+            [
+              735,
+              1112
+            ],
+            [
+              736,
+              1168
+            ],
+            [
+              453,
+              1177
+            ]
+          ],
+          "reading_order": 5
+        },
+        {
+          "text": "Phone Number, Web Address Etc",
+          "confidence": 0.9365494847297668,
+          "polygon": [
+            [
+              455,
+              1233
+            ],
+            [
+              1119,
+              1221
+            ],
+            [
+              1120,
+              1276
+            ],
+            [
+              456,
+              1288
+            ]
+          ],
+          "reading_order": 6
+        },
+        {
+          "text": "DT 10Y0J",
+          "confidence": 0.4726732075214386,
+          "polygon": [
+            [
+              2064,
+              1322
+            ],
+            [
+              2441,
+              1325
+            ],
+            [
+              2440,
+              1420
+            ],
+            [
+              2064,
+              1418
+            ]
+          ],
+          "reading_order": 7
+        },
+        {
+          "text": "Patient Happy Lam",
+          "confidence": 0.9774810671806335,
+          "polygon": [
+            [
+              372,
+              1362
+            ],
+            [
+              987,
+              1341
+            ],
+            [
+              991,
+              1469
+            ],
+            [
+              376,
+              1490
+            ]
+          ],
+          "reading_order": 8
+        },
+        {
+          "text": "24",
+          "confidence": 0.9994997978210449,
+          "polygon": [
+            [
+              1812,
+              1353
+            ],
+            [
+              1936,
+              1353
+            ],
+            [
+              1936,
+              1433
+            ],
+            [
+              1812,
+              1433
+            ]
+          ],
+          "reading_order": 9
+        },
+        {
+          "text": "Age",
+          "confidence": 0.9874642491340637,
+          "polygon": [
+            [
+              1679,
+              1372
+            ],
+            [
+              1777,
+              1369
+            ],
+            [
+              1779,
+              1429
+            ],
+            [
+              1681,
+              1432
+            ]
+          ],
+          "reading_order": 10
+        },
+        {
+          "text": "",
+          "confidence": 0.0,
+          "polygon": [
+            [
+              1076,
+              1386
+            ],
+            [
+              1175,
+              1392
+            ],
+            [
+              1172,
+              1445
+            ],
+            [
+              1073,
+              1440
+            ]
+          ],
+          "reading_order": 11
+        },
+        {
+          "text": "",
+          "confidence": 0.0,
+          "polygon": [
+            [
+              2091,
+              1442
+            ],
+            [
+              2465,
+              1442
+            ],
+            [
+              2465,
+              1519
+            ],
+            [
+              2091,
+              1519
+            ]
+          ],
+          "reading_order": 12
+        },
+        {
+          "text": "Consultant",
+          "confidence": 0.9959583282470703,
+          "polygon": [
+            [
+              1685,
+              1473
+            ],
+            [
+              1917,
+              1467
+            ],
+            [
+              1919,
+              1516
+            ],
+            [
+              1686,
+              1521
+            ]
+          ],
+          "reading_order": 13
+        },
+        {
+          "text": "Hospital No 12 J45078",
+          "confidence": 0.9302012920379639,
+          "polygon": [
+            [
+              388,
+              1487
+            ],
+            [
+              970,
+              1472
+            ],
+            [
+              972,
+              1541
+            ],
+            [
+              389,
+              1556
+            ]
+          ],
+          "reading_order": 14
+        },
+        {
+          "text": "Payment ModeJ or",
+          "confidence": 0.8312415480613708,
+          "polygon": [
+            [
+              1677,
+              1554
+            ],
+            [
+              2489,
+              1533
+            ],
+            [
+              2491,
+              1615
+            ],
+            [
+              1679,
+              1637
+            ]
+          ],
+          "reading_order": 15
+        },
+        {
+          "text": "smev",
+          "confidence": 0.3279830813407898,
+          "polygon": [
+            [
+              2521,
+              1555
+            ],
+            [
+              2626,
+              1555
+            ],
+            [
+              2626,
+              1600
+            ],
+            [
+              2521,
+              1600
+            ]
+          ],
+          "reading_order": 16
+        },
+        {
+          "text": "Name Happy Lam",
+          "confidence": 0.9515208005905151,
+          "polygon": [
+            [
+              378,
+              1566
+            ],
+            [
+              939,
+              1566
+            ],
+            [
+              939,
+              1667
+            ],
+            [
+              378,
+              1667
+            ]
+          ],
+          "reading_order": 17
+        },
+        {
+          "text": "#R#5",
+          "confidence": 0.24021512269973755,
+          "polygon": [
+            [
+              2151,
+              1625
+            ],
+            [
+              2652,
+              1623
+            ],
+            [
+              2652,
+              1728
+            ],
+            [
+              2152,
+              1730
+            ]
+          ],
+          "reading_order": 18
+        },
+        {
+          "text": "Address Hong Kong",
+          "confidence": 0.9601418972015381,
+          "polygon": [
+            [
+              374,
+              1674
+            ],
+            [
+              908,
+              1665
+            ],
+            [
+              909,
+              1769
+            ],
+            [
+              376,
+              1778
+            ]
+          ],
+          "reading_order": 19
+        },
+        {
+          "text": "Bed No.",
+          "confidence": 0.942046046257019,
+          "polygon": [
+            [
+              1688,
+              1671
+            ],
+            [
+              1859,
+              1669
+            ],
+            [
+              1860,
+              1719
+            ],
+            [
+              1688,
+              1722
+            ]
+          ],
+          "reading_order": 20
+        },
+        {
+          "text": "C50",
+          "confidence": 0.406564861536026,
+          "polygon": [
+            [
+              2149,
+              1760
+            ],
+            [
+              2297,
+              1760
+            ],
+            [
+              2297,
+              1799
+            ],
+            [
+              2149,
+              1799
+            ]
+          ],
+          "reading_order": 21
+        },
+        {
+          "text": "Phone+852 6202 0528",
+          "confidence": 0.9656544923782349,
+          "polygon": [
+            [
+              375,
+              1783
+            ],
+            [
+              1066,
+              1754
+            ],
+            [
+              1070,
+              1837
+            ],
+            [
+              379,
+              1866
+            ]
+          ],
+          "reading_order": 22
+        },
+        {
+          "text": "Admission Date 09/01/2026",
+          "confidence": 0.9172932505607605,
+          "polygon": [
+            [
+              1683,
+              1856
+            ],
+            [
+              2505,
+              1833
+            ],
+            [
+              2507,
+              1909
+            ],
+            [
+              1685,
+              1932
+            ]
+          ],
+          "reading_order": 23
+        },
+        {
+          "text": "Email",
+          "confidence": 0.9802440404891968,
+          "polygon": [
+            [
+              378,
+              1891
+            ],
+            [
+              516,
+              1891
+            ],
+            [
+              516,
+              1945
+            ],
+            [
+              378,
+              1945
+            ]
+          ],
+          "reading_order": 24
+        },
+        {
+          "text": "Discharge Date",
+          "confidence": 0.9897786378860474,
+          "polygon": [
+            [
+              1695,
+              1977
+            ],
+            [
+              2017,
+              1970
+            ],
+            [
+              2018,
+              2023
+            ],
+            [
+              1696,
+              2029
+            ]
+          ],
+          "reading_order": 25
+        },
+        {
+          "text": "QTY",
+          "confidence": 0.9756181836128235,
+          "polygon": [
+            [
+              1742,
+              2074
+            ],
+            [
+              1848,
+              2074
+            ],
+            [
+              1848,
+              2136
+            ],
+            [
+              1742,
+              2136
+            ]
+          ],
+          "reading_order": 26
+        },
+        {
+          "text": "RATE",
+          "confidence": 0.9813716411590576,
+          "polygon": [
+            [
+              1970,
+              2074
+            ],
+            [
+              2100,
+              2071
+            ],
+            [
+              2101,
+              2126
+            ],
+            [
+              1971,
+              2128
+            ]
+          ],
+          "reading_order": 27
+        },
+        {
+          "text": "AMOUNT",
+          "confidence": 0.9911673069000244,
+          "polygon": [
+            [
+              2302,
+              2071
+            ],
+            [
+              2521,
+              2071
+            ],
+            [
+              2521,
+              2121
+            ],
+            [
+              2302,
+              2121
+            ]
+          ],
+          "reading_order": 28
+        },
+        {
+          "text": "PARTICULARS",
+          "confidence": 0.9910574555397034,
+          "polygon": [
+            [
+              1000,
+              2091
+            ],
+            [
+              1301,
+              2086
+            ],
+            [
+              1302,
+              2138
+            ],
+            [
+              1001,
+              2142
+            ]
+          ],
+          "reading_order": 29
+        },
+        {
+          "text": "#",
+          "confidence": 0.9743916392326355,
+          "polygon": [
+            [
+              499,
+              2101
+            ],
+            [
+              539,
+              2099
+            ],
+            [
+              543,
+              2146
+            ],
+            [
+              502,
+              2149
+            ]
+          ],
+          "reading_order": 30
+        },
+        {
+          "text": "20.00",
+          "confidence": 0.9956179857254028,
+          "polygon": [
+            [
+              2300,
+              2150
+            ],
+            [
+              2521,
+              2157
+            ],
+            [
+              2519,
+              2236
+            ],
+            [
+              2298,
+              2230
+            ]
+          ],
+          "reading_order": 31
+        },
+        {
+          "text": "boftle",
+          "confidence": 0.8728048801422119,
+          "polygon": [
+            [
+              1042,
+              2168
+            ],
+            [
+              1249,
+              2163
+            ],
+            [
+              1251,
+              2247
+            ],
+            [
+              1044,
+              2252
+            ]
+          ],
+          "reading_order": 32
+        },
+        {
+          "text": "2",
+          "confidence": 0.9908459782600403,
+          "polygon": [
+            [
+              1733,
+              2166
+            ],
+            [
+              1825,
+              2157
+            ],
+            [
+              1832,
+              2236
+            ],
+            [
+              1740,
+              2244
+            ]
+          ],
+          "reading_order": 33
+        },
+        {
+          "text": "10.00",
+          "confidence": 0.9940985441207886,
+          "polygon": [
+            [
+              1985,
+              2161
+            ],
+            [
+              2170,
+              2156
+            ],
+            [
+              2172,
+              2233
+            ],
+            [
+              1987,
+              2238
+            ]
+          ],
+          "reading_order": 34
+        },
+        {
+          "text": "1",
+          "confidence": 0.9815359711647034,
+          "polygon": [
+            [
+              457,
+              2176
+            ],
+            [
+              535,
+              2176
+            ],
+            [
+              535,
+              2254
+            ],
+            [
+              457,
+              2254
+            ]
+          ],
+          "reading_order": 35
+        },
+        {
+          "text": "water",
+          "confidence": 0.9708667993545532,
+          "polygon": [
+            [
+              755,
+              2172
+            ],
+            [
+              971,
+              2169
+            ],
+            [
+              972,
+              2254
+            ],
+            [
+              756,
+              2256
+            ]
+          ],
+          "reading_order": 36
+        },
+        {
+          "text": "20.00",
+          "confidence": 0.9888696670532227,
+          "polygon": [
+            [
+              2059,
+              2900
+            ],
+            [
+              2295,
+              2894
+            ],
+            [
+              2297,
+              2984
+            ],
+            [
+              2062,
+              2990
+            ]
+          ],
+          "reading_order": 37
+        },
+        {
+          "text": "JATOT802",
+          "confidence": 0.788931131362915,
+          "polygon": [
+            [
+              1064,
+              2925
+            ],
+            [
+              1303,
+              2925
+            ],
+            [
+              1303,
+              2996
+            ],
+            [
+              1064,
+              2996
+            ]
+          ],
+          "reading_order": 38
+        },
+        {
+          "text": "SUBTOTAL",
+          "confidence": 0.9941177368164062,
+          "polygon": [
+            [
+              1714,
+              2929
+            ],
+            [
+              1953,
+              2929
+            ],
+            [
+              1953,
+              2982
+            ],
+            [
+              1714,
+              2982
+            ]
+          ],
+          "reading_order": 39
+        },
+        {
+          "text": "FO008XAT",
+          "confidence": 0.5764328241348267,
+          "polygon": [
+            [
+              1048,
+              3034
+            ],
+            [
+              1298,
+              3044
+            ],
+            [
+              1295,
+              3119
+            ],
+            [
+              1045,
+              3109
+            ]
+          ],
+          "reading_order": 40
+        },
+        {
+          "text": "TAX8.000%",
+          "confidence": 0.9932838082313538,
+          "polygon": [
+            [
+              1712,
+              3043
+            ],
+            [
+              1985,
+              3041
+            ],
+            [
+              1986,
+              3096
+            ],
+            [
+              1712,
+              3099
+            ]
+          ],
+          "reading_order": 41
+        },
+        {
+          "text": "NOTES:",
+          "confidence": 0.9830382466316223,
+          "polygon": [
+            [
+              499,
+              3147
+            ],
+            [
+              665,
+              3151
+            ],
+            [
+              663,
+              3206
+            ],
+            [
+              497,
+              3201
+            ]
+          ],
+          "reading_order": 42
+        },
+        {
+          "text": "MIADOIM",
+          "confidence": 0.7302607297897339,
+          "polygon": [
+            [
+              1024,
+              3143
+            ],
+            [
+              1303,
+              3156
+            ],
+            [
+              1300,
+              3232
+            ],
+            [
+              1021,
+              3219
+            ]
+          ],
+          "reading_order": 43
+        },
+        {
+          "text": "MED CLAIM",
+          "confidence": 0.9341392517089844,
+          "polygon": [
+            [
+              1717,
+              3159
+            ],
+            [
+              1987,
+              3157
+            ],
+            [
+              1988,
+              3209
+            ],
+            [
+              1717,
+              3212
+            ]
+          ],
+          "reading_order": 44
+        },
+        {
+          "text": "TOTAL ZO.00",
+          "confidence": 0.8278743624687195,
+          "polygon": [
+            [
+              1703,
+              3245
+            ],
+            [
+              2196,
+              3231
+            ],
+            [
+              2199,
+              3329
+            ],
+            [
+              1706,
+              3342
+            ]
+          ],
+          "reading_order": 45
+        },
+        {
+          "text": "JATOT",
+          "confidence": 0.8553131222724915,
+          "polygon": [
+            [
+              1136,
+              3269
+            ],
+            [
+              1298,
+              3272
+            ],
+            [
+              1297,
+              3339
+            ],
+            [
+              1135,
+              3335
+            ]
+          ],
+          "reading_order": 46
+        },
+        {
+          "text": "PAID20.00",
+          "confidence": 0.9575120210647583,
+          "polygon": [
+            [
+              1706,
+              3376
+            ],
+            [
+              2202,
+              3351
+            ],
+            [
+              2206,
+              3442
+            ],
+            [
+              1710,
+              3467
+            ]
+          ],
+          "reading_order": 47
+        },
+        {
+          "text": "GIA9",
+          "confidence": 0.6604548096656799,
+          "polygon": [
+            [
+              1173,
+              3386
+            ],
+            [
+              1304,
+              3393
+            ],
+            [
+              1301,
+              3456
+            ],
+            [
+              1169,
+              3450
+            ]
+          ],
+          "reading_order": 48
+        },
+        {
+          "text": "BUOJATOT",
+          "confidence": 0.7344492673873901,
+          "polygon": [
+            [
+              1025,
+              3490
+            ],
+            [
+              1301,
+              3501
+            ],
+            [
+              1298,
+              3572
+            ],
+            [
+              1022,
+              3561
+            ]
+          ],
+          "reading_order": 49
+        },
+        {
+          "text": "TOTALDUE",
+          "confidence": 0.9832785129547119,
+          "polygon": [
+            [
+              1720,
+              3501
+            ],
+            [
+              1990,
+              3501
+            ],
+            [
+              1990,
+              3556
+            ],
+            [
+              1720,
+              3556
+            ]
+          ],
+          "reading_order": 50
+        }
+      ],
+      "plain_text": "MEDICAL RECEIPT TEMPLATE\nMEDICAL INVOICE\nHospital NameSlogan Dr.Fung Ka Kit Paul\nStreet Address :2528 Bayview,Ave.suite 35586\nNorth York,ontario,Ca mzl214\nCity/State,Zip\nPhone Number, Web Address Etc\nDT 10Y0J\nPatient Happy Lam\n24\nAge\n\n\nConsultant\nHospital No 12 J45078\nPayment ModeJ or\nsmev\nName Happy Lam\n#R#5\nAddress Hong Kong\nBed No.\nC50\nPhone+852 6202 0528\nAdmission Date 09/01/2026\nEmail\nDischarge Date\nQTY\nRATE\nAMOUNT\nPARTICULARS\n#\n20.00\nboftle\n2\n10.00\n1\nwater\n20.00\nJATOT802\nSUBTOTAL\nFO008XAT\nTAX8.000%\nNOTES:\nMIADOIM\nMED CLAIM\nTOTAL ZO.00\nJATOT\nPAID20.00\nGIA9\nBUOJATOT\nTOTALDUE"
+    }
+  ],
+  "timings": {
+    "total_ms": 47216.500862999965
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "document_id": "receipt5",
+  "doctor_name": null,
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": null,
+  "service_date": null,
+  "total_amount": null,
+  "sources": {},
+  "warnings": [
+    "doctor_name: no matching label found",
+    "registration_number: no matching label found",
+    "patient_name: no matching label found",
+    "receipt_number: no matching label found",
+    "service_date: no matching label found",
+    "total_amount: could not parse a number from 'DUE'"
+  ]
+}

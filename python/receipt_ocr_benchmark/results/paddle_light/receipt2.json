@@ -1,0 +1,967 @@
+{
+  "document_id": "receipt2",
+  "engine_config": {
+    "engine_config_name": "paddle_light",
+    "text_detection_model_name": "PP-OCRv5_mobile_det",
+    "text_detection_model_dir": "models/PP-OCRv5_mobile_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_mobile_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_mobile_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 3024,
+      "height": 4032,
+      "blocks": [
+        {
+          "text": "MEDICAL RECEIPT TEMPLATE",
+          "confidence": 0.9793456196784973,
+          "polygon": [
+            [
+              840,
+              661
+            ],
+            [
+              1808,
+              613
+            ],
+            [
+              1812,
+              678
+            ],
+            [
+              843,
+              727
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "MEDICAL INVOICE",
+          "confidence": 0.9789300560951233,
+          "polygon": [
+            [
+              1591,
+              842
+            ],
+            [
+              2092,
+              819
+            ],
+            [
+              2095,
+              885
+            ],
+            [
+              1594,
+              908
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "Hospital Name,siogan李俊年医生",
+          "confidence": 0.7484243512153625,
+          "polygon": [
+            [
+              399,
+              913
+            ],
+            [
+              1254,
+              900
+            ],
+            [
+              1256,
+              1029
+            ],
+            [
+              401,
+              1042
+            ]
+          ],
+          "reading_order": 2
+        },
+        {
+          "text": "g Kong",
+          "confidence": 0.8721868395805359,
+          "polygon": [
+            [
+              856,
+              1011
+            ],
+            [
+              1079,
+              1019
+            ],
+            [
+              1075,
+              1133
+            ],
+            [
+              851,
+              1125
+            ]
+          ],
+          "reading_order": 3
+        },
+        {
+          "text": "PYRUSM",
+          "confidence": 0.3318370282649994,
+          "polygon": [
+            [
+              1111,
+              1063
+            ],
+            [
+              1429,
+              1053
+            ],
+            [
+              1431,
+              1123
+            ],
+            [
+              1114,
+              1134
+            ]
+          ],
+          "reading_order": 4
+        },
+        {
+          "text": "City/State, Zip",
+          "confidence": 0.9740330576896667,
+          "polygon": [
+            [
+              425,
+              1142
+            ],
+            [
+              702,
+              1139
+            ],
+            [
+              703,
+              1194
+            ],
+            [
+              426,
+              1198
+            ]
+          ],
+          "reading_order": 5
+        },
+        {
+          "text": "Phone Number, Web Address Etc",
+          "confidence": 0.9772598743438721,
+          "polygon": [
+            [
+              429,
+              1247
+            ],
+            [
+              1068,
+              1231
+            ],
+            [
+              1069,
+              1285
+            ],
+            [
+              430,
+              1301
+            ]
+          ],
+          "reading_order": 6
+        },
+        {
+          "text": "m",
+          "confidence": 0.1662323772907257,
+          "polygon": [
+            [
+              1895,
+              1321
+            ],
+            [
+              2323,
+              1321
+            ],
+            [
+              2323,
+              1401
+            ],
+            [
+              1895,
+              1401
+            ]
+          ],
+          "reading_order": 7
+        },
+        {
+          "text": "Age 47",
+          "confidence": 0.9695585370063782,
+          "polygon": [
+            [
+              1599,
+              1346
+            ],
+            [
+              1838,
+              1346
+            ],
+            [
+              1838,
+              1425
+            ],
+            [
+              1599,
+              1425
+            ]
+          ],
+          "reading_order": 8
+        },
+        {
+          "text": "Patient Carol Tse",
+          "confidence": 0.9744317531585693,
+          "polygon": [
+            [
+              362,
+              1374
+            ],
+            [
+              898,
+              1364
+            ],
+            [
+              899,
+              1451
+            ],
+            [
+              364,
+              1461
+            ]
+          ],
+          "reading_order": 9
+        },
+        {
+          "text": "CAZPECa",
+          "confidence": 0.4027636647224426,
+          "polygon": [
+            [
+              1984,
+              1431
+            ],
+            [
+              2317,
+              1431
+            ],
+            [
+              2317,
+              1477
+            ],
+            [
+              1984,
+              1477
+            ]
+          ],
+          "reading_order": 10
+        },
+        {
+          "text": "Consultant",
+          "confidence": 0.9941356778144836,
+          "polygon": [
+            [
+              1608,
+              1458
+            ],
+            [
+              1827,
+              1450
+            ],
+            [
+              1829,
+              1500
+            ],
+            [
+              1610,
+              1509
+            ]
+          ],
+          "reading_order": 11
+        },
+        {
+          "text": "Hospital No 123456",
+          "confidence": 0.9397125244140625,
+          "polygon": [
+            [
+              363,
+              1487
+            ],
+            [
+              876,
+              1466
+            ],
+            [
+              880,
+              1541
+            ],
+            [
+              366,
+              1562
+            ]
+          ],
+          "reading_order": 12
+        },
+        {
+          "text": "VOSOH",
+          "confidence": 0.44336050748825073,
+          "polygon": [
+            [
+              2151,
+              1517
+            ],
+            [
+              2360,
+              1506
+            ],
+            [
+              2363,
+              1572
+            ],
+            [
+              2155,
+              1583
+            ]
+          ],
+          "reading_order": 13
+        },
+        {
+          "text": "Payment Mode Cosh",
+          "confidence": 0.915563702583313,
+          "polygon": [
+            [
+              1601,
+              1546
+            ],
+            [
+              2107,
+              1514
+            ],
+            [
+              2111,
+              1585
+            ],
+            [
+              1606,
+              1617
+            ]
+          ],
+          "reading_order": 14
+        },
+        {
+          "text": "Name Carol Tse",
+          "confidence": 0.9618068337440491,
+          "polygon": [
+            [
+              359,
+              1563
+            ],
+            [
+              834,
+              1552
+            ],
+            [
+              836,
+              1643
+            ],
+            [
+              361,
+              1654
+            ]
+          ],
+          "reading_order": 15
+        },
+        {
+          "text": "124",
+          "confidence": 0.9961112141609192,
+          "polygon": [
+            [
+              1808,
+              1617
+            ],
+            [
+              1936,
+              1617
+            ],
+            [
+              1936,
+              1689
+            ],
+            [
+              1808,
+              1689
+            ]
+          ],
+          "reading_order": 16
+        },
+        {
+          "text": "oynaH",
+          "confidence": 0.31737643480300903,
+          "polygon": [
+            [
+              2071,
+              1615
+            ],
+            [
+              2336,
+              1599
+            ],
+            [
+              2341,
+              1674
+            ],
+            [
+              2075,
+              1690
+            ]
+          ],
+          "reading_order": 17
+        },
+        {
+          "text": "Address 九龍塘",
+          "confidence": 0.8932243585586548,
+          "polygon": [
+            [
+              354,
+              1638
+            ],
+            [
+              839,
+              1638
+            ],
+            [
+              839,
+              1761
+            ],
+            [
+              354,
+              1761
+            ]
+          ],
+          "reading_order": 18
+        },
+        {
+          "text": "Bed No.1",
+          "confidence": 0.9285142421722412,
+          "polygon": [
+            [
+              1608,
+              1648
+            ],
+            [
+              1840,
+              1627
+            ],
+            [
+              1845,
+              1687
+            ],
+            [
+              1613,
+              1707
+            ]
+          ],
+          "reading_order": 19
+        },
+        {
+          "text": "Phone +852 6202 0528",
+          "confidence": 0.9686285853385925,
+          "polygon": [
+            [
+              361,
+              1771
+            ],
+            [
+              1011,
+              1738
+            ],
+            [
+              1015,
+              1813
+            ],
+            [
+              365,
+              1847
+            ]
+          ],
+          "reading_order": 20
+        },
+        {
+          "text": "Admission Date 11/7/2026",
+          "confidence": 0.9156017899513245,
+          "polygon": [
+            [
+              1608,
+              1828
+            ],
+            [
+              2372,
+              1782
+            ],
+            [
+              2377,
+              1864
+            ],
+            [
+              1613,
+              1911
+            ]
+          ],
+          "reading_order": 21
+        },
+        {
+          "text": "Email",
+          "confidence": 0.9964776039123535,
+          "polygon": [
+            [
+              366,
+              1876
+            ],
+            [
+              488,
+              1872
+            ],
+            [
+              490,
+              1924
+            ],
+            [
+              368,
+              1928
+            ]
+          ],
+          "reading_order": 22
+        },
+        {
+          "text": "Discharge Date",
+          "confidence": 0.9866437315940857,
+          "polygon": [
+            [
+              1621,
+              1936
+            ],
+            [
+              1929,
+              1928
+            ],
+            [
+              1931,
+              1983
+            ],
+            [
+              1623,
+              1991
+            ]
+          ],
+          "reading_order": 23
+        },
+        {
+          "text": "AMOUNT",
+          "confidence": 0.9918028712272644,
+          "polygon": [
+            [
+              2194,
+              2019
+            ],
+            [
+              2407,
+              2010
+            ],
+            [
+              2409,
+              2060
+            ],
+            [
+              2196,
+              2068
+            ]
+          ],
+          "reading_order": 24
+        },
+        {
+          "text": "QTY",
+          "confidence": 0.9965617656707764,
+          "polygon": [
+            [
+              1667,
+              2034
+            ],
+            [
+              1765,
+              2028
+            ],
+            [
+              1768,
+              2087
+            ],
+            [
+              1671,
+              2093
+            ]
+          ],
+          "reading_order": 25
+        },
+        {
+          "text": "RATE",
+          "confidence": 0.9895693063735962,
+          "polygon": [
+            [
+              1883,
+              2029
+            ],
+            [
+              2004,
+              2022
+            ],
+            [
+              2007,
+              2074
+            ],
+            [
+              1886,
+              2080
+            ]
+          ],
+          "reading_order": 26
+        },
+        {
+          "text": "PARTICULARS",
+          "confidence": 0.9962882399559021,
+          "polygon": [
+            [
+              966,
+              2055
+            ],
+            [
+              1248,
+              2044
+            ],
+            [
+              1250,
+              2093
+            ],
+            [
+              967,
+              2104
+            ]
+          ],
+          "reading_order": 27
+        },
+        {
+          "text": "#",
+          "confidence": 0.8667461276054382,
+          "polygon": [
+            [
+              492,
+              2071
+            ],
+            [
+              534,
+              2071
+            ],
+            [
+              534,
+              2122
+            ],
+            [
+              492,
+              2122
+            ]
+          ],
+          "reading_order": 28
+        },
+        {
+          "text": "998.00",
+          "confidence": 0.9851045608520508,
+          "polygon": [
+            [
+              2188,
+              2096
+            ],
+            [
+              2432,
+              2089
+            ],
+            [
+              2435,
+              2165
+            ],
+            [
+              2190,
+              2172
+            ]
+          ],
+          "reading_order": 29
+        },
+        {
+          "text": "490.00",
+          "confidence": 0.9750099182128906,
+          "polygon": [
+            [
+              1892,
+              2106
+            ],
+            [
+              2109,
+              2101
+            ],
+            [
+              2111,
+              2178
+            ],
+            [
+              1893,
+              2183
+            ]
+          ],
+          "reading_order": 30
+        },
+        {
+          "text": "bedrcom",
+          "confidence": 0.8913964629173279,
+          "polygon": [
+            [
+              852,
+              2127
+            ],
+            [
+              1127,
+              2129
+            ],
+            [
+              1126,
+              2208
+            ],
+            [
+              851,
+              2205
+            ]
+          ],
+          "reading_order": 31
+        },
+        {
+          "text": "2",
+          "confidence": 0.9930412769317627,
+          "polygon": [
+            [
+              1677,
+              2125
+            ],
+            [
+              1735,
+              2125
+            ],
+            [
+              1735,
+              2179
+            ],
+            [
+              1677,
+              2179
+            ]
+          ],
+          "reading_order": 32
+        },
+        {
+          "text": "998.00",
+          "confidence": 0.9399120211601257,
+          "polygon": [
+            [
+              1980,
+              2798
+            ],
+            [
+              2237,
+              2800
+            ],
+            [
+              2236,
+              2882
+            ],
+            [
+              1979,
+              2880
+            ]
+          ],
+          "reading_order": 33
+        },
+        {
+          "text": "SUBTOTAL",
+          "confidence": 0.998388946056366,
+          "polygon": [
+            [
+              1649,
+              2828
+            ],
+            [
+              1881,
+              2825
+            ],
+            [
+              1881,
+              2882
+            ],
+            [
+              1649,
+              2884
+            ]
+          ],
+          "reading_order": 34
+        },
+        {
+          "text": "TAX 8.000%",
+          "confidence": 0.9501426815986633,
+          "polygon": [
+            [
+              1652,
+              2935
+            ],
+            [
+              1912,
+              2930
+            ],
+            [
+              1913,
+              2989
+            ],
+            [
+              1653,
+              2994
+            ]
+          ],
+          "reading_order": 35
+        },
+        {
+          "text": "MED CLAIM",
+          "confidence": 0.9735584259033203,
+          "polygon": [
+            [
+              1658,
+              3044
+            ],
+            [
+              1917,
+              3041
+            ],
+            [
+              1917,
+              3096
+            ],
+            [
+              1658,
+              3100
+            ]
+          ],
+          "reading_order": 36
+        },
+        {
+          "text": "NOTES:",
+          "confidence": 0.993583619594574,
+          "polygon": [
+            [
+              507,
+              3063
+            ],
+            [
+              665,
+              3060
+            ],
+            [
+              666,
+              3111
+            ],
+            [
+              508,
+              3114
+            ]
+          ],
+          "reading_order": 37
+        },
+        {
+          "text": "TOTAL",
+          "confidence": 0.9966684579849243,
+          "polygon": [
+            [
+              1661,
+              3153
+            ],
+            [
+              1819,
+              3153
+            ],
+            [
+              1819,
+              3210
+            ],
+            [
+              1661,
+              3210
+            ]
+          ],
+          "reading_order": 38
+        },
+        {
+          "text": "PAID",
+          "confidence": 0.9963222146034241,
+          "polygon": [
+            [
+              1663,
+              3262
+            ],
+            [
+              1778,
+              3260
+            ],
+            [
+              1780,
+              3316
+            ],
+            [
+              1665,
+              3319
+            ]
+          ],
+          "reading_order": 39
+        },
+        {
+          "text": "TOTAL DUE",
+          "confidence": 0.9724614024162292,
+          "polygon": [
+            [
+              1667,
+              3371
+            ],
+            [
+              1921,
+              3368
+            ],
+            [
+              1921,
+              3424
+            ],
+            [
+              1667,
+              3427
+            ]
+          ],
+          "reading_order": 40
+        }
+      ],
+      "plain_text": "MEDICAL RECEIPT TEMPLATE\nMEDICAL INVOICE\nHospital Name,siogan李俊年医生\ng Kong\nPYRUSM\nCity/State, Zip\nPhone Number, Web Address Etc\nm\nAge 47\nPatient Carol Tse\nCAZPECa\nConsultant\nHospital No 123456\nVOSOH\nPayment Mode Cosh\nName Carol Tse\n124\noynaH\nAddress 九龍塘\nBed No.1\nPhone +852 6202 0528\nAdmission Date 11/7/2026\nEmail\nDischarge Date\nAMOUNT\nQTY\nRATE\nPARTICULARS\n#\n998.00\n490.00\nbedrcom\n2\n998.00\nSUBTOTAL\nTAX 8.000%\nMED CLAIM\nNOTES:\nTOTAL\nPAID\nTOTAL DUE"
+    }
+  ],
+  "timings": {
+    "total_ms": 8817.145232002076
+  }
+}

@@ -1,0 +1,1059 @@
+{
+  "document_id": "receipt1",
+  "engine_config": {
+    "engine_config_name": "paddle_light",
+    "text_detection_model_name": "PP-OCRv5_mobile_det",
+    "text_detection_model_dir": "models/PP-OCRv5_mobile_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_mobile_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_mobile_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 3024,
+      "height": 4032,
+      "blocks": [
+        {
+          "text": "MEDICAL RECEIPT TEMPLATE",
+          "confidence": 0.9782185554504395,
+          "polygon": [
+            [
+              856,
+              732
+            ],
+            [
+              1882,
+              728
+            ],
+            [
+              1882,
+              806
+            ],
+            [
+              857,
+              811
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "Dr. Lau Sat Kit, Lawrenc",
+          "confidence": 0.8816735148429871,
+          "polygon": [
+            [
+              729,
+              932
+            ],
+            [
+              1588,
+              930
+            ],
+            [
+              1588,
+              1048
+            ],
+            [
+              729,
+              1050
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "MEDICAL INVOICE",
+          "confidence": 0.9688154458999634,
+          "polygon": [
+            [
+              1642,
+              959
+            ],
+            [
+              2174,
+              951
+            ],
+            [
+              2175,
+              1030
+            ],
+            [
+              1643,
+              1038
+            ]
+          ],
+          "reading_order": 2
+        },
+        {
+          "text": "Hospital Name a",
+          "confidence": 0.6060066223144531,
+          "polygon": [
+            [
+              387,
+              1012
+            ],
+            [
+              1261,
+              1012
+            ],
+            [
+              1261,
+              1154
+            ],
+            [
+              387,
+              1154
+            ]
+          ],
+          "reading_order": 3
+        },
+        {
+          "text": "Phone Number, Web Address Etc",
+          "confidence": 0.9633076190948486,
+          "polygon": [
+            [
+              416,
+              1357
+            ],
+            [
+              1091,
+              1355
+            ],
+            [
+              1091,
+              1412
+            ],
+            [
+              416,
+              1414
+            ]
+          ],
+          "reading_order": 4
+        },
+        {
+          "text": "",
+          "confidence": 0.0,
+          "polygon": [
+            [
+              627,
+              1508
+            ],
+            [
+              718,
+              1520
+            ],
+            [
+              709,
+              1588
+            ],
+            [
+              617,
+              1575
+            ]
+          ],
+          "reading_order": 5
+        },
+        {
+          "text": "27",
+          "confidence": 0.9974499940872192,
+          "polygon": [
+            [
+              1826,
+              1499
+            ],
+            [
+              1943,
+              1499
+            ],
+            [
+              1943,
+              1576
+            ],
+            [
+              1826,
+              1576
+            ]
+          ],
+          "reading_order": 6
+        },
+        {
+          "text": "Patient",
+          "confidence": 0.9978184103965759,
+          "polygon": [
+            [
+              351,
+              1518
+            ],
+            [
+              518,
+              1520
+            ],
+            [
+              517,
+              1574
+            ],
+            [
+              351,
+              1571
+            ]
+          ],
+          "reading_order": 7
+        },
+        {
+          "text": "Age",
+          "confidence": 0.98484206199646,
+          "polygon": [
+            [
+              1648,
+              1516
+            ],
+            [
+              1743,
+              1516
+            ],
+            [
+              1743,
+              1580
+            ],
+            [
+              1648,
+              1580
+            ]
+          ],
+          "reading_order": 8
+        },
+        {
+          "text": "HospitalNo 12JS678910",
+          "confidence": 0.870879590511322,
+          "polygon": [
+            [
+              331,
+              1583
+            ],
+            [
+              1227,
+              1575
+            ],
+            [
+              1228,
+              1685
+            ],
+            [
+              332,
+              1693
+            ]
+          ],
+          "reading_order": 9
+        },
+        {
+          "text": "Consultant",
+          "confidence": 0.9988387227058411,
+          "polygon": [
+            [
+              1652,
+              1617
+            ],
+            [
+              1882,
+              1612
+            ],
+            [
+              1883,
+              1665
+            ],
+            [
+              1653,
+              1670
+            ]
+          ],
+          "reading_order": 10
+        },
+        {
+          "text": "Name",
+          "confidence": 0.9988687634468079,
+          "polygon": [
+            [
+              344,
+              1714
+            ],
+            [
+              485,
+              1717
+            ],
+            [
+              484,
+              1779
+            ],
+            [
+              342,
+              1777
+            ]
+          ],
+          "reading_order": 11
+        },
+        {
+          "text": "Payment Mode VD",
+          "confidence": 0.9329302906990051,
+          "polygon": [
+            [
+              1644,
+              1708
+            ],
+            [
+              2187,
+              1688
+            ],
+            [
+              2190,
+              1766
+            ],
+            [
+              1647,
+              1787
+            ]
+          ],
+          "reading_order": 12
+        },
+        {
+          "text": "Addressh Mmn",
+          "confidence": 0.7346412539482117,
+          "polygon": [
+            [
+              326,
+              1788
+            ],
+            [
+              1285,
+              1774
+            ],
+            [
+              1286,
+              1873
+            ],
+            [
+              328,
+              1887
+            ]
+          ],
+          "reading_order": 13
+        },
+        {
+          "text": "BedNo. 4C17",
+          "confidence": 0.8861576318740845,
+          "polygon": [
+            [
+              1644,
+              1803
+            ],
+            [
+              2045,
+              1787
+            ],
+            [
+              2049,
+              1875
+            ],
+            [
+              1648,
+              1891
+            ]
+          ],
+          "reading_order": 14
+        },
+        {
+          "text": "Phone [2]95078",
+          "confidence": 0.8685823082923889,
+          "polygon": [
+            [
+              321,
+              1890
+            ],
+            [
+              949,
+              1883
+            ],
+            [
+              950,
+              1986
+            ],
+            [
+              323,
+              1994
+            ]
+          ],
+          "reading_order": 15
+        },
+        {
+          "text": "Emal pafienf@ gmall.com",
+          "confidence": 0.845554530620575,
+          "polygon": [
+            [
+              306,
+              1978
+            ],
+            [
+              1296,
+              1978
+            ],
+            [
+              1296,
+              2119
+            ],
+            [
+              306,
+              2119
+            ]
+          ],
+          "reading_order": 16
+        },
+        {
+          "text": "Admission Date 07/0212026",
+          "confidence": 0.9697644114494324,
+          "polygon": [
+            [
+              1641,
+              1971
+            ],
+            [
+              2521,
+              1982
+            ],
+            [
+              2519,
+              2092
+            ],
+            [
+              1639,
+              2081
+            ]
+          ],
+          "reading_order": 17
+        },
+        {
+          "text": "Discharge Date",
+          "confidence": 0.9807847142219543,
+          "polygon": [
+            [
+              1658,
+              2115
+            ],
+            [
+              1981,
+              2115
+            ],
+            [
+              1981,
+              2173
+            ],
+            [
+              1658,
+              2173
+            ]
+          ],
+          "reading_order": 18
+        },
+        {
+          "text": "PARTICULARS",
+          "confidence": 0.9973935484886169,
+          "polygon": [
+            [
+              961,
+              2225
+            ],
+            [
+              1266,
+              2220
+            ],
+            [
+              1267,
+              2276
+            ],
+            [
+              962,
+              2280
+            ]
+          ],
+          "reading_order": 19
+        },
+        {
+          "text": "QTY",
+          "confidence": 0.995612621307373,
+          "polygon": [
+            [
+              1706,
+              2217
+            ],
+            [
+              1808,
+              2217
+            ],
+            [
+              1808,
+              2280
+            ],
+            [
+              1706,
+              2280
+            ]
+          ],
+          "reading_order": 20
+        },
+        {
+          "text": "RATE",
+          "confidence": 0.9922710657119751,
+          "polygon": [
+            [
+              1931,
+              2219
+            ],
+            [
+              2058,
+              2216
+            ],
+            [
+              2059,
+              2272
+            ],
+            [
+              1932,
+              2274
+            ]
+          ],
+          "reading_order": 21
+        },
+        {
+          "text": "AMOUNT",
+          "confidence": 0.9924154877662659,
+          "polygon": [
+            [
+              2257,
+              2220
+            ],
+            [
+              2477,
+              2220
+            ],
+            [
+              2477,
+              2272
+            ],
+            [
+              2257,
+              2272
+            ]
+          ],
+          "reading_order": 22
+        },
+        {
+          "text": "拌",
+          "confidence": 0.1888774186372757,
+          "polygon": [
+            [
+              458,
+              2236
+            ],
+            [
+              494,
+              2236
+            ],
+            [
+              494,
+              2278
+            ],
+            [
+              458,
+              2278
+            ]
+          ],
+          "reading_order": 23
+        },
+        {
+          "text": "bruen",
+          "confidence": 0.8896511197090149,
+          "polygon": [
+            [
+              731,
+              2302
+            ],
+            [
+              987,
+              2298
+            ],
+            [
+              989,
+              2388
+            ],
+            [
+              733,
+              2391
+            ]
+          ],
+          "reading_order": 24
+        },
+        {
+          "text": "ribs.",
+          "confidence": 0.9668331146240234,
+          "polygon": [
+            [
+              1069,
+              2302
+            ],
+            [
+              1287,
+              2299
+            ],
+            [
+              1288,
+              2391
+            ],
+            [
+              1070,
+              2393
+            ]
+          ],
+          "reading_order": 25
+        },
+        {
+          "text": "450.00",
+          "confidence": 0.9450392723083496,
+          "polygon": [
+            [
+              1957,
+              2298
+            ],
+            [
+              2200,
+              2300
+            ],
+            [
+              2199,
+              2377
+            ],
+            [
+              1956,
+              2375
+            ]
+          ],
+          "reading_order": 26
+        },
+        {
+          "text": "1500.00",
+          "confidence": 0.996935248374939,
+          "polygon": [
+            [
+              2240,
+              2295
+            ],
+            [
+              2521,
+              2295
+            ],
+            [
+              2521,
+              2374
+            ],
+            [
+              2240,
+              2374
+            ]
+          ],
+          "reading_order": 27
+        },
+        {
+          "text": "20.00",
+          "confidence": 0.9952451586723328,
+          "polygon": [
+            [
+              1955,
+              2374
+            ],
+            [
+              2181,
+              2372
+            ],
+            [
+              2182,
+              2456
+            ],
+            [
+              1956,
+              2459
+            ]
+          ],
+          "reading_order": 28
+        },
+        {
+          "text": "4000",
+          "confidence": 0.7389209866523743,
+          "polygon": [
+            [
+              2251,
+              2371
+            ],
+            [
+              2481,
+              2371
+            ],
+            [
+              2481,
+              2463
+            ],
+            [
+              2251,
+              2463
+            ]
+          ],
+          "reading_order": 29
+        },
+        {
+          "text": "water",
+          "confidence": 0.8221902847290039,
+          "polygon": [
+            [
+              752,
+              2388
+            ],
+            [
+              1003,
+              2380
+            ],
+            [
+              1005,
+              2472
+            ],
+            [
+              755,
+              2479
+            ]
+          ],
+          "reading_order": 30
+        },
+        {
+          "text": "1540.00",
+          "confidence": 0.9881778359413147,
+          "polygon": [
+            [
+              1975,
+              3035
+            ],
+            [
+              2371,
+              3008
+            ],
+            [
+              2379,
+              3119
+            ],
+            [
+              1983,
+              3146
+            ]
+          ],
+          "reading_order": 31
+        },
+        {
+          "text": "SUBTOTAL",
+          "confidence": 0.996025800704956,
+          "polygon": [
+            [
+              1669,
+              3065
+            ],
+            [
+              1923,
+              3065
+            ],
+            [
+              1923,
+              3129
+            ],
+            [
+              1669,
+              3129
+            ]
+          ],
+          "reading_order": 32
+        },
+        {
+          "text": "TAX8.000%",
+          "confidence": 0.9982194900512695,
+          "polygon": [
+            [
+              1671,
+              3178
+            ],
+            [
+              1940,
+              3176
+            ],
+            [
+              1940,
+              3241
+            ],
+            [
+              1671,
+              3243
+            ]
+          ],
+          "reading_order": 33
+        },
+        {
+          "text": "NOTES:",
+          "confidence": 0.9958418011665344,
+          "polygon": [
+            [
+              447,
+              3291
+            ],
+            [
+              622,
+              3293
+            ],
+            [
+              621,
+              3355
+            ],
+            [
+              446,
+              3352
+            ]
+          ],
+          "reading_order": 34
+        },
+        {
+          "text": "MED CLAIM",
+          "confidence": 0.9780651926994324,
+          "polygon": [
+            [
+              1673,
+              3292
+            ],
+            [
+              1946,
+              3292
+            ],
+            [
+              1946,
+              3355
+            ],
+            [
+              1673,
+              3355
+            ]
+          ],
+          "reading_order": 35
+        },
+        {
+          "text": "patient B cverely injurel",
+          "confidence": 0.8843478560447693,
+          "polygon": [
+            [
+              466,
+              3336
+            ],
+            [
+              1436,
+              3330
+            ],
+            [
+              1437,
+              3504
+            ],
+            [
+              467,
+              3509
+            ]
+          ],
+          "reading_order": 36
+        },
+        {
+          "text": "154000",
+          "confidence": 0.9917095303535461,
+          "polygon": [
+            [
+              1896,
+              3377
+            ],
+            [
+              2254,
+              3360
+            ],
+            [
+              2259,
+              3472
+            ],
+            [
+              1902,
+              3489
+            ]
+          ],
+          "reading_order": 37
+        },
+        {
+          "text": "TOTAL",
+          "confidence": 0.9936661720275879,
+          "polygon": [
+            [
+              1672,
+              3400
+            ],
+            [
+              1841,
+              3403
+            ],
+            [
+              1840,
+              3473
+            ],
+            [
+              1670,
+              3469
+            ]
+          ],
+          "reading_order": 38
+        },
+        {
+          "text": "and he necd more rest",
+          "confidence": 0.9367644190788269,
+          "polygon": [
+            [
+              457,
+              3490
+            ],
+            [
+              1369,
+              3462
+            ],
+            [
+              1373,
+              3596
+            ],
+            [
+              461,
+              3624
+            ]
+          ],
+          "reading_order": 39
+        },
+        {
+          "text": "1540.00",
+          "confidence": 0.9443802833557129,
+          "polygon": [
+            [
+              1917,
+              3503
+            ],
+            [
+              2244,
+              3501
+            ],
+            [
+              2245,
+              3589
+            ],
+            [
+              1918,
+              3592
+            ]
+          ],
+          "reading_order": 40
+        },
+        {
+          "text": "PAID",
+          "confidence": 0.9942120313644409,
+          "polygon": [
+            [
+              1671,
+              3521
+            ],
+            [
+              1799,
+              3517
+            ],
+            [
+              1801,
+              3583
+            ],
+            [
+              1673,
+              3587
+            ]
+          ],
+          "reading_order": 41
+        },
+        {
+          "text": "before gcttmg",
+          "confidence": 0.7554835677146912,
+          "polygon": [
+            [
+              481,
+              3582
+            ],
+            [
+              1043,
+              3612
+            ],
+            [
+              1035,
+              3757
+            ],
+            [
+              473,
+              3727
+            ]
+          ],
+          "reading_order": 42
+        },
+        {
+          "text": "tu work.",
+          "confidence": 0.8100682497024536,
+          "polygon": [
+            [
+              1067,
+              3614
+            ],
+            [
+              1394,
+              3599
+            ],
+            [
+              1399,
+              3704
+            ],
+            [
+              1072,
+              3719
+            ]
+          ],
+          "reading_order": 43
+        },
+        {
+          "text": "TOTAL DUE",
+          "confidence": 0.9707397818565369,
+          "polygon": [
+            [
+              1675,
+              3636
+            ],
+            [
+              1944,
+              3634
+            ],
+            [
+              1944,
+              3696
+            ],
+            [
+              1675,
+              3699
+            ]
+          ],
+          "reading_order": 44
+        }
+      ],
+      "plain_text": "MEDICAL RECEIPT TEMPLATE\nDr. Lau Sat Kit, Lawrenc\nMEDICAL INVOICE\nHospital Name a\nPhone Number, Web Address Etc\n\n27\nPatient\nAge\nHospitalNo 12JS678910\nConsultant\nName\nPayment Mode VD\nAddressh Mmn\nBedNo. 4C17\nPhone [2]95078\nEmal pafienf@ gmall.com\nAdmission Date 07/0212026\nDischarge Date\nPARTICULARS\nQTY\nRATE\nAMOUNT\n拌\nbruen\nribs.\n450.00\n1500.00\n20.00\n4000\nwater\n1540.00\nSUBTOTAL\nTAX8.000%\nNOTES:\nMED CLAIM\npatient B cverely injurel\n154000\nTOTAL\nand he necd more rest\n1540.00\nPAID\nbefore gcttmg\ntu work.\nTOTAL DUE"
+    }
+  ],
+  "timings": {
+    "total_ms": 11991.425224001432
+  }
+}

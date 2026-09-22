@@ -1,0 +1,622 @@
+{
+  "document_id": "receipt3",
+  "engine_config": {
+    "engine_config_name": "paddle_light",
+    "text_detection_model_name": "PP-OCRv5_mobile_det",
+    "text_detection_model_dir": "models/PP-OCRv5_mobile_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_mobile_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_mobile_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 3024,
+      "height": 4032,
+      "blocks": [
+        {
+          "text": "FLEXCARE HEALTH",
+          "confidence": 0.9593866467475891,
+          "polygon": [
+            [
+              664,
+              676
+            ],
+            [
+              1935,
+              673
+            ],
+            [
+              1935,
+              824
+            ],
+            [
+              665,
+              828
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "Tin Tin , Becky",
+          "confidence": 0.952379047870636,
+          "polygon": [
+            [
+              745,
+              935
+            ],
+            [
+              1385,
+              965
+            ],
+            [
+              1380,
+              1087
+            ],
+            [
+              739,
+              1057
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "Invoice Number: 967157032",
+          "confidence": 0.9675915241241455,
+          "polygon": [
+            [
+              1694,
+              955
+            ],
+            [
+              2604,
+              969
+            ],
+            [
+              2603,
+              1055
+            ],
+            [
+              1693,
+              1041
+            ]
+          ],
+          "reading_order": 2
+        },
+        {
+          "text": "Clinic Name: Lee",
+          "confidence": 0.9718066453933716,
+          "polygon": [
+            [
+              207,
+              968
+            ],
+            [
+              705,
+              968
+            ],
+            [
+              705,
+              1050
+            ],
+            [
+              207,
+              1050
+            ]
+          ],
+          "reading_order": 3
+        },
+        {
+          "text": "Address:九龍mTK",
+          "confidence": 0.9010520577430725,
+          "polygon": [
+            [
+              191,
+              1050
+            ],
+            [
+              892,
+              1066
+            ],
+            [
+              889,
+              1184
+            ],
+            [
+              188,
+              1167
+            ]
+          ],
+          "reading_order": 4
+        },
+        {
+          "text": "Date: 07101/2026",
+          "confidence": 0.9323023557662964,
+          "polygon": [
+            [
+              1700,
+              1079
+            ],
+            [
+              2337,
+              1087
+            ],
+            [
+              2336,
+              1170
+            ],
+            [
+              1699,
+              1162
+            ]
+          ],
+          "reading_order": 5
+        },
+        {
+          "text": "Phone: +852 6202 05 28",
+          "confidence": 0.9424408078193665,
+          "polygon": [
+            [
+              197,
+              1192
+            ],
+            [
+              1154,
+              1202
+            ],
+            [
+              1154,
+              1287
+            ],
+            [
+              196,
+              1278
+            ]
+          ],
+          "reading_order": 6
+        },
+        {
+          "text": "Due Date:",
+          "confidence": 0.9669865369796753,
+          "polygon": [
+            [
+              1709,
+              1196
+            ],
+            [
+              2047,
+              1196
+            ],
+            [
+              2047,
+              1256
+            ],
+            [
+              1709,
+              1256
+            ]
+          ],
+          "reading_order": 7
+        },
+        {
+          "text": "Email:",
+          "confidence": 0.95174640417099,
+          "polygon": [
+            [
+              199,
+              1317
+            ],
+            [
+              373,
+              1313
+            ],
+            [
+              374,
+              1375
+            ],
+            [
+              200,
+              1378
+            ]
+          ],
+          "reading_order": 8
+        },
+        {
+          "text": "UNIT COST",
+          "confidence": 0.970173716545105,
+          "polygon": [
+            [
+              1665,
+              1473
+            ],
+            [
+              1942,
+              1468
+            ],
+            [
+              1943,
+              1521
+            ],
+            [
+              1665,
+              1525
+            ]
+          ],
+          "reading_order": 9
+        },
+        {
+          "text": "TOTAL",
+          "confidence": 0.9977349042892456,
+          "polygon": [
+            [
+              2151,
+              1465
+            ],
+            [
+              2321,
+              1465
+            ],
+            [
+              2321,
+              1522
+            ],
+            [
+              2151,
+              1522
+            ]
+          ],
+          "reading_order": 10
+        },
+        {
+          "text": "DESCRIPTION",
+          "confidence": 0.9972490072250366,
+          "polygon": [
+            [
+              242,
+              1481
+            ],
+            [
+              585,
+              1478
+            ],
+            [
+              585,
+              1530
+            ],
+            [
+              243,
+              1533
+            ]
+          ],
+          "reading_order": 11
+        },
+        {
+          "text": "DATE",
+          "confidence": 0.9975383281707764,
+          "polygon": [
+            [
+              836,
+              1475
+            ],
+            [
+              977,
+              1472
+            ],
+            [
+              978,
+              1528
+            ],
+            [
+              837,
+              1530
+            ]
+          ],
+          "reading_order": 12
+        },
+        {
+          "text": "SESSIONS",
+          "confidence": 0.9908113479614258,
+          "polygon": [
+            [
+              1208,
+              1476
+            ],
+            [
+              1455,
+              1476
+            ],
+            [
+              1455,
+              1528
+            ],
+            [
+              1208,
+              1528
+            ]
+          ],
+          "reading_order": 13
+        },
+        {
+          "text": "1",
+          "confidence": 0.35871562361717224,
+          "polygon": [
+            [
+              1201,
+              1551
+            ],
+            [
+              1392,
+              1548
+            ],
+            [
+              1393,
+              1630
+            ],
+            [
+              1202,
+              1632
+            ]
+          ],
+          "reading_order": 14
+        },
+        {
+          "text": "10.00",
+          "confidence": 0.995034396648407,
+          "polygon": [
+            [
+              1688,
+              1560
+            ],
+            [
+              1914,
+              1554
+            ],
+            [
+              1916,
+              1633
+            ],
+            [
+              1691,
+              1640
+            ]
+          ],
+          "reading_order": 15
+        },
+        {
+          "text": "10.00",
+          "confidence": 0.9954911470413208,
+          "polygon": [
+            [
+              2152,
+              1554
+            ],
+            [
+              2396,
+              1544
+            ],
+            [
+              2400,
+              1624
+            ],
+            [
+              2156,
+              1634
+            ]
+          ],
+          "reading_order": 16
+        },
+        {
+          "text": "water",
+          "confidence": 0.9300308227539062,
+          "polygon": [
+            [
+              262,
+              1572
+            ],
+            [
+              489,
+              1563
+            ],
+            [
+              493,
+              1647
+            ],
+            [
+              266,
+              1656
+            ]
+          ],
+          "reading_order": 17
+        },
+        {
+          "text": "15",
+          "confidence": 0.19227677583694458,
+          "polygon": [
+            [
+              854,
+              1564
+            ],
+            [
+              972,
+              1551
+            ],
+            [
+              977,
+              1598
+            ],
+            [
+              859,
+              1611
+            ]
+          ],
+          "reading_order": 18
+        },
+        {
+          "text": "10.00",
+          "confidence": 0.995235800743103,
+          "polygon": [
+            [
+              2231,
+              2400
+            ],
+            [
+              2466,
+              2410
+            ],
+            [
+              2462,
+              2515
+            ],
+            [
+              2227,
+              2505
+            ]
+          ],
+          "reading_order": 19
+        },
+        {
+          "text": "Subtotal:",
+          "confidence": 0.9819443225860596,
+          "polygon": [
+            [
+              1913,
+              2426
+            ],
+            [
+              2183,
+              2422
+            ],
+            [
+              2184,
+              2494
+            ],
+            [
+              1914,
+              2497
+            ]
+          ],
+          "reading_order": 20
+        },
+        {
+          "text": "Tax:",
+          "confidence": 0.9505239129066467,
+          "polygon": [
+            [
+              1919,
+              2555
+            ],
+            [
+              2048,
+              2560
+            ],
+            [
+              2045,
+              2625
+            ],
+            [
+              1916,
+              2619
+            ]
+          ],
+          "reading_order": 21
+        },
+        {
+          "text": "Total Amount Due:",
+          "confidence": 0.9504529237747192,
+          "polygon": [
+            [
+              1719,
+              2685
+            ],
+            [
+              2279,
+              2687
+            ],
+            [
+              2279,
+              2756
+            ],
+            [
+              1719,
+              2754
+            ]
+          ],
+          "reading_order": 22
+        },
+        {
+          "text": "pain. need water.",
+          "confidence": 0.9646718502044678,
+          "polygon": [
+            [
+              742,
+              2715
+            ],
+            [
+              1651,
+              2699
+            ],
+            [
+              1654,
+              2851
+            ],
+            [
+              745,
+              2868
+            ]
+          ],
+          "reading_order": 23
+        },
+        {
+          "text": "Notes:",
+          "confidence": 0.9949507713317871,
+          "polygon": [
+            [
+              142,
+              2732
+            ],
+            [
+              360,
+              2737
+            ],
+            [
+              359,
+              2806
+            ],
+            [
+              140,
+              2801
+            ]
+          ],
+          "reading_order": 24
+        },
+        {
+          "text": "1Back",
+          "confidence": 0.8069463968276978,
+          "polygon": [
+            [
+              410,
+              2726
+            ],
+            [
+              639,
+              2730
+            ],
+            [
+              637,
+              2834
+            ],
+            [
+              409,
+              2830
+            ]
+          ],
+          "reading_order": 25
+        }
+      ],
+      "plain_text": "FLEXCARE HEALTH\nTin Tin , Becky\nInvoice Number: 967157032\nClinic Name: Lee\nAddress:九龍mTK\nDate: 07101/2026\nPhone: +852 6202 05 28\nDue Date:\nEmail:\nUNIT COST\nTOTAL\nDESCRIPTION\nDATE\nSESSIONS\n1\n10.00\n10.00\nwater\n15\n10.00\nSubtotal:\nTax:\nTotal Amount Due:\npain. need water.\nNotes:\n1Back"
+    }
+  ],
+  "timings": {
+    "total_ms": 8168.449827000586
+  }
+}

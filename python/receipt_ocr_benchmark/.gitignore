@@ -6,7 +6,7 @@ __pycache__/
 # Real receipt samples and derived outputs may contain sensitive data - never commit.
 data/raw/*
 !data/raw/.gitkeep
-results/*
+# results/*
 !results/.gitkeep
 
 # Local PaddleOCR model archives - large binaries, fetched/extracted per machine.
