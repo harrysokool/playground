@@ -36,3 +36,23 @@ class RawOCRResult:
 
     def save(self, path: Path) -> None:
         path.write_text(json.dumps(asdict(self), indent=2, ensure_ascii=False))
+
+    @staticmethod
+    def load(path: Path) -> RawOCRResult:
+        data = json.loads(path.read_text())
+        pages = [
+            PageResult(
+                page_number=p["page_number"],
+                width=p["width"],
+                height=p["height"],
+                blocks=[OCRBlock(**b) for b in p["blocks"]],
+                plain_text=p["plain_text"],
+            )
+            for p in data["pages"]
+        ]
+        return RawOCRResult(
+            document_id=data["document_id"],
+            engine_config=data["engine_config"],
+            pages=pages,
+            timings=data["timings"],
+        )

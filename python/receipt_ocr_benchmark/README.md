@@ -11,9 +11,14 @@ Approaches compared (see project notes for the full plan):
 3. Azure Document Intelligence + deterministic rules
 4. Existing Azure DI + Azure OpenAI solution (not rebuilt here — compared against separately)
 
-**Phase 1** (current): raw OCR only. Run a receipt image/PDF through the light or heavy
-PaddleOCR configuration and get back a normalized JSON of text, confidence, coordinates, and
-timing. No structured field extraction yet — that's Phase 3, after inspecting real samples.
+**Phase 1**: raw OCR only. Run a receipt image/PDF through the light or heavy PaddleOCR
+configuration and get back a normalized JSON of text, confidence, coordinates, and timing.
+
+**Phase 3** (current): deterministic rule-based extraction of 6 fields (doctor/provider name,
+registration number, patient name, receipt number, service date, total amount) from the raw
+OCR JSON — label matching, regex, and nearby-block lookup by coordinates. No line items yet,
+no Azure DI, no LLM. If a field has no reliable simple rule, it's left `null` with a warning
+rather than guessed.
 
 ## Setup
 
@@ -54,6 +59,20 @@ python -m receipt_bench.cli --config configs/paddle_heavy.yaml --input data/raw 
 
 `--input` may be a single image/PDF file or a directory of them. One JSON file per input document
 is written to `--output`, containing the normalized raw OCR result (see `receipt_bench/raw_ocr.py`).
+
+## Extraction (Phase 3)
+
+Runs deterministic rules over already-generated raw OCR JSON (from `## Usage` above), not
+over the receipt files directly:
+
+```bash
+python -m receipt_bench.extract_cli --input results/paddle_light --output results/paddle_light_extracted
+python -m receipt_bench.extract_cli --input results/paddle_heavy --output results/paddle_heavy_extracted
+```
+
+Rules live in `receipt_bench/extraction.py` — see `LABEL_PATTERNS` for the exact labels
+matched per field. Each output JSON has the 6 fields, a `sources` map (which OCR block text
+each value came from), and a `warnings` list for anything left `null`.
 
 ## Data
 
