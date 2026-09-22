@@ -3,4 +3,20 @@ python -m receipt_bench.cli \
   --input data/raw \
   --output results/paddle_light
 
-curl -I https://paddle-model-ecology.bj.bcebos.com
+(.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark$ curl -I https://paddle-model-ecology.bj.bcebos.com
+HTTP/1.1 200 OK
+Date: Tue, 22 Sep 2026 03:19:58 GMT
+Content-Length: 0
+Connection: keep-alive
+Server: BceBos
+X-Bce-Versioning: notEnabled
+x-bce-bucket-az-type: false
+x-bce-bucket-createtime: 1622110099
+x-bce-bucket-dedicated: false
+x-bce-bucket-region: bj
+x-bce-bucket-storageclass: STANDARD
+x-bce-debug-id: ITfSyfDXc/VMIEwn/76sWHU4FC+1CYGSlxsR3RRzx4KMRxY1rGjZt4D035mn+WB1Mgfc7Uf6/KqmwmJTXhnrXQ==
+x-bce-flow-control-type: -1
+x-bce-is-transition: false
+x-bce-lcclocation: 
+x-bce-request-id: 38ed8bd7-2762-480e-a804-2efa628b135e
