@@ -8,3 +8,7 @@ data/raw/*
 !data/raw/.gitkeep
 results/*
 !results/.gitkeep
+
+# Local PaddleOCR model archives - large binaries, fetched/extracted per machine.
+models/*
+!models/README.md

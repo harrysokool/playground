@@ -1,5 +1,8 @@
 # Heavier PaddleOCR configuration: PP-OCRv5 server detection + recognition.
+# Model dirs point at local extracted archives so this runs fully offline (see ../models/README.md).
 engine_config_name: paddle_heavy
 text_detection_model_name: PP-OCRv5_server_det
+text_detection_model_dir: models/PP-OCRv5_server_det_infer
 text_recognition_model_name: PP-OCRv5_server_rec
+text_recognition_model_dir: models/PP-OCRv5_server_rec_infer
 device: cpu

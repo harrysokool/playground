@@ -19,7 +19,9 @@ class PaddleEngine:
         self.config = config
         self._ocr = PaddleOCR(
             text_detection_model_name=config["text_detection_model_name"],
+            text_detection_model_dir=config.get("text_detection_model_dir"),
             text_recognition_model_name=config["text_recognition_model_name"],
+            text_recognition_model_dir=config.get("text_recognition_model_dir"),
             device=config.get("device", "cpu"),
             # These are separate models layered on top of detection/recognition.
             # Disabled so light vs. heavy only differs in the det/rec models being compared.

@@ -25,12 +25,30 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-First run downloads the PaddleOCR models (internet required once; cached under `~/.paddlex` after).
+## Models (fully offline)
+
+The configs load PaddleOCR models from local directories instead of downloading them, so the
+benchmark runs with no internet access (required on the Azure VM). Extract the four PP-OCRv5
+model archives under `models/` (not committed to Git — see `models/README.md`):
+
+```
+models/
+├── PP-OCRv5_mobile_det_infer/   # configs/paddle_light.yaml
+├── PP-OCRv5_mobile_rec_infer/   # configs/paddle_light.yaml
+├── PP-OCRv5_server_det_infer/   # configs/paddle_heavy.yaml
+└── PP-OCRv5_server_rec_infer/   # configs/paddle_heavy.yaml
+```
+
+Commands must be run from the project root (`configs/*.yaml` reference `models/...` as a
+relative path).
 
 ## Usage
 
 ```bash
+# Light OCR (PP-OCRv5 mobile)
 python -m receipt_bench.cli --config configs/paddle_light.yaml --input data/raw --output results/paddle_light
+
+# Heavy OCR (PP-OCRv5 server)
 python -m receipt_bench.cli --config configs/paddle_heavy.yaml --input data/raw --output results/paddle_heavy
 ```
 
@@ -49,4 +67,4 @@ python -m pytest
 ```
 
 `test_paddle_engine.py` runs both configs for real against a tiny synthetic fixture receipt
-(`tests/fixtures/receipt.png` — no real patient data) and downloads PaddleOCR models on first run.
+(`tests/fixtures/receipt.png` — no real patient data). Requires `models/` to be populated (see above).
