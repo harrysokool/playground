@@ -5,15 +5,15 @@
   "patient_name": "Happy Lam",
   "receipt_number": null,
   "service_date": null,
-  "total_amount": 0.0,
+  "total_amount": null,
   "sources": {
-    "patient_name": "Patient Happy Lam",
-    "total_amount": "TOTAL ZO.00"
+    "patient_name": "Patient Happy Lam"
   },
   "warnings": [
-    "doctor_name: no matching label found",
-    "registration_number: no matching label found",
-    "receipt_number: no matching label found",
-    "service_date: no matching label found"
+    "doctor_name: no matching label or pattern found",
+    "registration_number: no matching label or pattern found",
+    "receipt_number: no matching label or pattern found",
+    "service_date: no matching label or pattern found",
+    "total_amount: no matching label or pattern found"
   ]
 }

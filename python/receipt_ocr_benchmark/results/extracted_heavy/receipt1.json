@@ -1,19 +1,19 @@
 {
   "document_id": "receipt1",
-  "doctor_name": null,
+  "doctor_name": "Dr. Lau Sal Kit, Lawrencce",
   "registration_number": null,
-  "patient_name": "i screrely",
+  "patient_name": null,
   "receipt_number": null,
   "service_date": null,
-  "total_amount": null,
+  "total_amount": 1540.0,
   "sources": {
-    "patient_name": "patient i screrely"
+    "doctor_name": "Dr. Lau Sal Kit, Lawrencce",
+    "total_amount": "PAID | 1540.00"
   },
   "warnings": [
-    "doctor_name: no matching label found",
-    "registration_number: no matching label found",
-    "receipt_number: no matching label found",
-    "service_date: no matching label found",
-    "total_amount: could not parse a number from 'and he need more rest'"
+    "registration_number: no matching label or pattern found",
+    "patient_name: no matching label or pattern found",
+    "receipt_number: no matching label or pattern found",
+    "service_date: no matching label or pattern found"
   ]
 }

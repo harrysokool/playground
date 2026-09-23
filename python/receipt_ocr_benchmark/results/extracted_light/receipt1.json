@@ -1,19 +1,19 @@
 {
   "document_id": "receipt1",
-  "doctor_name": null,
+  "doctor_name": "Dr. Lau Sat Kit, Lawrenc",
   "registration_number": null,
-  "patient_name": "B cverely injurel",
+  "patient_name": "Addressh Mmn",
   "receipt_number": null,
   "service_date": null,
   "total_amount": 154000.0,
   "sources": {
-    "patient_name": "patient B cverely injurel",
+    "doctor_name": "Dr. Lau Sat Kit, Lawrenc",
+    "patient_name": "Name | Addressh Mmn",
     "total_amount": "TOTAL | 154000"
   },
   "warnings": [
-    "doctor_name: no matching label found",
-    "registration_number: no matching label found",
-    "receipt_number: no matching label found",
-    "service_date: no matching label found"
+    "registration_number: no matching label or pattern found",
+    "receipt_number: no matching label or pattern found",
+    "service_date: no matching label or pattern found"
   ]
 }

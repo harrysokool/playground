@@ -3,17 +3,17 @@
   "doctor_name": null,
   "registration_number": null,
   "patient_name": null,
-  "receipt_number": "369303 FClinician: Angel Tseng FPatient: Fuk Jai",
+  "receipt_number": "369303",
   "service_date": null,
-  "total_amount": 0.0,
+  "total_amount": 1361.0,
   "sources": {
     "receipt_number": "Invoice No: 369303 FClinician: Angel Tseng FPatient: Fuk Jai",
-    "total_amount": "Total Due: HKD 0.00"
+    "total_amount": "Total Amount | HKD 1361.00"
   },
   "warnings": [
-    "doctor_name: no matching label found",
-    "registration_number: no matching label found",
-    "patient_name: no matching label found",
-    "service_date: no matching label found"
+    "doctor_name: no matching label or pattern found",
+    "registration_number: no matching label or pattern found",
+    "patient_name: no matching label or pattern found",
+    "service_date: no matching label or pattern found"
   ]
 }

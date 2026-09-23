@@ -10,10 +10,10 @@
     "patient_name": "Patient Carol Tse"
   },
   "warnings": [
-    "doctor_name: no matching label found",
-    "registration_number: no matching label found",
-    "receipt_number: no matching label found",
-    "service_date: no matching label found",
-    "total_amount: could not parse a number from 'PAID'"
+    "doctor_name: no matching label or pattern found",
+    "registration_number: no matching label or pattern found",
+    "receipt_number: no matching label or pattern found",
+    "service_date: no matching label or pattern found",
+    "total_amount: no matching label or pattern found"
   ]
 }

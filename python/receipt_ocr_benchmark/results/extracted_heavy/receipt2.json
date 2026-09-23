@@ -1,19 +1,19 @@
 {
   "document_id": "receipt2",
-  "doctor_name": null,
+  "doctor_name": "李俊年醫生",
   "registration_number": null,
   "patient_name": "Carol Tse",
   "receipt_number": null,
   "service_date": null,
   "total_amount": null,
   "sources": {
+    "doctor_name": "李俊年醫生",
     "patient_name": "Patient Carol Tse"
   },
   "warnings": [
-    "doctor_name: no matching label found",
-    "registration_number: no matching label found",
-    "receipt_number: no matching label found",
-    "service_date: no matching label found",
-    "total_amount: no matching label found"
+    "registration_number: no matching label or pattern found",
+    "receipt_number: no matching label or pattern found",
+    "service_date: no matching label or pattern found",
+    "total_amount: no matching label or pattern found"
   ]
 }

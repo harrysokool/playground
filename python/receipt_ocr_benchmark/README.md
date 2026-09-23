@@ -70,9 +70,12 @@ python -m receipt_bench.extract_cli --input results/paddle_light --output result
 python -m receipt_bench.extract_cli --input results/paddle_heavy --output results/paddle_heavy_extracted
 ```
 
-Rules live in `receipt_bench/extraction.py` — see `LABEL_PATTERNS` for the exact labels
-matched per field. Each output JSON has the 6 fields, a `sources` map (which OCR block text
-each value came from), and a `warnings` list for anything left `null`.
+Rules live in `receipt_bench/extraction.py` — see `FIELD_RULES` for the exact labels matched
+per field. Each field tries a label match first (same block, or nearest block by OCR
+coordinates if the label is alone), then falls back to a standalone pattern for unlabeled
+values (e.g. "Dr Chan", "M12345") if no label matched anywhere. Each output JSON has the 6
+fields, a `sources` map (which OCR block text each value came from), and a `warnings` list
+for anything left `null`.
 
 ## Data
 

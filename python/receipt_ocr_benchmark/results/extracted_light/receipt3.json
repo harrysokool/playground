@@ -10,10 +10,10 @@
     "receipt_number": "Invoice Number: 967157032"
   },
   "warnings": [
-    "doctor_name: no matching label found",
-    "registration_number: no matching label found",
-    "patient_name: no matching label found",
-    "service_date: no matching label found",
-    "total_amount: could not parse a number from 'DESCRIPTION'"
+    "doctor_name: no matching label or pattern found",
+    "registration_number: no matching label or pattern found",
+    "patient_name: no matching label or pattern found",
+    "service_date: no matching label or pattern found",
+    "total_amount: no matching label or pattern found"
   ]
 }
