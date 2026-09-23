@@ -1,9 +1,9 @@
-# Riley — Master Story (LOCKED FINAL — Revision 5)
-_Single source of truth for the written application and the supporting deck. Revision history: rounds 1–3 completed 2026-09-21 (de-risked the back-office population figure, removed an unprovable "no existing tool" claim, softened cross-market scalability wording, added a budget range). Revision 4 (2026-09-23): bolder vision, illustrative impact scenario, explicit platform-vs-Riley differentiation, central multiplier story, award-theme and Double Employee Value links, governance model, and factual corrections to the McKinsey citation, budget and approval-model wording. Revision 5 (2026-09-23): approved sequential timeline and phase gates; auditability added to the design; independent quality sample reviews; FTE framing removed from outward-facing content; scenario wording made explicitly hypothetical; fragmentation premise labelled as an observed problem. Final wording (2026-09-23): approval required before anything is sent to anyone (not only external sends); explicit headcount wording removed from outward-facing content. **Locked final by Harry — no further story changes unless he explicitly asks.**_
+# Riley — Master Story (LOCKED FINAL — Revision 6)
+_Single source of truth for the written application and the supporting deck. Revision history: rounds 1–3 completed 2026-09-21 (de-risked the back-office population figure, removed an unprovable "no existing tool" claim, softened cross-market scalability wording, added a budget range). Revision 4 (2026-09-23): bolder vision, illustrative impact scenario, explicit platform-vs-Riley differentiation, central multiplier story, award-theme and Double Employee Value links, governance model, and factual corrections to the McKinsey citation, budget and approval-model wording. Revision 5 (2026-09-23): approved sequential timeline and phase gates; auditability added to the design; independent quality sample reviews; FTE framing removed from outward-facing content; scenario wording made explicitly hypothetical; fragmentation premise labelled as an observed problem. Final wording (2026-09-23): approval required before anything is sent to anyone (not only external sends); explicit headcount wording removed from outward-facing content. Revision 6 (2026-09-23, approved by Harry): aligned with application Revision 6 and deck v2 — annual figure (~50,000 hours/year) moved into the outward-facing scenario; future-platform argument added; first pilot workflow selected in Phase 0 rather than defaulting to complaints. **Locked final by Harry — no further story changes unless he explicitly asks.**_
 
 **Evidence labels used throughout:** **[FACT]** confirmed information · **[BENCHMARK]** external, cited source · **[SCENARIO]** illustrative, not a forecast · **[VISION]** long-term ambition · **[HYPOTHESIS]** to be tested in the pilot · **[ASSUMPTION]** applicant's working assumption.
 
-**Locked decisions:** Market = Hong Kong · Submission = individual · Complaints workflow = illustrative example / candidate first pilot only, never the definition of Riley.
+**Locked decisions:** Market = Hong Kong · Submission = individual · Complaints workflow = illustrative example and one possible pilot candidate only, never the definition of Riley; the first live workflow is selected in Phase 0.
 
 ---
 
@@ -41,7 +41,7 @@ Short form: *The platform is the engine. Riley is the AIA coworker built on top 
 
 > "Review the latest customer complaints, identify the most common issues, compare them with the previous quarter, research relevant external information, prepare a management summary and draft a presentation."
 
-Always framed as "for example" / "a candidate first pilot". The same pattern — research, analysis, reporting, coordination, drafting — applies across back-office functions. Riley is a broad employee capability, not complaints automation.
+Always framed as "for example" / "one candidate first pilot". It is the main illustration, but the pilot plan does not depend on it: the first live workflow is chosen in Phase 0 (Section 10). The same pattern — research, analysis, reporting, coordination, drafting — applies across back-office functions. Riley is a broad employee capability, not complaints automation.
 
 ---
 
@@ -69,6 +69,8 @@ Always framed as "for example" / "a candidate first pilot". The same pattern —
 | General model improvements | **Learning from AIA employees' own feedback** |
 
 A generic platform does not arrive knowing AIA. Riley is the AIA-specific coworker layer that brings these together through one employee experience.
+
+**If the platform gets better.** Even if Copilot or another enterprise platform later provides stronger native agent routing and orchestration, AIA still needs to define which AIA data, systems and internal AI capabilities are connected, how employee permissions and AIA workflows apply, how actions are approved and recorded, and how feedback and learning are governed. That AIA-specific layer is Riley. A more capable underlying platform makes Riley more capable, not irrelevant. Riley does not need its own AI model and does not compete with Copilot.
 
 **Three legs of the Creativity argument:**
 1. **One coworker, not many tools** — employees learn one way of working, not each team's tool.
@@ -115,16 +117,16 @@ Riley gives employees more capacity for higher-value work by reducing manual res
 
 **Outward-facing message (use this wording):**
 
-> If Riley eventually served **1,000 employees** and saved each employee an average of **1 hour per week**, it would release approximately **1,000 hours of employee capacity every week** — capacity for higher-value work.
+> If Riley eventually served **1,000 employees** and saved each employee an average of **1 hour per week**, it would release approximately **1,000 hours of employee capacity every week**, or around **50,000 hours per year** assuming 50 working weeks — capacity for higher-value work.
 
 - *Framing (internal guidance, not outward wording):* describe impact only as released employee capacity for higher-value work. Headcount-reduction or FTE language must not appear in the application, deck or pitch.
+- *Headline:* the weekly 1,000-hour figure is the primary headline; the annual figure (~50,000 hours, 50 working weeks) is part of the same illustrative scenario, used to make scale easier to grasp.
 - *1,000 employees* is an illustrative scenario size — **not** a confirmed pilot population and **not** a verified AIA employee count.
 - *Reasonableness check (may be used outwardly):* 1 hour is 2.5% of a 40-hour week, and about one-eighth of the ~8 hours/week (nearly 20% of 40 hours) McKinsey estimates knowledge workers spend looking for internal information or tracking down colleagues.
 - *Upside [HYPOTHESIS]:* per-employee savings could grow as more capabilities are connected (Section 6).
 
 **Back-pocket for Q&A only — not the main outward message:**
 - *Sensitivity:* at 30 minutes/week → ~500 hours/week; at 2 hours/week → ~2,000 hours/week.
-- *Annualized:* ~50,000 hours/year (assumes 50 working weeks).
 
 **INTERNAL CONTEXT ONLY — do not use in the form, deck or pitch:** at ~2,000 working hours per full-time employee per year, ~50,000 hours ≈ the annual working time of ~25 full-time employees. Excluded outwardly because Riley is not a headcount-reduction idea.
 
@@ -151,8 +153,8 @@ Phases run in sequence; each phase proceeds only if the previous one shows resul
 
 | Phase | Timing | Milestone / deliverable |
 |---|---|---|
-| Phase 0 — Validate & select | Month 1 | Select a real pilot team and workflow; baseline effort, completion time and manual steps; confirm data access, security, privacy, audit-record and governance requirements (including feedback governance, Section 12); nominate the independent quality reviewer |
-| Phase 1 — MVP pilot | Months 2–4 | Deploy Riley for one workflow (complaints summary is the leading candidate) with one team; employee approval before final action; measure Part B against the baseline, including independent quality sample reviews. **Go/no-go gate:** proceed only if employee effort is reduced, quality is maintained or improved, and usage is sustained |
+| Phase 0 — Validate & select | Month 1 | Select the first live pilot team and workflow, weighing business value, implementation readiness, data sensitivity and governance complexity (customer complaints is one candidate; a lower-sensitivity internal workflow may be chosen if it can prove Riley faster and more safely); baseline effort, completion time and manual steps; confirm data access, security, privacy, audit-record and governance requirements (including feedback governance, Section 12); nominate the independent quality reviewer |
+| Phase 1 — MVP pilot | Months 2–4 | Deploy Riley for the workflow selected in Phase 0, with one team; employee approval before final action; measure Part B against the baseline, including independent quality sample reviews. **Go/no-go gate:** proceed only if employee effort is reduced, quality is maintained or improved, and usage is sustained |
 | Phase 2 — Prove the multiplier | Months 5–7 | Connect at least one AI tool built by a different AIA team; extend to a second workflow or team. **Go/no-go gate:** the new capability is usable through Riley without a new tool for employees, with effort, quality and usage holding up across both workflows |
 | Phase 3 — Scale toward the vision | Months 8–12 | Extend to more back-office teams and connected capabilities; replace the Part A scenario with a measured projection |
 
@@ -211,8 +213,8 @@ Conceptual and practical. No specific memory or training architecture is committ
 | 1 | AIA teams are independently building their own AI tools | HYPOTHESIS — observed organizational problem (Harry's direct observation; no names, counts or tools cited) |
 | 2 | "A large back-office population across many functions"; internal estimate ~a couple thousand, not stated outwardly | ASSUMPTION |
 | 3 | Nearly 20% of the workweek looking for internal information or tracking down colleagues (interaction workers) — McKinsey Global Institute, *The social economy*, 2012 | BENCHMARK |
-| 4 | If Riley eventually served 1,000 employees and saved each 1 hour/week → ~1,000 hours/week of released capacity (1,000 is illustrative, not a pilot size or AIA headcount) | SCENARIO (outward-facing) |
-| 4a | 30-min / 2-hr sensitivity; ~50,000 hours/year (50 weeks) | SCENARIO (Q&A back-pocket only) |
+| 4 | If Riley eventually served 1,000 employees and saved each 1 hour/week → ~1,000 hours/week of released capacity, ~50,000 hours/year over 50 working weeks (1,000 is illustrative, not a pilot size or AIA headcount) | SCENARIO (outward-facing; weekly figure is the headline) |
+| 4a | 30-min / 2-hr sensitivity | SCENARIO (Q&A back-pocket only) |
 | 4b | ~25 full-time-employee equivalent (2,000 hrs/FTE/year) | INTERNAL CONTEXT ONLY — never outward-facing |
 | 5 | Savings may grow as more capabilities connect | HYPOTHESIS |
 | 6 | Phase 1 incremental cost ~US$20,000–60,000, excluding existing staff time | ASSUMPTION |
@@ -225,5 +227,7 @@ Conceptual and practical. No specific memory or training architecture is committ
 | 13 | Riley keeps a record of request, capabilities used, output, approval and final action | Design decision (Revision 5); no logging architecture committed |
 | 14 | Periodic independent quality sample reviews during the pilot | Design decision (Revision 5) |
 | 15 | Sequential timeline (Month 1 / 2–4 / 5–7 / 8–12) and go/no-go gates | Design decision (approved by Harry, Revision 5) |
+| 16 | First live pilot workflow chosen in Phase 0 on value, readiness, data sensitivity and governance complexity | Design decision (Revision 6) |
+| 17 | A more capable platform makes Riley more capable, not irrelevant | HYPOTHESIS / positioning (Revision 6) |
 
-**Status: LOCKED FINAL (Revision 5, 2026-09-23).** No further story changes unless Harry explicitly asks. Next: build the supplementary deck from this story.
+**Status: LOCKED FINAL Revision 6 (2026-09-23).** Consistent with `application_form_draft.md` Revision 6 and `innovative_idea_award_draft_v2.pptx`. No further story changes unless Harry explicitly asks.

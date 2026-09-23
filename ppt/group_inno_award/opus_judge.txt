@@ -1,0 +1,245 @@
+First pass: the judge's view
+The 36 questions
+
+1. Strongest reason to shortlist. It's the only kind of idea that gets more valuable as AIA spends more on AI. That's the multiplier, and "Today the employee is the connector → Riley becomes the connector" (slide 3) makes it understandable in seconds. It's also unusually disciplined: labelled scenario, gated phases, governance, independent quality checks.
+
+2. Strongest reason not to. The core problem is asserted, not shown. There isn't one named AIA tool, count, survey or colleague quote proving employees struggle with many separate AI tools. Without that, the judge is asked to fund a solution to a problem they can't verify, under a criterion where evidence counts for 50%.
+
+3. What would make it feel genuinely innovative. The multiplier framing: AI investment builds up in one place instead of piling up as separate tools. The only stated test of it is Phase 2, "a different team's tool, no new tool for employees". An insurer building its own front door to all of its AI, rather than buying another assistant, is a real strategic position.
+
+4. What would make it feel like Copilot or ordinary automation renamed.
+
+Microsoft's own direction is Copilot as the single interface, with agents plugged into Teams. Riley's diagram (slide 7) looks like that architecture with an AIA label.
+"Copilot could be the engine", plus licensing that references Copilot Studio, lets a technical judge conclude: "This is a Copilot Studio rollout with integrations and a governance wrapper."
+The deck's answer is "a generic platform does not arrive knowing AIA". That's true of every enterprise deployment, so it doesn't make Riley distinctive.
+
+5. Is the problem important enough? Potentially, yes. Cross-system glue work is real and expensive. But the version actually presented ("too many AI tools") is only as important as the number of AIA AI tools employees face today, and the submission never says how many that is. If it's three, the problem is small; if it's thirty, it's big.
+
+6. Is fragmentation proven? No, only asserted. It's honestly flagged ("From what I observe"), which protects credibility but offers no evidence. The McKinsey figure is 14 years old, predates generative AI, and is about searching for information, not about AI tools.
+
+7. Is impact large enough for 50%? No, not as presented. The only number is an illustrative 1,000 hours a week.
+
+No annual figure, no business outcome, no customer benefit and no financial link appear anywhere in the deck.
+The form's Impact field explicitly asks for quantified benefits (ANP/VONB), and the submission defers them.
+Honesty is a strength, but competing ideas with any concrete figure will look bigger.
+
+8. Is 1,000 × 1 hour believable? The maths is fine, and 1 hour a week is modest for a working agent. What's not believable yet is that Riley would reliably save that hour across varied work. Only one workflow is shown, and the savings from a single weekly-ish report don't obviously add up to an hour per person every week.
+
+9. Ambition or guesswork? Useful ambition, clearly labelled. But it's unanchored: no baseline time for the example workflow, and no link from 1,000 people to any real population. A judge will call it "a nice round number".
+
+10. Is the Double Employee Value link convincing? Directionally yes, but thin. "Less searching and switching → more time for customers and judgment" is a claim, not a mechanism. It doesn't say which roles get time back or what they'd do with it. It also ignores the obvious angle: faster complaint insight is arguably a customer benefit too.
+
+11. Enduring value, or a temporary layer? This is the most dangerous question. A skeptic will say: "In 18 months, Copilot will route across agents natively. Then Riley is redundant."
+
+The submission's implicit answer is that the AIA-specific parts remain: connections, permissions, the feedback loop and governance.
+But it never says so directly. And those parts sound like configuration, not a product.
+
+12. Is the multiplier argument strong? It's the strongest idea in the submission, but it's shown only as a diagram. The four-column visual implies each connection adds value linearly. Real value depends on how often each new capability is actually useful to Riley's users, and on Riley choosing the right tool.
+
+13. What must be true for the multiplier to work?
+
+Team-built AI tools can be called by software, not just used through their own screen.
+Tool owners cooperate, and keep their tools maintained.
+Riley picks the right tool reliably as the number of tools grows.
+Permissions line up across tools.
+Connecting a tool costs less than rolling it out separately.
+Employees trust one agent more than several specialised apps.
+Governance approval for each new connection is fast enough.
+
+None of these is stated as an assumption.
+
+14. Does it underestimate integration effort? Yes, somewhat. "Each connection still needs technical and governance work" is honest but thin. Many team-built tools are standalone apps or notebooks with no way for software to call them. Phase 2 gives three months to connect one, with no mention of what happens if it can't be connected.
+
+15. Technically feasible inside a large insurer? A narrow Phase 1 is feasible. The broad vision is technically plausible but organisationally hard: it needs cross-team data access, service identities, logging and cooperation from tool owners. "Built on an existing AI platform" assumes AIA has one available to a Hong Kong pilot. The form hedges on this ("already has, is evaluating, or chooses to adopt"), and a judge will notice.
+
+16. Are the governance controls strong enough? Good principles for an idea submission: acting with the employee's own permissions, data under AIA controls, approval before action, records kept, governed learning, spot-checks. Missing:
+
+Handling of wrong or made-up output beyond employee review, including the risk of approvers rubber-stamping.
+Validation under AIA's AI risk and model-risk frameworks.
+Vendor risk.
+Data residency.
+Protection against malicious instructions hidden in external content.
+
+17. Questions I'd ask on security, privacy, audit, regulation and operations:
+
+Does complaint data (customer personal data) leave AIA's approved environment? Where is it processed, and does it cross borders?
+How does Riley act on an employee's behalf technically? A shared service account would be a red flag.
+What stops malicious instructions in "approved external information" from hijacking the agent?
+How long are Riley's records kept, and who can see them?
+Does "learning from feedback" retrain models on customer data?
+Which AIA AI-risk or model-risk review applies, and how long does it take?
+Who supports Riley in production, and what happens if it's down or wrong at scale?
+Does it comply with Hong Kong privacy law and the Insurance Authority's expectations on AI use and outsourcing?
+
+18. Is US$20–60k believable? For a 3-month pilot at an insurer that excludes existing staff time and uses an existing platform, it's possible only at the low end. An outside implementation partner for 3 months plus a security review can easily exceed that. The range is openly labelled as not benchmarked. That's honest, but a Finance judge will read it as "not yet costed". There's also no cost at all for Phases 2–3.
+
+19. Is the 12-month roadmap realistic? Phase 0 in one month is optimistic: security, privacy and AI-risk approval for customer complaint data at an insurer often takes longer. Phase 2 depends on another team's tool being connectable. The sequence and gates are sensible; the timings are aggressive.
+
+20. Is the complaints workflow a good first pilot? It's vivid and relatable, but it's the most sensitive possible choice:
+
+customer personal data
+regulated complaint handling
+external research mixed with customer data
+
+It maximises Phase 0 approval risk. A judge from risk will ask why the pilot doesn't start with lower-sensitivity internal data. There's no fallback workflow, and no mention of using aggregated or anonymised complaint data.
+
+21. Is Riley too broad? The vision is broad by design, which is fine for an idea award. The proposal is narrow (one team, one workflow), which is good. The risk is that judges see "general AI agent for everyone" and discount it as unspecific.
+
+22. Too many things at once? Somewhat. Riley is an agent, a connection hub, a learning system, a governance framework and an interface strategy all at once. The deck keeps pulling in all five. The multiplier and the connector idea are enough; "learns AIA" is the weakest and vaguest leg.
+
+23. Is the vision bold enough and believable enough? Bold enough. "Every AIA employee has a virtual coworker" is exciting, but it's also what every vendor promises. What makes it specific is the multiplier, and slide 9 doesn't connect the vision to it clearly.
+
+24. Strongest slide. Slide 3, "Who connects AIA's AI?". Instantly understood and memorable, and it is the idea. Slide 4 (Teams example plus the employee/Riley bands) is a close second because it makes Riley feel real.
+
+25. Weakest slide. Slide 9 (scale and vision):
+
+Its columns look like data but contain none.
+The "Phases 1–2 / Phase 3" labels come before the roadmap explains phases.
+"Value that compounds" is asserted.
+It carries two ideas: reach, and compounding.
+
+Slide 2 is second weakest: abstract, and largely repeated by slide 3.
+
+26. Strongest application field. Field 15, Feasibility. It's concrete, credible for an insurer, and pre-empts the obvious governance objections. Field 9, Timeline, is close.
+
+27. Weakest application field. Field 12, Impact, measured against its 50% weight.
+
+It's a scenario, a list of metrics, and a financial link postponed to the pilot.
+It answers "how would we measure impact", not "how big is it".
+
+Field 7, Problem, is second: it's asserted.
+
+28. Where the deck oversells:
+
+"Riley becomes the connector" (as if connecting were solved)
+"More AI, a stronger Riley" (as if linear)
+"Value that compounds"
+"Built on an existing AI platform, not from scratch" (the form hedges on whether one exists)
+"A coworker that learns AIA" (no mechanism)
+slide 2's "AIA needs one coworker layer" (inevitability without evidence)
+
+29. Where the deck undersells:
+
+no annual figure (the scenario implies roughly 50,000 hours a year)
+no customer angle from the complaints example
+no "today this takes X" for the example workflow
+the Operations Value category never appears in the deck
+no presenter name or credibility
+the deck never mentions the financial link (VONB/ANP), even as a hypothesis
+
+30. Confusing without a presenter:
+
+"coworker layer" / "AIA layer" (slides 2 and 7)
+the unlabelled dots around Riley (slide 8)
+"Phases" on slide 9
+"CHOSEN LATER"
+"MVP"
+"incremental"
+slides 2 and 3 saying the same thing twice
+
+31. Corporate jargon:
+
+"coworker layer"
+"orchestration model"
+"point-solution"
+"structural problem"
+"enduring value"
+"higher-value work"
+"stitch together"
+"capability" (used for tools, data and skills interchangeably)
+"governed learning"
+"build decision"
+
+32. Claims I'd challenge in Q&A:
+
+That fragmentation exists at meaningful scale.
+That Riley differs from what Copilot will do natively.
+That 1 hour a week is achievable across varied work.
+That team tools can be connected at all.
+That US$20–60k covers Phase 1.
+That Phase 0 fits in one month for complaint data.
+That "learning" won't create model-risk exposure.
+
+33. What a senior AIA leader will ask:
+
+"Is Group Technology already building this?"
+"Why a Hong Kong individual rather than a Group platform team?"
+"What does this do for customers or VONB?"
+"Who owns Riley after the pilot?"
+"What does the full rollout cost?"
+"What happens when Microsoft ships this?"
+
+34. What IT, risk, compliance and finance judges will ask: the data-flow, identity, retention, AI-risk and residency questions in #17, plus:
+
+the per-task running cost at scale
+total cost for Phases 2–3
+what happens when Riley gives a confident wrong answer
+
+35. Most likely reason it misses the shortlist. Judges see a well-governed Copilot-style agent with no evidence of the problem and no concrete impact. In other words, weak Impact (50%) and Creativity (30%) scores that look like "enterprise AI assistant, again".
+
+36. Most likely reason it makes the shortlist. The connector and multiplier framing is memorable and strategically relevant to an organisation spending heavily on AI, and the proposal is unusually credible and responsible for an idea submission.
+
+Judge assessment by criterion
+Criterion	Evidence	Why
+Impact (50%)	Weak	The ambition is clear and honestly labelled. But it's a single illustrative number with no baseline, no annual figure, no customer or financial outcome, and the problem itself is unproven. The measurement plan is excellent, but it's a plan, not impact.
+Creativity (30%)	Moderate	The multiplier and "employee as connector" framing is fresh and memorable inside AIA. The underlying concept (an AI front door that orchestrates many agents) is mainstream industry direction. The distinction from Copilot rests on AIA-specific integration, which a technical judge may see as implementation, not invention.
+Scalability (10%)	Strong	It's horizontal by nature: more employees, workflows and capabilities, with cross-market reuse framed realistically. The only gap is that the cost of scaling isn't estimated.
+Feasibility (10%)	Moderate	Strong governance principles, a narrow start, gates and Teams delivery. Weakened by an optimistic Phase 0, unproven connectability, an unbenchmarked budget, the most sensitive possible pilot data, and an individual applicant with no named team.
+A. Top 5 strengths
+The connector idea (slide 3). It's the memorable heart of the submission.
+The multiplier. It's a strategic answer to AIA's growing AI spend, not just another tool.
+Discipline: a clearly labelled scenario, six sensible metrics, independent quality checks, and gates.
+Governance suited to an insurer: approval before any final action, the employee's own permissions, traceability.
+It feels real. The Teams example plus the ownership bands make Riley easy to picture.
+B. Top 5 weaknesses
+Fragmentation is asserted, with zero AIA evidence.
+Impact has no anchor: no baseline, no annual figure, no customer or financial link in the deck.
+It's vulnerable to "this is just Copilot plus integrations".
+The multiplier's assumptions (whether tools can be connected, tool-selection accuracy, owner cooperation) go unstated.
+The first pilot uses the most sensitive data, with an optimistic Phase 0 and an unbenchmarked budget.
+C. Top 5 questions judges are most likely to ask
+"How many AI tools do AIA employees actually juggle today? Show me."
+"Why won't Microsoft Copilot do this natively, and then what is Riley?"
+"What does the complaints workflow cost in time today, and what would Riley save?"
+"Can the other teams' tools actually be connected, and who pays for that?"
+"Why start with customer complaint data?"
+D. Top 3 things that could prevent shortlisting
+The Impact score is dragged down by the absence of any real-world anchor.
+The Creativity score is dragged down by "Copilot with a new name".
+The problem's scale is unproven, so the whole case reads as a hypothesis.
+E. Top 3 changes that would most improve the submission before the deadline
+Add minimal real evidence of fragmentation. Two or three anonymised examples of AIA AI tools, or a quick poll of 10–20 colleagues ("How many AI tools do you use? How often do you combine their outputs by hand?"). Even small evidence changes "asserted" to "observed and checked".
+Anchor impact with one real baseline. Time the example workflow today: how long it takes, how often, and how many people do it. Pair that with the scenario, and consider stating the annual equivalent (~50,000 hours) and one customer-side benefit.
+Sharpen the answer to "why not just Copilot". State plainly what remains even if the platform orchestrates agents natively: the connections to AIA's own tools, permissions, feedback and governance, owned as an AIA programme. Also consider naming a lower-sensitivity fallback pilot, or aggregated or anonymised complaint data.
+
+Smaller fixes worth doing:
+
+Add your name.
+Make the form's metric names match the deck.
+Fix slide 9's phase labels.
+Show Operations Value in the deck.
+F. Don't change
+Slide 3's connector visual and its two lines.
+Slide 4: the Teams example with the Employee/Riley bands.
+The "illustrative, not a forecast" honesty and the modest 1-hour framing with the 1/8/40 bar.
+Phase 2 as the highlighted core test, and the go/no-go gates.
+The approval rule: nothing is finalized, sent to anyone, or entered into a system until the employee approves.
+"Copilot could be the engine" positioning. Don't attack Copilot.
+The correct, narrow McKinsey citation.
+Second pass: what the master story already answers
+Weakness	Answered in master_story.md?	In the submission?
+Fragmentation evidence	No. The story labels it a hypothesis from your own observation.	No. This gap is real, not just missing from the materials.
+Anchoring the 1,000 employees	Partly: your internal estimate of ~a couple thousand back-office staff, deliberately kept out.	No. It could help if you can stand behind it.
+Annual figure	Yes: ~50,000 hours a year, kept as a back-pocket answer for Q&A.	No. Safe to use (it isn't an FTE figure).
+Sensitivity (30 min / 2 h)	Yes, as a Q&A back-pocket answer.	No. Good for Q&A only.
+Financial link (VONB/ANP)	Yes, as a hypothesis for the TDA methodology (Part C).	Form ✓, deck ✗. It could appear as one line in the deck.
+"Why not Copilot"	Yes: the platform-vs-Riley table, and runtime commoditisation.	Mostly ✓. The "what survives if Copilot orchestrates natively" argument isn't explicit anywhere.
+Multiplier assumptions	Partly: "not free or automatic", marked as a hypothesis.	The caveat ✓, the list of assumptions ✗.
+Pilot data sensitivity	No. No anonymisation or fallback workflow.	No. Real gap.
+Budget basis	The story removed its unsourced benchmarks, so it's openly an unbenchmarked estimate.	Yes, as stated. It remains weak.
+Cost of Phases 2–3	No ("to be scoped").	No. Real gap.
+Does AIA already have this?	No. The "no existing tool" claim was removed as unprovable.	No. Worth checking internally before judges ask.
+Operations Value	Yes (category chosen).	Form ✓, deck ✗.
+Presenter or credibility	You're the product owner (Resources).	Form ✓, deck ✗ (no name).
+
+Net finding. Several weaknesses have safe answers already sitting in the story: the annual figure, the sensitivity range, the financial-link hypothesis, Operations Value, and your role. The biggest ones do not: evidence of fragmentation, a real baseline, pilot data sensitivity, whether AIA already has something similar, and scale costs. Those need new information from you, not rewording.
