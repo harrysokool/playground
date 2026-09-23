@@ -1,5 +1,5 @@
-# Riley — Innovation Idea Awards Application (Revision 4 — pending approval)
-_Derived from [master_story.md](master_story.md) Revision 4, 2026-09-23. Fields numbered exactly as in the official form ([submission_form.txt](submission_form.txt)) so you can copy each answer straight across. [BRACKETS] are placeholders I can't fill in for you._
+# Riley — Innovation Idea Awards Application (LOCKED FINAL — Revision 5)
+_Derived from [master_story.md](master_story.md) Revision 5, locked final 2026-09-23. No further changes unless Harry explicitly asks. Fields numbered exactly as in the official form ([submission_form.txt](submission_form.txt)) so you can copy each answer straight across. [BRACKETS] are placeholders I can't fill in for you._
 
 ---
 
@@ -25,7 +25,7 @@ Employee Value; Operations Value
 
 ### 7. Problem Statement
 
-Teams across AIA are building their own AI tools and solutions, each valuable for the problem it was built for. For employees, though, every new tool is one more thing to discover, learn and fit into their work. To finish a piece of work, an employee has to know which tool applies, learn how to use it, and manually combine its output with information from other systems and colleagues. That coordination burden falls on the employee however good each tool becomes, and it grows with every new tool added.
+From what I observe across AIA, different teams are building their own AI tools and solutions, each valuable for the problem it was built for. For employees, though, every new tool is one more thing to discover, learn and fit into their work. To finish a piece of work, an employee has to know which tool applies, learn how to use it, and manually combine its output with information from other systems and colleagues. That coordination burden falls on the employee however good each tool becomes, and it grows with every new tool added.
 
 This is a structural problem across a large back-office population in many functions. Another point-solution AI tool cannot fix it; it only adds to the list.
 
@@ -37,10 +37,10 @@ Riley is AIA's virtual coworker. Employees message Riley in Microsoft Teams the 
 
 For example: "Review the latest customer complaints, identify the most common issues, compare them with the previous quarter, research relevant external information, prepare a management summary and draft a presentation." This is a candidate first pilot, not the definition of Riley. The same pattern applies to research, analysis, reporting and coordination work across back-office functions.
 
-**Riley is not the AI model. Riley is the AIA layer that turns separate AI capabilities into one coworker every employee can use.** It can be built on Microsoft Copilot Studio, another enterprise agent platform, or future technology. That choice is a build decision, not the innovation. The innovation is what Riley adds on top, specific to AIA:
+**Riley is not the AI model. Riley is the AIA-specific coworker layer that connects AIA data, systems, AI capabilities, business processes, governance and employee feedback through one employee experience.** Copilot Studio, another enterprise agent platform, or future technology could be the underlying engine. That choice is a build decision, not the innovation. The innovation is what Riley adds on top, specific to AIA:
 
 - **One coworker, not many tools.** Employees learn one way of working instead of discovering and learning each team's AI tool.
-- **A multiplier on AIA's AI investment.** When a team's AI capability is connected to Riley, it becomes available through the same conversation to every employee authorized to use it. Each connection still needs technical and governance work, but the employee experience stays the same while the capability underneath keeps growing.
+- **A multiplier on AIA's AI investment.** When a team's AI capability is connected to Riley, it becomes available through the same conversation to every employee authorized to use it, so Riley can do more without employees having to learn another separate tool. Each connection still needs technical and governance work, but the employee experience stays the same while the capability underneath keeps growing.
 - **A coworker that learns AIA.** Employee corrections and approvals, captured under governance, improve how Riley handles AIA's processes, tool choices and quality standards over time.
 
 The long-term vision: every AIA employee has a virtual coworker on demand that takes on much of the research, coordination, analysis and execution behind their work, while the employee stays accountable for every final decision.
@@ -51,11 +51,11 @@ The long-term vision: every AIA employee has a virtual coworker on demand that t
 
 Phases run in sequence, and each proceeds only if the previous one shows results.
 
-**Phase 0 — Validate & select (Month 1):** Select a real pilot team and workflow. Baseline current effort, completion time and manual steps. Confirm data access, security, privacy and governance requirements with IT, risk and compliance.
+**Phase 0 — Validate & select (Month 1):** Select a real pilot team and workflow. Baseline current effort, completion time and manual steps. Confirm data access, security, privacy, record-keeping and governance requirements with IT, risk and compliance. Nominate an independent quality reviewer.
 
-**Phase 1 — MVP pilot (Months 2–4):** Deploy Riley for one workflow (the customer-complaints example is the leading candidate) with one team. The employee approves every output before final action. Measure the Impact indicators against the Phase 0 baseline. *Gate:* proceed if effort falls, quality is at least equal to baseline, and employees keep using Riley.
+**Phase 1 — MVP pilot (Months 2–4):** Deploy Riley for one workflow (the customer-complaints example is the leading candidate) with one team. The employee approves every output before final action. Measure the Impact indicators against the Phase 0 baseline, including independent quality sample reviews. *Go/no-go:* proceed only if employee effort is reduced, quality is maintained or improved, and usage is sustained.
 
-**Phase 2 — Prove the multiplier (Months 5–7):** Connect at least one AI tool built by a different AIA team into Riley, and extend Riley to a second workflow or team. This is the core test of the idea: new capability added without a new tool for employees to learn.
+**Phase 2 — Prove the multiplier (Months 5–7):** Connect at least one AI tool built by a different AIA team into Riley, and extend Riley to a second workflow or team. This is the core test of the idea: new capability added without a new tool for employees to learn. *Go/no-go:* proceed to scale only if this works, with effort, quality and usage holding up across both workflows.
 
 **Phase 3 — Scale toward the vision (Months 8–12):** Extend to more back-office teams and connected capabilities. Replace the illustrative impact scenario with a projection built from measured Phase 1–2 data.
 
@@ -65,6 +65,7 @@ Submitted as an individual idea. To execute, this would need:
 
 - **A pilot business-unit sponsor** in Hong Kong willing to host Phase 0–1 with a real team.
 - **A small build pod**, assembled during Phase 0: a product/business owner (this applicant), an AI/automation engineer or implementation partner, and part-time support from IT security, privacy and compliance reviewers.
+- **A business reviewer or subject-matter expert** to carry out periodic independent quality sample reviews during the pilot.
 - **Group Innovation Office mentorship and support**, as offered to shortlisted finalists under the award program.
 - **Access to relevant system and data owners**, and to the owner of at least one other team's AI tool for Phase 2.
 - **Access to the enterprise AI/agent platform capability AIA already has, is evaluating, or chooses to adopt**, so the pilot does not build an agent engine from scratch.
@@ -80,11 +81,11 @@ Submitted as an individual idea. To execute, this would need:
 
 ### 12. Impact
 
-**Illustrative scenario (not a forecast):** if Riley saves an average of **1 hour per employee per week across 1,000 employees**, AIA releases about **1,000 hours of employee capacity every week**. That is around 50,000 hours a year, roughly the annual working time of 25 full-time employees.
+**Illustrative scenario (not a forecast):** if Riley eventually served **1,000 employees** and saved each employee an average of **1 hour per week**, it would release approximately **1,000 hours of employee capacity every week** for higher-value work. The 1,000 figure illustrates scale; it is not a planned pilot size or an AIA employee count.
 
-This is a deliberately modest assumption. One hour is 2.5% of a 40-hour week, and about one-eighth of the time McKinsey estimates knowledge workers spend looking for information and colleagues. At 30 minutes a week the scenario still releases 500 hours weekly; at 2 hours, 2,000. The 1,000-employee figure is a scenario size, not an AIA headcount.
+One hour is a deliberately modest assumption: 2.5% of a 40-hour week, and about one-eighth of the time McKinsey estimates knowledge workers spend looking for internal information or tracking down colleagues.
 
-**This is Double Employee Value in practice.** Capacity moves away from manual research, coordination, system switching and repetitive execution, and toward customer relationships, judgment, problem-solving and innovation. It is capacity for higher-value work, not a headcount target. The upside can grow over time: each AI capability connected to Riley expands what it can do for every user.
+**This is Double Employee Value in practice.** Capacity moves away from manual research, coordination, system switching and repetitive execution, and toward customer relationships, judgment, problem-solving and innovation. Riley releases employee capacity for higher-value work. The upside can grow over time: each AI capability connected to Riley expands what it can do for every user.
 
 **The pilot tests the scenario rather than assuming it.** Measured on the real Phase 1 team against the Phase 0 baseline:
 
@@ -92,16 +93,16 @@ This is a deliberately modest assumption. One hour is 2.5% of a 40-hour week, an
 - **End-to-end completion time** from request to approved output
 - **Manual steps and systems touched**, which directly measures the fragmentation problem
 - **Rework rate**, and how quickly it falls through feedback
-- **Output quality** versus a human-only baseline
+- **Output quality** versus a human-only baseline, rated by the requesting employee and confirmed through periodic independent sample reviews by a business reviewer or subject-matter expert
 - **Adoption and repeat use** among eligible pilot employees
 
 In Phase 3, this measured data replaces the scenario. The link to financial metrics (VONB/ANP), through operational efficiency, service quality and speed, is a hypothesis to validate with AIA's TDA methodology, not a figure claimed now.
 
 ### 13. Creativity
 
-**Riley is not the AI model, and not another AI tool. It is the AIA layer that turns separate AI capabilities into one coworker every employee can use.**
+**Riley is not the AI model, and not another AI tool. It is the AIA-specific coworker layer that connects AIA data, systems, AI capabilities, business processes, governance and employee feedback through one employee experience.**
 
-Enterprise platforms such as Copilot Studio provide the engine: models, agent-building tools and connectors. Riley can be built on them. But a generic platform does not arrive knowing AIA. Riley is the AIA-specific layer that brings together AIA's data and systems, AI capabilities built by different AIA teams, AIA's workflows, AIA's permissions and governance, and a feedback loop that learns from AIA's own employees, all in one employee-facing coworker.
+Enterprise platforms such as Copilot Studio provide the engine: models, agent-building tools and connectors. One of them could be Riley's underlying engine, but the platform is not the core innovation. A generic platform does not arrive knowing AIA. Riley brings together AIA's data and systems, AI capabilities built by different AIA teams, AIA's business processes, AIA's permissions and governance, and a feedback loop that learns from AIA's own employees, all through one coworker.
 
 The original idea is the multiplier. Today, each new AI solution becomes another tool employees must find and learn. With Riley, each one can become a new capability of the coworker employees already use. AIA's AI investment builds up in one place instead of fragmenting, so the more AIA builds, the more valuable Riley becomes.
 
@@ -109,7 +110,7 @@ The original idea is the multiplier. Today, each new AI solution becomes another
 
 Riley scales in three directions: more employees, more workflows, and more connected capabilities. A large back-office population across many functions is in scope before any cross-market expansion. Each capability connected to Riley becomes available to every employee authorized to use it, without rebuilding Riley; Phase 2 tests exactly this. Across markets, the core Riley experience and orchestration model can be reused, while each market adds its own system integrations, data controls, governance and process configuration.
 
-This is why Riley creates enduring value rather than a one-time productivity gain. The common layer becomes more useful with every capability connected. Employee feedback keeps improving how Riley handles AIA's work. And the AI solutions AIA builds or adopts in future become easier for employees to use, not harder.
+This is why Riley creates enduring value rather than a one-time productivity gain: its usefulness can grow as more capabilities, workflows and employee feedback are added over time. The common layer becomes more useful with every capability connected. Employee feedback keeps improving how Riley handles AIA's work. And the AI solutions AIA builds or adopts in future become easier for employees to use, not harder.
 
 ### 15. Feasibility
 
@@ -119,5 +120,6 @@ Governance is designed in from the start:
 
 - **The employee's own access only.** Riley acts with the access the requesting employee is already authorized to use, and never bypasses existing permissions.
 - **Data stays under AIA controls.** Sensitive and customer data remain subject to AIA's existing data, privacy and information-security controls. External information comes only from approved sources.
-- **Approval before final action.** Riley can research, analyze and draft on its own, but during the pilot the employee reviews and approves the output before anything is finalized, sent or entered into a business system. The employee remains accountable for the result.
+- **Approval before final action.** During the pilot, Riley may plan and carry out intermediate steps itself, but the employee reviews and approves the output before anything is finalized, sent to anyone, or entered into a business system. The employee remains accountable for the result.
+- **Traceable and reviewable.** Riley keeps an appropriate record of its work: the request, the systems or capabilities used, the output, the employee's approval, and the final action where relevant. What is recorded, and for how long, follows AIA's existing policies.
 - **Governed learning.** What feedback is captured, who can see it, and how improvements are reviewed before they change Riley's behaviour will be agreed with risk and IT in Phase 0. The specific learning mechanism is a build decision.
