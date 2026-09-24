@@ -8,7 +8,7 @@ Working folder for the Riley submission (deadline 30 September 2026, 5pm HKT).
 |---|---|
 | Master story (source of truth, LOCKED Revision 6) | `source_of_truth/master_story.md` |
 | Application form answers (LOCKED Revision 6) | `source_of_truth/application_form_draft.md` |
-| **Current deck** | `current_deck/innovative_idea_award_opus_redesign_v2.pptx` |
+| **Current deck** | `current_deck/innovative_idea_award_opus_redesign_v3.pptx` |
 | Official AIA template (do not edit) | `template/group_inno.pptx` |
 
 ## Folders
@@ -27,7 +27,8 @@ Working folder for the Riley submission (deadline 30 September 2026, 5pm HKT).
 2. `archive/decks/innovative_idea_award_draft_v1.pptx`
 3. `archive/decks/innovative_idea_award_draft_v2.pptx`
 4. `archive/decks/innovative_idea_award_opus_redesign_v1.pptx` — rebuild from the judge critique
-5. `current_deck/innovative_idea_award_opus_redesign_v2.pptx` — **current**
+5. `archive/decks/innovative_idea_award_opus_redesign_v2.pptx` — targeted strengthening pass after the cold review
+6. `current_deck/innovative_idea_award_opus_redesign_v3.pptx` — **current** (v2 plus new cover artwork)
 
 ## Conventions
 
