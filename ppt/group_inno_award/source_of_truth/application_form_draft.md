@@ -1,5 +1,5 @@
 # Riley — Innovation Idea Awards Application (LOCKED FINAL — Revision 6)
-_Derived from [master_story.md](master_story.md) Revision 5, locked final 2026-09-23. Revision 6 (2026-09-23, approved by Harry): annual scenario figure, future-platform answer, flexible pilot selection (fields 8, 9, 12, 13); consistency pass against master story Revision 6 (fields 13, 15). No further changes unless Harry explicitly asks. Fields numbered exactly as in the official form ([submission_form.txt](submission_form.txt)) so you can copy each answer straight across. [BRACKETS] are placeholders I can't fill in for you._
+_Derived from [master_story.md](master_story.md) Revision 5, locked final 2026-09-23. Revision 6 (2026-09-23, approved by Harry): annual scenario figure, future-platform answer, flexible pilot selection (fields 8, 9, 12, 13); consistency pass against master story Revision 6 (fields 13, 15). No further changes unless Harry explicitly asks. Fields numbered exactly as in the official form ([submission_form.txt](../competition_brief/submission_form.txt)) so you can copy each answer straight across. [BRACKETS] are placeholders I can't fill in for you._
 
 ---
 
