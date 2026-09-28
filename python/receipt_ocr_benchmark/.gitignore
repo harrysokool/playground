@@ -4,7 +4,7 @@ __pycache__/
 .pytest_cache/
 
 # Real receipt samples and derived outputs may contain sensitive data - never commit.
-data/raw/*
+# data/raw/*
 !data/raw/.gitkeep
 # results/*
 !results/.gitkeep
