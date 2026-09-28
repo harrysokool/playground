@@ -1,5 +1,5 @@
 # Riley — Innovation Idea Awards Application (LOCKED FINAL — Revision 8)
-_Derived from [master_story.md](master_story.md) Revision 8, locked final 2026-09-28. **Revision 8 (2026-09-28):** Alfred added as a real example of AIA specialist AI (fields 8 and 13). Revision 6 (2026-09-23, approved by Harry): annual scenario figure, future-platform answer, flexible pilot selection. **Revision 7 (2026-09-24, approved by Harry after manager feedback):** Riley repositioned as AIA's AI coworker that does the digital legwork of an outcome (fields 5 unchanged, 7, 8, 9, 10, 11, 12, 13, 14, 15 revised). No further changes unless Harry explicitly asks. Fields numbered exactly as in the official form ([submission_form.txt](../competition_brief/submission_form.txt)) so you can copy each answer straight across. [BRACKETS] are placeholders I can't fill in for you._
+_Derived from [master_story.md](master_story.md) Revision 8, locked final 2026-09-28. **Revision 8 (2026-09-28):** Alfred added as a real example of AIA specialist AI (fields 8 and 13). **Revision 8 alignment pass (2026-09-28):** fields 5, 8, 12, 13, 14 and 15 aligned with deck v6; no new claims. Revision 6 (2026-09-23, approved by Harry): annual scenario figure, future-platform answer, flexible pilot selection. **Revision 7 (2026-09-24, approved by Harry after manager feedback):** Riley repositioned as AIA's AI coworker that does the digital legwork of an outcome (fields 5 unchanged, 7, 8, 9, 10, 11, 12, 13, 14, 15 revised). No further changes unless Harry explicitly asks. Fields numbered exactly as in the official form ([submission_form.txt](../competition_brief/submission_form.txt)) so you can copy each answer straight across. [BRACKETS] are placeholders I can't fill in for you._
 
 ---
 
@@ -16,7 +16,7 @@ Hong Kong
 [YOUR AIA EMAIL ADDRESS]
 
 ### 5. Title
-Riley: AIA's Virtual Coworker
+Riley: AIA's AI Coworker
 
 ### 6. Category
 Employee Value; Operations Value
@@ -35,13 +35,13 @@ This is an observation, not a measured finding, and it applies across a large ba
 
 **Riley is AIA's AI coworker: you give it an outcome, and it uses the same approved data, systems and tools you would use to do the work in between, then brings back finished work for you to approve.** You own the outcome. Riley does the digital legwork.
 
-Employees message Riley in Microsoft Teams the way they would message a colleague. Riley works out what the task needs and uses only what that employee is permitted to access: AIA data and documents, AIA systems, internal AI tools built by AIA teams, relevant Outlook and Teams updates, approved external information and other approved enterprise capabilities. It plans the work, carries out the intermediate steps, and returns finished work for the employee to review, edit and approve.
+Most AI is designed as a tool that helps an employee do a step. Riley is designed as a coworker that an employee delegates an outcome to. Employees message Riley in Microsoft Teams the way they would message a colleague. Riley works out what the outcome needs and uses only what that employee is permitted to access: AIA data and documents, AIA systems, AIA's own specialist AI, relevant Outlook and Teams updates, approved external information and other approved enterprise capabilities. It plans the work, carries out the intermediate steps, and returns finished work. The employee keeps the judgment, the review and the final approval: one outcome in, finished work back.
 
 **An illustrative example (not the committed pilot).** An employee asks: *"Prepare the quarterly complaints review for Thursday's management meeting: top issues versus last quarter, likely drivers, what is already being done, and draft slides."* Riley shows its plan; pulls complaint records for this quarter and last; uses an internal AI capability to group complaints into themes; checks relevant internal documents such as the previous review and procedures; checks relevant Outlook and Teams updates available to that employee; checks approved external sources for industry or regulatory context; then analyses and compares the information, drafts the management summary and prepares the presentation. The employee reviews, edits and approves; nothing is finalized, sent or entered into a business system before that. The first live workflow is chosen in Phase 0, and a lower-sensitivity internal workflow may go first. The same pattern applies to research, analysis, reporting and coordination work across back-office functions.
 
 **How Riley is built: brain, hands and AIA's rules.**
 - **Brain:** enterprise AI. Copilot or another approved enterprise AI platform provides the intelligence to understand requests, reason, plan and draft. Copilot could be the engine; Riley does not need its own model.
-- **Hands:** everything Riley is approved to use to do the work. The hands unique to AIA are AIA data, AIA systems and AIA's own specialist AI, such as Alfred, the internal GenAI platform Group Internal Audit has built for auditors; Microsoft 365 and approved external information are standard equipment.
+- **Hands:** everything Riley is approved to use to do the work. The hands unique to AIA are AIA data, AIA systems and AIA's own specialist AI, such as Alfred, the internal GenAI platform Group Internal Audit has built for auditors, which Riley could potentially use subject to technical and governance feasibility. Microsoft 365 and approved external information are standard equipment.
 - **AIA's rules:** employee permissions, approval before final action, an appropriate record of the work, and governed learning.
 
 What makes Riley different is the combination of **AIA-specific hands**, **whole-outcome execution** rather than a single summary or draft, and **AIA's rules** around every piece of work. And Riley gets more capable over time: every useful capability AIA connects, whether a system, a data source or an AI tool built by another team, can expand what Riley can do through the same coworker experience.
@@ -84,7 +84,7 @@ Submitted as an individual idea. To execute, this would need:
 
 ### 12. Impact
 
-**The prize isn't an hour saved. It's a digital execution partner for every employee.** Riley aims to increase how much useful, finished work an employee can complete by absorbing more of the digital execution around it. Employees put more of their effort into judgment, decision-making, review, customer understanding, problem-solving and innovation. This is Double Employee Value in practice, with Operations Value through faster, better-supported back-office work.
+**The prize isn't an hour saved. It's a digital execution partner for every employee.** The opportunity is not only time saved; it is how much more finished work one employee can deliver. Riley aims to increase that by absorbing more of the digital execution around each outcome. Today the employee acts as requester, researcher, coordinator, analyst and drafter; with Riley, the employee becomes the outcome owner, reviewer and decision maker, and puts more effort into judgment, decision-making, review, customer understanding, problem-solving and innovation. This is Double Employee Value in practice, with Operations Value through faster, better-supported back-office work.
 
 **Near-term pilot impact (measured, not assumed).** On the real Phase 1 team, against the Phase 0 baseline:
 
@@ -96,7 +96,7 @@ Submitted as an individual idea. To execute, this would need:
 - **Adoption and repeat use** among eligible pilot employees
 - **Completed outputs per employee**, to test whether Riley increases execution capacity, not only saves time
 
-**Long-term strategic impact (vision and hypothesis, not a forecast).** Greater employee execution capacity: one employee can supervise significantly more digital work because Riley performs much more of the execution, and Riley can absorb more of that work as more capabilities are connected. The long-term question the pilot starts to test is: *can one employee, supported by Riley, complete substantially more finished work than manual digital execution allows?* No productivity multiple is claimed.
+**Long-term strategic impact (vision and hypothesis, not a forecast).** The ambition is one employee with far more execution capacity: one employee can supervise significantly more digital work because Riley performs much more of the execution, and Riley can absorb more of that work as more capabilities are connected. The long-term question the pilot starts to test is: *can one employee, supported by Riley, complete substantially more finished work than manual digital execution allows?* No productivity multiple is claimed.
 
 **A conservative floor (illustrative scenario, not a forecast).** Even at a deliberately cautious one hour a week, 1,000 employees would release around 1,000 hours every week, or around 50,000 hours a year assuming 50 working weeks. The 1,000 figure illustrates scale; it is not a planned pilot size or an AIA employee count. One hour is 2.5% of a 40-hour week and about one-eighth of the time McKinsey estimates knowledge workers spend looking for internal information or tracking down colleagues.
 
@@ -104,27 +104,27 @@ In Phase 3, measured data replaces the scenario. The link to financial metrics (
 
 ### 13. Creativity
 
-**Riley is AIA's AI coworker, not another AI tool.** Employees hand Riley an outcome, and Riley does the chain of digital work in between, using AIA's own data, systems and AI tools, under AIA's rules.
+**From AI as a tool to AI as a coworker.** Most AI helps an employee perform a step. Riley is designed around delegating an outcome: employees hand Riley the outcome, Riley does the chain of digital work in between using AIA's own data, systems and specialist AI under AIA's rules, and the employee keeps the judgment and the final approval.
 
-Copilot could be the engine. Copilot Studio or another approved enterprise AI platform can provide Riley's brain: the intelligence to understand, reason, plan and draft. Riley does not need its own model and does not compete with Copilot. General assistants already work across email, chat, files and the web, so that is not the innovation. Riley's originality is the combination of three things:
+Copilot could be the engine. Copilot Studio or another approved enterprise AI platform can provide Riley's brain: the intelligence to understand, reason, plan and draft. Riley does not need its own model, does not compete with Copilot and does not replace specialist AI. General assistants already work across email, chat, files and the web, so that is not the innovation. The innovation is AIA owning one governed coworker experience that builds on AIA's own data, systems and specialist AI, through the combination of three things:
 
 - **AIA-specific hands:** AIA data, AIA systems and AI tools built by AIA teams, which a general assistant does not arrive with.
 - **Whole-outcome execution:** Riley carries out the whole chain behind an outcome and returns finished work for approval, not an isolated summary or draft.
 - **AIA's rules:** employee permissions, approval before final action, traceability and governed learning applied to every piece of work.
 
-AIA already builds valuable specialist AI. Alfred, for example, supports Group Internal Audit's auditors with methodology answers, workpaper and report review, control analysis and comparison against regulatory guidance. Specialist AI like this makes the task smarter, but the employee still has to know the tool exists, open it, provide the inputs and carry its output into the rest of the work. Each wave of AI removes another layer of digital legwork: first specialist AI inside the task, then Riley across the outcome. Riley does not replace capabilities like Alfred; a capability like Alfred could become one of the capabilities Riley can use, subject to technical and governance feasibility, so that each investment AIA makes can reach more of the work it was built for.
+AIA already builds valuable specialist AI. Alfred, for example, supports Group Internal Audit's auditors with methodology answers, workpaper and report review, control analysis and comparison against regulatory guidance. **Each wave of AI removes another layer of digital legwork. Specialist AI makes the task smarter. Riley could make the whole outcome easier.** The progression is: do it yourself, then AI helps with the task, then delegate the outcome. With any specialist tool, an employee generally still needs to know it exists, open it, provide the inputs and carry its output into the rest of the work. Riley could let employees benefit from capabilities like Alfred within a broader outcome, rather than discovering, learning and separately operating each one. Riley does not replace them: a capability like Alfred could potentially become one of the capabilities Riley uses, subject to technical and governance feasibility, so that each investment AIA makes could reach more of the work it was built for.
 
 Riley also gets more capable over time. Every useful capability AIA connects, whether a system, a data source, an internal AI tool or another approved service, can expand what Riley can do through the same coworker experience, instead of becoming another separate tool for employees to learn. As enterprise AI gets smarter, Riley gets smarter too: AIA still decides which of its data, systems and AI tools Riley can use, for whom, and with what approval and records.
 
 ### 14. Scalability
 
-Riley scales in three directions: more employees, more workflows, and more connected capabilities, including systems, data sources, internal AI tools and other approved services. A large back-office population across many functions is in scope before any cross-market expansion, and the long-term vision is that every AIA employee can have access to Riley. Each approved capability connected to Riley can become available to employees permitted to use it through the same coworker; Phase 2 tests this. Across markets, the core Riley experience can be reused, while each market adds its own system integrations, data controls, governance and process configuration.
+One coworker can potentially grow in three directions: more employees, more workflows, and more approved capabilities, including systems, data sources, specialist AI (for example, a capability like Alfred) and other approved services. A large back-office population across many functions is in scope before any cross-market expansion, and the long-term vision is that every AIA employee can have access to Riley. Each approved capability connected to Riley could become available to employees permitted to use it through the same coworker; this is a hypothesis, and Phase 2 tests adding one approved capability. Across markets, the core Riley experience can be reused, while each market adds its own system integrations, data controls, governance and process configuration.
 
 This is why Riley is designed for enduring value rather than a one-time productivity gain: its usefulness can grow as more capabilities, workflows and employee feedback are added over time, and the AI solutions AIA builds or adopts in future become easier for employees to use, not harder.
 
 ### 15. Feasibility
 
-Riley is delivered in Microsoft Teams, which employees already use, lowering adoption friction; trust still has to be earned through reliable results. It is built on existing or emerging enterprise AI and agent technology rather than from scratch. The rollout starts narrow, with one team, one workflow and only the minimum capabilities that workflow needs, and each phase is gated on measured results. The broader set of capabilities is the long-term direction, not the day-one scope.
+Riley is delivered in Microsoft Teams, which employees already use, lowering adoption friction; trust still has to be earned through reliable results. It is built on existing or emerging enterprise AI and agent technology rather than from scratch. The rollout starts narrow, with one team, one workflow and only the minimum capabilities that workflow needs, and each phase is gated on measured results. The broader set of capabilities is the long-term direction, not the day-one scope; Phase 1 does not depend on connecting any specialist capability such as Alfred.
 
 Governance is designed in from the start:
 
