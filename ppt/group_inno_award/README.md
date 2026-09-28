@@ -6,9 +6,9 @@ Working folder for the Riley submission (deadline 30 September 2026, 5pm HKT).
 
 | What | Where |
 |---|---|
-| Master story (source of truth, LOCKED Revision 7) | `source_of_truth/master_story.md` |
-| Application form answers (LOCKED Revision 7) | `source_of_truth/application_form_draft.md` |
-| **Current deck** | `current_deck/innovative_idea_award_opus_redesign_v5.pptx` |
+| Master story (source of truth, LOCKED Revision 8) | `source_of_truth/master_story.md` |
+| Application form answers (LOCKED Revision 8) | `source_of_truth/application_form_draft.md` |
+| **Current deck** | `current_deck/innovative_idea_award_opus_redesign_v6.pptx` |
 | Official AIA template (do not edit) | `template/group_inno.pptx` |
 
 ## Folders
@@ -30,7 +30,8 @@ Working folder for the Riley submission (deadline 30 September 2026, 5pm HKT).
 5. `archive/decks/innovative_idea_award_opus_redesign_v2.pptx` — targeted strengthening pass after the cold review
 6. `archive/decks/innovative_idea_award_opus_redesign_v3.pptx` — v2 plus new cover artwork
 7. `archive/decks/innovative_idea_award_opus_redesign_v4.pptx` — Revision 7: AI coworker that does the digital legwork
-8. `current_deck/innovative_idea_award_opus_redesign_v5.pptx` — **current** (competitive pass: AI as a coworker, not a tool; bigger impact framing)
+8. `archive/decks/innovative_idea_award_opus_redesign_v5.pptx` — competitive pass: AI as a coworker, not a tool; bigger impact framing
+9. `current_deck/innovative_idea_award_opus_redesign_v6.pptx` — **current** (Revision 8: Alfred as a real AIA specialist-AI example; three waves on slide 7)
 
 ## Conventions
 

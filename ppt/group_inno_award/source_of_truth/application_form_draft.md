@@ -1,5 +1,5 @@
-# Riley — Innovation Idea Awards Application (LOCKED FINAL — Revision 7)
-_Derived from [master_story.md](master_story.md) Revision 7, locked final 2026-09-24. Revision 6 (2026-09-23, approved by Harry): annual scenario figure, future-platform answer, flexible pilot selection. **Revision 7 (2026-09-24, approved by Harry after manager feedback):** Riley repositioned as AIA's AI coworker that does the digital legwork of an outcome (fields 5 unchanged, 7, 8, 9, 10, 11, 12, 13, 14, 15 revised). No further changes unless Harry explicitly asks. Fields numbered exactly as in the official form ([submission_form.txt](../competition_brief/submission_form.txt)) so you can copy each answer straight across. [BRACKETS] are placeholders I can't fill in for you._
+# Riley — Innovation Idea Awards Application (LOCKED FINAL — Revision 8)
+_Derived from [master_story.md](master_story.md) Revision 8, locked final 2026-09-28. **Revision 8 (2026-09-28):** Alfred added as a real example of AIA specialist AI (fields 8 and 13). Revision 6 (2026-09-23, approved by Harry): annual scenario figure, future-platform answer, flexible pilot selection. **Revision 7 (2026-09-24, approved by Harry after manager feedback):** Riley repositioned as AIA's AI coworker that does the digital legwork of an outcome (fields 5 unchanged, 7, 8, 9, 10, 11, 12, 13, 14, 15 revised). No further changes unless Harry explicitly asks. Fields numbered exactly as in the official form ([submission_form.txt](../competition_brief/submission_form.txt)) so you can copy each answer straight across. [BRACKETS] are placeholders I can't fill in for you._
 
 ---
 
@@ -41,7 +41,7 @@ Employees message Riley in Microsoft Teams the way they would message a colleagu
 
 **How Riley is built: brain, hands and AIA's rules.**
 - **Brain:** enterprise AI. Copilot or another approved enterprise AI platform provides the intelligence to understand requests, reason, plan and draft. Copilot could be the engine; Riley does not need its own model.
-- **Hands:** everything Riley is approved to use to do the work. The hands unique to AIA are AIA data, AIA systems and AIA's internal AI tools; Microsoft 365 and approved external information are standard equipment.
+- **Hands:** everything Riley is approved to use to do the work. The hands unique to AIA are AIA data, AIA systems and AIA's own specialist AI, such as Alfred, the internal GenAI platform Group Internal Audit has built for auditors; Microsoft 365 and approved external information are standard equipment.
 - **AIA's rules:** employee permissions, approval before final action, an appropriate record of the work, and governed learning.
 
 What makes Riley different is the combination of **AIA-specific hands**, **whole-outcome execution** rather than a single summary or draft, and **AIA's rules** around every piece of work. And Riley gets more capable over time: every useful capability AIA connects, whether a system, a data source or an AI tool built by another team, can expand what Riley can do through the same coworker experience.
@@ -111,6 +111,8 @@ Copilot could be the engine. Copilot Studio or another approved enterprise AI pl
 - **AIA-specific hands:** AIA data, AIA systems and AI tools built by AIA teams, which a general assistant does not arrive with.
 - **Whole-outcome execution:** Riley carries out the whole chain behind an outcome and returns finished work for approval, not an isolated summary or draft.
 - **AIA's rules:** employee permissions, approval before final action, traceability and governed learning applied to every piece of work.
+
+AIA already builds valuable specialist AI. Alfred, for example, supports Group Internal Audit's auditors with methodology answers, workpaper and report review, control analysis and comparison against regulatory guidance. Specialist AI like this makes the task smarter, but the employee still has to know the tool exists, open it, provide the inputs and carry its output into the rest of the work. Each wave of AI removes another layer of digital legwork: first specialist AI inside the task, then Riley across the outcome. Riley does not replace capabilities like Alfred; a capability like Alfred could become one of the capabilities Riley can use, subject to technical and governance feasibility, so that each investment AIA makes can reach more of the work it was built for.
 
 Riley also gets more capable over time. Every useful capability AIA connects, whether a system, a data source, an internal AI tool or another approved service, can expand what Riley can do through the same coworker experience, instead of becoming another separate tool for employees to learn. As enterprise AI gets smarter, Riley gets smarter too: AIA still decides which of its data, systems and AI tools Riley can use, for whom, and with what approval and records.
 
