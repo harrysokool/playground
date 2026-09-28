@@ -8,7 +8,7 @@ Working folder for the Riley submission (deadline 30 September 2026, 5pm HKT).
 |---|---|
 | Master story (source of truth, LOCKED Revision 7) | `source_of_truth/master_story.md` |
 | Application form answers (LOCKED Revision 7) | `source_of_truth/application_form_draft.md` |
-| **Current deck** | `current_deck/innovative_idea_award_opus_redesign_v4.pptx` |
+| **Current deck** | `current_deck/innovative_idea_award_opus_redesign_v5.pptx` |
 | Official AIA template (do not edit) | `template/group_inno.pptx` |
 
 ## Folders
@@ -29,7 +29,8 @@ Working folder for the Riley submission (deadline 30 September 2026, 5pm HKT).
 4. `archive/decks/innovative_idea_award_opus_redesign_v1.pptx` — rebuild from the judge critique
 5. `archive/decks/innovative_idea_award_opus_redesign_v2.pptx` — targeted strengthening pass after the cold review
 6. `archive/decks/innovative_idea_award_opus_redesign_v3.pptx` — v2 plus new cover artwork
-7. `current_deck/innovative_idea_award_opus_redesign_v4.pptx` — **current** (Revision 7: AI coworker that does the digital legwork)
+7. `archive/decks/innovative_idea_award_opus_redesign_v4.pptx` — Revision 7: AI coworker that does the digital legwork
+8. `current_deck/innovative_idea_award_opus_redesign_v5.pptx` — **current** (competitive pass: AI as a coworker, not a tool; bigger impact framing)
 
 ## Conventions
 
