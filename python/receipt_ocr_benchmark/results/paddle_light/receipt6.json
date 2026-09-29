@@ -1,0 +1,852 @@
+{
+  "document_id": "receipt6",
+  "engine_config": {
+    "engine_config_name": "paddle_light",
+    "text_detection_model_name": "PP-OCRv5_mobile_det",
+    "text_detection_model_dir": "models/PP-OCRv5_mobile_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_mobile_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_mobile_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 1280,
+      "height": 1707,
+      "blocks": [
+        {
+          "text": "Prescription Receipt/lnformation",
+          "confidence": 0.9513052105903625,
+          "polygon": [
+            [
+              391,
+              95
+            ],
+            [
+              859,
+              83
+            ],
+            [
+              860,
+              122
+            ],
+            [
+              392,
+              133
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "Medical Centre Pharmacy",
+          "confidence": 0.9821532964706421,
+          "polygon": [
+            [
+              442,
+              132
+            ],
+            [
+              807,
+              127
+            ],
+            [
+              807,
+              162
+            ],
+            [
+              442,
+              167
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "114 High St",
+          "confidence": 0.9262356162071228,
+          "polygon": [
+            [
+              539,
+              166
+            ],
+            [
+              710,
+              162
+            ],
+            [
+              711,
+              201
+            ],
+            [
+              540,
+              206
+            ]
+          ],
+          "reading_order": 2
+        },
+        {
+          "text": "Picton",
+          "confidence": 0.9966759085655212,
+          "polygon": [
+            [
+              576,
+              203
+            ],
+            [
+              673,
+              203
+            ],
+            [
+              673,
+              236
+            ],
+            [
+              576,
+              236
+            ]
+          ],
+          "reading_order": 3
+        },
+        {
+          "text": "GST:112-691-456",
+          "confidence": 0.9944798350334167,
+          "polygon": [
+            [
+              500,
+              241
+            ],
+            [
+              749,
+              235
+            ],
+            [
+              750,
+              270
+            ],
+            [
+              501,
+              275
+            ]
+          ],
+          "reading_order": 4
+        },
+        {
+          "text": "9990000505906",
+          "confidence": 0.9967416524887085,
+          "polygon": [
+            [
+              132,
+              266
+            ],
+            [
+              319,
+              264
+            ],
+            [
+              319,
+              298
+            ],
+            [
+              132,
+              300
+            ]
+          ],
+          "reading_order": 5
+        },
+        {
+          "text": "Ph:039284265",
+          "confidence": 0.9876747131347656,
+          "polygon": [
+            [
+              511,
+              276
+            ],
+            [
+              736,
+              272
+            ],
+            [
+              736,
+              306
+            ],
+            [
+              511,
+              310
+            ]
+          ],
+          "reading_order": 6
+        },
+        {
+          "text": "Nikita Hubber",
+          "confidence": 0.933577299118042,
+          "polygon": [
+            [
+              84,
+              310
+            ],
+            [
+              263,
+              313
+            ],
+            [
+              263,
+              344
+            ],
+            [
+              84,
+              341
+            ]
+          ],
+          "reading_order": 7
+        },
+        {
+          "text": "Ph.0226493948",
+          "confidence": 0.9978147745132446,
+          "polygon": [
+            [
+              80,
+              437
+            ],
+            [
+              314,
+              442
+            ],
+            [
+              314,
+              473
+            ],
+            [
+              80,
+              468
+            ]
+          ],
+          "reading_order": 8
+        },
+        {
+          "text": "Printed on 24 March 17",
+          "confidence": 0.9444121718406677,
+          "polygon": [
+            [
+              865,
+              438
+            ],
+            [
+              1186,
+              432
+            ],
+            [
+              1186,
+              467
+            ],
+            [
+              865,
+              473
+            ]
+          ],
+          "reading_order": 9
+        },
+        {
+          "text": "NHI:LQD5240",
+          "confidence": 0.9819136261940002,
+          "polygon": [
+            [
+              79,
+              467
+            ],
+            [
+              277,
+              473
+            ],
+            [
+              276,
+              506
+            ],
+            [
+              78,
+              499
+            ]
+          ],
+          "reading_order": 10
+        },
+        {
+          "text": "Patient Price",
+          "confidence": 0.9661727547645569,
+          "polygon": [
+            [
+              1002,
+              502
+            ],
+            [
+              1183,
+              501
+            ],
+            [
+              1183,
+              536
+            ],
+            [
+              1002,
+              538
+            ]
+          ],
+          "reading_order": 11
+        },
+        {
+          "text": "Dr Jessica Sterenborg Picton Medical Centre",
+          "confidence": 0.965032696723938,
+          "polygon": [
+            [
+              75,
+              528
+            ],
+            [
+              658,
+              538
+            ],
+            [
+              658,
+              576
+            ],
+            [
+              75,
+              566
+            ]
+          ],
+          "reading_order": 12
+        },
+        {
+          "text": "1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra",
+          "confidence": 0.9584147334098816,
+          "polygon": [
+            [
+              75,
+              561
+            ],
+            [
+              743,
+              571
+            ],
+            [
+              743,
+              608
+            ],
+            [
+              75,
+              599
+            ]
+          ],
+          "reading_order": 13
+        },
+        {
+          "text": "",
+          "confidence": 0.0,
+          "polygon": [
+            [
+              1235,
+              554
+            ],
+            [
+              1259,
+              550
+            ],
+            [
+              1280,
+              695
+            ],
+            [
+              1258,
+              699
+            ]
+          ],
+          "reading_order": 14
+        },
+        {
+          "text": "$36.20",
+          "confidence": 0.9977752566337585,
+          "polygon": [
+            [
+              1078,
+              569
+            ],
+            [
+              1179,
+              565
+            ],
+            [
+              1180,
+              601
+            ],
+            [
+              1079,
+              605
+            ]
+          ],
+          "reading_order": 15
+        },
+        {
+          "text": "1Mar1746023/0 MVITE Tablets",
+          "confidence": 0.9655289053916931,
+          "polygon": [
+            [
+              76,
+              594
+            ],
+            [
+              507,
+              602
+            ],
+            [
+              507,
+              637
+            ],
+            [
+              76,
+              629
+            ]
+          ],
+          "reading_order": 16
+        },
+        {
+          "text": "$5.00",
+          "confidence": 0.9953590631484985,
+          "polygon": [
+            [
+              1095,
+              603
+            ],
+            [
+              1178,
+              603
+            ],
+            [
+              1178,
+              636
+            ],
+            [
+              1095,
+              636
+            ]
+          ],
+          "reading_order": 17
+        },
+        {
+          "text": "1Mar17 46024/0 Ascorbic acid 100mg Tablets",
+          "confidence": 0.9614841938018799,
+          "polygon": [
+            [
+              74,
+              625
+            ],
+            [
+              687,
+              634
+            ],
+            [
+              687,
+              672
+            ],
+            [
+              74,
+              662
+            ]
+          ],
+          "reading_order": 18
+        },
+        {
+          "text": "$5.00",
+          "confidence": 0.9956700205802917,
+          "polygon": [
+            [
+              1093,
+              634
+            ],
+            [
+              1178,
+              634
+            ],
+            [
+              1178,
+              670
+            ],
+            [
+              1093,
+              670
+            ]
+          ],
+          "reading_order": 19
+        },
+        {
+          "text": "1Mar17 46025/0 Omeprazole 20mg Capsules",
+          "confidence": 0.9718706011772156,
+          "polygon": [
+            [
+              74,
+              656
+            ],
+            [
+              681,
+              666
+            ],
+            [
+              681,
+              707
+            ],
+            [
+              74,
+              696
+            ]
+          ],
+          "reading_order": 20
+        },
+        {
+          "text": "$5.00",
+          "confidence": 0.995998740196228,
+          "polygon": [
+            [
+              1092,
+              669
+            ],
+            [
+              1176,
+              669
+            ],
+            [
+              1176,
+              703
+            ],
+            [
+              1092,
+              703
+            ]
+          ],
+          "reading_order": 21
+        },
+        {
+          "text": "$51.20",
+          "confidence": 0.9969403147697449,
+          "polygon": [
+            [
+              1075,
+              702
+            ],
+            [
+              1176,
+              702
+            ],
+            [
+              1176,
+              738
+            ],
+            [
+              1075,
+              738
+            ]
+          ],
+          "reading_order": 22
+        },
+        {
+          "text": "Check recipient is patient named above",
+          "confidence": 0.9845099449157715,
+          "polygon": [
+            [
+              347,
+              760
+            ],
+            [
+              895,
+              767
+            ],
+            [
+              895,
+              804
+            ],
+            [
+              347,
+              797
+            ]
+          ],
+          "reading_order": 23
+        },
+        {
+          "text": "Nikita Hubber",
+          "confidence": 0.9880014657974243,
+          "polygon": [
+            [
+              72,
+              808
+            ],
+            [
+              271,
+              811
+            ],
+            [
+              271,
+              843
+            ],
+            [
+              72,
+              839
+            ]
+          ],
+          "reading_order": 24
+        },
+        {
+          "text": "Medical Centre Pharmacy 24/03/17",
+          "confidence": 0.9664903879165649,
+          "polygon": [
+            [
+              661,
+              814
+            ],
+            [
+              1174,
+              820
+            ],
+            [
+              1174,
+              855
+            ],
+            [
+              661,
+              848
+            ]
+          ],
+          "reading_order": 25
+        },
+        {
+          "text": "Prescription count, for exemption card",
+          "confidence": 0.9721660614013672,
+          "polygon": [
+            [
+              72,
+              841
+            ],
+            [
+              608,
+              848
+            ],
+            [
+              608,
+              882
+            ],
+            [
+              72,
+              876
+            ]
+          ],
+          "reading_order": 26
+        },
+        {
+          "text": "Personal: 4",
+          "confidence": 0.966316282749176,
+          "polygon": [
+            [
+              73,
+              874
+            ],
+            [
+              228,
+              877
+            ],
+            [
+              228,
+              909
+            ],
+            [
+              73,
+              907
+            ]
+          ],
+          "reading_order": 27
+        },
+        {
+          "text": "Repeats:available",
+          "confidence": 0.9907610416412354,
+          "polygon": [
+            [
+              73,
+              908
+            ],
+            [
+              339,
+              910
+            ],
+            [
+              339,
+              941
+            ],
+            [
+              73,
+              939
+            ]
+          ],
+          "reading_order": 28
+        },
+        {
+          "text": "Available On/After Number",
+          "confidence": 0.9766048192977905,
+          "polygon": [
+            [
+              636,
+              914
+            ],
+            [
+              1019,
+              920
+            ],
+            [
+              1019,
+              953
+            ],
+            [
+              636,
+              947
+            ]
+          ],
+          "reading_order": 29
+        },
+        {
+          "text": "Expiry",
+          "confidence": 0.9963915944099426,
+          "polygon": [
+            [
+              1074,
+              918
+            ],
+            [
+              1172,
+              923
+            ],
+            [
+              1170,
+              960
+            ],
+            [
+              1072,
+              955
+            ]
+          ],
+          "reading_order": 30
+        },
+        {
+          "text": "46022 ENSURE PLUS Fruit/Forest Tetra Liquid",
+          "confidence": 0.9601378440856934,
+          "polygon": [
+            [
+              70,
+              936
+            ],
+            [
+              701,
+              946
+            ],
+            [
+              701,
+              983
+            ],
+            [
+              70,
+              972
+            ]
+          ],
+          "reading_order": 31
+        },
+        {
+          "text": "21Mar17",
+          "confidence": 0.997889518737793,
+          "polygon": [
+            [
+              768,
+              948
+            ],
+            [
+              891,
+              950
+            ],
+            [
+              891,
+              983
+            ],
+            [
+              768,
+              980
+            ]
+          ],
+          "reading_order": 32
+        },
+        {
+          "text": "2 30May17",
+          "confidence": 0.9565214514732361,
+          "polygon": [
+            [
+              989,
+              949
+            ],
+            [
+              1173,
+              953
+            ],
+            [
+              1172,
+              992
+            ],
+            [
+              988,
+              987
+            ]
+          ],
+          "reading_order": 33
+        },
+        {
+          "text": "Please Note. We are open from 8.00am till 5.30pm Monday to Friday.",
+          "confidence": 0.9577003717422485,
+          "polygon": [
+            [
+              169,
+              997
+            ],
+            [
+              1066,
+              1018
+            ],
+            [
+              1065,
+              1058
+            ],
+            [
+              168,
+              1037
+            ]
+          ],
+          "reading_order": 34
+        },
+        {
+          "text": "NB We are closed weekends and Public Holidays.",
+          "confidence": 0.965847373008728,
+          "polygon": [
+            [
+              292,
+              1032
+            ],
+            [
+              939,
+              1049
+            ],
+            [
+              938,
+              1086
+            ],
+            [
+              291,
+              1070
+            ]
+          ],
+          "reading_order": 35
+        }
+      ],
+      "plain_text": "Prescription Receipt/lnformation\nMedical Centre Pharmacy\n114 High St\nPicton\nGST:112-691-456\n9990000505906\nPh:039284265\nNikita Hubber\nPh.0226493948\nPrinted on 24 March 17\nNHI:LQD5240\nPatient Price\nDr Jessica Sterenborg Picton Medical Centre\n1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra\n\n$36.20\n1Mar1746023/0 MVITE Tablets\n$5.00\n1Mar17 46024/0 Ascorbic acid 100mg Tablets\n$5.00\n1Mar17 46025/0 Omeprazole 20mg Capsules\n$5.00\n$51.20\nCheck recipient is patient named above\nNikita Hubber\nMedical Centre Pharmacy 24/03/17\nPrescription count, for exemption card\nPersonal: 4\nRepeats:available\nAvailable On/After Number\nExpiry\n46022 ENSURE PLUS Fruit/Forest Tetra Liquid\n21Mar17\n2 30May17\nPlease Note. We are open from 8.00am till 5.30pm Monday to Friday.\nNB We are closed weekends and Public Holidays."
+    }
+  ],
+  "timings": {
+    "total_ms": 7826.147582993144
+  }
+}

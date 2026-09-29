@@ -1,0 +1,32 @@
+{
+  "document_id": "receipt2",
+  "layout": "medical_template",
+  "doctor_name": "李俊年医生",
+  "registration_number": null,
+  "patient_name": "Carol Tse",
+  "receipt_number": null,
+  "service_date": "2026-07-11",
+  "total_amount": 998.0,
+  "sources": {
+    "doctor_name": "Hospital Name,siogan李俊年医生",
+    "patient_name": "Patient Carol Tse",
+    "service_date": "Admission Date 11/7/2026",
+    "total_amount": "SUBTOTAL | 998.00"
+  },
+  "rules": {
+    "doctor_name": "medical_template: CJK name + 醫生 suffix in header [GENERAL pattern]",
+    "patient_name": "medical_template: 'Patient' line [OVERFIT layout]",
+    "receipt_number": "medical_template: form has no receipt/invoice number field [OVERFIT]",
+    "registration_number": "medical_template: form has no registration number field [OVERFIT]",
+    "service_date": "medical_template: Admission Date used as service date (numeric_ambiguous) [OVERFIT semantic choice]",
+    "total_amount": "medical_template totals box [OVERFIT layout]: total/paid lines blank -> subtotal + tax (0.0) [OVERFIT assumption: blank tax = 0]"
+  },
+  "validations": [
+    "patient_name: 'Name' line agrees (Carol Tse)",
+    "total_amount: totals box read as {'subtotal': 998.0}"
+  ],
+  "warnings": [
+    "receipt_number: medical_template: form has no receipt/invoice number field [OVERFIT]",
+    "registration_number: medical_template: form has no registration number field [OVERFIT]"
+  ]
+}

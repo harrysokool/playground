@@ -77,6 +77,24 @@ values (e.g. "Dr Chan", "M12345") if no label matched anywhere. Each output JSON
 fields, a `sources` map (which OCR block text each value came from), and a `warnings` list
 for anything left `null`.
 
+## Overfit extraction experiment (Phase 3b)
+
+`receipt_bench/extraction_tuned.py` is a deliberately **overfit** rule set, tuned by hand to
+the 6 receipts in `data/raw` (4 layouts), to measure how far OCR + deterministic rules can go
+when you invest in layout-specific handling. It is not meant to generalize. Every rule is
+tagged `[GENERAL]` or `[OVERFIT]` in the code and in each output's `rules` map. Unknown
+layouts fall back to the Phase 3 baseline rules.
+
+```bash
+python -m receipt_bench.extract_cli --rules tuned --input results/paddle_light --output results/extracted_tuned_light
+python -m receipt_bench.extract_cli --rules tuned --input results/paddle_heavy --output results/extracted_tuned_heavy
+python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
+    --light results/extracted_tuned_light --heavy results/extracted_tuned_heavy --output results/score_tuned.md
+```
+
+`score.py` compares against the hand-entered ground truth (see its docstring for the matching
+rules, including the day/month caveat for Excel-converted dates).
+
 ## Data
 
 Real receipt samples go in `data/raw/` and are **not committed to Git** (see `data/README.md`).

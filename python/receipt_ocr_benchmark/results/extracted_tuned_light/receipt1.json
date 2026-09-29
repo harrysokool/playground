@@ -1,0 +1,32 @@
+{
+  "document_id": "receipt1",
+  "layout": "medical_template",
+  "doctor_name": "Dr. Lau Sat Kit, Lawrenc",
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": null,
+  "service_date": "2026-02-07",
+  "total_amount": 1540.0,
+  "sources": {
+    "doctor_name": "Dr. Lau Sat Kit, Lawrenc",
+    "service_date": "Admission Date 07/0212026",
+    "total_amount": "TOTAL | 154000"
+  },
+  "rules": {
+    "doctor_name": "medical_template: 'Dr ...' in header / hospital-name slot [OVERFIT slot, GENERAL 'Dr' pattern]",
+    "patient_name": "medical_template: Patient and Name lines blank/unreadable",
+    "receipt_number": "medical_template: form has no receipt/invoice number field [OVERFIT]",
+    "registration_number": "medical_template: form has no registration number field [OVERFIT]",
+    "service_date": "medical_template: Admission Date used as service date (numeric_ocr_fixed_ambiguous) [OVERFIT semantic choice]",
+    "total_amount": "medical_template totals box [OVERFIT layout]: 'total' line + lost-decimal repair against subtotal/paid [GENERAL]"
+  },
+  "validations": [
+    "doctor_name: 2 candidates ['Dr. Lau Sat Kit, Lawrenc', 'a'], highest priority kept",
+    "total_amount: totals box read as {'subtotal': 1540.0, 'total': 154000.0, 'paid': 1540.0}"
+  ],
+  "warnings": [
+    "patient_name: medical_template: Patient and Name lines blank/unreadable",
+    "receipt_number: medical_template: form has no receipt/invoice number field [OVERFIT]",
+    "registration_number: medical_template: form has no registration number field [OVERFIT]"
+  ]
+}

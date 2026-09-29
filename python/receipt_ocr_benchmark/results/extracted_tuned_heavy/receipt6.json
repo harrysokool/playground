@@ -1,0 +1,32 @@
+{
+  "document_id": "receipt6",
+  "layout": "pharmacy_prescription",
+  "doctor_name": "Dr. Jessica Sterenborg",
+  "registration_number": null,
+  "patient_name": "Nikita Hubber",
+  "receipt_number": "9990000505906",
+  "service_date": "2017-03-24",
+  "total_amount": 51.2,
+  "sources": {
+    "receipt_number": "9990000505906",
+    "patient_name": "Nikita Hubber",
+    "doctor_name": "Dr Jessica Sterenborg Picton Medical Centre",
+    "service_date": "Printedon24March17",
+    "total_amount": "$51.20"
+  },
+  "rules": {
+    "receipt_number": "pharmacy: unlabeled 10-14 digit barcode number, top-left [OVERFIT layout]",
+    "patient_name": "pharmacy: name under barcode number / under 'Check recipient is patient named above' [OVERFIT layout]",
+    "doctor_name": "pharmacy: prescriber 'Dr ...' line minus practice name [OVERFIT]",
+    "registration_number": "pharmacy: GST no. is the pharmacy's tax id, NHI is the patient's - no prescriber registration [OVERFIT]",
+    "service_date": "pharmacy: 'Printed on' date [OVERFIT semantic choice: not the 1Mar17 dispense dates]",
+    "total_amount": "pharmacy: price-column amount equal to sum of the 4 amounts above [GENERAL]"
+  },
+  "validations": [
+    "patient_name: both positions agree",
+    "total_amount: $36.20 + $5.00 + $5.00 + $5.00 == $51.20"
+  ],
+  "warnings": [
+    "registration_number: pharmacy: GST no. is the pharmacy's tax id, NHI is the patient's - no prescriber registration [OVERFIT]"
+  ]
+}

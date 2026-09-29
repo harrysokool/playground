@@ -6,9 +6,10 @@ Working folder for the Riley submission (deadline 30 September 2026, 5pm HKT).
 
 | What | Where |
 |---|---|
-| Master story (source of truth, LOCKED Revision 8) | `source_of_truth/master_story.md` |
-| Application form answers (LOCKED Revision 8) | `source_of_truth/application_form_draft.md` |
-| **Current deck** | `current_deck/innovative_idea_award_opus_redesign_v6.pptx` |
+| Master story (source of truth, LOCKED Revision 9) | `source_of_truth/master_story.md` |
+| Application form answers (LOCKED Revision 9) | `source_of_truth/application_form_draft.md` |
+| Previous locked story (Revision 8, unchanged) | `archive/source_of_truth/` |
+| **Current deck** | `current_deck/innovative_idea_award_opus_redesign_v7.pptx` |
 | Official AIA template (do not edit) | `template/group_inno.pptx` |
 
 ## Folders
@@ -19,6 +20,7 @@ Working folder for the Riley submission (deadline 30 September 2026, 5pm HKT).
 - `competition_brief/` — the launch email (judging criteria, prizes) and the blank official form.
 - `reviews_and_notes/` — judge critiques and internal notes (not submission material).
 - `archive/decks/` — every previous deck, unchanged, for rollback and comparison.
+- `archive/source_of_truth/` — previous locked revisions of the master story and application form (Revision 8).
 - `archive/early_drafts/` — the original idea write-up that preceded the master story.
 
 ## Deck history (oldest → newest)
@@ -31,9 +33,11 @@ Working folder for the Riley submission (deadline 30 September 2026, 5pm HKT).
 6. `archive/decks/innovative_idea_award_opus_redesign_v3.pptx` — v2 plus new cover artwork
 7. `archive/decks/innovative_idea_award_opus_redesign_v4.pptx` — Revision 7: AI coworker that does the digital legwork
 8. `archive/decks/innovative_idea_award_opus_redesign_v5.pptx` — competitive pass: AI as a coworker, not a tool; bigger impact framing
-9. `current_deck/innovative_idea_award_opus_redesign_v6.pptx` — **current** (Revision 8: Alfred as a real AIA specialist-AI example; three waves on slide 7)
+9. `archive/decks/innovative_idea_award_opus_redesign_v6.pptx` — Revision 8: Alfred as a real AIA specialist-AI example; three waves on slide 7
+10. `current_deck/innovative_idea_award_opus_redesign_v7.pptx` — **current** (Revision 9: AI coworker for every employee and agent; ask for the outcome, not the tool; front office as future potential)
 
 ## Conventions
 
+- New story revision: copy the current `source_of_truth/` files into `archive/source_of_truth/` with a `_revN` suffix before writing the next revision.
 - New deck version: save it to `current_deck/` with the next version number, then move the previous one to `archive/decks/`. Never overwrite a version.
 - Renders, PDFs and previews are generated files: keep them out of this folder (or in a local `_renders/` folder that is not committed).

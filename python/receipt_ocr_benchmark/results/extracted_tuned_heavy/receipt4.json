@@ -1,0 +1,34 @@
+{
+  "document_id": "receipt4",
+  "layout": "vet_tung_chung",
+  "doctor_name": "Angel Tseng, Dr. Lok Yi Choi",
+  "registration_number": null,
+  "patient_name": "Fuk Jai",
+  "receipt_number": "369303",
+  "service_date": "2023-02-09",
+  "total_amount": 1361.0,
+  "sources": {
+    "receipt_number": "Invoice No:369303",
+    "patient_name": "FClinician: Angel Tseng FPatient: Fuk Jai",
+    "doctor_name": "FClinician: Angel Tseng FPatient: Fuk Jai | Dr.Lok Yi ehoi",
+    "service_date": "Feb 09,2023",
+    "total_amount": "Total Amount | HKD 1361.00"
+  },
+  "rules": {
+    "receipt_number": "vet: 'Invoice No:' (merged block split) [GENERAL]",
+    "patient_name": "vet: 'Patient:' after checkbox-'F' strip + merged block split [GENERAL+OVERFIT]",
+    "doctor_name": "vet: Clinician + signing vet (Br->Dr in signature slot, surname lexicon snap) [OVERFIT]",
+    "registration_number": "vet: invoice has no registration number [OVERFIT]",
+    "service_date": "vet: date at right end of the Invoice No line [OVERFIT layout]",
+    "total_amount": "vet: 'Total Amount' (not 'Total Due' = balance) [GENERAL semantics]"
+  },
+  "validations": [
+    "patient_name: 'Fuk Jai' also appears in the animal info box",
+    "doctor_name: multiple doctors ['Angel Tseng', 'Dr. Lok Yi Choi'] - both reported",
+    "total_amount: sub total 1361.5 + round -0.5 == 1361.0",
+    "total_amount: payments received 1361.0 == total"
+  ],
+  "warnings": [
+    "registration_number: vet: invoice has no registration number [OVERFIT]"
+  ]
+}

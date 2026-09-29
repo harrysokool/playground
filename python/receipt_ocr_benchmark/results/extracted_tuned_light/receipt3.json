@@ -1,0 +1,31 @@
+{
+  "document_id": "receipt3",
+  "layout": "flexcare",
+  "doctor_name": "Lee Tin Tin, Becky",
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": "967157032",
+  "service_date": "2026-01-07",
+  "total_amount": 10.0,
+  "sources": {
+    "doctor_name": "Clinic Name: Lee | Tin Tin , Becky",
+    "receipt_number": "Invoice Number: 967157032",
+    "service_date": "Date: 07101/2026",
+    "total_amount": "Subtotal: | 10.00"
+  },
+  "rules": {
+    "doctor_name": "flexcare: 'Clinic Name:' + same-line continuation blocks [OVERFIT semantic: clinic name = practitioner]",
+    "patient_name": "flexcare: form has no patient field [OVERFIT]",
+    "registration_number": "flexcare: form has no registration number field [OVERFIT]",
+    "receipt_number": "flexcare: 'Invoice Number:' [GENERAL label]",
+    "service_date": "flexcare: 'Date:' (numeric_ocr_fixed_ambiguous) [GENERAL label]",
+    "total_amount": "flexcare totals box [OVERFIT layout]: total/paid lines blank -> subtotal + tax (0.0) [OVERFIT assumption: blank tax = 0]"
+  },
+  "validations": [
+    "total_amount: totals box read as {'subtotal': 10.0}"
+  ],
+  "warnings": [
+    "patient_name: flexcare: form has no patient field [OVERFIT]",
+    "registration_number: flexcare: form has no registration number field [OVERFIT]"
+  ]
+}
