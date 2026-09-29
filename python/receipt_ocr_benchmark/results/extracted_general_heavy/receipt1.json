@@ -1,0 +1,31 @@
+{
+  "document_id": "receipt1",
+  "doctor_name": "Dr. Lau Sal Kit, Lawrencce",
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": null,
+  "service_date": "2026-02-07",
+  "total_amount": 1540.0,
+  "sources": {
+    "doctor_name": "Dr. Lau Sal Kit, Lawrencce",
+    "service_date": "Admission Date 07/0212026",
+    "total_amount": "PAID | 1540.00"
+  },
+  "rules": {
+    "doctor_name": "unlabelled 'Dr <name>' pattern",
+    "service_date": "label 'admission date' (same block), numeric_ocr_fixed_ambiguous",
+    "total_amount": "paid: label 'paid' (right)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'paid': 1540.0, 'subtotal': 1540.0}"
+  ],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value",
+    "patient_name: no label or reusable pattern produced a confident value",
+    "receipt_number: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 43464.41981300086,
+    "extract_ms": 8.534665998013224
+  }
+}

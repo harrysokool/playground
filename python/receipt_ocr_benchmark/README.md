@@ -92,6 +92,21 @@ python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_temp
     --light results/extracted_tuned_light --heavy results/extracted_tuned_heavy --output results/score_tuned.md
 ```
 
+## General rules baseline (Phase 3c)
+
+`receipt_bench/extraction_general.py` is the honest non-AI baseline: reusable deterministic
+rules only (label vocabularies, same-line / below / above-right lookup, generic date and
+amount parsing, totals semantics, arithmetic checks), with **no** layout detection, per-layout
+handlers, receipt coordinates or ground-truth-driven fixes. It fails closed. Each output also
+records `timings.ocr_predict_ms` (from the raw OCR JSON) and `timings.extract_ms`.
+
+```bash
+python -m receipt_bench.extract_cli --rules general --input results/paddle_light --output results/extracted_general_light
+python -m receipt_bench.extract_cli --rules general --input results/paddle_heavy --output results/extracted_general_heavy
+python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
+    --light results/extracted_general_light --heavy results/extracted_general_heavy --output results/score_general.md
+```
+
 `score.py` compares against the hand-entered ground truth (see its docstring for the matching
 rules, including the day/month caveat for Excel-converted dates).
 

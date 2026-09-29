@@ -23,6 +23,7 @@ import argparse
 import json
 import re
 import zipfile
+from collections import Counter
 from datetime import date, timedelta
 from pathlib import Path
 from xml.etree import ElementTree
@@ -134,6 +135,17 @@ def compare(field: str, gt, pred) -> tuple[bool, str]:
     return _gt_display(field, gt) == str(pred).strip(), ""
 
 
+CATEGORIES = ["Correct", "Correctly null", "Wrong", "Missing"]
+
+
+def category(gt, pred, ok: bool) -> str:
+    """Correct / Correctly null / Wrong (a value that does not match, incl. a value where GT is
+    na) / Missing (GT has a value, extraction returned null)."""
+    if ok:
+        return "Correctly null" if pred is None else "Correct"
+    return "Missing" if pred is None else "Wrong"
+
+
 def _load_dir(d: Path | None) -> dict[str, dict]:
     if d is None:
         return {}
@@ -151,16 +163,20 @@ def main() -> None:
     gt = load_ground_truth(args.ground_truth)
     runs = {"light": _load_dir(args.light), "heavy": _load_dir(args.heavy)}
 
-    lines = ["| receipt | field | ground truth | light | ok | heavy | ok |", "|---|---|---|---|---|---|---|"]
+    lines = ["| receipt | field | ground truth | light | light result | heavy | heavy result |", "|---|---|---|---|---|---|---|"]
     tally = {eng: {f: 0 for f in FIELDS} for eng in runs}
+    cats = {eng: Counter() for eng in runs}
     for doc_id in sorted(gt, key=lambda k: int(re.sub(r"\D", "", k) or 0)):
         for f in FIELDS:
-            cells = [doc_id, f, _gt_display(f, gt[doc_id].get(f))]
+            g = gt[doc_id].get(f)
+            cells = [doc_id, f, _gt_display(f, g)]
             for eng, results in runs.items():
                 pred = results.get(doc_id, {}).get(f)
-                ok, marker = compare(f, gt[doc_id].get(f), pred)
+                ok, marker = compare(f, g, pred)
+                cat = category(g, pred, ok)
                 tally[eng][f] += ok
-                cells += ["null" if pred is None else str(pred), ("✓" if ok else "✗") + marker]
+                cats[eng][cat] += 1
+                cells += ["null" if pred is None else str(pred), cat + marker]
             lines.append("| " + " | ".join(cells) + " |")
 
     n = len(gt)
@@ -169,6 +185,17 @@ def main() -> None:
         lines.append(f"| {f} | {tally['light'][f]}/{n} | {tally['heavy'][f]}/{n} |")
     tot = {eng: sum(t.values()) for eng, t in tally.items()}
     lines.append(f"| **all fields** | **{tot['light']}/{n * len(FIELDS)}** | **{tot['heavy']}/{n * len(FIELDS)}** |")
+    for c in CATEGORIES:
+        lines.append(f"| {c} | {cats['light'][c]} | {cats['heavy'][c]} |")
+
+    timing_rows = []
+    for eng, results in runs.items():
+        ocr = [r.get("timings", {}).get("ocr_predict_ms") for r in results.values()]
+        ext = [r.get("timings", {}).get("extract_ms") for r in results.values()]
+        if all(v is not None for v in ocr + ext) and ocr:
+            timing_rows.append(f"| {eng} | {sum(ocr) / len(ocr):.0f} | {sum(ext) / len(ext):.2f} |")
+    if timing_rows:
+        lines += ["", "| engine | mean OCR predict ms | mean extraction ms |", "|---|---|---|"] + timing_rows
 
     report = "\n".join(lines)
     print(report)

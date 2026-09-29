@@ -1,0 +1,32 @@
+{
+  "document_id": "receipt2",
+  "doctor_name": "李俊年醫生",
+  "registration_number": null,
+  "patient_name": "Carol Tse",
+  "receipt_number": null,
+  "service_date": "2026-07-11",
+  "total_amount": 998.0,
+  "sources": {
+    "doctor_name": "李俊年醫生",
+    "patient_name": "Patient Carol Tse",
+    "service_date": "Admission Date 11/7/2026",
+    "total_amount": "SUBTOTAL | 998.00"
+  },
+  "rules": {
+    "doctor_name": "unlabelled CJK name + 醫生 title",
+    "patient_name": "label 'patient' (same block)",
+    "service_date": "label 'admission date' (same block), numeric_ambiguous",
+    "total_amount": "subtotal (no total/paid value, no tax/charge amount): label 'subtotal' (right)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'subtotal': 998.0}"
+  ],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value",
+    "receipt_number: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 37719.047524002235,
+    "extract_ms": 4.466709004191216
+  }
+}

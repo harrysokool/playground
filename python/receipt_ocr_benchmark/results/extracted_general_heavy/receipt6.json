@@ -1,0 +1,31 @@
+{
+  "document_id": "receipt6",
+  "doctor_name": "Dr. Jessica Sterenborg",
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": null,
+  "service_date": null,
+  "total_amount": 51.2,
+  "sources": {
+    "doctor_name": "Dr Jessica Sterenborg Picton Medical Centre",
+    "total_amount": "$51.20"
+  },
+  "rules": {
+    "doctor_name": "unlabelled 'Dr <name>' pattern",
+    "total_amount": "unlabelled column sum of 4 amounts above"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'charge': 112.0}",
+    "total_amount: $36.20 + $5.00 + $5.00 + $5.00 == $51.20"
+  ],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value",
+    "patient_name: no label or reusable pattern produced a confident value",
+    "receipt_number: no label or reusable pattern produced a confident value",
+    "service_date: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 41464.60616699915,
+    "extract_ms": 4.240624999511056
+  }
+}

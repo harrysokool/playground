@@ -1,0 +1,31 @@
+{
+  "document_id": "receipt1",
+  "doctor_name": "Dr. Lau Sat Kit, Lawrenc",
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": null,
+  "service_date": "2026-02-07",
+  "total_amount": 1540.0,
+  "sources": {
+    "doctor_name": "Dr. Lau Sat Kit, Lawrenc",
+    "service_date": "Admission Date 07/0212026",
+    "total_amount": "TOTAL | 154000"
+  },
+  "rules": {
+    "doctor_name": "unlabelled 'Dr <name>' pattern",
+    "service_date": "label 'admission date' (same block), numeric_ocr_fixed_ambiguous",
+    "total_amount": "total: label 'total' (right) + lost-decimal repair (100x a peer amount)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'total': 154000.0, 'paid': 1540.0, 'subtotal': 1540.0}"
+  ],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value",
+    "patient_name: no label or reusable pattern produced a confident value",
+    "receipt_number: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 11991.425224001432,
+    "extract_ms": 7.580584002425894
+  }
+}

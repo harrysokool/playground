@@ -1,0 +1,32 @@
+{
+  "document_id": "receipt4",
+  "doctor_name": null,
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": "369303",
+  "service_date": "2023-02-09",
+  "total_amount": 1361.0,
+  "sources": {
+    "receipt_number": "Invoice No:369303",
+    "service_date": "Feb 09,2023",
+    "total_amount": "Total Amount | HKD 1361.00"
+  },
+  "rules": {
+    "receipt_number": "label 'invoice no' (same block)",
+    "service_date": "unlabelled: 9/11 dates on the page agree",
+    "total_amount": "total: label 'total amount' (right)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'total': 1361.0, 'paid': 1361.0, 'subtotal': 1361.5, 'balance': 0.0}",
+    "total_amount: total 1361.0 != subtotal 1361.5 with no tax/charge found"
+  ],
+  "warnings": [
+    "doctor_name: no label or reusable pattern produced a confident value",
+    "registration_number: no label or reusable pattern produced a confident value",
+    "patient_name: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 17335.902105998684,
+    "extract_ms": 6.388040994352195
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "document_id": "receipt3",
+  "doctor_name": null,
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": "967157032",
+  "service_date": "2026-01-07",
+  "total_amount": 10.0,
+  "sources": {
+    "receipt_number": "Invoice Number: 967157032",
+    "service_date": "Date: 07101/2026",
+    "total_amount": "Subtotal: | 10.00"
+  },
+  "rules": {
+    "receipt_number": "label 'invoice number' (same block)",
+    "service_date": "label 'date' (same block), numeric_ocr_fixed_ambiguous",
+    "total_amount": "subtotal (no total/paid value, no tax/charge amount): label 'subtotal' (right)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'subtotal': 10.0}"
+  ],
+  "warnings": [
+    "doctor_name: no label or reusable pattern produced a confident value",
+    "registration_number: no label or reusable pattern produced a confident value",
+    "patient_name: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 8168.449827000586,
+    "extract_ms": 2.6221250009257346
+  }
+}

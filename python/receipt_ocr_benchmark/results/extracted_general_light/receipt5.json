@@ -1,0 +1,32 @@
+{
+  "document_id": "receipt5",
+  "doctor_name": "Dr. Fung Ka Kit Paul",
+  "registration_number": null,
+  "patient_name": "Happy Lam",
+  "receipt_number": null,
+  "service_date": "2026-01-09",
+  "total_amount": 20.0,
+  "sources": {
+    "doctor_name": "Hospital Name, slogan Dr. Fung Ka Kit Paul",
+    "patient_name": "Patient | Happy Lam",
+    "service_date": "Admission Date 09/01/2026",
+    "total_amount": "TOTALZO.00"
+  },
+  "rules": {
+    "doctor_name": "unlabelled 'Dr <name>' pattern",
+    "patient_name": "label 'patient' (right)",
+    "service_date": "label 'admission date' (same block), numeric_ambiguous",
+    "total_amount": "total: label 'total' (same block)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'total': 20.0, 'subtotal': 20.0}"
+  ],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value",
+    "receipt_number: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 9098.27334700094,
+    "extract_ms": 3.943499999877531
+  }
+}
