@@ -1,0 +1,4610 @@
+{
+  "file": "receipt1.jpeg",
+  "runner": "di",
+  "di_model_id": "prebuilt-read",
+  "status": "ok",
+  "error": null,
+  "timings_seconds": {
+    "di": 8.234385568997823
+  },
+  "page_count": 1,
+  "line_count": 59,
+  "ocr_text": "MEDICAL RECEIPT TEMPLATE\nDr. Lau Sai Kit, Lawrence\nHospital Name, Slogan\n劉世傑\nMEDICAL INVOICE\nStreet Address\nRoom 1103, Champion Building\nCity/State, Zip\n301 Nathan Road, Yau Ma tei, KL\nPhone Number, Web Address Etc\ncom\nPatient\nHospital No\n12345678910\nConsultant\nName\nPayment Mode\nVia\nBed No. 4017\nAddress\nPhone\n12345678\nEmail\npatient@gmail.com\nAdmission Date\n07/02/2020\nDischarge Date\n#\nPARTICULARS\nQTY\nRATE\nAMOUNT\n1\nbroken ribs.\n1\n450.00\n1500.00\n2\nwater\n2\n20.00\n40.00\nCop\nNOTES:\npatient is severely injured\nand he need more rest\nbefore getting to work\nSUBTOTAL\n1540.00\nTAX 8.000%\nMED CLAIM\nTOTAL\n1540.00\nPAID\n1540.00\nTOTAL DUE\nemp ted\nAge\n27",
+  "lines": [
+    {
+      "text": "MEDICAL RECEIPT TEMPLATE",
+      "page": 1
+    },
+    {
+      "text": "Dr. Lau Sai Kit, Lawrence",
+      "page": 1
+    },
+    {
+      "text": "Hospital Name, Slogan",
+      "page": 1
+    },
+    {
+      "text": "劉世傑",
+      "page": 1
+    },
+    {
+      "text": "MEDICAL INVOICE",
+      "page": 1
+    },
+    {
+      "text": "Street Address",
+      "page": 1
+    },
+    {
+      "text": "Room 1103, Champion Building",
+      "page": 1
+    },
+    {
+      "text": "City/State, Zip",
+      "page": 1
+    },
+    {
+      "text": "301 Nathan Road, Yau Ma tei, KL",
+      "page": 1
+    },
+    {
+      "text": "Phone Number, Web Address Etc",
+      "page": 1
+    },
+    {
+      "text": "com",
+      "page": 1
+    },
+    {
+      "text": "Patient",
+      "page": 1
+    },
+    {
+      "text": "Hospital No",
+      "page": 1
+    },
+    {
+      "text": "12345678910",
+      "page": 1
+    },
+    {
+      "text": "Consultant",
+      "page": 1
+    },
+    {
+      "text": "Name",
+      "page": 1
+    },
+    {
+      "text": "Payment Mode",
+      "page": 1
+    },
+    {
+      "text": "Via",
+      "page": 1
+    },
+    {
+      "text": "Bed No. 4017",
+      "page": 1
+    },
+    {
+      "text": "Address",
+      "page": 1
+    },
+    {
+      "text": "Phone",
+      "page": 1
+    },
+    {
+      "text": "12345678",
+      "page": 1
+    },
+    {
+      "text": "Email",
+      "page": 1
+    },
+    {
+      "text": "patient@gmail.com",
+      "page": 1
+    },
+    {
+      "text": "Admission Date",
+      "page": 1
+    },
+    {
+      "text": "07/02/2020",
+      "page": 1
+    },
+    {
+      "text": "Discharge Date",
+      "page": 1
+    },
+    {
+      "text": "#",
+      "page": 1
+    },
+    {
+      "text": "PARTICULARS",
+      "page": 1
+    },
+    {
+      "text": "QTY",
+      "page": 1
+    },
+    {
+      "text": "RATE",
+      "page": 1
+    },
+    {
+      "text": "AMOUNT",
+      "page": 1
+    },
+    {
+      "text": "1",
+      "page": 1
+    },
+    {
+      "text": "broken ribs.",
+      "page": 1
+    },
+    {
+      "text": "1",
+      "page": 1
+    },
+    {
+      "text": "450.00",
+      "page": 1
+    },
+    {
+      "text": "1500.00",
+      "page": 1
+    },
+    {
+      "text": "2",
+      "page": 1
+    },
+    {
+      "text": "water",
+      "page": 1
+    },
+    {
+      "text": "2",
+      "page": 1
+    },
+    {
+      "text": "20.00",
+      "page": 1
+    },
+    {
+      "text": "40.00",
+      "page": 1
+    },
+    {
+      "text": "Cop",
+      "page": 1
+    },
+    {
+      "text": "NOTES:",
+      "page": 1
+    },
+    {
+      "text": "patient is severely injured",
+      "page": 1
+    },
+    {
+      "text": "and he need more rest",
+      "page": 1
+    },
+    {
+      "text": "before getting to work",
+      "page": 1
+    },
+    {
+      "text": "SUBTOTAL",
+      "page": 1
+    },
+    {
+      "text": "1540.00",
+      "page": 1
+    },
+    {
+      "text": "TAX 8.000%",
+      "page": 1
+    },
+    {
+      "text": "MED CLAIM",
+      "page": 1
+    },
+    {
+      "text": "TOTAL",
+      "page": 1
+    },
+    {
+      "text": "1540.00",
+      "page": 1
+    },
+    {
+      "text": "PAID",
+      "page": 1
+    },
+    {
+      "text": "1540.00",
+      "page": 1
+    },
+    {
+      "text": "TOTAL DUE",
+      "page": 1
+    },
+    {
+      "text": "emp ted",
+      "page": 1
+    },
+    {
+      "text": "Age",
+      "page": 1
+    },
+    {
+      "text": "27",
+      "page": 1
+    }
+  ],
+  "raw_di_result": {
+    "apiVersion": "2024-11-30",
+    "modelId": "prebuilt-read",
+    "stringIndexType": "textElements",
+    "content": "MEDICAL RECEIPT TEMPLATE\nDr. Lau Sai Kit, Lawrence\nHospital Name, Slogan\n劉世傑\nMEDICAL INVOICE\nStreet Address Room 1103, Champion Building\nCity/State, Zip\n301 Nathan Road, Yau Ma tei, KL\nPhone Number, Web Address Etc\ncom\nPatient\nHospital No 12345678910\nConsultant\nName\nPayment Mode Via\nBed No. 4017\nAddress\nPhone 12345678\nEmail patient@gmail.com\nAdmission Date\n07/02/2020\nDischarge Date\n#\nPARTICULARS\nQTY\nRATE\nAMOUNT\n1\nbroken ribs.\n1\n450.00\n1500.00\n2\nwater\n2\n20.00\n40.00\nCop\nNOTES: patient is severely injured and he need more rest before getting to work\nSUBTOTAL\n1540.00\nTAX 8.000%\nMED CLAIM\nTOTAL 1540.00\nPAID 1540.00\nTOTAL DUE\nemp ted\nAge\n27",
+    "pages": [
+      {
+        "pageNumber": 1,
+        "angle": -0.19820000231266022,
+        "width": 3024,
+        "height": 4032,
+        "unit": "pixel",
+        "words": [
+          {
+            "content": "MEDICAL",
+            "polygon": [
+              864,
+              747,
+              1173,
+              744,
+              1173,
+              802,
+              864,
+              800
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 0,
+              "length": 7
+            }
+          },
+          {
+            "content": "RECEIPT",
+            "polygon": [
+              1198,
+              744,
+              1487,
+              743,
+              1487,
+              801,
+              1198,
+              802
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 8,
+              "length": 7
+            }
+          },
+          {
+            "content": "TEMPLATE",
+            "polygon": [
+              1508,
+              742,
+              1876,
+              742,
+              1876,
+              795,
+              1508,
+              801
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 16,
+              "length": 8
+            }
+          },
+          {
+            "content": "Dr.",
+            "polygon": [
+              744,
+              955,
+              855,
+              952,
+              855,
+              1034,
+              744,
+              1034
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 25,
+              "length": 3
+            }
+          },
+          {
+            "content": "Lau",
+            "polygon": [
+              882,
+              952,
+              1018,
+              949,
+              1018,
+              1033,
+              882,
+              1034
+            ],
+            "confidence": 0.982,
+            "span": {
+              "offset": 29,
+              "length": 3
+            }
+          },
+          {
+            "content": "Sai",
+            "polygon": [
+              1059,
+              949,
+              1167,
+              948,
+              1167,
+              1032,
+              1059,
+              1033
+            ],
+            "confidence": 0.923,
+            "span": {
+              "offset": 33,
+              "length": 3
+            }
+          },
+          {
+            "content": "Kit,",
+            "polygon": [
+              1219,
+              947,
+              1314,
+              947,
+              1314,
+              1031,
+              1219,
+              1032
+            ],
+            "confidence": 0.947,
+            "span": {
+              "offset": 37,
+              "length": 4
+            }
+          },
+          {
+            "content": "Lawrence",
+            "polygon": [
+              1330,
+              947,
+              1595,
+              949,
+              1595,
+              1031,
+              1330,
+              1031
+            ],
+            "confidence": 0.865,
+            "span": {
+              "offset": 42,
+              "length": 8
+            }
+          },
+          {
+            "content": "Hospital",
+            "polygon": [
+              415,
+              1065,
+              581,
+              1062,
+              581,
+              1109,
+              414,
+              1111
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 51,
+              "length": 8
+            }
+          },
+          {
+            "content": "Name,",
+            "polygon": [
+              596,
+              1061,
+              721,
+              1060,
+              722,
+              1106,
+              596,
+              1109
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 60,
+              "length": 5
+            }
+          },
+          {
+            "content": "Slogan",
+            "polygon": [
+              734,
+              1060,
+              878,
+              1059,
+              879,
+              1099,
+              735,
+              1105
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 66,
+              "length": 6
+            }
+          },
+          {
+            "content": "劉",
+            "polygon": [
+              899,
+              1035,
+              965,
+              1035,
+              963,
+              1135,
+              896,
+              1135
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 73,
+              "length": 1
+            }
+          },
+          {
+            "content": "世",
+            "polygon": [
+              988,
+              1035,
+              1056,
+              1035,
+              1056,
+              1135,
+              986,
+              1135
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 74,
+              "length": 1
+            }
+          },
+          {
+            "content": "傑",
+            "polygon": [
+              1093,
+              1035,
+              1237,
+              1034,
+              1237,
+              1133,
+              1092,
+              1135
+            ],
+            "confidence": 0.233,
+            "span": {
+              "offset": 75,
+              "length": 1
+            }
+          },
+          {
+            "content": "MEDICAL",
+            "polygon": [
+              1646,
+              963,
+              1914,
+              966,
+              1913,
+              1028,
+              1645,
+              1033
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 77,
+              "length": 7
+            }
+          },
+          {
+            "content": "INVOICE",
+            "polygon": [
+              1934,
+              966,
+              2167,
+              964,
+              2167,
+              1027,
+              1933,
+              1028
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 85,
+              "length": 7
+            }
+          },
+          {
+            "content": "Street",
+            "polygon": [
+              421,
+              1157,
+              544,
+              1156,
+              543,
+              1200,
+              421,
+              1202
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 93,
+              "length": 6
+            }
+          },
+          {
+            "content": "Address",
+            "polygon": [
+              555,
+              1156,
+              715,
+              1155,
+              715,
+              1198,
+              555,
+              1200
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 100,
+              "length": 7
+            }
+          },
+          {
+            "content": "Room",
+            "polygon": [
+              730,
+              1147,
+              851,
+              1146,
+              849,
+              1215,
+              727,
+              1215
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 108,
+              "length": 4
+            }
+          },
+          {
+            "content": "1103,",
+            "polygon": [
+              877,
+              1146,
+              1019,
+              1146,
+              1017,
+              1216,
+              874,
+              1215
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 113,
+              "length": 5
+            }
+          },
+          {
+            "content": "Champion",
+            "polygon": [
+              1033,
+              1146,
+              1298,
+              1146,
+              1297,
+              1217,
+              1031,
+              1216
+            ],
+            "confidence": 0.777,
+            "span": {
+              "offset": 119,
+              "length": 8
+            }
+          },
+          {
+            "content": "Building",
+            "polygon": [
+              1338,
+              1146,
+              1539,
+              1146,
+              1539,
+              1217,
+              1337,
+              1217
+            ],
+            "confidence": 0.929,
+            "span": {
+              "offset": 128,
+              "length": 8
+            }
+          },
+          {
+            "content": "City/State,",
+            "polygon": [
+              417,
+              1255,
+              628,
+              1254,
+              627,
+              1297,
+              416,
+              1298
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 137,
+              "length": 11
+            }
+          },
+          {
+            "content": "Zip",
+            "polygon": [
+              639,
+              1254,
+              699,
+              1253,
+              699,
+              1297,
+              638,
+              1297
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 149,
+              "length": 3
+            }
+          },
+          {
+            "content": "301",
+            "polygon": [
+              736,
+              1216,
+              822,
+              1216,
+              822,
+              1279,
+              736,
+              1278
+            ],
+            "confidence": 0.414,
+            "span": {
+              "offset": 153,
+              "length": 3
+            }
+          },
+          {
+            "content": "Nathan",
+            "polygon": [
+              861,
+              1217,
+              1057,
+              1216,
+              1058,
+              1279,
+              862,
+              1279
+            ],
+            "confidence": 0.999,
+            "span": {
+              "offset": 157,
+              "length": 6
+            }
+          },
+          {
+            "content": "Road,",
+            "polygon": [
+              1097,
+              1215,
+              1259,
+              1213,
+              1261,
+              1279,
+              1098,
+              1279
+            ],
+            "confidence": 0.999,
+            "span": {
+              "offset": 164,
+              "length": 5
+            }
+          },
+          {
+            "content": "Yau",
+            "polygon": [
+              1272,
+              1212,
+              1367,
+              1210,
+              1369,
+              1278,
+              1274,
+              1279
+            ],
+            "confidence": 0.651,
+            "span": {
+              "offset": 170,
+              "length": 3
+            }
+          },
+          {
+            "content": "Ma",
+            "polygon": [
+              1394,
+              1209,
+              1468,
+              1207,
+              1470,
+              1276,
+              1397,
+              1277
+            ],
+            "confidence": 0.771,
+            "span": {
+              "offset": 174,
+              "length": 2
+            }
+          },
+          {
+            "content": "tei,",
+            "polygon": [
+              1492,
+              1206,
+              1623,
+              1201,
+              1626,
+              1274,
+              1495,
+              1276
+            ],
+            "confidence": 0.771,
+            "span": {
+              "offset": 177,
+              "length": 4
+            }
+          },
+          {
+            "content": "KL",
+            "polygon": [
+              1642,
+              1200,
+              1720,
+              1197,
+              1721,
+              1271,
+              1645,
+              1273
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 182,
+              "length": 2
+            }
+          },
+          {
+            "content": "Phone",
+            "polygon": [
+              422,
+              1366,
+              549,
+              1365,
+              548,
+              1409,
+              421,
+              1409
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 185,
+              "length": 5
+            }
+          },
+          {
+            "content": "Number,",
+            "polygon": [
+              564,
+              1365,
+              735,
+              1365,
+              734,
+              1409,
+              563,
+              1409
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 191,
+              "length": 7
+            }
+          },
+          {
+            "content": "Web",
+            "polygon": [
+              748,
+              1365,
+              841,
+              1364,
+              840,
+              1409,
+              747,
+              1409
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 199,
+              "length": 3
+            }
+          },
+          {
+            "content": "Address",
+            "polygon": [
+              853,
+              1364,
+              1012,
+              1364,
+              1011,
+              1409,
+              852,
+              1409
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 203,
+              "length": 7
+            }
+          },
+          {
+            "content": "Etc",
+            "polygon": [
+              1026,
+              1364,
+              1089,
+              1364,
+              1089,
+              1409,
+              1025,
+              1409
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 211,
+              "length": 3
+            }
+          },
+          {
+            "content": "com",
+            "polygon": [
+              2090,
+              1322,
+              2346,
+              1040,
+              2442,
+              1121,
+              2190,
+              1427
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 215,
+              "length": 3
+            }
+          },
+          {
+            "content": "Patient",
+            "polygon": [
+              359,
+              1528,
+              513,
+              1528,
+              513,
+              1566,
+              359,
+              1567
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 219,
+              "length": 7
+            }
+          },
+          {
+            "content": "Hospital",
+            "polygon": [
+              356,
+              1628,
+              521,
+              1628,
+              519,
+              1670,
+              354,
+              1670
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 227,
+              "length": 8
+            }
+          },
+          {
+            "content": "No",
+            "polygon": [
+              537,
+              1628,
+              597,
+              1628,
+              597,
+              1669,
+              535,
+              1670
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 236,
+              "length": 2
+            }
+          },
+          {
+            "content": "12345678910",
+            "polygon": [
+              658,
+              1598,
+              1221,
+              1588,
+              1221,
+              1677,
+              655,
+              1679
+            ],
+            "confidence": 0.785,
+            "span": {
+              "offset": 239,
+              "length": 11
+            }
+          },
+          {
+            "content": "Consultant",
+            "polygon": [
+              1655,
+              1624,
+              1881,
+              1623,
+              1881,
+              1660,
+              1655,
+              1661
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 251,
+              "length": 10
+            }
+          },
+          {
+            "content": "Name",
+            "polygon": [
+              351,
+              1729,
+              478,
+              1731,
+              478,
+              1768,
+              350,
+              1765
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 262,
+              "length": 4
+            }
+          },
+          {
+            "content": "Payment",
+            "polygon": [
+              1658,
+              1721,
+              1838,
+              1720,
+              1838,
+              1764,
+              1658,
+              1767
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 267,
+              "length": 7
+            }
+          },
+          {
+            "content": "Mode",
+            "polygon": [
+              1853,
+              1719,
+              2026,
+              1709,
+              2026,
+              1762,
+              1854,
+              1764
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 275,
+              "length": 4
+            }
+          },
+          {
+            "content": "Via",
+            "polygon": [
+              2030,
+              1705,
+              2183,
+              1701,
+              2183,
+              1758,
+              2030,
+              1763
+            ],
+            "confidence": 0.538,
+            "span": {
+              "offset": 280,
+              "length": 3
+            }
+          },
+          {
+            "content": "Bed",
+            "polygon": [
+              1661,
+              1818,
+              1734,
+              1815,
+              1737,
+              1863,
+              1664,
+              1861
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 284,
+              "length": 3
+            }
+          },
+          {
+            "content": "No.",
+            "polygon": [
+              1750,
+              1814,
+              1817,
+              1810,
+              1819,
+              1865,
+              1753,
+              1864
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 288,
+              "length": 3
+            }
+          },
+          {
+            "content": "4017",
+            "polygon": [
+              1851,
+              1808,
+              2043,
+              1795,
+              2043,
+              1868,
+              1853,
+              1866
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 292,
+              "length": 4
+            }
+          },
+          {
+            "content": "Address",
+            "polygon": [
+              344,
+              1827,
+              516,
+              1829,
+              515,
+              1867,
+              344,
+              1865
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 297,
+              "length": 7
+            }
+          },
+          {
+            "content": "Phone",
+            "polygon": [
+              341,
+              1928,
+              477,
+              1932,
+              476,
+              1969,
+              340,
+              1967
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 305,
+              "length": 5
+            }
+          },
+          {
+            "content": "12345678",
+            "polygon": [
+              517,
+              1900,
+              933,
+              1896,
+              933,
+              1976,
+              517,
+              1983
+            ],
+            "confidence": 0.867,
+            "span": {
+              "offset": 311,
+              "length": 8
+            }
+          },
+          {
+            "content": "Email",
+            "polygon": [
+              334,
+              2026,
+              456,
+              2026,
+              456,
+              2073,
+              334,
+              2073
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 320,
+              "length": 5
+            }
+          },
+          {
+            "content": "patient@gmail.com",
+            "polygon": [
+              490,
+              2002,
+              1273,
+              1993,
+              1273,
+              2093,
+              490,
+              2098
+            ],
+            "confidence": 0.952,
+            "span": {
+              "offset": 326,
+              "length": 17
+            }
+          },
+          {
+            "content": "Admission",
+            "polygon": [
+              1658,
+              2021,
+              1871,
+              2019,
+              1871,
+              2059,
+              1658,
+              2061
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 344,
+              "length": 9
+            }
+          },
+          {
+            "content": "Date",
+            "polygon": [
+              1887,
+              2019,
+              1984,
+              2020,
+              1984,
+              2059,
+              1887,
+              2059
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 354,
+              "length": 4
+            }
+          },
+          {
+            "content": "07/02/2020",
+            "polygon": [
+              2013,
+              1991,
+              2506,
+              1994,
+              2506,
+              2078,
+              2008,
+              2067
+            ],
+            "confidence": 0.92,
+            "span": {
+              "offset": 359,
+              "length": 10
+            }
+          },
+          {
+            "content": "Discharge",
+            "polygon": [
+              1664,
+              2122,
+              1865,
+              2124,
+              1863,
+              2167,
+              1661,
+              2167
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 370,
+              "length": 9
+            }
+          },
+          {
+            "content": "Date",
+            "polygon": [
+              1879,
+              2124,
+              1978,
+              2123,
+              1978,
+              2167,
+              1878,
+              2167
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 380,
+              "length": 4
+            }
+          },
+          {
+            "content": "#",
+            "polygon": [
+              460,
+              2237,
+              495,
+              2238,
+              494,
+              2276,
+              459,
+              2274
+            ],
+            "confidence": 0.926,
+            "span": {
+              "offset": 385,
+              "length": 1
+            }
+          },
+          {
+            "content": "PARTICULARS",
+            "polygon": [
+              965,
+              2230,
+              1267,
+              2226,
+              1267,
+              2276,
+              966,
+              2274
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 387,
+              "length": 11
+            }
+          },
+          {
+            "content": "QTY",
+            "polygon": [
+              1708,
+              2219,
+              1798,
+              2220,
+              1797,
+              2276,
+              1708,
+              2275
+            ],
+            "confidence": 0.963,
+            "span": {
+              "offset": 399,
+              "length": 3
+            }
+          },
+          {
+            "content": "RATE",
+            "polygon": [
+              1941,
+              2229,
+              2055,
+              2228,
+              2054,
+              2266,
+              1939,
+              2266
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 403,
+              "length": 4
+            }
+          },
+          {
+            "content": "AMOUNT",
+            "polygon": [
+              2259,
+              2218,
+              2476,
+              2220,
+              2476,
+              2272,
+              2257,
+              2273
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 408,
+              "length": 6
+            }
+          },
+          {
+            "content": "1",
+            "polygon": [
+              450,
+              2326,
+              474,
+              2326,
+              474,
+              2374,
+              449,
+              2373
+            ],
+            "confidence": 0.94,
+            "span": {
+              "offset": 415,
+              "length": 1
+            }
+          },
+          {
+            "content": "broken",
+            "polygon": [
+              742,
+              2313,
+              967,
+              2311,
+              967,
+              2379,
+              741,
+              2378
+            ],
+            "confidence": 0.753,
+            "span": {
+              "offset": 417,
+              "length": 6
+            }
+          },
+          {
+            "content": "ribs.",
+            "polygon": [
+              1086,
+              2309,
+              1280,
+              2307,
+              1280,
+              2375,
+              1086,
+              2378
+            ],
+            "confidence": 0.919,
+            "span": {
+              "offset": 424,
+              "length": 5
+            }
+          },
+          {
+            "content": "1",
+            "polygon": [
+              1740,
+              2302,
+              1766,
+              2302,
+              1766,
+              2357,
+              1740,
+              2358
+            ],
+            "confidence": 0.934,
+            "span": {
+              "offset": 430,
+              "length": 1
+            }
+          },
+          {
+            "content": "450.00",
+            "polygon": [
+              1963,
+              2311,
+              2190,
+              2312,
+              2190,
+              2370,
+              1964,
+              2368
+            ],
+            "confidence": 0.977,
+            "span": {
+              "offset": 432,
+              "length": 6
+            }
+          },
+          {
+            "content": "1500.00",
+            "polygon": [
+              2259,
+              2301,
+              2516,
+              2302,
+              2516,
+              2367,
+              2257,
+              2367
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 439,
+              "length": 7
+            }
+          },
+          {
+            "content": "2",
+            "polygon": [
+              432,
+              2408,
+              501,
+              2408,
+              501,
+              2469,
+              432,
+              2469
+            ],
+            "confidence": 0.963,
+            "span": {
+              "offset": 447,
+              "length": 1
+            }
+          },
+          {
+            "content": "water",
+            "polygon": [
+              768,
+              2399,
+              994,
+              2399,
+              994,
+              2459,
+              768,
+              2461
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 449,
+              "length": 5
+            }
+          },
+          {
+            "content": "2",
+            "polygon": [
+              1714,
+              2395,
+              1777,
+              2395,
+              1778,
+              2454,
+              1714,
+              2455
+            ],
+            "confidence": 0.951,
+            "span": {
+              "offset": 455,
+              "length": 1
+            }
+          },
+          {
+            "content": "20.00",
+            "polygon": [
+              1968,
+              2383,
+              2167,
+              2383,
+              2167,
+              2449,
+              1965,
+              2449
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 457,
+              "length": 5
+            }
+          },
+          {
+            "content": "40.00",
+            "polygon": [
+              2261,
+              2381,
+              2473,
+              2381,
+              2473,
+              2452,
+              2261,
+              2452
+            ],
+            "confidence": 0.981,
+            "span": {
+              "offset": 463,
+              "length": 5
+            }
+          },
+          {
+            "content": "Cop",
+            "polygon": [
+              448,
+              3147,
+              925,
+              2706,
+              1029,
+              2853,
+              563,
+              3282
+            ],
+            "confidence": 0.252,
+            "span": {
+              "offset": 469,
+              "length": 3
+            }
+          },
+          {
+            "content": "NOTES:",
+            "polygon": [
+              453,
+              3300,
+              613,
+              3301,
+              613,
+              3345,
+              452,
+              3343
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 473,
+              "length": 6
+            }
+          },
+          {
+            "content": "patient",
+            "polygon": [
+              497,
+              3383,
+              766,
+              3378,
+              767,
+              3461,
+              497,
+              3465
+            ],
+            "confidence": 0.98,
+            "span": {
+              "offset": 480,
+              "length": 7
+            }
+          },
+          {
+            "content": "is",
+            "polygon": [
+              811,
+              3378,
+              844,
+              3377,
+              845,
+              3460,
+              811,
+              3461
+            ],
+            "confidence": 0.826,
+            "span": {
+              "offset": 488,
+              "length": 2
+            }
+          },
+          {
+            "content": "severely",
+            "polygon": [
+              904,
+              3377,
+              1154,
+              3376,
+              1155,
+              3458,
+              905,
+              3459
+            ],
+            "confidence": 0.856,
+            "span": {
+              "offset": 491,
+              "length": 8
+            }
+          },
+          {
+            "content": "injured",
+            "polygon": [
+              1198,
+              3377,
+              1412,
+              3379,
+              1412,
+              3458,
+              1200,
+              3458
+            ],
+            "confidence": 0.926,
+            "span": {
+              "offset": 500,
+              "length": 7
+            }
+          },
+          {
+            "content": "and",
+            "polygon": [
+              481,
+              3520,
+              601,
+              3518,
+              601,
+              3595,
+              481,
+              3595
+            ],
+            "confidence": 0.975,
+            "span": {
+              "offset": 508,
+              "length": 3
+            }
+          },
+          {
+            "content": "he",
+            "polygon": [
+              680,
+              3516,
+              750,
+              3514,
+              750,
+              3592,
+              680,
+              3594
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 512,
+              "length": 2
+            }
+          },
+          {
+            "content": "need",
+            "polygon": [
+              803,
+              3512,
+              948,
+              3508,
+              948,
+              3587,
+              803,
+              3591
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 515,
+              "length": 4
+            }
+          },
+          {
+            "content": "more",
+            "polygon": [
+              989,
+              3506,
+              1136,
+              3501,
+              1136,
+              3580,
+              989,
+              3586
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 520,
+              "length": 4
+            }
+          },
+          {
+            "content": "rest",
+            "polygon": [
+              1193,
+              3498,
+              1353,
+              3491,
+              1353,
+              3569,
+              1193,
+              3577
+            ],
+            "confidence": 0.98,
+            "span": {
+              "offset": 525,
+              "length": 4
+            }
+          },
+          {
+            "content": "before",
+            "polygon": [
+              500,
+              3611,
+              720,
+              3622,
+              720,
+              3701,
+              500,
+              3689
+            ],
+            "confidence": 0.924,
+            "span": {
+              "offset": 530,
+              "length": 6
+            }
+          },
+          {
+            "content": "getting",
+            "polygon": [
+              768,
+              3624,
+              1019,
+              3627,
+              1019,
+              3705,
+              768,
+              3703
+            ],
+            "confidence": 0.721,
+            "span": {
+              "offset": 537,
+              "length": 7
+            }
+          },
+          {
+            "content": "to",
+            "polygon": [
+              1084,
+              3626,
+              1171,
+              3624,
+              1171,
+              3702,
+              1084,
+              3705
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 545,
+              "length": 2
+            }
+          },
+          {
+            "content": "work",
+            "polygon": [
+              1227,
+              3623,
+              1391,
+              3616,
+              1391,
+              3691,
+              1227,
+              3700
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 548,
+              "length": 4
+            }
+          },
+          {
+            "content": "SUBTOTAL",
+            "polygon": [
+              1676,
+              3076,
+              1904,
+              3076,
+              1904,
+              3119,
+              1676,
+              3120
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 553,
+              "length": 8
+            }
+          },
+          {
+            "content": "1540.00",
+            "polygon": [
+              1992,
+              3051,
+              2368,
+              3025,
+              2368,
+              3103,
+              1995,
+              3122
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 562,
+              "length": 7
+            }
+          },
+          {
+            "content": "TAX",
+            "polygon": [
+              1678,
+              3189,
+              1761,
+              3189,
+              1760,
+              3233,
+              1677,
+              3233
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 570,
+              "length": 3
+            }
+          },
+          {
+            "content": "8.000%",
+            "polygon": [
+              1776,
+              3189,
+              1935,
+              3189,
+              1935,
+              3233,
+              1775,
+              3233
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 574,
+              "length": 6
+            }
+          },
+          {
+            "content": "MED",
+            "polygon": [
+              1678,
+              3303,
+              1783,
+              3302,
+              1784,
+              3345,
+              1679,
+              3347
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 581,
+              "length": 3
+            }
+          },
+          {
+            "content": "CLAIM",
+            "polygon": [
+              1799,
+              3302,
+              1938,
+              3304,
+              1938,
+              3344,
+              1800,
+              3345
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 585,
+              "length": 5
+            }
+          },
+          {
+            "content": "TOTAL",
+            "polygon": [
+              1679,
+              3416,
+              1831,
+              3416,
+              1831,
+              3459,
+              1679,
+              3459
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 591,
+              "length": 5
+            }
+          },
+          {
+            "content": "1540.00",
+            "polygon": [
+              1943,
+              3379,
+              2251,
+              3381,
+              2251,
+              3456,
+              1942,
+              3456
+            ],
+            "confidence": 0.11,
+            "span": {
+              "offset": 597,
+              "length": 7
+            }
+          },
+          {
+            "content": "PAID",
+            "polygon": [
+              1680,
+              3530,
+              1791,
+              3531,
+              1791,
+              3573,
+              1680,
+              3572
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 605,
+              "length": 4
+            }
+          },
+          {
+            "content": "1540.00",
+            "polygon": [
+              1937,
+              3512,
+              2238,
+              3513,
+              2238,
+              3572,
+              1937,
+              3574
+            ],
+            "confidence": 0.976,
+            "span": {
+              "offset": 610,
+              "length": 7
+            }
+          },
+          {
+            "content": "TOTAL",
+            "polygon": [
+              1680,
+              3646,
+              1831,
+              3645,
+              1830,
+              3690,
+              1680,
+              3690
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 618,
+              "length": 5
+            }
+          },
+          {
+            "content": "DUE",
+            "polygon": [
+              1842,
+              3645,
+              1939,
+              3643,
+              1939,
+              3691,
+              1842,
+              3690
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 624,
+              "length": 3
+            }
+          },
+          {
+            "content": "emp",
+            "polygon": [
+              1309,
+              2222,
+              1643,
+              1867,
+              1719,
+              1966,
+              1373,
+              2296
+            ],
+            "confidence": 0.714,
+            "span": {
+              "offset": 628,
+              "length": 3
+            }
+          },
+          {
+            "content": "ted",
+            "polygon": [
+              1662,
+              1847,
+              1720,
+              1797,
+              1790,
+              1875,
+              1739,
+              1943
+            ],
+            "confidence": 0.193,
+            "span": {
+              "offset": 632,
+              "length": 3
+            }
+          },
+          {
+            "content": "Age",
+            "polygon": [
+              1655,
+              1525,
+              1738,
+              1524,
+              1739,
+              1568,
+              1655,
+              1570
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 636,
+              "length": 3
+            }
+          },
+          {
+            "content": "27",
+            "polygon": [
+              1835,
+              1502,
+              1939,
+              1502,
+              1939,
+              1567,
+              1835,
+              1568
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 640,
+              "length": 2
+            }
+          }
+        ],
+        "lines": [
+          {
+            "content": "MEDICAL RECEIPT TEMPLATE",
+            "polygon": [
+              863,
+              745,
+              1875,
+              742,
+              1875,
+              798,
+              863,
+              802
+            ],
+            "spans": [
+              {
+                "offset": 0,
+                "length": 24
+              }
+            ]
+          },
+          {
+            "content": "Dr. Lau Sai Kit, Lawrence",
+            "polygon": [
+              743,
+              950,
+              1594,
+              947,
+              1594,
+              1029,
+              743,
+              1034
+            ],
+            "spans": [
+              {
+                "offset": 25,
+                "length": 25
+              }
+            ]
+          },
+          {
+            "content": "Hospital Name, Slogan",
+            "polygon": [
+              414,
+              1064,
+              877,
+              1059,
+              878,
+              1102,
+              414,
+              1111
+            ],
+            "spans": [
+              {
+                "offset": 51,
+                "length": 21
+              }
+            ]
+          },
+          {
+            "content": "劉世傑",
+            "polygon": [
+              896,
+              1035,
+              1235,
+              1034,
+              1236,
+              1132,
+              896,
+              1134
+            ],
+            "spans": [
+              {
+                "offset": 73,
+                "length": 3
+              }
+            ]
+          },
+          {
+            "content": "MEDICAL INVOICE",
+            "polygon": [
+              1632,
+              962,
+              2166,
+              962,
+              2167,
+              1029,
+              1632,
+              1032
+            ],
+            "spans": [
+              {
+                "offset": 77,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "Street Address",
+            "polygon": [
+              421,
+              1156,
+              714,
+              1154,
+              715,
+              1198,
+              421,
+              1201
+            ],
+            "spans": [
+              {
+                "offset": 93,
+                "length": 14
+              }
+            ]
+          },
+          {
+            "content": "Room 1103, Champion Building",
+            "polygon": [
+              726,
+              1145,
+              1538,
+              1146,
+              1538,
+              1216,
+              726,
+              1215
+            ],
+            "spans": [
+              {
+                "offset": 108,
+                "length": 28
+              }
+            ]
+          },
+          {
+            "content": "City/State, Zip",
+            "polygon": [
+              415,
+              1255,
+              698,
+              1253,
+              698,
+              1296,
+              415,
+              1298
+            ],
+            "spans": [
+              {
+                "offset": 137,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "301 Nathan Road, Yau Ma tei, KL",
+            "polygon": [
+              736,
+              1209,
+              1719,
+              1196,
+              1720,
+              1271,
+              736,
+              1279
+            ],
+            "spans": [
+              {
+                "offset": 153,
+                "length": 31
+              }
+            ]
+          },
+          {
+            "content": "Phone Number, Web Address Etc",
+            "polygon": [
+              421,
+              1364,
+              1088,
+              1363,
+              1088,
+              1408,
+              421,
+              1409
+            ],
+            "spans": [
+              {
+                "offset": 185,
+                "length": 29
+              }
+            ]
+          },
+          {
+            "content": "com",
+            "polygon": [
+              2090,
+              1335,
+              2336,
+              1040,
+              2442,
+              1124,
+              2190,
+              1426
+            ],
+            "spans": [
+              {
+                "offset": 215,
+                "length": 3
+              }
+            ]
+          },
+          {
+            "content": "Patient",
+            "polygon": [
+              359,
+              1528,
+              512,
+              1527,
+              512,
+              1565,
+              359,
+              1566
+            ],
+            "spans": [
+              {
+                "offset": 219,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "Hospital No",
+            "polygon": [
+              354,
+              1628,
+              596,
+              1627,
+              596,
+              1668,
+              354,
+              1669
+            ],
+            "spans": [
+              {
+                "offset": 227,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "12345678910",
+            "polygon": [
+              654,
+              1595,
+              1219,
+              1588,
+              1220,
+              1675,
+              654,
+              1679
+            ],
+            "spans": [
+              {
+                "offset": 239,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "Consultant",
+            "polygon": [
+              1655,
+              1623,
+              1880,
+              1622,
+              1881,
+              1659,
+              1655,
+              1661
+            ],
+            "spans": [
+              {
+                "offset": 251,
+                "length": 10
+              }
+            ]
+          },
+          {
+            "content": "Name",
+            "polygon": [
+              350,
+              1728,
+              478,
+              1730,
+              477,
+              1767,
+              350,
+              1764
+            ],
+            "spans": [
+              {
+                "offset": 262,
+                "length": 4
+              }
+            ]
+          },
+          {
+            "content": "Payment Mode",
+            "polygon": [
+              1657,
+              1717,
+              2024,
+              1709,
+              2025,
+              1761,
+              1658,
+              1767
+            ],
+            "spans": [
+              {
+                "offset": 267,
+                "length": 12
+              }
+            ]
+          },
+          {
+            "content": "Via",
+            "polygon": [
+              2030,
+              1705,
+              2182,
+              1701,
+              2181,
+              1759,
+              2030,
+              1764
+            ],
+            "spans": [
+              {
+                "offset": 280,
+                "length": 3
+              }
+            ]
+          },
+          {
+            "content": "Bed No. 4017",
+            "polygon": [
+              1660,
+              1803,
+              2042,
+              1795,
+              2043,
+              1867,
+              1661,
+              1868
+            ],
+            "spans": [
+              {
+                "offset": 284,
+                "length": 12
+              }
+            ]
+          },
+          {
+            "content": "Address",
+            "polygon": [
+              344,
+              1826,
+              515,
+              1828,
+              514,
+              1866,
+              344,
+              1864
+            ],
+            "spans": [
+              {
+                "offset": 297,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "Phone",
+            "polygon": [
+              340,
+              1927,
+              476,
+              1930,
+              475,
+              1969,
+              339,
+              1966
+            ],
+            "spans": [
+              {
+                "offset": 305,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "12345678",
+            "polygon": [
+              516,
+              1899,
+              932,
+              1896,
+              933,
+              1976,
+              516,
+              1982
+            ],
+            "spans": [
+              {
+                "offset": 311,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "Email",
+            "polygon": [
+              335,
+              2029,
+              456,
+              2026,
+              456,
+              2073,
+              334,
+              2070
+            ],
+            "spans": [
+              {
+                "offset": 320,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "patient@gmail.com",
+            "polygon": [
+              490,
+              1999,
+              1271,
+              1993,
+              1272,
+              2094,
+              490,
+              2099
+            ],
+            "spans": [
+              {
+                "offset": 326,
+                "length": 17
+              }
+            ]
+          },
+          {
+            "content": "Admission Date",
+            "polygon": [
+              1657,
+              2019,
+              1983,
+              2018,
+              1983,
+              2059,
+              1657,
+              2060
+            ],
+            "spans": [
+              {
+                "offset": 344,
+                "length": 14
+              }
+            ]
+          },
+          {
+            "content": "07/02/2020",
+            "polygon": [
+              2009,
+              1990,
+              2506,
+              1993,
+              2505,
+              2077,
+              2008,
+              2070
+            ],
+            "spans": [
+              {
+                "offset": 359,
+                "length": 10
+              }
+            ]
+          },
+          {
+            "content": "Discharge Date",
+            "polygon": [
+              1661,
+              2122,
+              1977,
+              2122,
+              1977,
+              2166,
+              1661,
+              2166
+            ],
+            "spans": [
+              {
+                "offset": 370,
+                "length": 14
+              }
+            ]
+          },
+          {
+            "content": "#",
+            "polygon": [
+              462,
+              2237,
+              494,
+              2238,
+              491,
+              2276,
+              459,
+              2274
+            ],
+            "spans": [
+              {
+                "offset": 385,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "PARTICULARS",
+            "polygon": [
+              965,
+              2227,
+              1266,
+              2226,
+              1267,
+              2275,
+              965,
+              2276
+            ],
+            "spans": [
+              {
+                "offset": 387,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "QTY",
+            "polygon": [
+              1709,
+              2219,
+              1797,
+              2221,
+              1797,
+              2275,
+              1708,
+              2275
+            ],
+            "spans": [
+              {
+                "offset": 399,
+                "length": 3
+              }
+            ]
+          },
+          {
+            "content": "RATE",
+            "polygon": [
+              1939,
+              2228,
+              2054,
+              2227,
+              2055,
+              2265,
+              1939,
+              2267
+            ],
+            "spans": [
+              {
+                "offset": 403,
+                "length": 4
+              }
+            ]
+          },
+          {
+            "content": "AMOUNT",
+            "polygon": [
+              2257,
+              2217,
+              2475,
+              2217,
+              2475,
+              2272,
+              2257,
+              2272
+            ],
+            "spans": [
+              {
+                "offset": 408,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "1",
+            "polygon": [
+              450,
+              2326,
+              473,
+              2327,
+              472,
+              2374,
+              449,
+              2374
+            ],
+            "spans": [
+              {
+                "offset": 415,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "broken ribs.",
+            "polygon": [
+              741,
+              2311,
+              1278,
+              2307,
+              1279,
+              2376,
+              741,
+              2379
+            ],
+            "spans": [
+              {
+                "offset": 417,
+                "length": 12
+              }
+            ]
+          },
+          {
+            "content": "1",
+            "polygon": [
+              1740,
+              2303,
+              1765,
+              2302,
+              1765,
+              2358,
+              1740,
+              2358
+            ],
+            "spans": [
+              {
+                "offset": 430,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "450.00",
+            "polygon": [
+              1962,
+              2311,
+              2189,
+              2311,
+              2189,
+              2370,
+              1962,
+              2368
+            ],
+            "spans": [
+              {
+                "offset": 432,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "1500.00",
+            "polygon": [
+              2257,
+              2300,
+              2515,
+              2301,
+              2515,
+              2366,
+              2257,
+              2365
+            ],
+            "spans": [
+              {
+                "offset": 439,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "2",
+            "polygon": [
+              435,
+              2408,
+              500,
+              2408,
+              500,
+              2469,
+              432,
+              2469
+            ],
+            "spans": [
+              {
+                "offset": 447,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "water",
+            "polygon": [
+              768,
+              2399,
+              993,
+              2398,
+              994,
+              2458,
+              768,
+              2460
+            ],
+            "spans": [
+              {
+                "offset": 449,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "2",
+            "polygon": [
+              1718,
+              2395,
+              1777,
+              2395,
+              1774,
+              2454,
+              1714,
+              2455
+            ],
+            "spans": [
+              {
+                "offset": 455,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "20.00",
+            "polygon": [
+              1964,
+              2383,
+              2166,
+              2382,
+              2167,
+              2448,
+              1964,
+              2449
+            ],
+            "spans": [
+              {
+                "offset": 457,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "40.00",
+            "polygon": [
+              2263,
+              2381,
+              2472,
+              2382,
+              2471,
+              2451,
+              2261,
+              2452
+            ],
+            "spans": [
+              {
+                "offset": 463,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "Cop",
+            "polygon": [
+              447,
+              3153,
+              917,
+              2706,
+              1029,
+              2849,
+              578,
+              3282
+            ],
+            "spans": [
+              {
+                "offset": 469,
+                "length": 3
+              }
+            ]
+          },
+          {
+            "content": "NOTES:",
+            "polygon": [
+              452,
+              3300,
+              613,
+              3300,
+              612,
+              3345,
+              451,
+              3344
+            ],
+            "spans": [
+              {
+                "offset": 473,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "patient is severely injured",
+            "polygon": [
+              497,
+              3379,
+              1410,
+              3376,
+              1411,
+              3458,
+              497,
+              3464
+            ],
+            "spans": [
+              {
+                "offset": 480,
+                "length": 27
+              }
+            ]
+          },
+          {
+            "content": "and he need more rest",
+            "polygon": [
+              480,
+              3519,
+              1352,
+              3491,
+              1353,
+              3572,
+              481,
+              3595
+            ],
+            "spans": [
+              {
+                "offset": 508,
+                "length": 21
+              }
+            ]
+          },
+          {
+            "content": "before getting to work",
+            "polygon": [
+              500,
+              3611,
+              1390,
+              3615,
+              1390,
+              3705,
+              500,
+              3702
+            ],
+            "spans": [
+              {
+                "offset": 530,
+                "length": 22
+              }
+            ]
+          },
+          {
+            "content": "SUBTOTAL",
+            "polygon": [
+              1676,
+              3075,
+              1903,
+              3075,
+              1903,
+              3118,
+              1676,
+              3119
+            ],
+            "spans": [
+              {
+                "offset": 553,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "1540.00",
+            "polygon": [
+              1991,
+              3048,
+              2365,
+              3025,
+              2368,
+              3102,
+              1995,
+              3122
+            ],
+            "spans": [
+              {
+                "offset": 562,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "TAX 8.000%",
+            "polygon": [
+              1677,
+              3188,
+              1934,
+              3188,
+              1934,
+              3232,
+              1677,
+              3232
+            ],
+            "spans": [
+              {
+                "offset": 570,
+                "length": 10
+              }
+            ]
+          },
+          {
+            "content": "MED CLAIM",
+            "polygon": [
+              1677,
+              3302,
+              1937,
+              3302,
+              1938,
+              3345,
+              1677,
+              3346
+            ],
+            "spans": [
+              {
+                "offset": 581,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "TOTAL",
+            "polygon": [
+              1678,
+              3416,
+              1830,
+              3416,
+              1830,
+              3458,
+              1678,
+              3459
+            ],
+            "spans": [
+              {
+                "offset": 591,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "1540.00",
+            "polygon": [
+              1941,
+              3378,
+              2250,
+              3379,
+              2250,
+              3455,
+              1941,
+              3455
+            ],
+            "spans": [
+              {
+                "offset": 597,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "PAID",
+            "polygon": [
+              1681,
+              3530,
+              1790,
+              3532,
+              1789,
+              3572,
+              1680,
+              3572
+            ],
+            "spans": [
+              {
+                "offset": 605,
+                "length": 4
+              }
+            ]
+          },
+          {
+            "content": "1540.00",
+            "polygon": [
+              1936,
+              3511,
+              2237,
+              3511,
+              2237,
+              3572,
+              1936,
+              3573
+            ],
+            "spans": [
+              {
+                "offset": 610,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "TOTAL DUE",
+            "polygon": [
+              1679,
+              3644,
+              1938,
+              3642,
+              1938,
+              3690,
+              1679,
+              3691
+            ],
+            "spans": [
+              {
+                "offset": 618,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "emp ted",
+            "polygon": [
+              1308,
+              2225,
+              1708,
+              1797,
+              1790,
+              1880,
+              1388,
+              2296
+            ],
+            "spans": [
+              {
+                "offset": 628,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "Age",
+            "polygon": [
+              1655,
+              1525,
+              1738,
+              1524,
+              1738,
+              1568,
+              1655,
+              1570
+            ],
+            "spans": [
+              {
+                "offset": 636,
+                "length": 3
+              }
+            ]
+          },
+          {
+            "content": "27",
+            "polygon": [
+              1835,
+              1502,
+              1938,
+              1502,
+              1938,
+              1566,
+              1835,
+              1568
+            ],
+            "spans": [
+              {
+                "offset": 640,
+                "length": 2
+              }
+            ]
+          }
+        ],
+        "spans": [
+          {
+            "offset": 0,
+            "length": 642
+          }
+        ]
+      }
+    ],
+    "paragraphs": [
+      {
+        "spans": [
+          {
+            "offset": 0,
+            "length": 24
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              863,
+              745,
+              1875,
+              742,
+              1875,
+              799,
+              863,
+              802
+            ]
+          }
+        ],
+        "content": "MEDICAL RECEIPT TEMPLATE"
+      },
+      {
+        "spans": [
+          {
+            "offset": 25,
+            "length": 25
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              743,
+              950,
+              1594,
+              947,
+              1594,
+              1031,
+              743,
+              1034
+            ]
+          }
+        ],
+        "content": "Dr. Lau Sai Kit, Lawrence"
+      },
+      {
+        "spans": [
+          {
+            "offset": 51,
+            "length": 21
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              414,
+              1064,
+              877,
+              1059,
+              878,
+              1102,
+              414,
+              1111
+            ]
+          }
+        ],
+        "content": "Hospital Name, Slogan"
+      },
+      {
+        "spans": [
+          {
+            "offset": 73,
+            "length": 3
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              896,
+              1035,
+              1235,
+              1034,
+              1236,
+              1132,
+              896,
+              1134
+            ]
+          }
+        ],
+        "content": "劉世傑"
+      },
+      {
+        "spans": [
+          {
+            "offset": 77,
+            "length": 15
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1632,
+              962,
+              2166,
+              962,
+              2167,
+              1029,
+              1632,
+              1032
+            ]
+          }
+        ],
+        "content": "MEDICAL INVOICE"
+      },
+      {
+        "spans": [
+          {
+            "offset": 93,
+            "length": 43
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              421,
+              1145,
+              1538,
+              1146,
+              1538,
+              1216,
+              421,
+              1215
+            ]
+          }
+        ],
+        "content": "Street Address Room 1103, Champion Building"
+      },
+      {
+        "spans": [
+          {
+            "offset": 137,
+            "length": 15
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              415,
+              1255,
+              698,
+              1253,
+              698,
+              1296,
+              415,
+              1298
+            ]
+          }
+        ],
+        "content": "City/State, Zip"
+      },
+      {
+        "spans": [
+          {
+            "offset": 153,
+            "length": 31
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              736,
+              1209,
+              1719,
+              1196,
+              1720,
+              1271,
+              736,
+              1279
+            ]
+          }
+        ],
+        "content": "301 Nathan Road, Yau Ma tei, KL"
+      },
+      {
+        "spans": [
+          {
+            "offset": 185,
+            "length": 29
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              421,
+              1364,
+              1088,
+              1363,
+              1088,
+              1408,
+              421,
+              1409
+            ]
+          }
+        ],
+        "content": "Phone Number, Web Address Etc"
+      },
+      {
+        "spans": [
+          {
+            "offset": 215,
+            "length": 3
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2338,
+              1037,
+              2442,
+              1124,
+              2190,
+              1426,
+              2086,
+              1339
+            ]
+          }
+        ],
+        "content": "com"
+      },
+      {
+        "spans": [
+          {
+            "offset": 219,
+            "length": 7
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              359,
+              1528,
+              512,
+              1527,
+              512,
+              1565,
+              359,
+              1566
+            ]
+          }
+        ],
+        "content": "Patient"
+      },
+      {
+        "spans": [
+          {
+            "offset": 227,
+            "length": 23
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              353,
+              1598,
+              1219,
+              1588,
+              1220,
+              1675,
+              354,
+              1685
+            ]
+          }
+        ],
+        "content": "Hospital No 12345678910"
+      },
+      {
+        "spans": [
+          {
+            "offset": 251,
+            "length": 10
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1655,
+              1623,
+              1881,
+              1621,
+              1881,
+              1659,
+              1655,
+              1661
+            ]
+          }
+        ],
+        "content": "Consultant"
+      },
+      {
+        "spans": [
+          {
+            "offset": 262,
+            "length": 4
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              350,
+              1728,
+              478,
+              1730,
+              477,
+              1767,
+              350,
+              1764
+            ]
+          }
+        ],
+        "content": "Name"
+      },
+      {
+        "spans": [
+          {
+            "offset": 267,
+            "length": 16
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1657,
+              1715,
+              2182,
+              1701,
+              2184,
+              1760,
+              1658,
+              1774
+            ]
+          }
+        ],
+        "content": "Payment Mode Via"
+      },
+      {
+        "spans": [
+          {
+            "offset": 284,
+            "length": 12
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1660,
+              1800,
+              2042,
+              1795,
+              2043,
+              1867,
+              1661,
+              1872
+            ]
+          }
+        ],
+        "content": "Bed No. 4017"
+      },
+      {
+        "spans": [
+          {
+            "offset": 297,
+            "length": 7
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              344,
+              1826,
+              515,
+              1828,
+              514,
+              1866,
+              344,
+              1864
+            ]
+          }
+        ],
+        "content": "Address"
+      },
+      {
+        "spans": [
+          {
+            "offset": 305,
+            "length": 14
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              338,
+              1901,
+              932,
+              1894,
+              933,
+              1977,
+              339,
+              1984
+            ]
+          }
+        ],
+        "content": "Phone 12345678"
+      },
+      {
+        "spans": [
+          {
+            "offset": 320,
+            "length": 23
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              333,
+              2000,
+              1271,
+              1993,
+              1272,
+              2094,
+              334,
+              2101
+            ]
+          }
+        ],
+        "content": "Email patient@gmail.com"
+      },
+      {
+        "spans": [
+          {
+            "offset": 344,
+            "length": 14
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1657,
+              2019,
+              1983,
+              2018,
+              1983,
+              2059,
+              1657,
+              2060
+            ]
+          }
+        ],
+        "content": "Admission Date"
+      },
+      {
+        "spans": [
+          {
+            "offset": 359,
+            "length": 10
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2009,
+              1990,
+              2506,
+              1993,
+              2505,
+              2077,
+              2008,
+              2070
+            ]
+          }
+        ],
+        "content": "07/02/2020"
+      },
+      {
+        "spans": [
+          {
+            "offset": 370,
+            "length": 14
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1661,
+              2122,
+              1977,
+              2122,
+              1977,
+              2166,
+              1661,
+              2166
+            ]
+          }
+        ],
+        "content": "Discharge Date"
+      },
+      {
+        "spans": [
+          {
+            "offset": 385,
+            "length": 1
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              462,
+              2235,
+              494,
+              2238,
+              491,
+              2277,
+              459,
+              2274
+            ]
+          }
+        ],
+        "content": "#"
+      },
+      {
+        "spans": [
+          {
+            "offset": 387,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              965,
+              2227,
+              1267,
+              2226,
+              1267,
+              2275,
+              965,
+              2276
+            ]
+          }
+        ],
+        "content": "PARTICULARS"
+      },
+      {
+        "spans": [
+          {
+            "offset": 399,
+            "length": 3
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1709,
+              2219,
+              1798,
+              2221,
+              1797,
+              2277,
+              1708,
+              2275
+            ]
+          }
+        ],
+        "content": "QTY"
+      },
+      {
+        "spans": [
+          {
+            "offset": 403,
+            "length": 4
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1938,
+              2228,
+              2054,
+              2226,
+              2055,
+              2265,
+              1939,
+              2267
+            ]
+          }
+        ],
+        "content": "RATE"
+      },
+      {
+        "spans": [
+          {
+            "offset": 408,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2257,
+              2217,
+              2475,
+              2217,
+              2475,
+              2272,
+              2257,
+              2272
+            ]
+          }
+        ],
+        "content": "AMOUNT"
+      },
+      {
+        "spans": [
+          {
+            "offset": 415,
+            "length": 1
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              450,
+              2326,
+              473,
+              2326,
+              472,
+              2374,
+              449,
+              2374
+            ]
+          }
+        ],
+        "content": "1"
+      },
+      {
+        "spans": [
+          {
+            "offset": 417,
+            "length": 12
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              741,
+              2310,
+              1279,
+              2307,
+              1279,
+              2376,
+              741,
+              2379
+            ]
+          }
+        ],
+        "content": "broken ribs."
+      },
+      {
+        "spans": [
+          {
+            "offset": 430,
+            "length": 1
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1740,
+              2302,
+              1765,
+              2302,
+              1765,
+              2358,
+              1740,
+              2358
+            ]
+          }
+        ],
+        "content": "1"
+      },
+      {
+        "spans": [
+          {
+            "offset": 432,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1962,
+              2311,
+              2189,
+              2311,
+              2189,
+              2370,
+              1962,
+              2370
+            ]
+          }
+        ],
+        "content": "450.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 439,
+            "length": 7
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2257,
+              2300,
+              2515,
+              2301,
+              2515,
+              2366,
+              2257,
+              2365
+            ]
+          }
+        ],
+        "content": "1500.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 447,
+            "length": 1
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              432,
+              2408,
+              500,
+              2408,
+              500,
+              2469,
+              432,
+              2469
+            ]
+          }
+        ],
+        "content": "2"
+      },
+      {
+        "spans": [
+          {
+            "offset": 449,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              767,
+              2399,
+              993,
+              2397,
+              994,
+              2458,
+              768,
+              2460
+            ]
+          }
+        ],
+        "content": "water"
+      },
+      {
+        "spans": [
+          {
+            "offset": 455,
+            "length": 1
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1717,
+              2392,
+              1777,
+              2395,
+              1774,
+              2458,
+              1714,
+              2455
+            ]
+          }
+        ],
+        "content": "2"
+      },
+      {
+        "spans": [
+          {
+            "offset": 457,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1964,
+              2383,
+              2167,
+              2382,
+              2167,
+              2448,
+              1964,
+              2449
+            ]
+          }
+        ],
+        "content": "20.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 463,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2261,
+              2381,
+              2472,
+              2382,
+              2472,
+              2453,
+              2261,
+              2452
+            ]
+          }
+        ],
+        "content": "40.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 469,
+            "length": 3
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              917,
+              2706,
+              1044,
+              2839,
+              574,
+              3286,
+              447,
+              3153
+            ]
+          }
+        ],
+        "content": "Cop"
+      },
+      {
+        "spans": [
+          {
+            "offset": 473,
+            "length": 79
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              451,
+              3299,
+              1412,
+              3303,
+              1410,
+              3705,
+              450,
+              3702
+            ]
+          }
+        ],
+        "content": "NOTES: patient is severely injured and he need more rest before getting to work"
+      },
+      {
+        "spans": [
+          {
+            "offset": 553,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1676,
+              3075,
+              1903,
+              3075,
+              1903,
+              3118,
+              1676,
+              3119
+            ]
+          }
+        ],
+        "content": "SUBTOTAL"
+      },
+      {
+        "spans": [
+          {
+            "offset": 562,
+            "length": 7
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1991,
+              3048,
+              2365,
+              3025,
+              2368,
+              3102,
+              1995,
+              3122
+            ]
+          }
+        ],
+        "content": "1540.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 570,
+            "length": 10
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1677,
+              3188,
+              1934,
+              3188,
+              1934,
+              3232,
+              1677,
+              3232
+            ]
+          }
+        ],
+        "content": "TAX 8.000%"
+      },
+      {
+        "spans": [
+          {
+            "offset": 581,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1677,
+              3302,
+              1938,
+              3302,
+              1938,
+              3346,
+              1677,
+              3346
+            ]
+          }
+        ],
+        "content": "MED CLAIM"
+      },
+      {
+        "spans": [
+          {
+            "offset": 591,
+            "length": 13
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1677,
+              3380,
+              2250,
+              3376,
+              2251,
+              3455,
+              1678,
+              3459
+            ]
+          }
+        ],
+        "content": "TOTAL 1540.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 605,
+            "length": 12
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1680,
+              3511,
+              2237,
+              3511,
+              2237,
+              3573,
+              1680,
+              3573
+            ]
+          }
+        ],
+        "content": "PAID 1540.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 618,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1679,
+              3643,
+              1938,
+              3642,
+              1938,
+              3690,
+              1679,
+              3691
+            ]
+          }
+        ],
+        "content": "TOTAL DUE"
+      },
+      {
+        "spans": [
+          {
+            "offset": 628,
+            "length": 7
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1708,
+              1797,
+              1793,
+              1877,
+              1393,
+              2305,
+              1308,
+              2225
+            ]
+          }
+        ],
+        "content": "emp ted"
+      },
+      {
+        "spans": [
+          {
+            "offset": 636,
+            "length": 3
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1655,
+              1525,
+              1738,
+              1524,
+              1738,
+              1568,
+              1655,
+              1570
+            ]
+          }
+        ],
+        "content": "Age"
+      },
+      {
+        "spans": [
+          {
+            "offset": 640,
+            "length": 2
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1835,
+              1502,
+              1938,
+              1502,
+              1938,
+              1566,
+              1835,
+              1568
+            ]
+          }
+        ],
+        "content": "27"
+      }
+    ],
+    "styles": [
+      {
+        "confidence": 1,
+        "spans": [
+          {
+            "offset": 25,
+            "length": 25
+          },
+          {
+            "offset": 73,
+            "length": 3
+          },
+          {
+            "offset": 108,
+            "length": 28
+          },
+          {
+            "offset": 153,
+            "length": 31
+          },
+          {
+            "offset": 239,
+            "length": 11
+          },
+          {
+            "offset": 280,
+            "length": 3
+          },
+          {
+            "offset": 311,
+            "length": 8
+          },
+          {
+            "offset": 326,
+            "length": 17
+          },
+          {
+            "offset": 359,
+            "length": 10
+          },
+          {
+            "offset": 417,
+            "length": 12
+          },
+          {
+            "offset": 432,
+            "length": 6
+          },
+          {
+            "offset": 447,
+            "length": 9
+          },
+          {
+            "offset": 480,
+            "length": 72
+          },
+          {
+            "offset": 562,
+            "length": 7
+          },
+          {
+            "offset": 597,
+            "length": 7
+          },
+          {
+            "offset": 610,
+            "length": 7
+          },
+          {
+            "offset": 640,
+            "length": 2
+          }
+        ],
+        "isHandwritten": true
+      },
+      {
+        "confidence": 0.7,
+        "spans": [
+          {
+            "offset": 284,
+            "length": 12
+          }
+        ],
+        "isHandwritten": true
+      },
+      {
+        "confidence": 0.5,
+        "spans": [
+          {
+            "offset": 415,
+            "length": 1
+          }
+        ],
+        "isHandwritten": true
+      },
+      {
+        "confidence": 0.6,
+        "spans": [
+          {
+            "offset": 430,
+            "length": 1
+          }
+        ],
+        "isHandwritten": true
+      },
+      {
+        "confidence": 0.8,
+        "spans": [
+          {
+            "offset": 439,
+            "length": 7
+          }
+        ],
+        "isHandwritten": true
+      },
+      {
+        "confidence": 0.95,
+        "spans": [
+          {
+            "offset": 457,
+            "length": 11
+          }
+        ],
+        "isHandwritten": true
+      }
+    ],
+    "contentFormat": "text"
+  }
+}

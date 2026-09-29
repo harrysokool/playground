@@ -1,0 +1,109 @@
+{
+  "runner": "di_aoai",
+  "model_deployment": "gpt-5-mini",
+  "started_at": "2026-09-29T08:17:00.732109+00:00",
+  "finished_at": "2026-09-29T08:23:59.072800+00:00",
+  "receipt_count": 6,
+  "receipts": [
+    {
+      "file": "receipt1.jpeg",
+      "status": "ok",
+      "error_stage": null,
+      "error": null,
+      "timings_seconds": {
+        "di": 5.605484325998987,
+        "aoai": 53.42149728000004,
+        "total": 59.02746321200175
+      },
+      "benchmark_fields": {
+        "doctor_name": "Dr. Lau Sai Kit, Lawrence; 劉世傑",
+        "registration_number": null,
+        "patient_name": null,
+        "receipt_number": null,
+        "service_date": null,
+        "total_amount": "1540.00"
+      }
+    },
+    {
+      "file": "receipt2.jpeg",
+      "status": "ok",
+      "error_stage": null,
+      "error": null,
+      "timings_seconds": {
+        "di": 2.759329718999652,
+        "aoai": 61.85341358799997,
+        "total": 64.61276560699844
+      },
+      "benchmark_fields": {
+        "doctor_name": "HYS JIM; 李俊年醫生",
+        "registration_number": null,
+        "patient_name": "Carol Tse",
+        "receipt_number": null,
+        "service_date": null,
+        "total_amount": null
+      }
+    },
+    {
+      "file": "receipt3.jpeg",
+      "status": "ok",
+      "error_stage": null,
+      "error": null,
+      "timings_seconds": {
+        "di": 2.515657452000596,
+        "aoai": 61.090179462997185,
+        "total": 63.60585671499939
+      },
+      "benchmark_fields": {
+        "doctor_name": "Lee Tin Tin, Becky",
+        "registration_number": null,
+        "patient_name": null,
+        "receipt_number": null,
+        "service_date": null,
+        "total_amount": "-"
+      }
+    },
+    {
+      "file": "receipt4.jpg",
+      "status": "error",
+      "error_stage": "aoai",
+      "error": "Request timed out.",
+      "timings_seconds": {
+        "di": 2.5036718180017488,
+        "aoai": 96.18758236099893,
+        "total": 98.69160418300089
+      },
+      "benchmark_fields": null
+    },
+    {
+      "file": "receipt5.jpeg",
+      "status": "ok",
+      "error_stage": null,
+      "error": null,
+      "timings_seconds": {
+        "di": 2.4465981329994975,
+        "aoai": 29.062649479998072,
+        "total": 31.50926921300197
+      },
+      "benchmark_fields": {
+        "doctor_name": "Dr. Fung Ka Kit Paul",
+        "registration_number": null,
+        "patient_name": "Happy Lam",
+        "receipt_number": null,
+        "service_date": null,
+        "total_amount": "20.00"
+      }
+    },
+    {
+      "file": "receipt6.png",
+      "status": "error",
+      "error_stage": "aoai",
+      "error": "Request timed out.",
+      "timings_seconds": {
+        "di": 2.58790608399795,
+        "aoai": 97.61571198800084,
+        "total": 100.20372797399978
+      },
+      "benchmark_fields": null
+    }
+  ]
+}

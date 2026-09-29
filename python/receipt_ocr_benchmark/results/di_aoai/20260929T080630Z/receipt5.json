@@ -1,0 +1,114 @@
+{
+  "file": "receipt5.jpeg",
+  "runner": "di_aoai",
+  "model_deployment": "gpt-5-mini",
+  "status": "ok",
+  "error_stage": null,
+  "error": null,
+  "timings_seconds": {
+    "di": 2.5622594829983427,
+    "aoai": 64.28150599600121,
+    "total": 66.843789079001
+  },
+  "benchmark_fields": {
+    "doctor_name": "Dr. Fung Ka Kit Paul",
+    "registration_number": null,
+    "patient_name": "Happy Lam",
+    "receipt_number": null,
+    "service_date": null,
+    "total_amount": "20.00"
+  },
+  "aoai_output": {
+    "document_type": "medical receipt",
+    "receipt_number": null,
+    "invoice_number": null,
+    "reference_number": null,
+    "doctor_names_en": [
+      "Dr. Fung Ka Kit Paul"
+    ],
+    "doctor_names_zh": [],
+    "patient_names_en": [
+      "Happy Lam"
+    ],
+    "patient_names_zh": [],
+    "patient_number": "12345678",
+    "medical_record_number": null,
+    "clinic_name_en": "Hospital Name, Slogan",
+    "clinic_name_zh": null,
+    "department": null,
+    "branch_name": null,
+    "addresses_en": [
+      "2528 Bayview Ave. Suite 35586",
+      "North York, ontario, Ca m2c 214",
+      "Hong Kong"
+    ],
+    "addresses_zh": [],
+    "registration_numbers": [],
+    "visit_date": "09/01/2020",
+    "issue_date": null,
+    "service_date": null,
+    "payment_date": null,
+    "date_range": {
+      "start": null,
+      "end": null
+    },
+    "detected_roles": [
+      "Doctor",
+      "Consultant",
+      "Patient"
+    ],
+    "keywords": [
+      "Admission Date",
+      "Discharge Date",
+      "Hospital No",
+      "Payment Mode",
+      "Bed No",
+      "MED CLAIM",
+      "PAID"
+    ],
+    "council_candidates": [
+      {
+        "council": "The Medical Council of Hong Kong",
+        "confidence": "low",
+        "evidence": [
+          "Dr. Fung Ka Kit Paul",
+          "Medical Invoice",
+          "Hospital"
+        ]
+      }
+    ],
+    "line_items": [
+      {
+        "description": "Water bottle",
+        "item_code": null,
+        "quantity": "2",
+        "unit_price": "10.00",
+        "amount": "20.00",
+        "discount_amount": null
+      }
+    ],
+    "subtotal": "20.00",
+    "discount_amount": null,
+    "tax_amount": "-",
+    "service_charge": null,
+    "insurance_paid_amount": null,
+    "patient_paid_amount": "20.00",
+    "total_amount": "20.00",
+    "balance_due": "-",
+    "currency": null,
+    "payment_method": null,
+    "payment_status": "PAID",
+    "diagnosis_text": [],
+    "procedure_text": [],
+    "treatment_text": [],
+    "medication_text": [],
+    "prescription_text": [],
+    "claim_number": null,
+    "case_number": null,
+    "authorization_number": null,
+    "policy_number": null,
+    "member_number": null,
+    "reasoning": "Document header shows 'MEDICAL RECEIPT TEMPLATE' / 'MEDICAL INVOICE'. Doctor name printed as 'Dr. Fung Ka Kit Paul'. Patient name 'Happy Lam' and 'Hospital No 12345678' captured as patient_number. Addresses and street/city lines taken from the header and patient address field. Admission Date printed as '09/01/2020' in OCR. Single billed line item 'Water bottle' with QTY 2, RATE 10.00, AMOUNT 20.00 taken directly from the table. Financial summary values taken exactly as shown: SUBTOTAL 20.00, TOTAL 20.00, PAID 20.00, TAX line shows a dash so tax_amount set to '-'. No explicit registration/license numbers or other administrative claim/policy numbers were printed. Council inference: presence of 'Dr.' and 'Medical Invoice' suggests the Medical Council of Hong Kong as a possible match but confidence is low due to ambiguous location (Ontario, Canada) on the form."
+  },
+  "ocr_text": "MEDICAL RECEIPT TEMPLATE\nMEDICAL INVOICE\nHospital Name, Slogan\nDr. Fung Ka Kit Paul\nStreet Address : 2528 Bayview Ave. Suite 35586\nCity/State, Zip\nNorth York, ontario, Ca m2c 214\nPhone Number, Web Address Etc\nPatient\nHappy Lam\nAge 24\nConsultant\nName\nHappy Lam\nAddress\nHong Kong\nPhone +852 6202 0528\nEmail\n-\nAdmission Date\n09/01/2020\nDischarge Date\n-\n#\nPARTICULARS\nQTY\nRATE\nAMOUNT\n1\nWater bottle\n2\n10.00\n20.00\nCop\nSUBTOTAL\n20.00\nTAX 8.000%\n-\nMED CLAIM\n-\nTOTAL\n20.00\nPAID\n20.00\nTOTAL DUE\n-\ncom\nJoyas\nHospital No 12345678\nPayment Mode\nBed No.\nemp\nNOTES:"
+}

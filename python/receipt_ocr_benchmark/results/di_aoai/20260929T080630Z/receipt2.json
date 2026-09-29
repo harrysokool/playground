@@ -1,0 +1,116 @@
+{
+  "file": "receipt2.jpeg",
+  "runner": "di_aoai",
+  "model_deployment": "gpt-5-mini",
+  "status": "ok",
+  "error_stage": null,
+  "error": null,
+  "timings_seconds": {
+    "di": 2.4857861320015218,
+    "aoai": 95.95334880300288,
+    "total": 98.43915453500085
+  },
+  "benchmark_fields": {
+    "doctor_name": "李俊年醫生",
+    "registration_number": null,
+    "patient_name": "Carol Tse",
+    "receipt_number": null,
+    "service_date": null,
+    "total_amount": null
+  },
+  "aoai_output": {
+    "document_type": "medical receipt",
+    "receipt_number": null,
+    "invoice_number": null,
+    "reference_number": null,
+    "doctor_names_en": [],
+    "doctor_names_zh": [
+      "李俊年醫生"
+    ],
+    "patient_names_en": [
+      "Carol Tse"
+    ],
+    "patient_names_zh": [],
+    "patient_number": "123456",
+    "medical_record_number": null,
+    "clinic_name_en": "Hospital Name, Slogan",
+    "clinic_name_zh": null,
+    "department": null,
+    "branch_name": null,
+    "addresses_en": [
+      "Street Address",
+      "Hong Kong"
+    ],
+    "addresses_zh": [
+      "九龍塘"
+    ],
+    "registration_numbers": [],
+    "visit_date": "11/7/2020",
+    "issue_date": null,
+    "service_date": null,
+    "payment_date": null,
+    "date_range": {
+      "start": null,
+      "end": null
+    },
+    "detected_roles": [
+      "Patient",
+      "Consultant",
+      "Doctor",
+      "醫生"
+    ],
+    "keywords": [
+      "Admission Date",
+      "Discharge Date",
+      "Bed No.",
+      "Payment Mode",
+      "SUBTOTAL",
+      "TAX",
+      "MED CLAIM"
+    ],
+    "council_candidates": [
+      {
+        "council": "The Medical Council of Hong Kong",
+        "confidence": "high",
+        "evidence": [
+          "李俊年醫生",
+          "Consultant",
+          "Hospital Name, Slogan"
+        ]
+      }
+    ],
+    "line_items": [
+      {
+        "description": "bedroom",
+        "item_code": null,
+        "quantity": "2",
+        "unit_price": "499.00",
+        "amount": "998.00",
+        "discount_amount": null
+      }
+    ],
+    "subtotal": "998.00",
+    "discount_amount": null,
+    "tax_amount": "-",
+    "service_charge": null,
+    "insurance_paid_amount": null,
+    "patient_paid_amount": null,
+    "total_amount": null,
+    "balance_due": null,
+    "currency": null,
+    "payment_method": "cash",
+    "payment_status": null,
+    "diagnosis_text": [],
+    "procedure_text": [],
+    "treatment_text": [],
+    "medication_text": [],
+    "prescription_text": [],
+    "claim_number": null,
+    "case_number": null,
+    "authorization_number": null,
+    "policy_number": null,
+    "member_number": null,
+    "reasoning": "Extracted fields from the OCR text and receipt image. Doctor name taken from Chinese text '李俊年醫生'. Patient name 'Carol Tse' and Hospital No '123456' taken from the form. Admission Date shown as '11/7/2020' in OCR. One billed line item 'bedroom' with qty 2, rate 499.00, amount 998.00. Subtotal 998.00 present; tax line shows rate '8.000%' but the monetary tax value is shown as '-' so tax_amount recorded as '-'. Payment mode explicitly 'cash'. Many fields (receipt/invoice number, total, paid amounts, registration numbers, detailed medical entries) are not present on the receipt and set to null."
+  },
+  "ocr_text": "MEDICAL RECEIPT TEMPLATE\nMEDICAL INVOICE\nHospital Name, Slogan\n李俊年醫生\nSVI\nStreet Address\nHong Kong\n18228\nHYS JIM\nCity/State, Zip\nPhone Number, Web Address Etc\nAge\n47\nH\nPatient\nCarol Tse\nConsultant\n-\nHospital No 123456\nPayment Mode\ncash\nName\nCarol Tse\nAddress\n九龍塘\nPhone +852 6202 0528\nEmail\nTempted\nCopy\nSUBTOTAL\n998.00\nTAX 8.000%\n-\nMED CLAIM\nTOTAL\nPAID\nTOTAL DUE\ncom\nAdmission Date\n11/7/2020\nDischarge Date\nAMOUNT\nQTY\nRATE\n#\nPARTICULARS\nbedroom\n2\n499.00\n998.00\n1\nNOTES:\n124"
+}

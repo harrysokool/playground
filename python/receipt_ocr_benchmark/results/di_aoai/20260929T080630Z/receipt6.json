@@ -1,0 +1,18 @@
+{
+  "file": "receipt6.png",
+  "runner": "di_aoai",
+  "model_deployment": "gpt-5-mini",
+  "status": "error",
+  "error_stage": "aoai",
+  "error": "Request timed out.",
+  "timings_seconds": {
+    "di": 2.456875822001166,
+    "aoai": 99.9659856319995,
+    "total": 102.42288125399864
+  },
+  "benchmark_fields": null,
+  "aoai_output": {
+    "error": "Request timed out."
+  },
+  "ocr_text": "Prescription Receipt/Information\nMedical Centre Pharmacy\n114 High St\nPicton\nGST: 112-691-456\nPh: 03 928 4265\n9990000505906\nNikita Hubber\nPICLON IZZO\nPh. 022 649 3948\nNHI: LQD5240\nPrinted on 24 March 17\nPatient Price\nDr Jessica Sterenborg Picton Medical Centre\n1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra\n$36.20\n1 Mar17 46023/0 MVITE Tablets\n$5.00\n1Mar17 46024/0 Ascorbic acid 100mg Tablets\n$5.00\n1Mar17 46025/0 Omeprazole 20mg Capsules\n$5.00\n$51.20\nCheck recipient is patient named above\nNikita Hubber\nMedical Centre Pharmacy 24/03/17\nPrescription count, for exemption card\nPersonal: 4\nRepeats : available\nAvailable On/After Number\nExpiry\n46022 ENSURE PLUS Fruit/Forest Tetra Liquid\n21Mar17\n2\n30May17\nPlease Note. We are open from 8.00am till 5.30pm Monday to Friday.\nNB We are closed weekends and Public Holidays.\nWad Limited and We .."
+}

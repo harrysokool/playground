@@ -1,0 +1,105 @@
+{
+  "file": "receipt3.jpeg",
+  "runner": "di_aoai",
+  "model_deployment": "gpt-5-mini",
+  "status": "ok",
+  "error_stage": null,
+  "error": null,
+  "timings_seconds": {
+    "di": 2.515657452000596,
+    "aoai": 61.090179462997185,
+    "total": 63.60585671499939
+  },
+  "benchmark_fields": {
+    "doctor_name": "Lee Tin Tin, Becky",
+    "registration_number": null,
+    "patient_name": null,
+    "receipt_number": null,
+    "service_date": null,
+    "total_amount": "-"
+  },
+  "aoai_output": {
+    "document_type": "invoice",
+    "receipt_number": null,
+    "invoice_number": "967157032",
+    "reference_number": null,
+    "doctor_names_en": [
+      "Lee Tin Tin, Becky"
+    ],
+    "doctor_names_zh": [],
+    "patient_names_en": [],
+    "patient_names_zh": [],
+    "patient_number": null,
+    "medical_record_number": null,
+    "clinic_name_en": "FLEXCARE HEALTH",
+    "clinic_name_zh": null,
+    "department": null,
+    "branch_name": null,
+    "addresses_en": [],
+    "addresses_zh": [
+      "九龍 MTR"
+    ],
+    "registration_numbers": [],
+    "visit_date": "07/01/2020",
+    "issue_date": null,
+    "service_date": null,
+    "payment_date": null,
+    "date_range": {
+      "start": null,
+      "end": null
+    },
+    "detected_roles": [
+      "Clinic"
+    ],
+    "keywords": [
+      "water",
+      "Back pain need water."
+    ],
+    "council_candidates": [
+      {
+        "council": "Physiotherapists Board",
+        "confidence": "low",
+        "evidence": [
+          "Clinic name 'FLEXCARE HEALTH'",
+          "Notes: Back pain need water.",
+          "Line item: water (suggests supportive/physiotherapy context)"
+        ]
+      }
+    ],
+    "line_items": [
+      {
+        "description": "water",
+        "item_code": null,
+        "quantity": "1",
+        "unit_price": "10.00",
+        "amount": "10.00",
+        "discount_amount": null
+      }
+    ],
+    "subtotal": "10.00",
+    "discount_amount": null,
+    "tax_amount": "-",
+    "service_charge": null,
+    "insurance_paid_amount": null,
+    "patient_paid_amount": null,
+    "total_amount": "-",
+    "balance_due": null,
+    "currency": null,
+    "payment_method": null,
+    "payment_status": null,
+    "diagnosis_text": [
+      "Back pain need water."
+    ],
+    "procedure_text": [],
+    "treatment_text": [],
+    "medication_text": [],
+    "prescription_text": [],
+    "claim_number": null,
+    "case_number": null,
+    "authorization_number": null,
+    "policy_number": null,
+    "member_number": null,
+    "reasoning": "Used the provided OCR text as the primary source. Document labeled with 'Invoice Number' and 'Total Amount Due' so type set to invoice. 'FLEXCARE HEALTH' taken as clinic_name_en; 'Clinic Name: Lee Tin Tin, Becky' captured as doctor name (English). Address preserved exactly from OCR as '九龍 MTR' under addresses_zh. Date field from OCR used as visit_date: '07/01/2020'. One billed line item extracted exactly as 'water' with quantity '1', unit price '10.00', amount '10.00'. Subtotal and Tax taken from receipt ('10.00' and '-') and Total Amount Due shown as '-'. Notes 'Back pain need water.' preserved and added to diagnosis_text. No patient identifiers, registration numbers, or explicit council/role labels present; physiotherapy council suggested as a low-confidence candidate based on clinic name and back-pain context but not certain."
+  },
+  "ocr_text": "FLEXCARE HEALTH\nClinic Name:\nLee Tin Tin, Becky\nInvoice Number:\n967157032\nAddress:\n九龍 MTR\nDate:\n07/01/2020\nPhone:\n+852 6202 05 28\nDue Date:\n-\nEmail:\n-\nDESCRIPTION\nDATE\nSESSIONS\nUNIT COST\nTOTAL\nwater\n\" 1\"\n10.00\n10.00\nSubtotal:\n10.00\nTax:\n-\nTotal Amount Due:\nNotes:\nBack pain need water."
+}

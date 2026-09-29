@@ -1,0 +1,69 @@
+{
+  "runner": "di",
+  "di_model_id": "prebuilt-read",
+  "started_at": "2026-09-29T07:36:15.858660+00:00",
+  "finished_at": "2026-09-29T07:36:36.719817+00:00",
+  "receipt_count": 6,
+  "receipts": [
+    {
+      "file": "receipt1.jpeg",
+      "status": "ok",
+      "error": null,
+      "timings_seconds": {
+        "di": 8.234385568997823
+      },
+      "page_count": 1,
+      "line_count": 59
+    },
+    {
+      "file": "receipt2.jpeg",
+      "status": "ok",
+      "error": null,
+      "timings_seconds": {
+        "di": 2.356766382999922
+      },
+      "page_count": 1,
+      "line_count": 53
+    },
+    {
+      "file": "receipt3.jpeg",
+      "status": "ok",
+      "error": null,
+      "timings_seconds": {
+        "di": 2.3896648160007317
+      },
+      "page_count": 1,
+      "line_count": 31
+    },
+    {
+      "file": "receipt4.jpg",
+      "status": "ok",
+      "error": null,
+      "timings_seconds": {
+        "di": 2.318755043997953
+      },
+      "page_count": 1,
+      "line_count": 79
+    },
+    {
+      "file": "receipt5.jpeg",
+      "status": "ok",
+      "error": null,
+      "timings_seconds": {
+        "di": 2.578957025998534
+      },
+      "page_count": 1,
+      "line_count": 53
+    },
+    {
+      "file": "receipt6.png",
+      "status": "ok",
+      "error": null,
+      "timings_seconds": {
+        "di": 2.479771674999938
+      },
+      "page_count": 1,
+      "line_count": 38
+    }
+  ]
+}

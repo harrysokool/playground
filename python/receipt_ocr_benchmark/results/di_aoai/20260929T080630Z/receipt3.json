@@ -1,0 +1,18 @@
+{
+  "file": "receipt3.jpeg",
+  "runner": "di_aoai",
+  "model_deployment": "gpt-5-mini",
+  "status": "error",
+  "error_stage": "aoai",
+  "error": "Request timed out.",
+  "timings_seconds": {
+    "di": 2.514649341999757,
+    "aoai": 98.08636539500003,
+    "total": 100.60103253700072
+  },
+  "benchmark_fields": null,
+  "aoai_output": {
+    "error": "Request timed out."
+  },
+  "ocr_text": "FLEXCARE HEALTH\nClinic Name:\nLee Tin Tin, Becky\nInvoice Number:\n967157032\nAddress:\n九龍 MTR\nDate:\n07/01/2020\nPhone:\n+852 6202 05 28\nDue Date:\n-\nEmail:\n-\nDESCRIPTION\nDATE\nSESSIONS\nUNIT COST\nTOTAL\nwater\n\" 1\"\n10.00\n10.00\nSubtotal:\n10.00\nTax:\n-\nTotal Amount Due:\nNotes:\nBack pain need water."
+}

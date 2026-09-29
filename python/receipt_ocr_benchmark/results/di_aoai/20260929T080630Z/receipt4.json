@@ -1,0 +1,18 @@
+{
+  "file": "receipt4.jpg",
+  "runner": "di_aoai",
+  "model_deployment": "gpt-5-mini",
+  "status": "error",
+  "error_stage": "aoai",
+  "error": "Request timed out.",
+  "timings_seconds": {
+    "di": 2.680078469998989,
+    "aoai": 96.38702948600258,
+    "total": 99.06748736000009
+  },
+  "benchmark_fields": null,
+  "aoai_output": {
+    "error": "Request timed out."
+  },
+  "ocr_text": "Member of PET SPACE Group\nTung Chung Animal Clinic\n東涌動物診所\nShop No.7, Ma Wan Village\n東涌馬灣新村7號地下,Tung Chung, Lantau Island, Hong Kong 22 2988 1534\nInvoice\nTotal Due: HKD 0.00\nInvoice No: 369303\nFClinician: Angel Tseng FPatient: Fuk Jai\nFeb 09, 2023\nFuk Jai\n10m 2d 4.000 kgs\nSep 10, 2023 - FV - FVRCP Vaccine FELOCELL 3: Adult Cat [\nFeline, ASHMale, SILV TABBY\n110335 ]\nDate\nDescription\nQty\nFees\nEncounter: Vomiting Acute ddx\nFeb 09, 2023\nConsultation (A) - Comprehensive Medical Exam and Consult [ 220015 ]\n1.00\n360.00\nFeb 09, 2023\nMetronidazole 50mg Tablet [ 110466 ]- per tab\n10.00\n146.00\nFeb 09, 2023\nCobalaplex Capsule [ 110165 ]- per cap\n15.00\n162.50\nFeb 09, 2023\nPRO-KOLIN Advanced Cat [ 110617 ] - per box[15ml]\n1.00\n256.00\nFeb 09, 2023\nMILBEMAX Tablet for Cats [2-8kg] [ 110479 ]- per tab\n1.00\n176.00\nFeb 09, 2023\nTablet Pill Introducer [ 440339 ]- per pc\n1.00\n33.00\nFeb 09, 2023\nRC F9 VHN Gastro Intestinal [ 330351 ]- per pouch[85g]\n12.00\n228.00\nSub Total\nHKD 1361.50\nRound Down\n(+) -0.50\nTotal Amount\nHKD 1361.00\nDetails of Payments Received\nPayment Date\nPayment Type\nReceipt #\nPayment received\nFeb 09, 2023\nMasterCard\n380048\n1361.00\nSymptoms:\ndiarrhoea.\nFirst Appeared Date:\n07/02/2023\nDiagnosis:\nColitis\nVet's Signature & Stamp:\nDr. Lok Vichol\nBVSc (Hons) CVA\nLINIC LTD.\nNIMAL\nTUNG CA\nTotal payment received\n1361.00\nTotal Due\nHKD 0.00"
+}

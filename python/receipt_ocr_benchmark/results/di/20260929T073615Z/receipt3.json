@@ -1,0 +1,2406 @@
+{
+  "file": "receipt3.jpeg",
+  "runner": "di",
+  "di_model_id": "prebuilt-read",
+  "status": "ok",
+  "error": null,
+  "timings_seconds": {
+    "di": 2.3896648160007317
+  },
+  "page_count": 1,
+  "line_count": 31,
+  "ocr_text": "FLEXCARE HEALTH\nClinic Name:\nLee Tin Tin, Becky\nInvoice Number:\n967157032\nAddress:\n九龍 MTR\nDate:\n07/01/2020\nPhone:\n+852 6202 05 28\nDue Date:\n-\nEmail:\n-\nDESCRIPTION\nDATE\nSESSIONS\nUNIT COST\nTOTAL\nwater\n\" 1\"\n10.00\n10.00\nSubtotal:\n10.00\nTax:\n-\nTotal Amount Due:\nNotes:\nBack pain need water.",
+  "lines": [
+    {
+      "text": "FLEXCARE HEALTH",
+      "page": 1
+    },
+    {
+      "text": "Clinic Name:",
+      "page": 1
+    },
+    {
+      "text": "Lee Tin Tin, Becky",
+      "page": 1
+    },
+    {
+      "text": "Invoice Number:",
+      "page": 1
+    },
+    {
+      "text": "967157032",
+      "page": 1
+    },
+    {
+      "text": "Address:",
+      "page": 1
+    },
+    {
+      "text": "九龍 MTR",
+      "page": 1
+    },
+    {
+      "text": "Date:",
+      "page": 1
+    },
+    {
+      "text": "07/01/2020",
+      "page": 1
+    },
+    {
+      "text": "Phone:",
+      "page": 1
+    },
+    {
+      "text": "+852 6202 05 28",
+      "page": 1
+    },
+    {
+      "text": "Due Date:",
+      "page": 1
+    },
+    {
+      "text": "-",
+      "page": 1
+    },
+    {
+      "text": "Email:",
+      "page": 1
+    },
+    {
+      "text": "-",
+      "page": 1
+    },
+    {
+      "text": "DESCRIPTION",
+      "page": 1
+    },
+    {
+      "text": "DATE",
+      "page": 1
+    },
+    {
+      "text": "SESSIONS",
+      "page": 1
+    },
+    {
+      "text": "UNIT COST",
+      "page": 1
+    },
+    {
+      "text": "TOTAL",
+      "page": 1
+    },
+    {
+      "text": "water",
+      "page": 1
+    },
+    {
+      "text": "\" 1\"",
+      "page": 1
+    },
+    {
+      "text": "10.00",
+      "page": 1
+    },
+    {
+      "text": "10.00",
+      "page": 1
+    },
+    {
+      "text": "Subtotal:",
+      "page": 1
+    },
+    {
+      "text": "10.00",
+      "page": 1
+    },
+    {
+      "text": "Tax:",
+      "page": 1
+    },
+    {
+      "text": "-",
+      "page": 1
+    },
+    {
+      "text": "Total Amount Due:",
+      "page": 1
+    },
+    {
+      "text": "Notes:",
+      "page": 1
+    },
+    {
+      "text": "Back pain need water.",
+      "page": 1
+    }
+  ],
+  "raw_di_result": {
+    "apiVersion": "2024-11-30",
+    "modelId": "prebuilt-read",
+    "stringIndexType": "textElements",
+    "content": "FLEXCARE HEALTH\nClinic Name:\nLee Tin Tin, Becky\nInvoice Number:\n967157032\nAddress:\n九龍 MTR\nDate:\n07/01/2020\nPhone:\n+852 6202 05 28\nDue Date: -\nEmail:\n-\nDESCRIPTION\nDATE\nSESSIONS\nUNIT COST\nTOTAL\nwater\n\" 1\"\n10.00\n10.00\nSubtotal:\n10.00\nTax: -\nTotal Amount Due:\nNotes: Back pain need water.",
+    "pages": [
+      {
+        "pageNumber": 1,
+        "angle": -0.08299999684095383,
+        "width": 3024,
+        "height": 4032,
+        "unit": "pixel",
+        "words": [
+          {
+            "content": "FLEXCARE",
+            "polygon": [
+              688,
+              703,
+              1351,
+              696,
+              1350,
+              808,
+              686,
+              806
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 0,
+              "length": 8
+            }
+          },
+          {
+            "content": "HEALTH",
+            "polygon": [
+              1407,
+              696,
+              1915,
+              697,
+              1915,
+              806,
+              1406,
+              808
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 9,
+              "length": 6
+            }
+          },
+          {
+            "content": "Clinic",
+            "polygon": [
+              217,
+              982,
+              353,
+              981,
+              352,
+              1037,
+              216,
+              1039
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 16,
+              "length": 6
+            }
+          },
+          {
+            "content": "Name:",
+            "polygon": [
+              364,
+              981,
+              541,
+              984,
+              541,
+              1035,
+              363,
+              1037
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 23,
+              "length": 5
+            }
+          },
+          {
+            "content": "Lee",
+            "polygon": [
+              552,
+              973,
+              697,
+              965,
+              696,
+              1044,
+              552,
+              1046
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 29,
+              "length": 3
+            }
+          },
+          {
+            "content": "Tin",
+            "polygon": [
+              766,
+              962,
+              880,
+              959,
+              878,
+              1044,
+              765,
+              1044
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 33,
+              "length": 3
+            }
+          },
+          {
+            "content": "Tin,",
+            "polygon": [
+              911,
+              959,
+              1101,
+              960,
+              1099,
+              1045,
+              910,
+              1044
+            ],
+            "confidence": 0.902,
+            "span": {
+              "offset": 37,
+              "length": 4
+            }
+          },
+          {
+            "content": "Becky",
+            "polygon": [
+              1140,
+              961,
+              1357,
+              970,
+              1355,
+              1047,
+              1137,
+              1045
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 42,
+              "length": 5
+            }
+          },
+          {
+            "content": "Invoice",
+            "polygon": [
+              1704,
+              981,
+              1884,
+              980,
+              1884,
+              1030,
+              1704,
+              1031
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 48,
+              "length": 7
+            }
+          },
+          {
+            "content": "Number:",
+            "polygon": [
+              1903,
+              980,
+              2136,
+              981,
+              2136,
+              1030,
+              1903,
+              1030
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 56,
+              "length": 7
+            }
+          },
+          {
+            "content": "967157032",
+            "polygon": [
+              2177,
+              972,
+              2588,
+              975,
+              2588,
+              1041,
+              2176,
+              1041
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 64,
+              "length": 9
+            }
+          },
+          {
+            "content": "Address:",
+            "polygon": [
+              206,
+              1087,
+              433,
+              1093,
+              433,
+              1145,
+              206,
+              1147
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 74,
+              "length": 8
+            }
+          },
+          {
+            "content": "九",
+            "polygon": [
+              468,
+              1075,
+              523,
+              1074,
+              521,
+              1157,
+              465,
+              1157
+            ],
+            "confidence": 0.916,
+            "span": {
+              "offset": 83,
+              "length": 1
+            }
+          },
+          {
+            "content": "龍",
+            "polygon": [
+              543,
+              1074,
+              657,
+              1073,
+              655,
+              1157,
+              540,
+              1157
+            ],
+            "confidence": 0.706,
+            "span": {
+              "offset": 84,
+              "length": 1
+            }
+          },
+          {
+            "content": "MTR",
+            "polygon": [
+              710,
+              1073,
+              876,
+              1072,
+              876,
+              1158,
+              709,
+              1157
+            ],
+            "confidence": 0.975,
+            "span": {
+              "offset": 86,
+              "length": 3
+            }
+          },
+          {
+            "content": "Date:",
+            "polygon": [
+              1710,
+              1094,
+              1853,
+              1095,
+              1851,
+              1142,
+              1708,
+              1140
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 90,
+              "length": 5
+            }
+          },
+          {
+            "content": "07/01/2020",
+            "polygon": [
+              1874,
+              1099,
+              2327,
+              1095,
+              2327,
+              1153,
+              1875,
+              1153
+            ],
+            "confidence": 0.655,
+            "span": {
+              "offset": 96,
+              "length": 10
+            }
+          },
+          {
+            "content": "Phone:",
+            "polygon": [
+              212,
+              1206,
+              394,
+              1207,
+              394,
+              1257,
+              212,
+              1259
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 107,
+              "length": 6
+            }
+          },
+          {
+            "content": "+852",
+            "polygon": [
+              440,
+              1206,
+              601,
+              1206,
+              598,
+              1271,
+              437,
+              1272
+            ],
+            "confidence": 0.985,
+            "span": {
+              "offset": 114,
+              "length": 4
+            }
+          },
+          {
+            "content": "6202",
+            "polygon": [
+              663,
+              1206,
+              839,
+              1206,
+              837,
+              1271,
+              661,
+              1271
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 119,
+              "length": 4
+            }
+          },
+          {
+            "content": "05",
+            "polygon": [
+              905,
+              1207,
+              1005,
+              1207,
+              1005,
+              1272,
+              904,
+              1271
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 124,
+              "length": 2
+            }
+          },
+          {
+            "content": "28",
+            "polygon": [
+              1039,
+              1208,
+              1145,
+              1209,
+              1145,
+              1272,
+              1039,
+              1272
+            ],
+            "confidence": 0.999,
+            "span": {
+              "offset": 127,
+              "length": 2
+            }
+          },
+          {
+            "content": "Due",
+            "polygon": [
+              1711,
+              1203,
+              1817,
+              1203,
+              1817,
+              1250,
+              1711,
+              1249
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 130,
+              "length": 3
+            }
+          },
+          {
+            "content": "Date:",
+            "polygon": [
+              1836,
+              1203,
+              1975,
+              1203,
+              1975,
+              1248,
+              1836,
+              1250
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 134,
+              "length": 5
+            }
+          },
+          {
+            "content": "-",
+            "polygon": [
+              2038,
+              1212,
+              2116,
+              1212,
+              2116,
+              1254,
+              2038,
+              1254
+            ],
+            "confidence": 0.657,
+            "span": {
+              "offset": 140,
+              "length": 1
+            }
+          },
+          {
+            "content": "Email:",
+            "polygon": [
+              205,
+              1323,
+              368,
+              1323,
+              368,
+              1369,
+              205,
+              1372
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 142,
+              "length": 6
+            }
+          },
+          {
+            "content": "-",
+            "polygon": [
+              493,
+              1323,
+              546,
+              1322,
+              546,
+              1368,
+              493,
+              1369
+            ],
+            "confidence": 0.949,
+            "span": {
+              "offset": 149,
+              "length": 1
+            }
+          },
+          {
+            "content": "DESCRIPTION",
+            "polygon": [
+              243,
+              1485,
+              587,
+              1484,
+              587,
+              1529,
+              243,
+              1529
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 151,
+              "length": 11
+            }
+          },
+          {
+            "content": "DATE",
+            "polygon": [
+              841,
+              1480,
+              976,
+              1480,
+              976,
+              1525,
+              841,
+              1525
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 163,
+              "length": 4
+            }
+          },
+          {
+            "content": "SESSIONS",
+            "polygon": [
+              1210,
+              1480,
+              1454,
+              1481,
+              1454,
+              1525,
+              1210,
+              1525
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 168,
+              "length": 8
+            }
+          },
+          {
+            "content": "UNIT",
+            "polygon": [
+              1662,
+              1469,
+              1793,
+              1469,
+              1793,
+              1525,
+              1662,
+              1525
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 177,
+              "length": 4
+            }
+          },
+          {
+            "content": "COST",
+            "polygon": [
+              1808,
+              1469,
+              1941,
+              1470,
+              1941,
+              1526,
+              1808,
+              1525
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 182,
+              "length": 4
+            }
+          },
+          {
+            "content": "TOTAL",
+            "polygon": [
+              2156,
+              1472,
+              2318,
+              1471,
+              2318,
+              1516,
+              2156,
+              1517
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 187,
+              "length": 5
+            }
+          },
+          {
+            "content": "water",
+            "polygon": [
+              270,
+              1580,
+              489,
+              1582,
+              489,
+              1643,
+              270,
+              1645
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 193,
+              "length": 5
+            }
+          },
+          {
+            "content": "\"",
+            "polygon": [
+              1211,
+              1558,
+              1264,
+              1558,
+              1263,
+              1627,
+              1211,
+              1626
+            ],
+            "confidence": 0.871,
+            "span": {
+              "offset": 199,
+              "length": 1
+            }
+          },
+          {
+            "content": "1\"",
+            "polygon": [
+              1283,
+              1558,
+              1385,
+              1559,
+              1385,
+              1628,
+              1283,
+              1627
+            ],
+            "confidence": 0.67,
+            "span": {
+              "offset": 201,
+              "length": 2
+            }
+          },
+          {
+            "content": "10.00",
+            "polygon": [
+              1700,
+              1563,
+              1906,
+              1565,
+              1906,
+              1628,
+              1697,
+              1629
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 204,
+              "length": 5
+            }
+          },
+          {
+            "content": "10.00",
+            "polygon": [
+              2159,
+              1555,
+              2395,
+              1552,
+              2395,
+              1621,
+              2160,
+              1627
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 210,
+              "length": 5
+            }
+          },
+          {
+            "content": "Subtotal:",
+            "polygon": [
+              1920,
+              2434,
+              2181,
+              2436,
+              2181,
+              2490,
+              1920,
+              2489
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 216,
+              "length": 9
+            }
+          },
+          {
+            "content": "10.00",
+            "polygon": [
+              2245,
+              2414,
+              2455,
+              2416,
+              2455,
+              2497,
+              2244,
+              2494
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 226,
+              "length": 5
+            }
+          },
+          {
+            "content": "Tax:",
+            "polygon": [
+              1921,
+              2563,
+              2038,
+              2563,
+              2038,
+              2613,
+              1921,
+              2614
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 232,
+              "length": 4
+            }
+          },
+          {
+            "content": "-",
+            "polygon": [
+              2283,
+              2572,
+              2319,
+              2572,
+              2319,
+              2610,
+              2283,
+              2611
+            ],
+            "confidence": 0.953,
+            "span": {
+              "offset": 237,
+              "length": 1
+            }
+          },
+          {
+            "content": "Total",
+            "polygon": [
+              1722,
+              2692,
+              1865,
+              2693,
+              1865,
+              2751,
+              1722,
+              2751
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 239,
+              "length": 5
+            }
+          },
+          {
+            "content": "Amount",
+            "polygon": [
+              1886,
+              2693,
+              2119,
+              2694,
+              2119,
+              2751,
+              1886,
+              2751
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 245,
+              "length": 6
+            }
+          },
+          {
+            "content": "Due:",
+            "polygon": [
+              2141,
+              2694,
+              2272,
+              2694,
+              2272,
+              2750,
+              2141,
+              2751
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 252,
+              "length": 4
+            }
+          },
+          {
+            "content": "Notes:",
+            "polygon": [
+              148,
+              2738,
+              357,
+              2741,
+              356,
+              2799,
+              148,
+              2801
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 257,
+              "length": 6
+            }
+          },
+          {
+            "content": "Back",
+            "polygon": [
+              417,
+              2737,
+              630,
+              2734,
+              627,
+              2824,
+              414,
+              2824
+            ],
+            "confidence": 0.979,
+            "span": {
+              "offset": 264,
+              "length": 4
+            }
+          },
+          {
+            "content": "pain",
+            "polygon": [
+              778,
+              2733,
+              980,
+              2733,
+              977,
+              2824,
+              775,
+              2824
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 269,
+              "length": 4
+            }
+          },
+          {
+            "content": "need",
+            "polygon": [
+              1064,
+              2734,
+              1246,
+              2735,
+              1243,
+              2824,
+              1061,
+              2824
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 274,
+              "length": 4
+            }
+          },
+          {
+            "content": "water.",
+            "polygon": [
+              1320,
+              2736,
+              1632,
+              2741,
+              1632,
+              2822,
+              1317,
+              2824
+            ],
+            "confidence": 0.917,
+            "span": {
+              "offset": 279,
+              "length": 6
+            }
+          }
+        ],
+        "lines": [
+          {
+            "content": "FLEXCARE HEALTH",
+            "polygon": [
+              686,
+              697,
+              1914,
+              695,
+              1914,
+              805,
+              686,
+              808
+            ],
+            "spans": [
+              {
+                "offset": 0,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "Clinic Name:",
+            "polygon": [
+              215,
+              981,
+              540,
+              981,
+              540,
+              1036,
+              215,
+              1038
+            ],
+            "spans": [
+              {
+                "offset": 16,
+                "length": 12
+              }
+            ]
+          },
+          {
+            "content": "Lee Tin Tin, Becky",
+            "polygon": [
+              552,
+              959,
+              1356,
+              958,
+              1356,
+              1046,
+              552,
+              1047
+            ],
+            "spans": [
+              {
+                "offset": 29,
+                "length": 18
+              }
+            ]
+          },
+          {
+            "content": "Invoice Number:",
+            "polygon": [
+              1704,
+              980,
+              2135,
+              979,
+              2135,
+              1029,
+              1704,
+              1030
+            ],
+            "spans": [
+              {
+                "offset": 48,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "967157032",
+            "polygon": [
+              2176,
+              972,
+              2587,
+              973,
+              2587,
+              1040,
+              2175,
+              1039
+            ],
+            "spans": [
+              {
+                "offset": 64,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "Address:",
+            "polygon": [
+              205,
+              1087,
+              432,
+              1089,
+              432,
+              1147,
+              205,
+              1145
+            ],
+            "spans": [
+              {
+                "offset": 74,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "九龍 MTR",
+            "polygon": [
+              465,
+              1073,
+              875,
+              1071,
+              875,
+              1157,
+              465,
+              1158
+            ],
+            "spans": [
+              {
+                "offset": 83,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "Date:",
+            "polygon": [
+              1708,
+              1093,
+              1852,
+              1094,
+              1851,
+              1141,
+              1708,
+              1140
+            ],
+            "spans": [
+              {
+                "offset": 90,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "07/01/2020",
+            "polygon": [
+              1873,
+              1097,
+              2326,
+              1095,
+              2327,
+              1152,
+              1874,
+              1153
+            ],
+            "spans": [
+              {
+                "offset": 96,
+                "length": 10
+              }
+            ]
+          },
+          {
+            "content": "Phone:",
+            "polygon": [
+              211,
+              1206,
+              393,
+              1206,
+              393,
+              1257,
+              211,
+              1258
+            ],
+            "spans": [
+              {
+                "offset": 107,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "+852 6202 05 28",
+            "polygon": [
+              437,
+              1205,
+              1144,
+              1206,
+              1144,
+              1272,
+              437,
+              1270
+            ],
+            "spans": [
+              {
+                "offset": 114,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "Due Date:",
+            "polygon": [
+              1710,
+              1202,
+              1974,
+              1202,
+              1974,
+              1249,
+              1710,
+              1249
+            ],
+            "spans": [
+              {
+                "offset": 130,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "-",
+            "polygon": [
+              2040,
+              1213,
+              2115,
+              1212,
+              2113,
+              1254,
+              2038,
+              1253
+            ],
+            "spans": [
+              {
+                "offset": 140,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "Email:",
+            "polygon": [
+              204,
+              1323,
+              367,
+              1322,
+              368,
+              1369,
+              204,
+              1371
+            ],
+            "spans": [
+              {
+                "offset": 142,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "-",
+            "polygon": [
+              493,
+              1323,
+              545,
+              1322,
+              545,
+              1368,
+              493,
+              1369
+            ],
+            "spans": [
+              {
+                "offset": 149,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "DESCRIPTION",
+            "polygon": [
+              242,
+              1484,
+              586,
+              1484,
+              587,
+              1528,
+              242,
+              1529
+            ],
+            "spans": [
+              {
+                "offset": 151,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "DATE",
+            "polygon": [
+              841,
+              1480,
+              975,
+              1479,
+              975,
+              1524,
+              841,
+              1524
+            ],
+            "spans": [
+              {
+                "offset": 163,
+                "length": 4
+              }
+            ]
+          },
+          {
+            "content": "SESSIONS",
+            "polygon": [
+              1209,
+              1479,
+              1453,
+              1480,
+              1453,
+              1524,
+              1209,
+              1524
+            ],
+            "spans": [
+              {
+                "offset": 168,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "UNIT COST",
+            "polygon": [
+              1661,
+              1468,
+              1941,
+              1470,
+              1940,
+              1525,
+              1661,
+              1524
+            ],
+            "spans": [
+              {
+                "offset": 177,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "TOTAL",
+            "polygon": [
+              2156,
+              1471,
+              2317,
+              1471,
+              2317,
+              1515,
+              2156,
+              1516
+            ],
+            "spans": [
+              {
+                "offset": 187,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "water",
+            "polygon": [
+              270,
+              1580,
+              488,
+              1580,
+              488,
+              1643,
+              270,
+              1644
+            ],
+            "spans": [
+              {
+                "offset": 193,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "\" 1\"",
+            "polygon": [
+              1213,
+              1558,
+              1384,
+              1559,
+              1384,
+              1628,
+              1211,
+              1625
+            ],
+            "spans": [
+              {
+                "offset": 199,
+                "length": 4
+              }
+            ]
+          },
+          {
+            "content": "10.00",
+            "polygon": [
+              1697,
+              1563,
+              1905,
+              1563,
+              1905,
+              1627,
+              1697,
+              1628
+            ],
+            "spans": [
+              {
+                "offset": 204,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "10.00",
+            "polygon": [
+              2158,
+              1555,
+              2394,
+              1551,
+              2395,
+              1621,
+              2159,
+              1626
+            ],
+            "spans": [
+              {
+                "offset": 210,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "Subtotal:",
+            "polygon": [
+              1919,
+              2433,
+              2180,
+              2434,
+              2180,
+              2489,
+              1919,
+              2488
+            ],
+            "spans": [
+              {
+                "offset": 216,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "10.00",
+            "polygon": [
+              2249,
+              2414,
+              2454,
+              2416,
+              2452,
+              2497,
+              2244,
+              2493
+            ],
+            "spans": [
+              {
+                "offset": 226,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "Tax:",
+            "polygon": [
+              1922,
+              2563,
+              2037,
+              2563,
+              2037,
+              2612,
+              1921,
+              2614
+            ],
+            "spans": [
+              {
+                "offset": 232,
+                "length": 4
+              }
+            ]
+          },
+          {
+            "content": "-",
+            "polygon": [
+              2285,
+              2572,
+              2319,
+              2572,
+              2319,
+              2610,
+              2283,
+              2611
+            ],
+            "spans": [
+              {
+                "offset": 237,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "Total Amount Due:",
+            "polygon": [
+              1722,
+              2692,
+              2271,
+              2692,
+              2271,
+              2750,
+              1722,
+              2750
+            ],
+            "spans": [
+              {
+                "offset": 239,
+                "length": 17
+              }
+            ]
+          },
+          {
+            "content": "Notes:",
+            "polygon": [
+              148,
+              2737,
+              356,
+              2737,
+              356,
+              2800,
+              148,
+              2800
+            ],
+            "spans": [
+              {
+                "offset": 257,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "Back pain need water.",
+            "polygon": [
+              414,
+              2733,
+              1631,
+              2733,
+              1631,
+              2823,
+              414,
+              2823
+            ],
+            "spans": [
+              {
+                "offset": 264,
+                "length": 21
+              }
+            ]
+          }
+        ],
+        "spans": [
+          {
+            "offset": 0,
+            "length": 285
+          }
+        ]
+      }
+    ],
+    "paragraphs": [
+      {
+        "spans": [
+          {
+            "offset": 0,
+            "length": 15
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              686,
+              697,
+              1914,
+              695,
+              1914,
+              806,
+              686,
+              808
+            ]
+          }
+        ],
+        "content": "FLEXCARE HEALTH"
+      },
+      {
+        "spans": [
+          {
+            "offset": 16,
+            "length": 12
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              215,
+              981,
+              540,
+              981,
+              540,
+              1036,
+              215,
+              1038
+            ]
+          }
+        ],
+        "content": "Clinic Name:"
+      },
+      {
+        "spans": [
+          {
+            "offset": 29,
+            "length": 18
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              552,
+              959,
+              1356,
+              958,
+              1356,
+              1046,
+              552,
+              1047
+            ]
+          }
+        ],
+        "content": "Lee Tin Tin, Becky"
+      },
+      {
+        "spans": [
+          {
+            "offset": 48,
+            "length": 15
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1704,
+              980,
+              2135,
+              979,
+              2135,
+              1029,
+              1704,
+              1030
+            ]
+          }
+        ],
+        "content": "Invoice Number:"
+      },
+      {
+        "spans": [
+          {
+            "offset": 64,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2176,
+              972,
+              2587,
+              973,
+              2587,
+              1040,
+              2175,
+              1039
+            ]
+          }
+        ],
+        "content": "967157032"
+      },
+      {
+        "spans": [
+          {
+            "offset": 74,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              205,
+              1087,
+              432,
+              1089,
+              432,
+              1147,
+              205,
+              1145
+            ]
+          }
+        ],
+        "content": "Address:"
+      },
+      {
+        "spans": [
+          {
+            "offset": 83,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              465,
+              1073,
+              875,
+              1071,
+              875,
+              1157,
+              465,
+              1158
+            ]
+          }
+        ],
+        "content": "九龍 MTR"
+      },
+      {
+        "spans": [
+          {
+            "offset": 90,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1708,
+              1093,
+              1852,
+              1094,
+              1851,
+              1141,
+              1708,
+              1140
+            ]
+          }
+        ],
+        "content": "Date:"
+      },
+      {
+        "spans": [
+          {
+            "offset": 96,
+            "length": 10
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1873,
+              1097,
+              2326,
+              1095,
+              2327,
+              1152,
+              1874,
+              1153
+            ]
+          }
+        ],
+        "content": "07/01/2020"
+      },
+      {
+        "spans": [
+          {
+            "offset": 107,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              211,
+              1206,
+              393,
+              1206,
+              393,
+              1257,
+              211,
+              1258
+            ]
+          }
+        ],
+        "content": "Phone:"
+      },
+      {
+        "spans": [
+          {
+            "offset": 114,
+            "length": 15
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              437,
+              1205,
+              1144,
+              1206,
+              1144,
+              1272,
+              437,
+              1270
+            ]
+          }
+        ],
+        "content": "+852 6202 05 28"
+      },
+      {
+        "spans": [
+          {
+            "offset": 130,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1710,
+              1199,
+              2115,
+              1204,
+              2114,
+              1254,
+              1709,
+              1249
+            ]
+          }
+        ],
+        "content": "Due Date: -"
+      },
+      {
+        "spans": [
+          {
+            "offset": 142,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              204,
+              1323,
+              367,
+              1322,
+              368,
+              1369,
+              204,
+              1371
+            ]
+          }
+        ],
+        "content": "Email:"
+      },
+      {
+        "spans": [
+          {
+            "offset": 149,
+            "length": 1
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              493,
+              1323,
+              545,
+              1322,
+              545,
+              1368,
+              493,
+              1369
+            ]
+          }
+        ],
+        "content": "-"
+      },
+      {
+        "spans": [
+          {
+            "offset": 151,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              242,
+              1484,
+              587,
+              1484,
+              587,
+              1529,
+              242,
+              1529
+            ]
+          }
+        ],
+        "content": "DESCRIPTION"
+      },
+      {
+        "spans": [
+          {
+            "offset": 163,
+            "length": 4
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              841,
+              1479,
+              975,
+              1479,
+              975,
+              1524,
+              841,
+              1524
+            ]
+          }
+        ],
+        "content": "DATE"
+      },
+      {
+        "spans": [
+          {
+            "offset": 168,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1209,
+              1479,
+              1453,
+              1479,
+              1453,
+              1524,
+              1209,
+              1524
+            ]
+          }
+        ],
+        "content": "SESSIONS"
+      },
+      {
+        "spans": [
+          {
+            "offset": 177,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1661,
+              1468,
+              1941,
+              1470,
+              1941,
+              1526,
+              1661,
+              1524
+            ]
+          }
+        ],
+        "content": "UNIT COST"
+      },
+      {
+        "spans": [
+          {
+            "offset": 187,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2156,
+              1471,
+              2317,
+              1471,
+              2317,
+              1516,
+              2156,
+              1516
+            ]
+          }
+        ],
+        "content": "TOTAL"
+      },
+      {
+        "spans": [
+          {
+            "offset": 193,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              270,
+              1580,
+              488,
+              1580,
+              488,
+              1644,
+              270,
+              1644
+            ]
+          }
+        ],
+        "content": "water"
+      },
+      {
+        "spans": [
+          {
+            "offset": 199,
+            "length": 4
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1212,
+              1556,
+              1385,
+              1559,
+              1384,
+              1628,
+              1211,
+              1625
+            ]
+          }
+        ],
+        "content": "\" 1\""
+      },
+      {
+        "spans": [
+          {
+            "offset": 204,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1697,
+              1563,
+              1905,
+              1563,
+              1905,
+              1628,
+              1697,
+              1628
+            ]
+          }
+        ],
+        "content": "10.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 210,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2158,
+              1555,
+              2394,
+              1551,
+              2395,
+              1622,
+              2159,
+              1626
+            ]
+          }
+        ],
+        "content": "10.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 216,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1919,
+              2433,
+              2180,
+              2434,
+              2180,
+              2489,
+              1919,
+              2488
+            ]
+          }
+        ],
+        "content": "Subtotal:"
+      },
+      {
+        "spans": [
+          {
+            "offset": 226,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2249,
+              2414,
+              2454,
+              2416,
+              2452,
+              2497,
+              2244,
+              2493
+            ]
+          }
+        ],
+        "content": "10.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 232,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1921,
+              2563,
+              2319,
+              2563,
+              2319,
+              2614,
+              1921,
+              2614
+            ]
+          }
+        ],
+        "content": "Tax: -"
+      },
+      {
+        "spans": [
+          {
+            "offset": 239,
+            "length": 17
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1722,
+              2692,
+              2271,
+              2692,
+              2271,
+              2750,
+              1722,
+              2750
+            ]
+          }
+        ],
+        "content": "Total Amount Due:"
+      },
+      {
+        "spans": [
+          {
+            "offset": 257,
+            "length": 28
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              148,
+              2733,
+              1631,
+              2733,
+              1631,
+              2823,
+              148,
+              2823
+            ]
+          }
+        ],
+        "content": "Notes: Back pain need water."
+      }
+    ],
+    "styles": [
+      {
+        "confidence": 1,
+        "spans": [
+          {
+            "offset": 29,
+            "length": 18
+          },
+          {
+            "offset": 83,
+            "length": 6
+          },
+          {
+            "offset": 96,
+            "length": 10
+          },
+          {
+            "offset": 114,
+            "length": 15
+          },
+          {
+            "offset": 193,
+            "length": 10
+          },
+          {
+            "offset": 237,
+            "length": 1
+          },
+          {
+            "offset": 264,
+            "length": 21
+          }
+        ],
+        "isHandwritten": true
+      },
+      {
+        "confidence": 0.95,
+        "spans": [
+          {
+            "offset": 64,
+            "length": 9
+          },
+          {
+            "offset": 140,
+            "length": 1
+          },
+          {
+            "offset": 149,
+            "length": 1
+          }
+        ],
+        "isHandwritten": true
+      },
+      {
+        "confidence": 0.5,
+        "spans": [
+          {
+            "offset": 204,
+            "length": 5
+          },
+          {
+            "offset": 226,
+            "length": 5
+          }
+        ],
+        "isHandwritten": true
+      },
+      {
+        "confidence": 0.9,
+        "spans": [
+          {
+            "offset": 210,
+            "length": 5
+          }
+        ],
+        "isHandwritten": true
+      }
+    ],
+    "contentFormat": "text"
+  }
+}

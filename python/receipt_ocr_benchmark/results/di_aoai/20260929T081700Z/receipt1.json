@@ -1,0 +1,124 @@
+{
+  "file": "receipt1.jpeg",
+  "runner": "di_aoai",
+  "model_deployment": "gpt-5-mini",
+  "status": "ok",
+  "error_stage": null,
+  "error": null,
+  "timings_seconds": {
+    "di": 5.605484325998987,
+    "aoai": 53.42149728000004,
+    "total": 59.02746321200175
+  },
+  "benchmark_fields": {
+    "doctor_name": "Dr. Lau Sai Kit, Lawrence; 劉世傑",
+    "registration_number": null,
+    "patient_name": null,
+    "receipt_number": null,
+    "service_date": null,
+    "total_amount": "1540.00"
+  },
+  "aoai_output": {
+    "document_type": "receipt",
+    "receipt_number": null,
+    "invoice_number": null,
+    "reference_number": null,
+    "doctor_names_en": [
+      "Dr. Lau Sai Kit, Lawrence"
+    ],
+    "doctor_names_zh": [
+      "劉世傑"
+    ],
+    "patient_names_en": [],
+    "patient_names_zh": [],
+    "patient_number": "12345678910",
+    "medical_record_number": null,
+    "clinic_name_en": "Hospital Name, Slogan",
+    "clinic_name_zh": null,
+    "department": null,
+    "branch_name": null,
+    "addresses_en": [
+      "Room 1103, Champion Building",
+      "301 Nathan Road, Yau Ma tei, KL"
+    ],
+    "addresses_zh": [],
+    "registration_numbers": [],
+    "visit_date": "07/02/2020",
+    "issue_date": null,
+    "service_date": null,
+    "payment_date": null,
+    "date_range": {
+      "start": null,
+      "end": null
+    },
+    "detected_roles": [
+      "Dr.",
+      "Consultant"
+    ],
+    "keywords": [
+      "MEDICAL RECEIPT",
+      "MEDICAL INVOICE",
+      "PARTICULARS",
+      "SUBTOTAL",
+      "TAX",
+      "PAID"
+    ],
+    "council_candidates": [
+      {
+        "council": "The Medical Council of Hong Kong",
+        "confidence": "high",
+        "evidence": [
+          "Dr. Lau Sai Kit, Lawrence",
+          "Dr.",
+          "Hospital Name, Slogan",
+          "MEDICAL INVOICE"
+        ]
+      }
+    ],
+    "line_items": [
+      {
+        "description": "broken ribs.",
+        "item_code": null,
+        "quantity": "1",
+        "unit_price": "450.00",
+        "amount": "1500.00",
+        "discount_amount": null
+      },
+      {
+        "description": "water",
+        "item_code": null,
+        "quantity": "2",
+        "unit_price": "20.00",
+        "amount": "40.00",
+        "discount_amount": null
+      }
+    ],
+    "subtotal": "1540.00",
+    "discount_amount": null,
+    "tax_amount": "8.000%",
+    "service_charge": null,
+    "insurance_paid_amount": null,
+    "patient_paid_amount": "1540.00",
+    "total_amount": "1540.00",
+    "balance_due": "emp ted",
+    "currency": null,
+    "payment_method": "Via",
+    "payment_status": "PAID",
+    "diagnosis_text": [
+      "broken ribs."
+    ],
+    "procedure_text": [],
+    "treatment_text": [
+      "patient is severely injured and he need more rest before getting to work"
+    ],
+    "medication_text": [],
+    "prescription_text": [],
+    "claim_number": null,
+    "case_number": null,
+    "authorization_number": null,
+    "policy_number": null,
+    "member_number": null,
+    "reasoning": "Extracted fields directly from the OCR text and visible image. Doctor name and Chinese name taken from the top lines. Patient name is scribbled/obscured so left empty; Hospital No used as patient_number. Address lines taken from 'Street Address' and 'City/State, Zip' fields. Admission Date used for visit_date as printed. Line items taken exactly as printed in the PARTICULARS table. Financial summary fields taken as printed (subtotal, TAX label, TOTAL, PAID). Payment method taken from 'Payment Mode Via'. Council inferred as The Medical Council of Hong Kong with high confidence based on presence of 'Dr.' and hospital/invoice context. Where values were not explicitly printed or were unclear, null was used rather than inferred."
+  },
+  "ocr_text": "MEDICAL RECEIPT TEMPLATE\nDr. Lau Sai Kit, Lawrence\nHospital Name, Slogan\n劉世傑\nMEDICAL INVOICE\nStreet Address\nRoom 1103, Champion Building\nCity/State, Zip\n301 Nathan Road, Yau Ma tei, KL\nPhone Number, Web Address Etc\ncom\nPatient\nHospital No\n12345678910\nConsultant\nName\nPayment Mode\nVia\nBed No. 4017\nAddress\nPhone\n12345678\nEmail\npatient@gmail.com\nAdmission Date\n07/02/2020\nDischarge Date\n#\nPARTICULARS\nQTY\nRATE\nAMOUNT\n1\nbroken ribs.\n1\n450.00\n1500.00\n2\nwater\n2\n20.00\n40.00\nCop\nNOTES:\npatient is severely injured\nand he need more rest\nbefore getting to work\nSUBTOTAL\n1540.00\nTAX 8.000%\nMED CLAIM\nTOTAL\n1540.00\nPAID\n1540.00\nTOTAL DUE\nemp ted\nAge\n27"
+}

@@ -1,0 +1,3858 @@
+{
+  "file": "receipt6.png",
+  "runner": "di",
+  "di_model_id": "prebuilt-read",
+  "status": "ok",
+  "error": null,
+  "timings_seconds": {
+    "di": 2.479771674999938
+  },
+  "page_count": 1,
+  "line_count": 38,
+  "ocr_text": "Prescription Receipt/Information\nMedical Centre Pharmacy\n114 High St\nPicton\nGST: 112-691-456\nPh: 03 928 4265\n9990000505906\nNikita Hubber\nPICLON IZZO\nPh. 022 649 3948\nNHI: LQD5240\nPrinted on 24 March 17\nPatient Price\nDr Jessica Sterenborg Picton Medical Centre\n1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra\n$36.20\n1 Mar17 46023/0 MVITE Tablets\n$5.00\n1Mar17 46024/0 Ascorbic acid 100mg Tablets\n$5.00\n1Mar17 46025/0 Omeprazole 20mg Capsules\n$5.00\n$51.20\nCheck recipient is patient named above\nNikita Hubber\nMedical Centre Pharmacy 24/03/17\nPrescription count, for exemption card\nPersonal: 4\nRepeats : available\nAvailable On/After Number\nExpiry\n46022 ENSURE PLUS Fruit/Forest Tetra Liquid\n21Mar17\n2\n30May17\nPlease Note. We are open from 8.00am till 5.30pm Monday to Friday.\nNB We are closed weekends and Public Holidays.\nWad Limited and We ..",
+  "lines": [
+    {
+      "text": "Prescription Receipt/Information",
+      "page": 1
+    },
+    {
+      "text": "Medical Centre Pharmacy",
+      "page": 1
+    },
+    {
+      "text": "114 High St",
+      "page": 1
+    },
+    {
+      "text": "Picton",
+      "page": 1
+    },
+    {
+      "text": "GST: 112-691-456",
+      "page": 1
+    },
+    {
+      "text": "Ph: 03 928 4265",
+      "page": 1
+    },
+    {
+      "text": "9990000505906",
+      "page": 1
+    },
+    {
+      "text": "Nikita Hubber",
+      "page": 1
+    },
+    {
+      "text": "PICLON IZZO",
+      "page": 1
+    },
+    {
+      "text": "Ph. 022 649 3948",
+      "page": 1
+    },
+    {
+      "text": "NHI: LQD5240",
+      "page": 1
+    },
+    {
+      "text": "Printed on 24 March 17",
+      "page": 1
+    },
+    {
+      "text": "Patient Price",
+      "page": 1
+    },
+    {
+      "text": "Dr Jessica Sterenborg Picton Medical Centre",
+      "page": 1
+    },
+    {
+      "text": "1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra",
+      "page": 1
+    },
+    {
+      "text": "$36.20",
+      "page": 1
+    },
+    {
+      "text": "1 Mar17 46023/0 MVITE Tablets",
+      "page": 1
+    },
+    {
+      "text": "$5.00",
+      "page": 1
+    },
+    {
+      "text": "1Mar17 46024/0 Ascorbic acid 100mg Tablets",
+      "page": 1
+    },
+    {
+      "text": "$5.00",
+      "page": 1
+    },
+    {
+      "text": "1Mar17 46025/0 Omeprazole 20mg Capsules",
+      "page": 1
+    },
+    {
+      "text": "$5.00",
+      "page": 1
+    },
+    {
+      "text": "$51.20",
+      "page": 1
+    },
+    {
+      "text": "Check recipient is patient named above",
+      "page": 1
+    },
+    {
+      "text": "Nikita Hubber",
+      "page": 1
+    },
+    {
+      "text": "Medical Centre Pharmacy 24/03/17",
+      "page": 1
+    },
+    {
+      "text": "Prescription count, for exemption card",
+      "page": 1
+    },
+    {
+      "text": "Personal: 4",
+      "page": 1
+    },
+    {
+      "text": "Repeats : available",
+      "page": 1
+    },
+    {
+      "text": "Available On/After Number",
+      "page": 1
+    },
+    {
+      "text": "Expiry",
+      "page": 1
+    },
+    {
+      "text": "46022 ENSURE PLUS Fruit/Forest Tetra Liquid",
+      "page": 1
+    },
+    {
+      "text": "21Mar17",
+      "page": 1
+    },
+    {
+      "text": "2",
+      "page": 1
+    },
+    {
+      "text": "30May17",
+      "page": 1
+    },
+    {
+      "text": "Please Note. We are open from 8.00am till 5.30pm Monday to Friday.",
+      "page": 1
+    },
+    {
+      "text": "NB We are closed weekends and Public Holidays.",
+      "page": 1
+    },
+    {
+      "text": "Wad Limited and We ..",
+      "page": 1
+    }
+  ],
+  "raw_di_result": {
+    "apiVersion": "2024-11-30",
+    "modelId": "prebuilt-read",
+    "stringIndexType": "textElements",
+    "content": "Prescription Receipt/Information Medical Centre Pharmacy 114 High St Picton GST: 112-691-456 Ph: 03 928 4265\n9990000505906\nNikita Hubber\nPICLON IZZO Ph. 022 649 3948 NHI: LQD5240\nPrinted on 24 March 17\nPatient Price\nDr Jessica Sterenborg Picton Medical Centre\n1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra\n$36.20\n1 Mar17 46023/0 MVITE Tablets\n$5.00\n1Mar17 46024/0 Ascorbic acid 100mg Tablets\n$5.00\n1Mar17 46025/0 Omeprazole 20mg Capsules\n$5.00\n$51.20\nCheck recipient is patient named above\nNikita Hubber\nMedical Centre Pharmacy 24/03/17\nPrescription count, for exemption card\nPersonal: 4\nRepeats : available\nAvailable On/After Number\nExpiry\n46022 ENSURE PLUS Fruit/Forest Tetra Liquid\n21Mar17 2 30May17\nPlease Note. We are open from 8.00am till 5.30pm Monday to Friday. NB We are closed weekends and Public Holidays.\nWad Limited and We ..",
+    "pages": [
+      {
+        "pageNumber": 1,
+        "angle": 0.5667058825492859,
+        "width": 1280,
+        "height": 1707,
+        "unit": "pixel",
+        "words": [
+          {
+            "content": "Prescription",
+            "polygon": [
+              396,
+              98,
+              567,
+              96,
+              567,
+              131,
+              394,
+              132
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 0,
+              "length": 12
+            }
+          },
+          {
+            "content": "Receipt/Information",
+            "polygon": [
+              578,
+              96,
+              858,
+              87,
+              858,
+              120,
+              577,
+              131
+            ],
+            "confidence": 0.977,
+            "span": {
+              "offset": 13,
+              "length": 19
+            }
+          },
+          {
+            "content": "Medical",
+            "polygon": [
+              444,
+              136,
+              554,
+              133,
+              554,
+              165,
+              444,
+              166
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 33,
+              "length": 7
+            }
+          },
+          {
+            "content": "Centre",
+            "polygon": [
+              563,
+              133,
+              655,
+              131,
+              655,
+              164,
+              563,
+              165
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 41,
+              "length": 6
+            }
+          },
+          {
+            "content": "Pharmacy",
+            "polygon": [
+              665,
+              131,
+              807,
+              129,
+              807,
+              161,
+              665,
+              164
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 48,
+              "length": 8
+            }
+          },
+          {
+            "content": "114",
+            "polygon": [
+              543,
+              171,
+              591,
+              170,
+              592,
+              203,
+              544,
+              204
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 57,
+              "length": 3
+            }
+          },
+          {
+            "content": "High",
+            "polygon": [
+              597,
+              170,
+              665,
+              169,
+              666,
+              202,
+              598,
+              203
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 61,
+              "length": 4
+            }
+          },
+          {
+            "content": "St",
+            "polygon": [
+              676,
+              168,
+              709,
+              168,
+              709,
+              200,
+              676,
+              201
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 66,
+              "length": 2
+            }
+          },
+          {
+            "content": "Picton",
+            "polygon": [
+              579,
+              207,
+              671,
+              207,
+              671,
+              234,
+              579,
+              235
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 69,
+              "length": 6
+            }
+          },
+          {
+            "content": "GST:",
+            "polygon": [
+              504,
+              244,
+              572,
+              243,
+              572,
+              271,
+              503,
+              273
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 76,
+              "length": 4
+            }
+          },
+          {
+            "content": "112-691-456",
+            "polygon": [
+              582,
+              243,
+              748,
+              240,
+              748,
+              269,
+              582,
+              271
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 81,
+              "length": 11
+            }
+          },
+          {
+            "content": "Ph:",
+            "polygon": [
+              515,
+              279,
+              561,
+              279,
+              561,
+              307,
+              515,
+              308
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 93,
+              "length": 3
+            }
+          },
+          {
+            "content": "03",
+            "polygon": [
+              572,
+              279,
+              603,
+              278,
+              603,
+              306,
+              572,
+              306
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 97,
+              "length": 2
+            }
+          },
+          {
+            "content": "928",
+            "polygon": [
+              612,
+              278,
+              659,
+              277,
+              659,
+              305,
+              612,
+              306
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 100,
+              "length": 3
+            }
+          },
+          {
+            "content": "4265",
+            "polygon": [
+              668,
+              277,
+              735,
+              275,
+              735,
+              305,
+              668,
+              305
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 104,
+              "length": 4
+            }
+          },
+          {
+            "content": "9990000505906",
+            "polygon": [
+              134,
+              271,
+              317,
+              270,
+              317,
+              296,
+              134,
+              297
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 109,
+              "length": 13
+            }
+          },
+          {
+            "content": "Nikita",
+            "polygon": [
+              86,
+              315,
+              158,
+              316,
+              157,
+              342,
+              86,
+              343
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 123,
+              "length": 6
+            }
+          },
+          {
+            "content": "Hubber",
+            "polygon": [
+              168,
+              316,
+              260,
+              317,
+              260,
+              343,
+              167,
+              342
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 130,
+              "length": 6
+            }
+          },
+          {
+            "content": "PICLON",
+            "polygon": [
+              84,
+              418,
+              158,
+              419,
+              158,
+              438,
+              83,
+              438
+            ],
+            "confidence": 0.502,
+            "span": {
+              "offset": 137,
+              "length": 6
+            }
+          },
+          {
+            "content": "IZZO",
+            "polygon": [
+              176,
+              419,
+              238,
+              421,
+              238,
+              438,
+              175,
+              438
+            ],
+            "confidence": 0.323,
+            "span": {
+              "offset": 144,
+              "length": 4
+            }
+          },
+          {
+            "content": "Ph.",
+            "polygon": [
+              84,
+              441,
+              126,
+              441,
+              125,
+              468,
+              83,
+              467
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 149,
+              "length": 3
+            }
+          },
+          {
+            "content": "022",
+            "polygon": [
+              136,
+              441,
+              182,
+              442,
+              182,
+              469,
+              136,
+              468
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 153,
+              "length": 3
+            }
+          },
+          {
+            "content": "649",
+            "polygon": [
+              192,
+              442,
+              240,
+              444,
+              239,
+              470,
+              191,
+              469
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 157,
+              "length": 3
+            }
+          },
+          {
+            "content": "3948",
+            "polygon": [
+              249,
+              444,
+              312,
+              445,
+              311,
+              472,
+              248,
+              471
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 161,
+              "length": 4
+            }
+          },
+          {
+            "content": "NHI:",
+            "polygon": [
+              83,
+              472,
+              139,
+              473,
+              139,
+              499,
+              83,
+              499
+            ],
+            "confidence": 0.977,
+            "span": {
+              "offset": 166,
+              "length": 4
+            }
+          },
+          {
+            "content": "LQD5240",
+            "polygon": [
+              150,
+              474,
+              275,
+              477,
+              275,
+              503,
+              150,
+              499
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 171,
+              "length": 7
+            }
+          },
+          {
+            "content": "Printed",
+            "polygon": [
+              868,
+              442,
+              961,
+              440,
+              961,
+              470,
+              868,
+              471
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 179,
+              "length": 7
+            }
+          },
+          {
+            "content": "on",
+            "polygon": [
+              970,
+              440,
+              1002,
+              440,
+              1002,
+              469,
+              970,
+              470
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 187,
+              "length": 2
+            }
+          },
+          {
+            "content": "24",
+            "polygon": [
+              1012,
+              440,
+              1045,
+              439,
+              1045,
+              469,
+              1012,
+              469
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 190,
+              "length": 2
+            }
+          },
+          {
+            "content": "March",
+            "polygon": [
+              1055,
+              439,
+              1139,
+              438,
+              1139,
+              467,
+              1055,
+              469
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 193,
+              "length": 5
+            }
+          },
+          {
+            "content": "17",
+            "polygon": [
+              1152,
+              438,
+              1183,
+              438,
+              1183,
+              467,
+              1152,
+              467
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 199,
+              "length": 2
+            }
+          },
+          {
+            "content": "Patient",
+            "polygon": [
+              1007,
+              506,
+              1101,
+              507,
+              1101,
+              535,
+              1007,
+              536
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 202,
+              "length": 7
+            }
+          },
+          {
+            "content": "Price",
+            "polygon": [
+              1111,
+              507,
+              1182,
+              507,
+              1182,
+              535,
+              1110,
+              534
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 210,
+              "length": 5
+            }
+          },
+          {
+            "content": "Dr",
+            "polygon": [
+              81,
+              534,
+              115,
+              535,
+              114,
+              562,
+              80,
+              561
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 216,
+              "length": 2
+            }
+          },
+          {
+            "content": "Jessica",
+            "polygon": [
+              121,
+              535,
+              218,
+              538,
+              217,
+              566,
+              120,
+              563
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 219,
+              "length": 7
+            }
+          },
+          {
+            "content": "Sterenborg",
+            "polygon": [
+              229,
+              538,
+              368,
+              541,
+              367,
+              570,
+              227,
+              567
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 227,
+              "length": 10
+            }
+          },
+          {
+            "content": "Picton",
+            "polygon": [
+              377,
+              541,
+              455,
+              542,
+              454,
+              570,
+              376,
+              570
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 238,
+              "length": 6
+            }
+          },
+          {
+            "content": "Medical",
+            "polygon": [
+              464,
+              542,
+              563,
+              542,
+              562,
+              570,
+              463,
+              570
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 245,
+              "length": 7
+            }
+          },
+          {
+            "content": "Centre",
+            "polygon": [
+              571,
+              542,
+              657,
+              542,
+              656,
+              568,
+              570,
+              570
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 253,
+              "length": 6
+            }
+          },
+          {
+            "content": "1Mar17",
+            "polygon": [
+              82,
+              568,
+              180,
+              569,
+              179,
+              596,
+              81,
+              593
+            ],
+            "confidence": 0.985,
+            "span": {
+              "offset": 260,
+              "length": 6
+            }
+          },
+          {
+            "content": "46022/1",
+            "polygon": [
+              187,
+              570,
+              289,
+              571,
+              288,
+              598,
+              187,
+              596
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 267,
+              "length": 7
+            }
+          },
+          {
+            "content": "ENSURE",
+            "polygon": [
+              310,
+              571,
+              426,
+              573,
+              425,
+              600,
+              310,
+              598
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 275,
+              "length": 6
+            }
+          },
+          {
+            "content": "PLUS",
+            "polygon": [
+              436,
+              573,
+              508,
+              573,
+              507,
+              601,
+              435,
+              600
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 282,
+              "length": 4
+            }
+          },
+          {
+            "content": "Fruit/Forest",
+            "polygon": [
+              518,
+              573,
+              669,
+              574,
+              668,
+              602,
+              517,
+              601
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 287,
+              "length": 12
+            }
+          },
+          {
+            "content": "Tetra",
+            "polygon": [
+              675,
+              574,
+              741,
+              574,
+              741,
+              602,
+              674,
+              602
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 300,
+              "length": 5
+            }
+          },
+          {
+            "content": "$36.20",
+            "polygon": [
+              1083,
+              574,
+              1177,
+              574,
+              1177,
+              600,
+              1083,
+              602
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 306,
+              "length": 6
+            }
+          },
+          {
+            "content": "1",
+            "polygon": [
+              81,
+              600,
+              87,
+              600,
+              86,
+              626,
+              81,
+              625
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 313,
+              "length": 1
+            }
+          },
+          {
+            "content": "Mar17",
+            "polygon": [
+              92,
+              600,
+              179,
+              601,
+              178,
+              628,
+              92,
+              626
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 315,
+              "length": 5
+            }
+          },
+          {
+            "content": "46023/0",
+            "polygon": [
+              187,
+              601,
+              293,
+              603,
+              292,
+              630,
+              186,
+              628
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 321,
+              "length": 7
+            }
+          },
+          {
+            "content": "MVITE",
+            "polygon": [
+              310,
+              603,
+              395,
+              604,
+              394,
+              631,
+              309,
+              630
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 329,
+              "length": 5
+            }
+          },
+          {
+            "content": "Tablets",
+            "polygon": [
+              410,
+              604,
+              508,
+              605,
+              508,
+              633,
+              409,
+              632
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 335,
+              "length": 7
+            }
+          },
+          {
+            "content": "$5.00",
+            "polygon": [
+              1098,
+              608,
+              1176,
+              607,
+              1176,
+              635,
+              1098,
+              634
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 343,
+              "length": 5
+            }
+          },
+          {
+            "content": "1Mar17",
+            "polygon": [
+              81,
+              631,
+              178,
+              633,
+              178,
+              660,
+              81,
+              657
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 349,
+              "length": 6
+            }
+          },
+          {
+            "content": "46024/0",
+            "polygon": [
+              186,
+              633,
+              292,
+              635,
+              291,
+              663,
+              186,
+              660
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 356,
+              "length": 7
+            }
+          },
+          {
+            "content": "Ascorbic",
+            "polygon": [
+              307,
+              635,
+              417,
+              637,
+              416,
+              665,
+              307,
+              663
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 364,
+              "length": 8
+            }
+          },
+          {
+            "content": "acid",
+            "polygon": [
+              425,
+              637,
+              476,
+              637,
+              475,
+              666,
+              424,
+              665
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 373,
+              "length": 4
+            }
+          },
+          {
+            "content": "100mg",
+            "polygon": [
+              487,
+              637,
+              573,
+              638,
+              572,
+              667,
+              486,
+              666
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 378,
+              "length": 5
+            }
+          },
+          {
+            "content": "Tablets",
+            "polygon": [
+              588,
+              638,
+              686,
+              638,
+              686,
+              668,
+              587,
+              667
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 384,
+              "length": 7
+            }
+          },
+          {
+            "content": "$5.00",
+            "polygon": [
+              1095,
+              639,
+              1174,
+              639,
+              1174,
+              666,
+              1095,
+              665
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 392,
+              "length": 5
+            }
+          },
+          {
+            "content": "1Mar17",
+            "polygon": [
+              79,
+              663,
+              178,
+              665,
+              177,
+              692,
+              78,
+              689
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 398,
+              "length": 6
+            }
+          },
+          {
+            "content": "46025/0",
+            "polygon": [
+              187,
+              665,
+              291,
+              667,
+              290,
+              696,
+              185,
+              693
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 405,
+              "length": 7
+            }
+          },
+          {
+            "content": "Omeprazole",
+            "polygon": [
+              308,
+              667,
+              462,
+              669,
+              461,
+              699,
+              307,
+              696
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 413,
+              "length": 10
+            }
+          },
+          {
+            "content": "20mg",
+            "polygon": [
+              470,
+              669,
+              542,
+              670,
+              541,
+              700,
+              469,
+              699
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 424,
+              "length": 4
+            }
+          },
+          {
+            "content": "Capsules",
+            "polygon": [
+              558,
+              670,
+              679,
+              671,
+              679,
+              700,
+              558,
+              700
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 429,
+              "length": 8
+            }
+          },
+          {
+            "content": "$5.00",
+            "polygon": [
+              1096,
+              672,
+              1173,
+              672,
+              1173,
+              699,
+              1096,
+              699
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 438,
+              "length": 5
+            }
+          },
+          {
+            "content": "$51.20",
+            "polygon": [
+              1078,
+              706,
+              1173,
+              707,
+              1173,
+              734,
+              1077,
+              733
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 444,
+              "length": 6
+            }
+          },
+          {
+            "content": "Check",
+            "polygon": [
+              350,
+              767,
+              435,
+              768,
+              434,
+              798,
+              349,
+              797
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 451,
+              "length": 5
+            }
+          },
+          {
+            "content": "recipient",
+            "polygon": [
+              444,
+              768,
+              561,
+              769,
+              560,
+              800,
+              443,
+              799
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 457,
+              "length": 9
+            }
+          },
+          {
+            "content": "is",
+            "polygon": [
+              567,
+              769,
+              594,
+              769,
+              593,
+              800,
+              566,
+              800
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 467,
+              "length": 2
+            }
+          },
+          {
+            "content": "patient",
+            "polygon": [
+              604,
+              769,
+              697,
+              770,
+              697,
+              800,
+              603,
+              800
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 470,
+              "length": 7
+            }
+          },
+          {
+            "content": "named",
+            "polygon": [
+              706,
+              770,
+              797,
+              771,
+              797,
+              800,
+              705,
+              800
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 478,
+              "length": 5
+            }
+          },
+          {
+            "content": "above",
+            "polygon": [
+              807,
+              772,
+              892,
+              773,
+              892,
+              799,
+              806,
+              800
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 484,
+              "length": 5
+            }
+          },
+          {
+            "content": "Nikita",
+            "polygon": [
+              76,
+              811,
+              156,
+              813,
+              155,
+              840,
+              75,
+              840
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 490,
+              "length": 6
+            }
+          },
+          {
+            "content": "Hubber",
+            "polygon": [
+              167,
+              813,
+              270,
+              814,
+              270,
+              841,
+              166,
+              840
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 497,
+              "length": 6
+            }
+          },
+          {
+            "content": "Medical",
+            "polygon": [
+              665,
+              819,
+              771,
+              819,
+              770,
+              849,
+              664,
+              846
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 504,
+              "length": 7
+            }
+          },
+          {
+            "content": "Centre",
+            "polygon": [
+              781,
+              820,
+              872,
+              820,
+              871,
+              851,
+              779,
+              849
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 512,
+              "length": 6
+            }
+          },
+          {
+            "content": "Pharmacy",
+            "polygon": [
+              882,
+              821,
+              1019,
+              822,
+              1019,
+              852,
+              881,
+              851
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 519,
+              "length": 8
+            }
+          },
+          {
+            "content": "24/03/17",
+            "polygon": [
+              1054,
+              823,
+              1170,
+              824,
+              1170,
+              852,
+              1053,
+              852
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 528,
+              "length": 8
+            }
+          },
+          {
+            "content": "Prescription",
+            "polygon": [
+              76,
+              845,
+              246,
+              847,
+              245,
+              877,
+              75,
+              875
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 537,
+              "length": 12
+            }
+          },
+          {
+            "content": "count,",
+            "polygon": [
+              256,
+              847,
+              341,
+              849,
+              340,
+              878,
+              255,
+              877
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 550,
+              "length": 6
+            }
+          },
+          {
+            "content": "for",
+            "polygon": [
+              349,
+              849,
+              388,
+              849,
+              387,
+              879,
+              348,
+              878
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 557,
+              "length": 3
+            }
+          },
+          {
+            "content": "exemption",
+            "polygon": [
+              396,
+              849,
+              538,
+              851,
+              537,
+              881,
+              395,
+              879
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 561,
+              "length": 9
+            }
+          },
+          {
+            "content": "card",
+            "polygon": [
+              547,
+              851,
+              611,
+              852,
+              611,
+              882,
+              546,
+              881
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 571,
+              "length": 4
+            }
+          },
+          {
+            "content": "Personal:",
+            "polygon": [
+              75,
+              877,
+              198,
+              879,
+              197,
+              906,
+              74,
+              905
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 576,
+              "length": 9
+            }
+          },
+          {
+            "content": "4",
+            "polygon": [
+              208,
+              879,
+              225,
+              880,
+              225,
+              906,
+              207,
+              906
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 586,
+              "length": 1
+            }
+          },
+          {
+            "content": "Repeats",
+            "polygon": [
+              76,
+              911,
+              189,
+              911,
+              188,
+              941,
+              74,
+              941
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 588,
+              "length": 7
+            }
+          },
+          {
+            "content": ":",
+            "polygon": [
+              200,
+              911,
+              206,
+              911,
+              205,
+              941,
+              199,
+              941
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 596,
+              "length": 1
+            }
+          },
+          {
+            "content": "available",
+            "polygon": [
+              216,
+              912,
+              338,
+              914,
+              338,
+              940,
+              215,
+              941
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 598,
+              "length": 9
+            }
+          },
+          {
+            "content": "Available",
+            "polygon": [
+              639,
+              917,
+              767,
+              919,
+              766,
+              947,
+              637,
+              946
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 608,
+              "length": 9
+            }
+          },
+          {
+            "content": "On/After",
+            "polygon": [
+              776,
+              919,
+              891,
+              921,
+              890,
+              949,
+              774,
+              947
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 618,
+              "length": 8
+            }
+          },
+          {
+            "content": "Number",
+            "polygon": [
+              905,
+              921,
+              1018,
+              923,
+              1017,
+              951,
+              903,
+              949
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 627,
+              "length": 6
+            }
+          },
+          {
+            "content": "Expiry",
+            "polygon": [
+              1077,
+              925,
+              1170,
+              926,
+              1170,
+              955,
+              1076,
+              953
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 634,
+              "length": 6
+            }
+          },
+          {
+            "content": "46022",
+            "polygon": [
+              76,
+              943,
+              156,
+              943,
+              155,
+              971,
+              74,
+              970
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 641,
+              "length": 5
+            }
+          },
+          {
+            "content": "ENSURE",
+            "polygon": [
+              183,
+              943,
+              301,
+              944,
+              300,
+              973,
+              182,
+              971
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 647,
+              "length": 6
+            }
+          },
+          {
+            "content": "PLUS",
+            "polygon": [
+              311,
+              944,
+              383,
+              945,
+              382,
+              974,
+              310,
+              973
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 654,
+              "length": 4
+            }
+          },
+          {
+            "content": "Fruit/Forest",
+            "polygon": [
+              393,
+              945,
+              538,
+              947,
+              538,
+              977,
+              392,
+              974
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 659,
+              "length": 12
+            }
+          },
+          {
+            "content": "Tetra",
+            "polygon": [
+              546,
+              948,
+              612,
+              949,
+              611,
+              979,
+              545,
+              977
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 672,
+              "length": 5
+            }
+          },
+          {
+            "content": "Liquid",
+            "polygon": [
+              623,
+              949,
+              700,
+              951,
+              700,
+              981,
+              622,
+              979
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 678,
+              "length": 6
+            }
+          },
+          {
+            "content": "21Mar17",
+            "polygon": [
+              773,
+              952,
+              890,
+              953,
+              889,
+              980,
+              772,
+              979
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 685,
+              "length": 7
+            }
+          },
+          {
+            "content": "2",
+            "polygon": [
+              994,
+              955,
+              1021,
+              955,
+              1020,
+              982,
+              994,
+              981
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 693,
+              "length": 1
+            }
+          },
+          {
+            "content": "30May17",
+            "polygon": [
+              1045,
+              958,
+              1169,
+              959,
+              1169,
+              987,
+              1044,
+              985
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 695,
+              "length": 7
+            }
+          },
+          {
+            "content": "Please",
+            "polygon": [
+              173,
+              1008,
+              262,
+              1009,
+              262,
+              1037,
+              173,
+              1035
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 703,
+              "length": 6
+            }
+          },
+          {
+            "content": "Note.",
+            "polygon": [
+              272,
+              1009,
+              337,
+              1009,
+              336,
+              1038,
+              271,
+              1037
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 710,
+              "length": 5
+            }
+          },
+          {
+            "content": "We",
+            "polygon": [
+              346,
+              1009,
+              390,
+              1010,
+              390,
+              1039,
+              346,
+              1038
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 716,
+              "length": 2
+            }
+          },
+          {
+            "content": "are",
+            "polygon": [
+              400,
+              1010,
+              440,
+              1011,
+              440,
+              1040,
+              399,
+              1039
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 719,
+              "length": 3
+            }
+          },
+          {
+            "content": "open",
+            "polygon": [
+              449,
+              1011,
+              511,
+              1012,
+              510,
+              1042,
+              448,
+              1040
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 723,
+              "length": 4
+            }
+          },
+          {
+            "content": "from",
+            "polygon": [
+              520,
+              1012,
+              578,
+              1013,
+              577,
+              1043,
+              519,
+              1042
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 728,
+              "length": 4
+            }
+          },
+          {
+            "content": "8.00am",
+            "polygon": [
+              587,
+              1013,
+              682,
+              1014,
+              681,
+              1045,
+              586,
+              1043
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 733,
+              "length": 6
+            }
+          },
+          {
+            "content": "till",
+            "polygon": [
+              691,
+              1014,
+              717,
+              1015,
+              716,
+              1046,
+              690,
+              1045
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 740,
+              "length": 4
+            }
+          },
+          {
+            "content": "5.30pm",
+            "polygon": [
+              727,
+              1015,
+              823,
+              1017,
+              822,
+              1048,
+              726,
+              1046
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 745,
+              "length": 6
+            }
+          },
+          {
+            "content": "Monday",
+            "polygon": [
+              833,
+              1017,
+              935,
+              1019,
+              934,
+              1050,
+              832,
+              1048
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 752,
+              "length": 6
+            }
+          },
+          {
+            "content": "to",
+            "polygon": [
+              943,
+              1020,
+              967,
+              1020,
+              966,
+              1051,
+              942,
+              1051
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 759,
+              "length": 2
+            }
+          },
+          {
+            "content": "Friday.",
+            "polygon": [
+              977,
+              1020,
+              1065,
+              1022,
+              1064,
+              1053,
+              976,
+              1051
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 762,
+              "length": 7
+            }
+          },
+          {
+            "content": "NB",
+            "polygon": [
+              296,
+              1041,
+              336,
+              1042,
+              336,
+              1069,
+              296,
+              1068
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 770,
+              "length": 2
+            }
+          },
+          {
+            "content": "We",
+            "polygon": [
+              345,
+              1042,
+              389,
+              1042,
+              389,
+              1070,
+              345,
+              1069
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 773,
+              "length": 2
+            }
+          },
+          {
+            "content": "are",
+            "polygon": [
+              398,
+              1042,
+              439,
+              1043,
+              438,
+              1071,
+              398,
+              1070
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 776,
+              "length": 3
+            }
+          },
+          {
+            "content": "closed",
+            "polygon": [
+              447,
+              1043,
+              529,
+              1044,
+              529,
+              1073,
+              447,
+              1071
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 780,
+              "length": 6
+            }
+          },
+          {
+            "content": "weekends",
+            "polygon": [
+              537,
+              1044,
+              667,
+              1046,
+              667,
+              1076,
+              537,
+              1073
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 787,
+              "length": 8
+            }
+          },
+          {
+            "content": "and",
+            "polygon": [
+              675,
+              1046,
+              723,
+              1047,
+              722,
+              1078,
+              675,
+              1077
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 796,
+              "length": 3
+            }
+          },
+          {
+            "content": "Public",
+            "polygon": [
+              733,
+              1048,
+              811,
+              1050,
+              810,
+              1080,
+              732,
+              1078
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 800,
+              "length": 6
+            }
+          },
+          {
+            "content": "Holidays.",
+            "polygon": [
+              820,
+              1050,
+              938,
+              1053,
+              937,
+              1083,
+              819,
+              1080
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 807,
+              "length": 9
+            }
+          },
+          {
+            "content": "Wad",
+            "polygon": [
+              1272,
+              744,
+              1264,
+              707,
+              1278,
+              705,
+              1279,
+              743
+            ],
+            "confidence": 0.238,
+            "span": {
+              "offset": 817,
+              "length": 3
+            }
+          },
+          {
+            "content": "Limited",
+            "polygon": [
+              1263,
+              700,
+              1252,
+              640,
+              1270,
+              639,
+              1277,
+              699
+            ],
+            "confidence": 0.935,
+            "span": {
+              "offset": 821,
+              "length": 7
+            }
+          },
+          {
+            "content": "and",
+            "polygon": [
+              1251,
+              634,
+              1247,
+              605,
+              1265,
+              604,
+              1269,
+              633
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 829,
+              "length": 3
+            }
+          },
+          {
+            "content": "We",
+            "polygon": [
+              1246,
+              600,
+              1243,
+              579,
+              1261,
+              577,
+              1264,
+              599
+            ],
+            "confidence": 0.808,
+            "span": {
+              "offset": 833,
+              "length": 2
+            }
+          },
+          {
+            "content": "..",
+            "polygon": [
+              1242,
+              575,
+              1238,
+              542,
+              1255,
+              541,
+              1261,
+              574
+            ],
+            "confidence": 0.552,
+            "span": {
+              "offset": 836,
+              "length": 2
+            }
+          }
+        ],
+        "lines": [
+          {
+            "content": "Prescription Receipt/Information",
+            "polygon": [
+              394,
+              98,
+              856,
+              86,
+              857,
+              122,
+              394,
+              132
+            ],
+            "spans": [
+              {
+                "offset": 0,
+                "length": 32
+              }
+            ]
+          },
+          {
+            "content": "Medical Centre Pharmacy",
+            "polygon": [
+              443,
+              134,
+              806,
+              129,
+              806,
+              160,
+              443,
+              166
+            ],
+            "spans": [
+              {
+                "offset": 33,
+                "length": 23
+              }
+            ]
+          },
+          {
+            "content": "114 High St",
+            "polygon": [
+              543,
+              170,
+              708,
+              167,
+              709,
+              200,
+              543,
+              203
+            ],
+            "spans": [
+              {
+                "offset": 57,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "Picton",
+            "polygon": [
+              578,
+              207,
+              670,
+              206,
+              670,
+              233,
+              578,
+              234
+            ],
+            "spans": [
+              {
+                "offset": 69,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "GST: 112-691-456",
+            "polygon": [
+              503,
+              243,
+              747,
+              239,
+              747,
+              268,
+              503,
+              272
+            ],
+            "spans": [
+              {
+                "offset": 76,
+                "length": 16
+              }
+            ]
+          },
+          {
+            "content": "Ph: 03 928 4265",
+            "polygon": [
+              515,
+              279,
+              734,
+              275,
+              734,
+              304,
+              515,
+              307
+            ],
+            "spans": [
+              {
+                "offset": 93,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "9990000505906",
+            "polygon": [
+              134,
+              270,
+              316,
+              269,
+              316,
+              295,
+              134,
+              297
+            ],
+            "spans": [
+              {
+                "offset": 109,
+                "length": 13
+              }
+            ]
+          },
+          {
+            "content": "Nikita Hubber",
+            "polygon": [
+              86,
+              314,
+              259,
+              315,
+              259,
+              343,
+              85,
+              342
+            ],
+            "spans": [
+              {
+                "offset": 123,
+                "length": 13
+              }
+            ]
+          },
+          {
+            "content": "PICLON IZZO",
+            "polygon": [
+              83,
+              417,
+              237,
+              419,
+              236,
+              439,
+              83,
+              437
+            ],
+            "spans": [
+              {
+                "offset": 137,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "Ph. 022 649 3948",
+            "polygon": [
+              83,
+              440,
+              311,
+              444,
+              310,
+              471,
+              82,
+              466
+            ],
+            "spans": [
+              {
+                "offset": 149,
+                "length": 16
+              }
+            ]
+          },
+          {
+            "content": "NHI: LQD5240",
+            "polygon": [
+              83,
+              471,
+              274,
+              476,
+              274,
+              502,
+              82,
+              498
+            ],
+            "spans": [
+              {
+                "offset": 166,
+                "length": 12
+              }
+            ]
+          },
+          {
+            "content": "Printed on 24 March 17",
+            "polygon": [
+              867,
+              441,
+              1182,
+              438,
+              1182,
+              466,
+              867,
+              470
+            ],
+            "spans": [
+              {
+                "offset": 179,
+                "length": 22
+              }
+            ]
+          },
+          {
+            "content": "Patient Price",
+            "polygon": [
+              1006,
+              506,
+              1181,
+              506,
+              1181,
+              534,
+              1006,
+              535
+            ],
+            "spans": [
+              {
+                "offset": 202,
+                "length": 13
+              }
+            ]
+          },
+          {
+            "content": "Dr Jessica Sterenborg Picton Medical Centre",
+            "polygon": [
+              80,
+              534,
+              656,
+              541,
+              655,
+              570,
+              79,
+              565
+            ],
+            "spans": [
+              {
+                "offset": 216,
+                "length": 43
+              }
+            ]
+          },
+          {
+            "content": "1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra",
+            "polygon": [
+              81,
+              567,
+              740,
+              574,
+              740,
+              602,
+              81,
+              595
+            ],
+            "spans": [
+              {
+                "offset": 260,
+                "length": 45
+              }
+            ]
+          },
+          {
+            "content": "$36.20",
+            "polygon": [
+              1083,
+              574,
+              1176,
+              574,
+              1176,
+              600,
+              1083,
+              601
+            ],
+            "spans": [
+              {
+                "offset": 306,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "1 Mar17 46023/0 MVITE Tablets",
+            "polygon": [
+              81,
+              599,
+              507,
+              605,
+              506,
+              632,
+              80,
+              626
+            ],
+            "spans": [
+              {
+                "offset": 313,
+                "length": 29
+              }
+            ]
+          },
+          {
+            "content": "$5.00",
+            "polygon": [
+              1097,
+              607,
+              1175,
+              607,
+              1175,
+              634,
+              1097,
+              634
+            ],
+            "spans": [
+              {
+                "offset": 343,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "1Mar17 46024/0 Ascorbic acid 100mg Tablets",
+            "polygon": [
+              81,
+              631,
+              685,
+              638,
+              684,
+              668,
+              80,
+              659
+            ],
+            "spans": [
+              {
+                "offset": 349,
+                "length": 42
+              }
+            ]
+          },
+          {
+            "content": "$5.00",
+            "polygon": [
+              1097,
+              639,
+              1173,
+              640,
+              1173,
+              666,
+              1095,
+              666
+            ],
+            "spans": [
+              {
+                "offset": 392,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "1Mar17 46025/0 Omeprazole 20mg Capsules",
+            "polygon": [
+              78,
+              662,
+              678,
+              671,
+              678,
+              700,
+              77,
+              692
+            ],
+            "spans": [
+              {
+                "offset": 398,
+                "length": 39
+              }
+            ]
+          },
+          {
+            "content": "$5.00",
+            "polygon": [
+              1096,
+              672,
+              1173,
+              672,
+              1172,
+              699,
+              1096,
+              699
+            ],
+            "spans": [
+              {
+                "offset": 438,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "$51.20",
+            "polygon": [
+              1076,
+              706,
+              1172,
+              706,
+              1172,
+              734,
+              1076,
+              733
+            ],
+            "spans": [
+              {
+                "offset": 444,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "Check recipient is patient named above",
+            "polygon": [
+              349,
+              766,
+              891,
+              770,
+              891,
+              800,
+              349,
+              797
+            ],
+            "spans": [
+              {
+                "offset": 451,
+                "length": 38
+              }
+            ]
+          },
+          {
+            "content": "Nikita Hubber",
+            "polygon": [
+              75,
+              810,
+              269,
+              812,
+              269,
+              841,
+              75,
+              839
+            ],
+            "spans": [
+              {
+                "offset": 490,
+                "length": 13
+              }
+            ]
+          },
+          {
+            "content": "Medical Centre Pharmacy 24/03/17",
+            "polygon": [
+              664,
+              818,
+              1169,
+              823,
+              1169,
+              852,
+              663,
+              847
+            ],
+            "spans": [
+              {
+                "offset": 504,
+                "length": 32
+              }
+            ]
+          },
+          {
+            "content": "Prescription count, for exemption card",
+            "polygon": [
+              75,
+              845,
+              610,
+              851,
+              609,
+              881,
+              75,
+              874
+            ],
+            "spans": [
+              {
+                "offset": 537,
+                "length": 38
+              }
+            ]
+          },
+          {
+            "content": "Personal: 4",
+            "polygon": [
+              74,
+              876,
+              224,
+              878,
+              224,
+              906,
+              73,
+              904
+            ],
+            "spans": [
+              {
+                "offset": 576,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "Repeats : available",
+            "polygon": [
+              74,
+              910,
+              337,
+              911,
+              336,
+              941,
+              74,
+              940
+            ],
+            "spans": [
+              {
+                "offset": 588,
+                "length": 19
+              }
+            ]
+          },
+          {
+            "content": "Available On/After Number",
+            "polygon": [
+              637,
+              916,
+              1017,
+              921,
+              1017,
+              950,
+              637,
+              945
+            ],
+            "spans": [
+              {
+                "offset": 608,
+                "length": 25
+              }
+            ]
+          },
+          {
+            "content": "Expiry",
+            "polygon": [
+              1076,
+              925,
+              1169,
+              926,
+              1168,
+              955,
+              1076,
+              954
+            ],
+            "spans": [
+              {
+                "offset": 634,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "46022 ENSURE PLUS Fruit/Forest Tetra Liquid",
+            "polygon": [
+              74,
+              942,
+              699,
+              949,
+              699,
+              980,
+              74,
+              971
+            ],
+            "spans": [
+              {
+                "offset": 641,
+                "length": 43
+              }
+            ]
+          },
+          {
+            "content": "21Mar17",
+            "polygon": [
+              772,
+              952,
+              889,
+              952,
+              889,
+              979,
+              772,
+              978
+            ],
+            "spans": [
+              {
+                "offset": 685,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "2",
+            "polygon": [
+              995,
+              955,
+              1020,
+              956,
+              1019,
+              982,
+              994,
+              982
+            ],
+            "spans": [
+              {
+                "offset": 693,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "30May17",
+            "polygon": [
+              1044,
+              957,
+              1168,
+              959,
+              1168,
+              986,
+              1044,
+              985
+            ],
+            "spans": [
+              {
+                "offset": 695,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "Please Note. We are open from 8.00am till 5.30pm Monday to Friday.",
+            "polygon": [
+              173,
+              1007,
+              1064,
+              1021,
+              1063,
+              1052,
+              172,
+              1036
+            ],
+            "spans": [
+              {
+                "offset": 703,
+                "length": 66
+              }
+            ]
+          },
+          {
+            "content": "NB We are closed weekends and Public Holidays.",
+            "polygon": [
+              296,
+              1041,
+              937,
+              1051,
+              937,
+              1082,
+              296,
+              1069
+            ],
+            "spans": [
+              {
+                "offset": 770,
+                "length": 46
+              }
+            ]
+          },
+          {
+            "content": "Wad Limited and We ..",
+            "polygon": [
+              1267,
+              745,
+              1238,
+              543,
+              1255,
+              541,
+              1279,
+              743
+            ],
+            "spans": [
+              {
+                "offset": 817,
+                "length": 21
+              }
+            ]
+          }
+        ],
+        "spans": [
+          {
+            "offset": 0,
+            "length": 838
+          }
+        ]
+      }
+    ],
+    "paragraphs": [
+      {
+        "spans": [
+          {
+            "offset": 0,
+            "length": 108
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              393,
+              98,
+              856,
+              86,
+              862,
+              301,
+              399,
+              313
+            ]
+          }
+        ],
+        "content": "Prescription Receipt/Information Medical Centre Pharmacy 114 High St Picton GST: 112-691-456 Ph: 03 928 4265"
+      },
+      {
+        "spans": [
+          {
+            "offset": 109,
+            "length": 13
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              134,
+              270,
+              316,
+              269,
+              316,
+              296,
+              134,
+              297
+            ]
+          }
+        ],
+        "content": "9990000505906"
+      },
+      {
+        "spans": [
+          {
+            "offset": 123,
+            "length": 13
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              85,
+              314,
+              259,
+              315,
+              259,
+              343,
+              85,
+              342
+            ]
+          }
+        ],
+        "content": "Nikita Hubber"
+      },
+      {
+        "spans": [
+          {
+            "offset": 137,
+            "length": 41
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              83,
+              416,
+              311,
+              421,
+              310,
+              503,
+              81,
+              498
+            ]
+          }
+        ],
+        "content": "PICLON IZZO Ph. 022 649 3948 NHI: LQD5240"
+      },
+      {
+        "spans": [
+          {
+            "offset": 179,
+            "length": 22
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              867,
+              441,
+              1182,
+              438,
+              1182,
+              467,
+              867,
+              470
+            ]
+          }
+        ],
+        "content": "Printed on 24 March 17"
+      },
+      {
+        "spans": [
+          {
+            "offset": 202,
+            "length": 13
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1006,
+              506,
+              1181,
+              506,
+              1181,
+              535,
+              1006,
+              535
+            ]
+          }
+        ],
+        "content": "Patient Price"
+      },
+      {
+        "spans": [
+          {
+            "offset": 216,
+            "length": 43
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              79,
+              534,
+              656,
+              541,
+              656,
+              572,
+              79,
+              565
+            ]
+          }
+        ],
+        "content": "Dr Jessica Sterenborg Picton Medical Centre"
+      },
+      {
+        "spans": [
+          {
+            "offset": 260,
+            "length": 45
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              81,
+              567,
+              740,
+              574,
+              740,
+              602,
+              81,
+              595
+            ]
+          }
+        ],
+        "content": "1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra"
+      },
+      {
+        "spans": [
+          {
+            "offset": 306,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1083,
+              574,
+              1176,
+              574,
+              1176,
+              601,
+              1083,
+              601
+            ]
+          }
+        ],
+        "content": "$36.20"
+      },
+      {
+        "spans": [
+          {
+            "offset": 313,
+            "length": 29
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              80,
+              599,
+              507,
+              605,
+              507,
+              632,
+              80,
+              626
+            ]
+          }
+        ],
+        "content": "1 Mar17 46023/0 MVITE Tablets"
+      },
+      {
+        "spans": [
+          {
+            "offset": 343,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1097,
+              607,
+              1175,
+              607,
+              1175,
+              634,
+              1097,
+              634
+            ]
+          }
+        ],
+        "content": "$5.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 349,
+            "length": 42
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              80,
+              629,
+              685,
+              638,
+              685,
+              668,
+              80,
+              659
+            ]
+          }
+        ],
+        "content": "1Mar17 46024/0 Ascorbic acid 100mg Tablets"
+      },
+      {
+        "spans": [
+          {
+            "offset": 392,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1095,
+              639,
+              1173,
+              639,
+              1173,
+              666,
+              1095,
+              666
+            ]
+          }
+        ],
+        "content": "$5.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 398,
+            "length": 39
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              77,
+              662,
+              678,
+              670,
+              678,
+              700,
+              77,
+              692
+            ]
+          }
+        ],
+        "content": "1Mar17 46025/0 Omeprazole 20mg Capsules"
+      },
+      {
+        "spans": [
+          {
+            "offset": 438,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1096,
+              672,
+              1173,
+              672,
+              1173,
+              699,
+              1096,
+              699
+            ]
+          }
+        ],
+        "content": "$5.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 444,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1076,
+              706,
+              1172,
+              706,
+              1172,
+              734,
+              1076,
+              734
+            ]
+          }
+        ],
+        "content": "$51.20"
+      },
+      {
+        "spans": [
+          {
+            "offset": 451,
+            "length": 38
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              349,
+              766,
+              891,
+              769,
+              891,
+              800,
+              349,
+              797
+            ]
+          }
+        ],
+        "content": "Check recipient is patient named above"
+      },
+      {
+        "spans": [
+          {
+            "offset": 490,
+            "length": 13
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              75,
+              810,
+              269,
+              812,
+              269,
+              841,
+              75,
+              839
+            ]
+          }
+        ],
+        "content": "Nikita Hubber"
+      },
+      {
+        "spans": [
+          {
+            "offset": 504,
+            "length": 32
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              663,
+              818,
+              1169,
+              823,
+              1169,
+              852,
+              663,
+              847
+            ]
+          }
+        ],
+        "content": "Medical Centre Pharmacy 24/03/17"
+      },
+      {
+        "spans": [
+          {
+            "offset": 537,
+            "length": 38
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              75,
+              845,
+              610,
+              851,
+              610,
+              881,
+              75,
+              875
+            ]
+          }
+        ],
+        "content": "Prescription count, for exemption card"
+      },
+      {
+        "spans": [
+          {
+            "offset": 576,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              73,
+              876,
+              224,
+              878,
+              224,
+              906,
+              73,
+              904
+            ]
+          }
+        ],
+        "content": "Personal: 4"
+      },
+      {
+        "spans": [
+          {
+            "offset": 588,
+            "length": 19
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              74,
+              910,
+              337,
+              911,
+              337,
+              941,
+              74,
+              940
+            ]
+          }
+        ],
+        "content": "Repeats : available"
+      },
+      {
+        "spans": [
+          {
+            "offset": 608,
+            "length": 25
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              637,
+              916,
+              1017,
+              921,
+              1017,
+              950,
+              637,
+              945
+            ]
+          }
+        ],
+        "content": "Available On/After Number"
+      },
+      {
+        "spans": [
+          {
+            "offset": 634,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1076,
+              925,
+              1169,
+              926,
+              1169,
+              955,
+              1076,
+              954
+            ]
+          }
+        ],
+        "content": "Expiry"
+      },
+      {
+        "spans": [
+          {
+            "offset": 641,
+            "length": 43
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              74,
+              942,
+              699,
+              949,
+              699,
+              980,
+              74,
+              973
+            ]
+          }
+        ],
+        "content": "46022 ENSURE PLUS Fruit/Forest Tetra Liquid"
+      },
+      {
+        "spans": [
+          {
+            "offset": 685,
+            "length": 17
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              772,
+              949,
+              1169,
+              959,
+              1168,
+              988,
+              771,
+              978
+            ]
+          }
+        ],
+        "content": "21Mar17 2 30May17"
+      },
+      {
+        "spans": [
+          {
+            "offset": 703,
+            "length": 113
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              172,
+              1007,
+              1064,
+              1021,
+              1063,
+              1084,
+              171,
+              1070
+            ]
+          }
+        ],
+        "content": "Please Note. We are open from 8.00am till 5.30pm Monday to Friday. NB We are closed weekends and Public Holidays."
+      },
+      {
+        "spans": [
+          {
+            "offset": 817,
+            "length": 21
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1238,
+              543,
+              1255,
+              541,
+              1278,
+              743,
+              1267,
+              745
+            ]
+          }
+        ],
+        "content": "Wad Limited and We .."
+      }
+    ],
+    "styles": [],
+    "contentFormat": "text"
+  }
+}
