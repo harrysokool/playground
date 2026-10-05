@@ -62,7 +62,7 @@ bool receiveHeaders(int clientSocket, Request& req, std::string& request) {
                 req.error = "Request headers too large";
                 return false;
             }
-        } else if (request.size() > MAX_HEADER_SIZE) {
+        } else if (headerEnd > MAX_HEADER_SIZE) {
             req.error = "Request headers too large";
             return false;
         }
