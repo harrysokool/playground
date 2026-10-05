@@ -16,12 +16,9 @@ int main() {
     const auto start = std::chrono::steady_clock::now();
 
     for (std::size_t i = 0; i < ORDER_COUNT; ++i) {
-        const Side side =
-            (i % 2 == 0) ? Side::Buy : Side::Sell;
-
         const bool accepted = book.addOrder({
             static_cast<OrderId>(i + 1),
-            side,
+            Side::Buy,
             PRICE,
             QUANTITY
         });
@@ -38,6 +35,11 @@ int main() {
     const double ordersPerSecond =
         static_cast<double>(acceptedOrders) / elapsed.count();
 
+    const double nanosecondsPerOrder = 
+        elapsed.count() * 1'000'000'000.0 / static_cast<double>(acceptedOrders);
+
+    const Quantity expectedQuantity = static_cast<Quantity>(ORDER_COUNT) * QUANTITY;
+
     std::cout << std::fixed << std::setprecision(3);
 
     std::cout << "Orders submitted: "
@@ -52,13 +54,20 @@ int main() {
               << book.trades().size()
               << '\n';
 
-    std::cout << "Elapsed time:    "
+    std::cout << "Elapsed time: "
               << elapsed.count()
               << " seconds\n";
 
-    std::cout << "Throughput:      "
+    std::cout << "Throughput: "
               << ordersPerSecond
               << " orders/second\n";
+
+    std::cout << "Average latency: "
+              << nanosecondsPerOrder
+              << " ns/order\n";
+
+    std::cout << "Expected quantity: " << expectedQuantity << '\n'; 
+    std::cout << "Actual quantity: " << book.bidQuantityAt(PRICE) << '\n';
 
     return 0;
 }
