@@ -70,3 +70,19 @@ docker compose config --services
 
 docker image inspect openclaw-sandbox:bookworm-slim \
   --format '{{.Id}}'
+
+
+
+  (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
+docker compose ps
+
+docker compose config --services
+
+docker image inspect openclaw-sandbox:bookworm-slim \
+  --format '{{.Id}}'
+NAME                          IMAGE                              COMMAND                  SERVICE            CREATED              STATUS                        PORTS
+openclaw-openclaw-gateway-1   ghcr.io/openclaw/openclaw:latest   "tini -s -- node /ap…"   openclaw-gateway   About a minute ago   Up About a minute (healthy)   127.0.0.1:3978->3978/tcp, 127.0.0.1:18789-18790->18789-18790/tcp
+openclaw-gateway
+openclaw-cli
+sha256:fe17998af0bf43f34136085689fdbfbc308c57bb3ebab35e870a3f89fd29e88b
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
