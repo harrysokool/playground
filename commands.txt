@@ -51,3 +51,23 @@ Commands:
   docker compose -f /home/azureuser/cloudfiles/code/Users/Harry-CC.Wang/openclaw/docker-compose.yml exec openclaw-gateway sh -lc 'node dist/index.js gateway health --token "$OPENCLAW_GATEWAY_TOKEN"'
 (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
 
+
+
+
+
+
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ docker compose ps
+no configuration file provided: not found
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ docker port openclaw-openclaw-gateway-1
+3978/tcp -> 0.0.0.0:3978
+3978/tcp -> [::]:3978
+18789/tcp -> 0.0.0.0:18789
+18789/tcp -> [::]:18789
+18790/tcp -> 0.0.0.0:18790
+18790/tcp -> [::]:18790
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ docker compose run --rm openclaw-cli config get agents.defaults.sandbox.mode
+no configuration file provided: not found
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ 
+
+
+
