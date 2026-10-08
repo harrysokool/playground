@@ -1,9 +1,13 @@
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ python -c "import azure.identity; print('Azure Identity SDK available')"
+python - <<'PY'
+from azure.identity import ManagedIdentityCredential
 
-
-env | cut -d= -f1 | grep -E '^(AZURE|AOAI|OPENAI|MSI|IDENTITY)' | sort
-Azure Identity SDK available
-AZURE_EXTENSION_DIR
-MSI_ENDPOINT
-MSI_SECRET
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
+try:
+    credential = ManagedIdentityCredential()
+    token = credential.get_token(
+        "https://cognitiveservices.azure.com/.default"
+    )
+    print("SUCCESS: Managed identity token obtained")
+except Exception as e:
+    print("FAILED:", type(e).__name__)
+    print(str(e)[:500])
+PY
