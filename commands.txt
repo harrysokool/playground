@@ -87,3 +87,15 @@ tmpfs                                                                           
 /dev/sda1                                                                          147G   32G  108G  23% /mnt
 //sahk02easdidsl9.file.core.windows.net/code-391ff5ac-6576-460f-ba4d-7e03433c68b6  100T  3.0G  100T   1% /mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code
 (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ 
+
+
+
+mkdir -p ~/.docker/cli-plugins
+
+curl -fSL \
+  https://github.com/docker/compose/releases/download/v5.5.0/docker-compose-linux-x86_64 \
+  -o ~/.docker/cli-plugins/docker-compose
+
+chmod +x ~/.docker/cli-plugins/docker-compose
+
+docker compose version
