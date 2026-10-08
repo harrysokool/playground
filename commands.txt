@@ -57,30 +57,5 @@ Commands:
 
 
 docker compose ps
-NAME                          IMAGE                              COMMAND                  SERVICE            CREATED         STATUS                   PORTS
-openclaw-openclaw-gateway-1   ghcr.io/openclaw/openclaw:latest   "tini -s -- node /ap…"   openclaw-gateway   8 minutes ago   Up 8 minutes (healthy)   0.0.0.0:3978->3978/tcp, [::]:3978->3978/tcp, 0.0.0.0:18789-18790->18789-18790/tcp, [::]:18789-18790->18789-18790/tcp
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$  docker port openclaw-openclaw-gateway-1
-3978/tcp -> 0.0.0.0:3978
-3978/tcp -> [::]:3978
-18789/tcp -> 0.0.0.0:18789
-18789/tcp -> [::]:18789
-18790/tcp -> 0.0.0.0:18790
-18790/tcp -> [::]:18790
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ docker compose run --rm openclaw-cli config get agents.defaults.sandbox.mode
-[+]  1/1t 1/11
- ✔ Container openclaw-openclaw-gateway-1 Running                                                                                                                                        0.0s
-Container openclaw-openclaw-cli-run-5b5298f4fd0d Creating 
-Container openclaw-openclaw-cli-run-5b5298f4fd0d Created 
-off
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
-
-
-
-
-
-services:
-  openclaw-gateway:
-    ports: !override
-      - "127.0.0.1:18789:18789"
-      - "127.0.0.1:18790:18790"
-      - "127.0.0.1:3978:3978"
+NAME                          IMAGE                              COMMAND                  SERVICE            CREATED         STATUS                            PORTS
+openclaw-openclaw-gateway-1   ghcr.io/openclaw/openclaw:latest   "tini -s -- node /ap…"   openclaw-gateway   7 seconds ago   Up 6 seconds (health: starting)   127.0.0.1:3978->3978/tcp, 127.0.0.1:18789-18790->18789-18790/tcp
