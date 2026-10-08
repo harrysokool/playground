@@ -1,4 +1,9 @@
-python -c "import azure.identity; print('Azure Identity SDK available')"
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ python -c "import azure.identity; print('Azure Identity SDK available')"
 
 
 env | cut -d= -f1 | grep -E '^(AZURE|AOAI|OPENAI|MSI|IDENTITY)' | sort
+Azure Identity SDK available
+AZURE_EXTENSION_DIR
+MSI_ENDPOINT
+MSI_SECRET
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
