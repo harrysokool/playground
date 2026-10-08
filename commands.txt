@@ -1,8 +1,9 @@
+docker compose up -d openclaw-gateway
+
+
 docker compose run --rm --no-deps openclaw-cli \
   config set tools.profile minimal
 
-
-
   docker compose run --rm --no-deps openclaw-cli \
   config set tools.deny \
   '["exec","process","write","edit","apply_patch","browser"]' \
@@ -13,23 +14,13 @@ docker compose run --rm --no-deps openclaw-cli \
   config validate
 
 
-  (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ docker compose run --rm --no-deps openclaw-cli \
-  config set tools.profile minimal
-Container openclaw-openclaw-cli-run-8686f1553f1c Creating 
-Container openclaw-openclaw-cli-run-8686f1553f1c Created 
-Error response from daemon: cannot join network of a non running container: 9e8b8c5fe114c103162be25e3fdb7e664fb0948e45bb3902fb3757175f14f619
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$   docker compose run --rm --no-deps openclaw-cli \
-  config set tools.deny \
-  '["exec","process","write","edit","apply_patch","browser"]' \
-  --strict-json
+  docker compose run --rm --no-deps openclaw-cli \
+  config get tools.profile
 
-Container openclaw-openclaw-cli-run-37e22d648dca Creating 
-Container openclaw-openclaw-cli-run-37e22d648dca Created 
-Error response from daemon: cannot join network of a non running container: 9e8b8c5fe114c103162be25e3fdb7e664fb0948e45bb3902fb3757175f14f619
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$  docker compose run --rm --no-deps openclaw-cli \
-  config validate
-Container openclaw-openclaw-cli-run-88c52f1046be Creating 
-Container openclaw-openclaw-cli-run-88c52f1046be Created 
-Error response from daemon: cannot join network of a non running container: 9e8b8c5fe114c103162be25e3fdb7e664fb0948e45bb3902fb3757175f14f619
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ ^C
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
+
+
+  docker compose run --rm --no-deps openclaw-cli \
+  config get tools.deny
+
+
+  docker compose stop openclaw-gateway
