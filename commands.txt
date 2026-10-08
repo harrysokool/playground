@@ -5,3 +5,85 @@ docker info
 git --version
 free -h
 df -h
+
+
+uname -a
+docker --version
+docker compose version
+docker info
+git --version
+free -h
+df -h
+Linux d18-instance04 6.8.0-1044-azure #50~22.04.1-Ubuntu SMP Wed Dec  3 15:13:22 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+Docker version 24.0.9-1, build 293681613032e6d1a39cc88115847d3984195c24
+docker: 'compose' is not a docker command.
+See 'docker --help'
+Client:
+ Version:    24.0.9-1
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  0.30.1-1
+    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+
+Server:
+ Containers: 1
+  Running: 1
+  Paused: 0
+  Stopped: 0
+ Images: 7
+ Server Version: 24.0.9-1
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Using metacopy: false
+  Native Overlay Diff: false
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: systemd
+ Cgroup Version: 2
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 nvidia runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 71c1c8666c6a999cc8c319160b6b2ea38c4a2c9e
+ runc version: 8bd78a9977e604c4d5f67a7415d7b8b8c109cdc4
+ init version: 
+ Security Options:
+  apparmor
+  seccomp
+   Profile: builtin
+  cgroupns
+ Kernel Version: 6.8.0-1044-azure
+ Operating System: Ubuntu 22.04.5 LTS
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 4
+ Total Memory: 31.35GiB
+ Name: d18-instance04
+ ID: 6adf420f-4b8d-42c1-9994-bace5b074c23
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+git version 2.52.0
+               total        used        free      shared  buff/cache   available
+Mem:            31Gi       1.4Gi        27Gi       4.0Mi       2.1Gi        29Gi
+Swap:           31Gi          0B        31Gi
+Filesystem                                                                         Size  Used Avail Use% Mounted on
+/dev/root                                                                          119G   79G   40G  67% /
+tmpfs                                                                               16G     0   16G   0% /dev/shm
+tmpfs                                                                              6.3G  1.2M  6.3G   1% /run
+tmpfs                                                                              5.0M     0  5.0M   0% /run/lock
+/dev/sdb15                                                                         105M  6.1M   99M   6% /boot/efi
+/dev/sda1                                                                          147G   32G  108G  23% /mnt
+//sahk02easdidsl9.file.core.windows.net/code-391ff5ac-6576-460f-ba4d-7e03433c68b6  100T  3.0G  100T   1% /mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ 
