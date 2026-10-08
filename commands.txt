@@ -1,0 +1,7 @@
+uname -a
+docker --version
+docker compose version
+docker info
+git --version
+free -h
+df -h
