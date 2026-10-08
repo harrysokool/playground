@@ -13,11 +13,26 @@ int main() {
     OrderBook book;
     std::size_t acceptedOrders = 0;
 
+    // first need to add some sell orders
+    for (std::size_t i = 0; i< ORDER_COUNT; ++i) {
+        const bool accepted =  book.addOrder({
+            static_cast<OrderId>(i+1),
+            Side::Sell,
+            PRICE, 
+            QUANTITY
+        });
+
+        if (!accepted) {
+            std::cout << "Unable to add sell orders";
+            return 1;
+        }
+    }
+
     const auto start = std::chrono::steady_clock::now();
 
     for (std::size_t i = 0; i < ORDER_COUNT; ++i) {
         const bool accepted = book.addOrder({
-            static_cast<OrderId>(i + 1),
+            static_cast<OrderId>(i + ORDER_COUNT),
             Side::Buy,
             PRICE,
             QUANTITY
