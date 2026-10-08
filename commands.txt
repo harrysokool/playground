@@ -1,88 +1,11 @@
-export OPENCLAW_IMAGE="ghcr.io/openclaw/openclaw:latest"
-
-docker pull "$OPENCLAW_IMAGE"
-
-
-export OPENCLAW_SANDBOX=1
-
-./scripts/docker/setup.sh
-
-
-
-
-==> Docker gateway defaults
-Control UI allowlist already configured; leaving gateway.controlUi.allowedOrigins unchanged.
-Container openclaw-openclaw-gateway-run-904bbbc25d5c Creating 
-Container openclaw-openclaw-gateway-run-904bbbc25d5c Created 
-Pinned gateway.mode=local and gateway.bind=lan for Docker setup.
-
-==> Provider setup (optional)
-WhatsApp (QR):
-  docker compose -f /home/azureuser/cloudfiles/code/Users/Harry-CC.Wang/openclaw/docker-compose.yml run --rm openclaw-cli channels login
-Telegram (bot token):
-  docker compose -f /home/azureuser/cloudfiles/code/Users/Harry-CC.Wang/openclaw/docker-compose.yml run --rm openclaw-cli channels add --channel telegram --token <token>
-Discord (bot token):
-  docker compose -f /home/azureuser/cloudfiles/code/Users/Harry-CC.Wang/openclaw/docker-compose.yml run --rm openclaw-cli channels add --channel discord --token <token>
-Docs: https://docs.openclaw.ai/channels
-
-==> Starting gateway
-[+] up 1/1
- ✔ Container openclaw-openclaw-gateway-1 Started                                                                                                                                                                       0.4s
-
-==> Sandbox setup
-Building sandbox image: openclaw-sandbox:bookworm-slim
-Docker build docker-build still running (30s elapsed, 25245 log bytes captured)...
-WARNING: Docker CLI not found inside the container image.
-  Sandbox requires Docker CLI. Rebuild with --build-arg OPENCLAW_INSTALL_DOCKER_CLI=1
-  or use a local build (OPENCLAW_IMAGE=openclaw:local). Skipping sandbox setup.
-[+]  1/1t 1/11
- ✔ Container openclaw-openclaw-gateway-1 Running                            0.0s
-Container openclaw-openclaw-cli-run-4e771c7e1523 Creating 
-Container openclaw-openclaw-cli-run-4e771c7e1523 Created 
-
-Gateway running with host port mapping.
-Access from tailnet devices via the host's tailnet IP.
-Config: /home/azureuser/.openclaw
-Workspace: /home/azureuser/.openclaw/workspace
-Token: stored in Docker environment/config (not printed).
-
-Commands:
-  docker compose -f /home/azureuser/cloudfiles/code/Users/Harry-CC.Wang/openclaw/docker-compose.yml logs -f openclaw-gateway
-  docker compose -f /home/azureuser/cloudfiles/code/Users/Harry-CC.Wang/openclaw/docker-compose.yml exec openclaw-gateway sh -lc 'node dist/index.js gateway health --token "$OPENCLAW_GATEWAY_TOKEN"'
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
-
-
-
-
-
-
-docker compose ps
-NAME                          IMAGE                              COMMAND                  SERVICE            CREATED         STATUS                            PORTS
-openclaw-openclaw-gateway-1   ghcr.io/openclaw/openclaw:latest   "tini -s -- node /ap…"   openclaw-gateway   7 seconds ago   Up 6 seconds (health: starting)   127.0.0.1:3978->3978/tcp, 127.0.0.1:18789-18790->18789-18790/tcp
-
-
-
-cd ~/cloudfiles/code/Users/Harry-CC.Wang/openclaw
-
-docker compose ps
-
-docker compose config --services
-
-docker image inspect openclaw-sandbox:bookworm-slim \
-  --format '{{.Id}}'
-
-
-
-  (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
-docker compose ps
-
-docker compose config --services
-
-docker image inspect openclaw-sandbox:bookworm-slim \
-  --format '{{.Id}}'
-NAME                          IMAGE                              COMMAND                  SERVICE            CREATED              STATUS                        PORTS
-openclaw-openclaw-gateway-1   ghcr.io/openclaw/openclaw:latest   "tini -s -- node /ap…"   openclaw-gateway   About a minute ago   Up About a minute (healthy)   127.0.0.1:3978->3978/tcp, 127.0.0.1:18789-18790->18789-18790/tcp
-openclaw-gateway
-openclaw-cli
-sha256:fe17998af0bf43f34136085689fdbfbc308c57bb3ebab35e870a3f89fd29e88b
+docker compose stop openclaw-gateway
+[+] stop 1/1
+ ✔ Container openclaw-openclaw-gateway-1 Stopped                                                                                                                                        0.6s
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ grep -n "OPENCLAW_INSTALL_DOCKER_CLI" Dockerfile
+380:# Build with: docker build --build-arg OPENCLAW_INSTALL_DOCKER_CLI=1 ...
+383:ARG OPENCLAW_INSTALL_DOCKER_CLI=""
+387:    if [ -n "$OPENCLAW_INSTALL_DOCKER_CLI" ]; then \
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ grep -n "docker.sock" docker-compose.yml
+54:      ## Set DOCKER_GID to the host's docker group GID (run: stat -c '%g' /var/run/docker.sock).
+55:      # - /var/run/docker.sock:/var/run/docker.sock
 (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
