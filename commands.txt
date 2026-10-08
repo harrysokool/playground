@@ -1,13 +1,1 @@
-python - <<'PY'
-from azure.identity import ManagedIdentityCredential
-
-try:
-    credential = ManagedIdentityCredential()
-    token = credential.get_token(
-        "https://cognitiveservices.azure.com/.default"
-    )
-    print("SUCCESS: Managed identity token obtained")
-except Exception as e:
-    print("FAILED:", type(e).__name__)
-    print(str(e)[:500])
-PY
+python -c "import openai; print(openai.__version__)"
