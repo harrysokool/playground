@@ -9,3 +9,9 @@ docker compose stop openclaw-gateway
 54:      ## Set DOCKER_GID to the host's docker group GID (run: stat -c '%g' /var/run/docker.sock).
 55:      # - /var/run/docker.sock:/var/run/docker.sock
 (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
+
+
+sed -n '1,90p' docker-compose.yml
+
+
+sed -n '375,405p' Dockerfile
