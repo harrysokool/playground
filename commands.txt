@@ -1,55 +1,41 @@
+cp .env.example .env
+chmod 600 .env
+nano .env
+
+python -c "import secrets; print(secrets.token_urlsafe(48))"
+
+
+curl -s http://127.0.0.1:8787/health
+
+
+
 source ~/riley_runtime/venv/bin/activate
 
 cd ~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy
 
+set -a
+source .env
+set +a
 
-cat .env.example
+python - <<'PY'
+import os
+from openai import OpenAI
 
-grep -n -E 'uvicorn|AZURE_ENDPOINT|RILEY_PROXY_TOKEN|curl' README.md
+client = OpenAI(
+    base_url="http://127.0.0.1:8787/v1",
+    api_key=os.environ["RILEY_PROXY_TOKEN"],
+)
 
+response = client.chat.completions.create(
+    model=os.environ["AZURE_DEPLOYMENT"],
+    messages=[
+        {
+            "role": "user",
+            "content": "Reply with exactly: Riley proxy connected"
+        }
+    ],
+    max_completion_tokens=200,
+)
 
-(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy$ cat .env.example
-# Copy to .env, fill in, then: chmod 600 .env
-# Placeholders only. Never commit the real .env.
-
-# --- Azure OpenAI (same values as the working ManagedIdentityCredential test) ---
-AZURE_ENDPOINT=https://<your-resource-name>.cognitiveservices.azure.com/
-AZURE_DEPLOYMENT=<your-deployment-name>
-AZURE_CLIENT_ID=<managed-identity-client-id-guid>
-AZURE_API_VERSION=2024-12-01-preview
-
-# --- Proxy authentication (what OpenClaw will send as its API key) ---
-# Generate with: python3 -c "import secrets; print(secrets.token_urlsafe(48))"
-RILEY_PROXY_TOKEN=<generate-a-random-token-of-at-least-32-characters>
-
-# --- Optional (defaults shown) ---
-# Extra model names clients may send; all map to AZURE_DEPLOYMENT.
-# RILEY_PROXY_MODEL_ALIASES=
-# Keep 127.0.0.1 until the Docker networking design has been reviewed.
-# RILEY_PROXY_HOST=127.0.0.1
-# RILEY_PROXY_ALLOW_NON_LOOPBACK=
-# RILEY_PROXY_PORT=8787
-# RILEY_PROXY_MAX_BODY_BYTES=4194304
-# RILEY_PROXY_MAX_COMPLETION_TOKENS=16384
-# RILEY_PROXY_UPSTREAM_TIMEOUT=180
-(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy$ grep -n -E 'uvicorn|AZURE_ENDPOINT|RILEY_PROXY_TOKEN|curl' README.md
-34:| `POST /v1/chat/completions` | `Authorization: Bearer <RILEY_PROXY_TOKEN>` | Forwards to the fixed deployment; normal and streaming (SSE). |
-42:  The upstream URL is pinned to `AZURE_ENDPOINT` + `AZURE_DEPLOYMENT`, so the client can never pick
-78:Logging: uvicorn access lines (client IP, method, path, status) plus upstream status/code/request id
-138:`python app.py`, not with the `uvicorn` CLI, so the loopback check and log settings apply.
-157:## Local curl examples
-168:curl -s http://127.0.0.1:8787/health
-174:curl -s -w '\n%{http_code}\n' http://127.0.0.1:8787/v1/chat/completions -H 'Content-Type: application/json' -d '{}'
-180:curl -s http://127.0.0.1:8787/v1/chat/completions -H "Authorization: Bearer $RILEY_PROXY_TOKEN" -H 'Content-Type: application/json' -d "{\"model\": \"$AZURE_DEPLOYMENT\", \"messages\": [{\"role\": \"user\", \"content\": \"Reply with the single word: pong\"}], \"max_completion_tokens\": 50}"
-183:Streaming (`-N` disables curl buffering):
-186:curl -sN http://127.0.0.1:8787/v1/chat/completions -H "Authorization: Bearer $RILEY_PROXY_TOKEN" -H 'Content-Type: application/json' -d "{\"model\": \"$AZURE_DEPLOYMENT\", \"stream\":true, \"stream_options\": {\"include_usage\": true}, \"messages\": [{\"role\": \"user\", \"content\": \"Count from 1 to 5.\"}]}"
-192:curl -s http://127.0.0.1:8787/v1/chat/completions -H "Authorization: Bearer $RILEY_PROXY_TOKEN" -H 'Content-Type: application/json' -d "{\"model\": \"$AZURE_DEPLOYMENT\", \"messages\": [{\"role\": \"user\", \"content\": \"What is the weather in Hong Kong? Use the tool.\"}], \"tools\": [{\"type\": \"function\", \"function\": {\"name\": \"get_weather\", \"description\": \"Get weather for a city\", \"parameters\": {\"type\": \"object\", \"properties\": {\"city\": {\"type\": \"string\"}}, \"required\": [\"city\"]}}}], \"tool_choice\": \"auto\"}"
-198:curl -s -w '\n%{http_code}\n' http://127.0.0.1:8787/v1/chat/completions -H "Authorization: Bearer $RILEY_PROXY_TOKEN" -H 'Content-Type: application/json' -d '{"model": "some-other-model", "messages": [{"role": "user", "content": "hi"}]}'
-202:curl -s -w '\n%{http_code}\n' http://127.0.0.1:8787/v1/chat/completions -H "Authorization: Bearer $RILEY_PROXY_TOKEN" -H 'Content-Type: application/json' -d "{\"model\": \"$AZURE_DEPLOYMENT\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"data_sources\": []}"
-205:Note: `-H "Authorization: Bearer $RILEY_PROXY_TOKEN"` puts the token in curl's argv, visible
-214:3. Terminal 2: run the curl examples above in order. Expected:
-224:   ~/.venvs/riley_proxy/bin/python -c "import os; from openai import OpenAI; c = OpenAI(base_url='http://127.0.0.1:8787/v1', api_key=os.environ['RILEY_PROXY_TOKEN']); print(c.chat.completions.create(model=os.environ['AZURE_DEPLOYMENT'], messages=[{'role': 'user', 'content': 'Say hi in five words.'}]).choices[0].message.content); [print(ch.choices[0].delta.content or '', end='', flush=True) for ch in c.chat.completions.create(model=os.environ['AZURE_DEPLOYMENT'], messages=[{'role': 'user', 'content': 'Count to 5.'}], stream=True) if ch.choices]; print()"
-261:docker exec <openclaw-container> sh -c 'curl -s -m 5 -o /dev/null -w "%{http_code}\n" -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2021-02-01"'
-283:- from the container: `curl -s http://host.docker.internal:8787/health`
-300:        apiKey: "${RILEY_PROXY_TOKEN}",   // the proxy token, not an Azure key
-(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy$ 
+print(response.choices[0].message.content)
+PY
