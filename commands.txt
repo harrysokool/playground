@@ -102,3 +102,89 @@ docker port openclaw-openclaw-gateway-1
 echo
 echo "===== Diagnostics complete ====="
 SH
+
+
+
+(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy$ docker run --rm \
+  --network openclaw_default \
+  --add-host=host.docker.internal:host-gateway \
+  --entrypoint node \
+  ghcr.io/openclaw/openclaw:latest \
+  -e "require('dns').lookup('host.docker.internal',(err,address)=>console.log(err ? err.message : address))"
+172.17.0.1
+(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy$ 
+  bash <<'SH'
+set +e
+
+echo "===== 1. Docker version ====="
+docker --version
+docker compose version
+
+echo
+echo "===== 2. OpenClaw container status ====="
+docker inspect openclaw-openclaw-gateway-1 \
+  --format 'Status: {{.State.Status}}'
+
+echo
+echo "===== 3. OpenClaw Docker network ====="
+docker network inspect openclaw_default \
+  --format 'Driver: {{.Driver}} Gateway: {{(index .IPAM.Config 0).Gateway}}'
+
+echo
+echo "===== 4. Default Docker bridge ====="
+docker network inspect bridge \
+  --format 'Gateway: {{(index .IPAM.Config 0).Gateway}}'
+
+echo
+echo "===== 5. Docker hostname resolution ====="
+docker run --rm \
+  --network openclaw_default \
+  --add-host=host.docker.internal:host-gateway \
+  --entrypoint node \
+  ghcr.io/openclaw/openclaw:latest \
+SHho "===== Diagnostics complete ====="====="(e).__name__){}).get("sandbox", {}).get("mode", "Not set"))"},signal:AbortSignal.timeout(3000)}).then(r=>console.log("Metadata HTTP",r.status))
+===== 1. Docker version =====
+Docker version 24.0.9-1, build 293681613032e6d1a39cc88115847d3984195c24
+Docker Compose version v5.5.0
+
+===== 2. OpenClaw container status =====
+Status: exited
+
+===== 3. OpenClaw Docker network =====
+Driver: bridge Gateway: 172.18.0.1
+
+===== 4. Default Docker bridge =====
+Gateway: 172.17.0.1
+
+===== 5. Docker hostname resolution =====
+172.17.0.1
+
+===== 6. Proxy health =====
+{"status":"ok"}
+
+===== 7. Proxy listening address =====
+LISTEN 0      2048       127.0.0.1:8787       0.0.0.0:*          
+
+===== 8. Docker to proxy connectivity =====
+Connection failed: ECONNREFUSED
+
+===== 9. Managed identity environment =====
+MSI_ENDPOINT: PRESENT
+MSI_SECRET: PRESENT
+DEFAULT_IDENTITY_CLIENT_ID: PRESENT
+
+===== 10. Container metadata reachability =====
+Metadata HTTP 200
+
+===== 11. OpenClaw configuration file =====
+Configuration exists
+
+===== 12. OpenClaw tool settings =====
+Profile: minimal
+Denied tools: ['exec', 'process', 'write', 'edit', 'apply_patch', 'browser']
+Sandbox: off
+
+===== 13. OpenClaw port bindings =====
+
+===== Diagnostics complete =====
+(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy$ 
