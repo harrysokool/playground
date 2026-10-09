@@ -1,0 +1,5 @@
+# Runtime dependencies (Python >= 3.10). Exact versions tested together.
+fastapi==0.143.0
+uvicorn==0.54.0
+azure-identity==1.26.0
+openai==3.26.1
