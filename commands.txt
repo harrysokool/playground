@@ -1,20 +1,99 @@
-RILEY_PROXY_HOST=172.17.0.1
-RILEY_PROXY_ALLOW_NON_LOOPBACK=1
-RILEY_PROXY_ALLOWED_CLIENTS=172.18.0.0/16,172.17.0.1/32
-
-
-source ~/riley_runtime/venv/bin/activate
-
-set -a
-source .env
-set +a
-
-python app.py
+grep -A 3 'env_file:' docker-compose.yml
 
 
 
-docker run --rm \
-  --network openclaw_default \
-  --entrypoint node \
-  ghcr.io/openclaw/openclaw:latest \
-  -e 'fetch("http://172.17.0.1:8787/health").then(r=>console.log("HTTP",r.status)).catch(e=>console.log("FAILED:",e.message))'
+python - <<'PY'
+from pathlib import Path
+import os
+
+source = Path.home() / "cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy/.env"
+target = Path(".env")
+
+matches = [
+    line for line in source.read_text().splitlines()
+    if line.startswith("RILEY_PROXY_TOKEN=")
+]
+
+if len(matches) != 1 or len(matches[0].split("=", 1)[1]) < 32:
+    raise SystemExit("Invalid or missing proxy token")
+
+existing = target.read_text().splitlines() if target.exists() else []
+existing = [
+    line for line in existing
+    if not line.startswith("RILEY_PROXY_TOKEN=")
+]
+
+target.write_text("\n".join(existing + matches) + "\n")
+os.chmod(target, 0o600)
+
+print("Proxy token configured without displaying its value")
+PY
+
+
+
+python - <<'PY'
+import json
+from pathlib import Path
+
+home = Path.home()
+proxy_env = home / "cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy/.env"
+config_path = home / ".openclaw/openclaw.json"
+
+values = {}
+for line in proxy_env.read_text().splitlines():
+    if "=" in line and not line.lstrip().startswith("#"):
+        key, value = line.split("=", 1)
+        values[key.strip()] = value.strip().strip('"').strip("'")
+
+deployment = values["AZURE_DEPLOYMENT"]
+config = json.loads(config_path.read_text())
+
+backup = config_path.with_suffix(".json.riley-backup")
+backup.write_text(json.dumps(config, indent=2) + "\n")
+backup.chmod(0o600)
+
+models = config.setdefault("models", {})
+models["mode"] = "merge"
+models.setdefault("providers", {})["riley-azure"] = {
+    "baseUrl": "http://172.17.0.1:8787/v1",
+    "apiKey": "${RILEY_PROXY_TOKEN}",
+    "api": "openai-completions",
+    "models": [{
+        "id": deployment,
+        "name": "Riley Azure Model",
+        "contextWindow": 32768,
+        "maxTokens": 4096
+    }]
+}
+
+defaults = config.setdefault("agents", {}).setdefault("defaults", {})
+defaults["model"] = {"primary": f"riley-azure/{deployment}"}
+
+config_path.write_text(json.dumps(config, indent=2) + "\n")
+config_path.chmod(0o600)
+
+print("Riley model configured")
+print("Existing tool settings preserved")
+print("Backup created")
+PY
+
+
+
+docker compose run --rm --no-deps \
+  --entrypoint node openclaw-gateway \
+  dist/index.js config validate
+
+
+
+  docker compose up -d --force-recreate openclaw-gateway
+
+
+  docker compose ps
+
+
+
+  docker port openclaw-openclaw-gateway-1
+
+
+
+  docker compose run --rm openclaw-cli agent --help
