@@ -5,3 +5,53 @@ docker compose run --rm openclaw-cli \
   agent --agent riley \
   --message "Hello Riley. Introduce yourself in two sentences." \
   --thinking off
+
+
+  (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ docker compose run --rm openclaw-cli agents list
+[+]  1/1t 1/11
+ ✔ Container openclaw-openclaw-gateway-1 Running                                                                                                                                        0.0s
+Container openclaw-openclaw-cli-run-3f89050d17ab Creating 
+Container openclaw-openclaw-cli-run-3f89050d17ab Created 
+
+OpenClaw 2026.9.8 (fc23bc8) — Open source means you can see exactly how I judge your config.
+
+Agents:
+- riley (default)
+  Identity: riley (config)
+  Workspace: $OPENCLAW_HOME/.openclaw/workspace
+  Agent dir: $OPENCLAW_HOME/.openclaw/agents/riley/agent
+  Model: riley-azure/gpt-5-mini
+  Routing rules: 0
+  Routing: default (no explicit rules)
+Routing rules map channel/account/peer to an agent. Use --bindings for full rules.
+Channel status reflects local config/creds. For live health: openclaw channels status --probe.
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ docker compose run --rm openclaw-cli \
+  agent --agent riley \
+  --message "Hello Riley. Introduce yourself in two sentences." \
+  --thinking off
+[+]  1/1t 1/11
+ ✔ Container openclaw-openclaw-gateway-1 Running                                                                                                                                        0.0s
+Container openclaw-openclaw-cli-run-b271be28635a Creating 
+Container openclaw-openclaw-cli-run-b271be28635a Created 
+│
+◇  
+
+OpenClaw 2026.9.8 (fc23bc8) — Hot reload for config, cold sweat for deploys.
+
+│
+◇  
+I'm Riley — your practical, quietly supportive OpenClaw assistant who notices context, acts where useful, and asks only when a decision is needed. I focus on shipping small, reliable actions so you get results without the noise.
+
+What would you like to call me?
+
+Vibe (pick/adjust welcomed): calm, resourceful teammate.
+Emoji suggestion: 🔧
+
+Quick notes and next steps:
+- Avatar: I don't have the workspace image-generation tool here, so I'll skip generating avatars unless you want to upload one.
+- Once you confirm a name (and optionally tweak the vibe/emoji or supply an avatar), I'll prepare the IDENTITY.md content to save into the workspace and (if you want) provide the exact openclaw CLI command to register the identity:
+  openclaw agents set-identity --agent "<this agent id>" --workspace "/home/node/.openclaw/workspace" --name "<name>" --theme "<vibe>" --emoji "🔧"
+  I can't run that CLI from here myself; I can either (a) show the exact command for you or your owner to run, or (b) request the owner run it if you prefer I handle it.
+- Deleting BOOTSTRAP.md and completing the automated onboarding step requires writing files and/or running the OpenClaw command; I'll proceed as soon as you pick a name and confirm whether you want me to prepare files and the command, or just show them for you to run.
+
+Ask me anything; for system things I'll ask OpenClaw.
