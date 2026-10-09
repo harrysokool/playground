@@ -4,3 +4,16 @@ docker inspect openclaw-openclaw-gateway-1 \
 
   docker inspect openclaw-openclaw-gateway-1 \
   --format '{{json .HostConfig.ExtraHosts}}'
+
+
+
+  (venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ docker inspect openclaw-openclaw-gateway-1 \
+  --format '{{json .NetworkSettings.Networks}}'
+{"openclaw_default":{"IPAMConfig":null,"Links":null,"Aliases":["openclaw-openclaw-gateway-1","openclaw-gateway","9e8b8c5fe114"],"NetworkID":"4f7d8e9008e5bd3502692f66181f57467418f7b87bfcf57771e145bac20d098d","EndpointID":"","Gateway":"","IPAddress":"","IPPrefixLen":0,"IPv6Gateway":"","GlobalIPv6Address":"","GlobalIPv6PrefixLen":0,"MacAddress":"","DriverOpts":null}}
+(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ 
+  docker inspect openclaw-openclaw-gateway-1 \
+  --format '{{json .HostConfig.ExtraHosts}}'
+["host.docker.internal:host-gateway"]
+(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ 
+
+
