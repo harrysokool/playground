@@ -1,96 +1,11 @@
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ grep -R -n \
-  -E 'ManagedIdentityCredential|DefaultAzureCredential|azure_ad_token_provider' \
-  extensions/microsoft-foundry \
-  | head -40
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$   sed -n '1,90p' extensions/microsoft-foundry/cli.ts
-import { execFileSync } from "node:child_process";
-import { StringDecoder } from "node:string_decoder";
-import { runCommandWithTimeout, runExec } from "openclaw/plugin-sdk/process-runtime";
-import {
-  normalizeOptionalString,
-  normalizeStringifiedOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
-import type { AzAccessToken, AzAccount } from "./shared.js";
-import { COGNITIVE_SERVICES_RESOURCE } from "./shared.js";
+mkdir -p ~/riley_runtime
+python3 -m venv ~/riley_runtime/venv
+source ~/riley_runtime/venv/bin/activate
 
-function summarizeAzErrorMessage(raw: string): string {
-  const trimmed = raw.trim();
-  if (!trimmed) {
-    return "";
-  }
-  const normalized = trimmed.replace(/\s+/g, " ");
-  if (/not recognized|enoent|spawn .* az/i.test(normalized)) {
-    return "Azure CLI (az) is not installed or not on PATH.";
-  }
-  if (/az login/i.test(normalized) || /please run 'az login'/i.test(normalized)) {
-    return "Azure CLI is not logged in. Run `az login --use-device-code`.";
-  }
-  if (
-    /subscription/i.test(normalized) &&
-    /could not be found|does not exist|no subscriptions/i.test(normalized)
-  ) {
-    return "Azure CLI could not find an accessible subscription. Check the selected subscription or tenant access.";
-  }
-  if (
-    /tenant/i.test(normalized) &&
-    /not found|invalid|doesn't exist|does not exist/i.test(normalized)
-  ) {
-    return "Azure CLI could not use that tenant. Verify the tenant ID or tenant domain and try `az login --tenant <tenant>`.";
-  }
-  if (/aadsts\d+/i.test(normalized)) {
-    return "Azure login failed for the selected tenant. Re-run `az login --use-device-code` and confirm the tenant is correct.";
-  }
-  return truncateUtf16Safe(normalized, 300);
-}
 
-function buildAzCommandError(error: Error, stderr: string, stdout: string): Error {
-  const details = summarizeAzErrorMessage(`${stderr ?? ""} ${stdout ?? ""}`);
-  return new Error(details ? `${error.message}: ${details}` : error.message);
-}
+cd ~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy
 
-export function execAz(args: string[]): string {
-  return (
-    normalizeOptionalString(
-      execFileSync("az", args, {
-        encoding: "utf-8",
-        timeout: 30_000,
-        shell: process.platform === "win32",
-        killSignal: "SIGKILL",
-      }),
-    ) ?? ""
-  );
-}
 
-async function execAzAsync(args: string[]): Promise<string> {
-  try {
-    const { stdout } = await runExec("az", args, { logOutput: false, timeoutMs: 30_000 });
-    return normalizeStringifiedOptionalString(stdout) ?? "";
-  } catch (error) {
-    const commandError = error instanceof Error ? error : new Error(String(error));
-    const output = error as { stderr?: unknown; stdout?: unknown };
-    throw buildAzCommandError(
-      commandError,
-      typeof output.stderr === "string" ? output.stderr : "",
-      typeof output.stdout === "string" ? output.stdout : "",
-    );
-  }
-}
+python -m pip install -r requirements-dev.txt
 
-export function isAzCliInstalled(): boolean {
-  try {
-    execAz(["version", "--output", "none"]);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-export function getLoggedInAccount(): AzAccount | null {
-  try {
-    return parseAzJson(execAz(["account", "show", "--output", "json"]), "account") as AzAccount;
-  } catch {
-    return null;
-  }
-}
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
+python -m pytest tests/ -q
