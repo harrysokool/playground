@@ -1,62 +1,7 @@
-grep -n -A 18 \
-  "function isAzCliInstalled" \
-  extensions/microsoft-foundry/cli.ts
+grep -R -n \
+  -E 'ManagedIdentityCredential|DefaultAzureCredential|azure_ad_token_provider' \
+  extensions/microsoft-foundry \
+  | head -40
 
 
-  grep -n -A 25 \
-  "function execAz(" \
-  extensions/microsoft-foundry/cli.ts
-
-
-  (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ grep -n -A 18 \
-  "function isAzCliInstalled" \
-  extensions/microsoft-foundry/cli.ts
-75:export function isAzCliInstalled(): boolean {
-76-  try {
-77-    execAz(["version", "--output", "none"]);
-78-    return true;
-79-  } catch {
-80-    return false;
-81-  }
-82-}
-83-
-84-export function getLoggedInAccount(): AzAccount | null {
-85-  try {
-86-    return parseAzJson(execAz(["account", "show", "--output", "json"]), "account") as AzAccount;
-87-  } catch {
-88-    return null;
-89-  }
-90-}
-91-
-92-export function listSubscriptions(): AzAccount[] {
-93-  try {
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$   grep -n -A 25 \
-  "function execAz(" \
-  extensions/microsoft-foundry/cli.ts
-47:export function execAz(args: string[]): string {
-48-  return (
-49-    normalizeOptionalString(
-50-      execFileSync("az", args, {
-51-        encoding: "utf-8",
-52-        timeout: 30_000,
-53-        shell: process.platform === "win32",
-54-        killSignal: "SIGKILL",
-55-      }),
-56-    ) ?? ""
-57-  );
-58-}
-59-
-60-async function execAzAsync(args: string[]): Promise<string> {
-61-  try {
-62-    const { stdout } = await runExec("az", args, { logOutput: false, timeoutMs: 30_000 });
-63-    return normalizeStringifiedOptionalString(stdout) ?? "";
-64-  } catch (error) {
-65-    const commandError = error instanceof Error ? error : new Error(String(error));
-66-    const output = error as { stderr?: unknown; stdout?: unknown };
-67-    throw buildAzCommandError(
-68-      commandError,
-69-      typeof output.stderr === "string" ? output.stderr : "",
-70-      typeof output.stdout === "string" ? output.stdout : "",
-71-    );
-72-  }
-(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
+  sed -n '1,90p' extensions/microsoft-foundry/cli.ts
