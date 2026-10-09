@@ -5,3 +5,12 @@ docker network inspect bridge \
   docker compose -f \
   ~/cloudfiles/code/Users/Harry-CC.Wang/openclaw/docker-compose.yml \
   config --quiet
+
+
+  (venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy$ docker network inspect bridge \
+  --format '{{(index .IPAM.Config 0).Gateway}}'
+172.17.0.1
+(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy$   docker compose -f \
+  ~/cloudfiles/code/Users/Harry-CC.Wang/openclaw/docker-compose.yml \
+  config --quiet
+(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy$ 
