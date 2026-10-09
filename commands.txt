@@ -1,40 +1,8 @@
-python - <<'PY'
-from azure.identity import ManagedIdentityCredential
-from openai import AzureOpenAI
+command -v az || echo "Azure CLI not installed"
 
-ENDPOINT = "https://YOUR_RESOURCE.cognitiveservices.azure.com/"
-DEPLOYMENT = "YOUR_MODEL_DEPLOYMENT"
-CLIENT_ID = "YOUR_MANAGED_IDENTITY_CLIENT_ID"
 
-credential = ManagedIdentityCredential(client_id=CLIENT_ID)
 
-def get_token():
-    return credential.get_token(
-        "https://cognitiveservices.azure.com/.default"
-    ).token
-
-client = AzureOpenAI(
-    azure_endpoint=ENDPOINT,
-    azure_ad_token_provider=get_token,
-    api_version="2024-12-01-preview",
-)
-
-try:
-    response = client.chat.completions.create(
-        model=DEPLOYMENT,
-        messages=[
-            {
-                "role": "user",
-                "content": "Reply with exactly: Azure OpenAI connected"
-            }
-        ],
-        max_completion_tokens=200,
-    )
-
-    print("SUCCESS")
-    print(response.choices[0].message.content)
-
-except Exception as e:
-    print("FAILED:", type(e).__name__)
-    print(str(e)[:500])
-PY
+grep -R -n -m 5 \
+  "get-access-token" \
+  extensions/microsoft-foundry \
+  2>/dev/null | head -20
