@@ -3,3 +3,12 @@ docker network inspect openclaw_default \
 
   docker inspect openclaw-openclaw-gateway-1 \
   --format '{{.State.Status}}'
+
+(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ docker network inspect openclaw_default \
+  --format '{{(index .IPAM.Config 0).Gateway}}'
+172.18.0.1
+(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ 
+  docker inspect openclaw-openclaw-gateway-1 \
+  --format '{{.State.Status}}'
+exited
+(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ 
