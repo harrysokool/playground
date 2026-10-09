@@ -1,41 +1,7 @@
-cp .env.example .env
-chmod 600 .env
-nano .env
-
-python -c "import secrets; print(secrets.token_urlsafe(48))"
+docker network inspect bridge \
+  --format '{{(index .IPAM.Config 0).Gateway}}'
 
 
-curl -s http://127.0.0.1:8787/health
-
-
-
-source ~/riley_runtime/venv/bin/activate
-
-cd ~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy
-
-set -a
-source .env
-set +a
-
-python - <<'PY'
-import os
-from openai import OpenAI
-
-client = OpenAI(
-    base_url="http://127.0.0.1:8787/v1",
-    api_key=os.environ["RILEY_PROXY_TOKEN"],
-)
-
-response = client.chat.completions.create(
-    model=os.environ["AZURE_DEPLOYMENT"],
-    messages=[
-        {
-            "role": "user",
-            "content": "Reply with exactly: Riley proxy connected"
-        }
-    ],
-    max_completion_tokens=200,
-)
-
-print(response.choices[0].message.content)
-PY
+  docker compose -f \
+  ~/cloudfiles/code/Users/Harry-CC.Wang/openclaw/docker-compose.yml \
+  config --quiet
