@@ -1,1 +1,41 @@
-Hello Riley. You are an AI assistant designed to help an Internal Audit team. Tell me what capabilities you currently have, which tools are available, and what limitations prevent you from completing tasks. Do not attempt to execute commands or modify files.
+Here’s a concise inventory of what I can do now, what tools I can call, and the important limits you should know. I won’t run commands or modify files unless you explicitly ask me to.
+
+Capabilities (what I can do for an Internal Audit team)
+
+Advisory & content: draft audit programs, risk matrices, test plans, control narratives, interview scripts, templates for workpapers, executive summaries, and remediation plans.
+Analysis & synthesis: summarize evidence, convert notes into findings, produce gap analyses, map controls to frameworks (e.g., COSO, NIST), and suggest sampling approaches.
+Workspace operations (read/prepare only unless you ask): read repository/workspace files (AGENTS.md, SOUL.md, BOOTSTRAP.md, USER.md, etc.), prepare file edits, generate commit-ready content, and produce exact CLI/automation commands you (or an owner) can run.
+Coordination & tracking: create checklists, task lists, meeting agendas, and follow-up trackers suitable for handoff to your ticketing or PM system.
+Automation planning: design scripts, systemd/crontab or OpenClaw automation steps and safety-preserving edit plans — I will not apply them without your permission.
+Evidence formatting: produce CSV/Excel, SQL queries, sanitized data transforms, or code snippets to extract and transform audit evidence.
+Available tools I can call from this session
+
+functions.tool_search — search the tool/catalog metadata (useful to discover available deferred tools and their expected inputs).
+functions.tool_describe — load full schema/metadata for a catalog entry when I need exact parameter shapes.
+functions.tool_call — invoke a named tool or search-result id (the wrapper used to actually run approved tool actions).
+multi_tool_use.parallel — run multiple of the above tool calls in parallel when safe and appropriate.
+Deferred/engine-level tools (accessible via the above tools; need explicit invocation):
+
+gateway (core) — supports update.run (OpenClaw updates, restarts). Requires explicit owner request; I will not run it without an owner decision.
+presence (core) — inspect live people/devices/activity on the Gateway.
+session_status (core) — show session usage, model, and time details.
+Runtime & environment facts I can use
+
+I can read the injected OpenClaw runtime context (workspace path /home/node/.openclaw/workspace, model=riley-azure/gpt-5-mini, session/meta).
+I can prepare exact openclaw CLI commands and file changes for you to run; I can also describe step-by-step how to execute them safely.
+Limitations and constraints
+
+No arbitrary shell/OS execution: I will not run shell commands, replace system configs, or restart services here unless you (the owner) explicitly request and approve the exact action.
+No external web browsing or general internet scraping from this chat — there’s no general websearch plugin available in this session. I can only use the tools listed above and the workspace contents.
+Owner/operator gates: some actions (gateway.update.run, system-level changes) require the Gateway owner or an operator and explicit authorization. I cannot bypass that.
+No automatic or destructive edits: I won’t delete or permanently replace files (crontab, systemd, nginx, etc.) without an explicit, confirmed plan and safeguards. Whole-file replacement happens only if you instruct me and provide permission.
+Secrets and credentials: I won’t store or transmit secrets except when you explicitly instruct me and I’ll acknowledge how they were used (without echoing the values).
+Image generation and some plugins may be unavailable: the workspace doesn’t currently show an image_generate tool; I’ll skip avatar generation unless you request and provide an appropriate tool or image.
+Policy/legal limits: I can help draft analysis and advice but cannot replace legal, regulatory, or actuarial judgment — consult the appropriate authority when needed.
+Model limits: token/context limits and possible hallucination risk for unfamiliar or highly technical proprietary systems; I’ll flag uncertain claims and provide sources or ask to verify.
+Suggested next actions (pick one)
+
+I can run a quick tool discovery (using tool_search) to list exactly which deferred schemas (gateway, presence, session_status, etc.) are callable here and show their parameter signatures — I’ll only do this if you want me to discover tools.
+I can draft an Internal Audit starter pack (audit program template, top 10 control tests, and a findings-report template) right now and deliver as files you can review.
+I can prepare safe, reviewable openclaw CLI commands and a file-edit diff for any configuration change you want to make; you would run them.
+Which of these would you like me to do next?
