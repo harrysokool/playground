@@ -1,11 +1,8 @@
-mkdir -p ~/riley_runtime
-python3 -m venv ~/riley_runtime/venv
 source ~/riley_runtime/venv/bin/activate
-
 
 cd ~/cloudfiles/code/Users/Harry-CC.Wang/playground/riley_proxy
 
 
-python -m pip install -r requirements-dev.txt
+cat .env.example
 
-python -m pytest tests/ -q
+grep -n -E 'uvicorn|AZURE_ENDPOINT|RILEY_PROXY_TOKEN|curl' README.md
