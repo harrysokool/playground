@@ -1,14 +1,104 @@
+docker run --rm \
+  --network openclaw_default \
+  --add-host=host.docker.internal:host-gateway \
+  --entrypoint node \
+  ghcr.io/openclaw/openclaw:latest \
+  -e "require('dns').lookup('host.docker.internal',(err,address)=>console.log(err ? err.message : address))"
+
+
+  bash <<'SH'
+set +e
+
+echo "===== 1. Docker version ====="
+docker --version
+docker compose version
+
+echo
+echo "===== 2. OpenClaw container status ====="
+docker inspect openclaw-openclaw-gateway-1 \
+  --format 'Status: {{.State.Status}}'
+
+echo
+echo "===== 3. OpenClaw Docker network ====="
 docker network inspect openclaw_default \
-  --format '{{(index .IPAM.Config 0).Gateway}}'
+  --format 'Driver: {{.Driver}} Gateway: {{(index .IPAM.Config 0).Gateway}}'
 
-  docker inspect openclaw-openclaw-gateway-1 \
-  --format '{{.State.Status}}'
+echo
+echo "===== 4. Default Docker bridge ====="
+docker network inspect bridge \
+  --format 'Gateway: {{(index .IPAM.Config 0).Gateway}}'
 
-(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ docker network inspect openclaw_default \
-  --format '{{(index .IPAM.Config 0).Gateway}}'
-172.18.0.1
-(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ 
-  docker inspect openclaw-openclaw-gateway-1 \
-  --format '{{.State.Status}}'
-exited
-(venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground$ 
+echo
+echo "===== 5. Docker hostname resolution ====="
+docker run --rm \
+  --network openclaw_default \
+  --add-host=host.docker.internal:host-gateway \
+  --entrypoint node \
+  ghcr.io/openclaw/openclaw:latest \
+  -e "require('dns').lookup('host.docker.internal',(e,a)=>console.log(e?e.message:a))"
+
+echo
+echo "===== 6. Proxy health ====="
+curl -sS --max-time 5 \
+  http://127.0.0.1:8787/health
+echo
+
+echo
+echo "===== 7. Proxy listening address ====="
+ss -ltn | grep ':8787 ' || echo "Proxy not listening"
+
+echo
+echo "===== 8. Docker to proxy connectivity ====="
+docker run --rm \
+  --network openclaw_default \
+  --add-host=host.docker.internal:host-gateway \
+  --entrypoint node \
+  ghcr.io/openclaw/openclaw:latest \
+  -e 'fetch("http://host.docker.internal:8787/health",{signal:AbortSignal.timeout(5000)}).then(r=>console.log("HTTP",r.status)).catch(e=>console.log("Connection failed:",e.cause?.code||e.message))'
+
+echo
+echo "===== 9. Managed identity environment ====="
+python - <<'PY'
+import os
+for key in ("MSI_ENDPOINT", "MSI_SECRET",
+            "DEFAULT_IDENTITY_CLIENT_ID"):
+    print(f"{key}: {'PRESENT' if os.environ.get(key) else 'ABSENT'}")
+PY
+
+echo
+echo "===== 10. Container metadata reachability ====="
+docker run --rm \
+  --network openclaw_default \
+  --entrypoint node \
+  ghcr.io/openclaw/openclaw:latest \
+  -e 'fetch("http://169.254.169.254/metadata/instance?api-version=2021-02-01",{headers:{"Metadata":"true"},signal:AbortSignal.timeout(3000)}).then(r=>console.log("Metadata HTTP",r.status)).catch(e=>console.log("Metadata connection failed:",e.cause?.code||e.message))'
+
+echo
+echo "===== 11. OpenClaw configuration file ====="
+test -f "$HOME/.openclaw/openclaw.json" \
+  && echo "Configuration exists" \
+  || echo "Configuration missing"
+
+echo
+echo "===== 12. OpenClaw tool settings ====="
+python - <<'PY'
+import json, os
+p = os.path.expanduser("~/.openclaw/openclaw.json")
+try:
+    with open(p) as f:
+        c = json.load(f)
+    t = c.get("tools", {})
+    print("Profile:", t.get("profile", "Not set"))
+    print("Denied tools:", t.get("deny", []))
+    print("Sandbox:", c.get("agents", {}).get("defaults", {}).get("sandbox", {}).get("mode", "Not set"))
+except Exception as e:
+    print("Configuration check failed:", type(e).__name__)
+PY
+
+echo
+echo "===== 13. OpenClaw port bindings ====="
+docker port openclaw-openclaw-gateway-1
+
+echo
+echo "===== Diagnostics complete ====="
+SH
