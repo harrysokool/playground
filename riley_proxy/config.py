@@ -11,7 +11,7 @@ import ipaddress
 import os
 import re
 from dataclasses import dataclass
-from typing import FrozenSet, Mapping, Optional
+from typing import FrozenSet, Mapping, Optional, Tuple, Union
 from urllib.parse import urlsplit
 
 AZURE_SCOPE = "https://cognitiveservices.azure.com/.default"
@@ -24,6 +24,15 @@ _API_VERSION_RE = re.compile(r"^\d{4}-\d{2}-\d{2}(-preview)?$")
 _GUID_RE = re.compile(r"^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$")
 
 MIN_TOKEN_LENGTH = 32
+
+IPNetwork = Union[ipaddress.IPv4Network, ipaddress.IPv6Network]
+# Used when RILEY_PROXY_ALLOWED_CLIENTS is not set (only allowed with a loopback bind).
+DEFAULT_ALLOWED_CLIENTS: Tuple[IPNetwork, ...] = (
+    ipaddress.ip_network("127.0.0.0/8"),
+    ipaddress.ip_network("::1/128"),
+)
+# Reject allowlists broader than a Docker-sized subnet, e.g. 0.0.0.0/0 or 10.0.0.0/8.
+_MIN_PREFIX = {4: 16, 6: 64}
 
 
 class ConfigError(ValueError):
@@ -43,11 +52,13 @@ class Settings:
     max_body_bytes: int = 4 * 1024 * 1024
     max_completion_tokens: int = 16384
     upstream_timeout: float = 180.0
+    allowed_clients: Tuple[IPNetwork, ...] = DEFAULT_ALLOWED_CLIENTS
 
     def __repr__(self) -> str:  # never print the proxy token
         return (
             f"Settings(azure_deployment={self.azure_deployment!r}, "
-            f"azure_api_version={self.azure_api_version!r}, host={self.host!r}, port={self.port})"
+            f"azure_api_version={self.azure_api_version!r}, host={self.host!r}, port={self.port}, "
+            f"allowed_clients={[str(n) for n in self.allowed_clients]!r})"
         )
 
 
@@ -94,6 +105,27 @@ def _is_loopback(host: str) -> bool:
         return False
 
 
+def _parse_allowed_clients(raw: str) -> Tuple[IPNetwork, ...]:
+    networks = []
+    for item in (part.strip() for part in raw.split(",")):
+        if not item:
+            continue
+        try:
+            network = ipaddress.ip_network(item, strict=True)
+        except ValueError:
+            raise ConfigError(
+                "RILEY_PROXY_ALLOWED_CLIENTS entries must be CIDR ranges with zero host bits, "
+                "e.g. 172.18.0.0/16 or 172.17.0.1/32"
+            ) from None
+        if network.prefixlen < _MIN_PREFIX[network.version]:
+            raise ConfigError(
+                f"RILEY_PROXY_ALLOWED_CLIENTS entry {network} is too broad "
+                f"(IPv4 must be /{_MIN_PREFIX[4]} or narrower, IPv6 /{_MIN_PREFIX[6]} or narrower)"
+            )
+        networks.append(network)
+    return tuple(networks)
+
+
 def load_settings(env: Optional[Mapping[str, str]] = None) -> Settings:
     env = os.environ if env is None else env
 
@@ -122,11 +154,21 @@ def load_settings(env: Optional[Mapping[str, str]] = None) -> Settings:
             raise ConfigError("RILEY_PROXY_MODEL_ALIASES entries may only contain letters, digits, '.', '_' and '-'")
 
     host = env.get("RILEY_PROXY_HOST", "127.0.0.1").strip() or "127.0.0.1"
-    if not _is_loopback(host) and env.get("RILEY_PROXY_ALLOW_NON_LOOPBACK", "") != "1":
-        raise ConfigError(
-            "RILEY_PROXY_HOST is not a loopback address. Review the Docker networking design first, "
-            "then set RILEY_PROXY_ALLOW_NON_LOOPBACK=1 to confirm."
-        )
+    allowed_clients = _parse_allowed_clients(env.get("RILEY_PROXY_ALLOWED_CLIENTS", ""))
+    if not _is_loopback(host):
+        try:
+            unspecified = ipaddress.ip_address(host).is_unspecified
+        except ValueError:
+            raise ConfigError("RILEY_PROXY_HOST must be an IP address (or localhost)") from None
+        if unspecified:
+            raise ConfigError("RILEY_PROXY_HOST must not bind all interfaces (0.0.0.0 or ::)")
+        if env.get("RILEY_PROXY_ALLOW_NON_LOOPBACK", "") != "1":
+            raise ConfigError(
+                "RILEY_PROXY_HOST is not a loopback address. Review the Docker networking design first, "
+                "then set RILEY_PROXY_ALLOW_NON_LOOPBACK=1 to confirm."
+            )
+        if not allowed_clients:
+            raise ConfigError("RILEY_PROXY_ALLOWED_CLIENTS is required when RILEY_PROXY_HOST is not loopback")
 
     return Settings(
         azure_endpoint=endpoint,
@@ -140,4 +182,5 @@ def load_settings(env: Optional[Mapping[str, str]] = None) -> Settings:
         max_body_bytes=_int(env, "RILEY_PROXY_MAX_BODY_BYTES", 4 * 1024 * 1024, 1024, 32 * 1024 * 1024),
         max_completion_tokens=_int(env, "RILEY_PROXY_MAX_COMPLETION_TOKENS", 16384, 1, 200000),
         upstream_timeout=float(_int(env, "RILEY_PROXY_UPSTREAM_TIMEOUT", 180, 5, 900)),
+        allowed_clients=allowed_clients or DEFAULT_ALLOWED_CLIENTS,
     )

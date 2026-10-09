@@ -10,11 +10,12 @@ Only two routes exist:
 from __future__ import annotations
 
 import hmac
+import ipaddress
 import json
 import logging
 import sys
 from contextlib import asynccontextmanager
-from typing import Any, AsyncIterator, Awaitable, Callable, Dict, Optional
+from typing import Any, AsyncIterator, Awaitable, Callable, Dict, Optional, Sequence
 
 import anyio
 import openai
@@ -24,7 +25,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from config import AZURE_SCOPE, ConfigError, Settings, load_settings
+from config import AZURE_SCOPE, ConfigError, IPNetwork, Settings, load_settings
 
 logger = logging.getLogger("riley_proxy")
 
@@ -86,6 +87,43 @@ class ProxyError(Exception):
 
     def response(self) -> JSONResponse:
         return JSONResponse(self.payload(), status_code=self.status, headers=self.headers)
+
+
+# --- client source-IP allowlist ---------------------------------------------------------
+
+
+def client_allowed(host: Optional[str], networks: Sequence[IPNetwork]) -> bool:
+    if not host:
+        return False
+    try:
+        ip = ipaddress.ip_address(host)
+    except ValueError:
+        return False
+    if isinstance(ip, ipaddress.IPv6Address) and ip.ipv4_mapped is not None:
+        ip = ip.ipv4_mapped
+    return any(ip in network for network in networks)
+
+
+class ClientAllowlistMiddleware:
+    """Rejects connections whose TCP peer address is not in the allowlist, before routing,
+    token checks or body parsing. Uses the socket address only; forwarded headers are ignored."""
+
+    def __init__(self, app: Any, networks: Sequence[IPNetwork]) -> None:
+        self.app = app
+        self.networks = tuple(networks)
+
+    async def __call__(self, scope: Dict[str, Any], receive: Any, send: Any) -> None:
+        if scope["type"] in ("http", "websocket"):
+            host = (scope.get("client") or (None,))[0]
+            if not client_allowed(host, self.networks):
+                logger.warning("rejected request from non-allowlisted client %s", host)
+                if scope["type"] == "http":
+                    error = ProxyError(403, "Client address not allowed", "permission_error", "client_not_allowed")
+                    await error.response()(scope, receive, send)
+                else:
+                    await send({"type": "websocket.close", "code": 1008})
+                return
+        await self.app(scope, receive, send)
 
 
 # --- Azure client -----------------------------------------------------------------------
@@ -278,6 +316,7 @@ def create_app(settings: Settings, client: Optional[openai.AsyncAzureOpenAI] = N
         await client.close()
 
     app = FastAPI(title="riley-proxy", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
+    app.add_middleware(ClientAllowlistMiddleware, networks=settings.allowed_clients)
 
     @app.exception_handler(ProxyError)
     async def _proxy_error(_: Request, exc: ProxyError) -> JSONResponse:

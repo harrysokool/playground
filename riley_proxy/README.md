@@ -35,6 +35,10 @@ Routes (everything else returns an OpenAI-style 404/405 error; `/docs` and `/ope
 
 Request handling:
 
+- The TCP peer address must be in `RILEY_PROXY_ALLOWED_CLIENTS` (default `127.0.0.0/8,::1/128`).
+  This runs first, for every route including `/health`; anything else gets **403
+  `client_not_allowed`** and is logged by IP. Only the socket address counts —
+  `X-Forwarded-For` and similar headers are ignored.
 - The token is compared in constant time (`hmac.compare_digest`) **before** the body is read.
 - Body must be `application/json`, a JSON object, and at most `RILEY_PROXY_MAX_BODY_BYTES`
   (default 4 MiB, enforced on `Content-Length` and while streaming the body in).
@@ -62,6 +66,7 @@ Error mapping (always OpenAI's `{"error": {...}}` shape; Azure details are not e
 
 | Situation | Client gets |
 | --- | --- |
+| Client IP not in allowlist | 403 `client_not_allowed` |
 | Missing / wrong proxy token | 401 `invalid_proxy_token` |
 | Model not allowed | 403 `model_not_allowed` |
 | Unsupported parameter / invalid body | 400 |
@@ -116,10 +121,17 @@ Fill in `.env` with the same endpoint, deployment, client id and API version as 
 python3 -c "import secrets; print(secrets.token_urlsafe(48))"
 ```
 
-`config.py` refuses to start if the endpoint is not `https://<name>.cognitiveservices.azure.com/`
-(or `.openai.azure.com`), the client id is not a GUID, the token is shorter than 32 characters,
-or the bind address is not loopback (unless `RILEY_PROXY_ALLOW_NON_LOOPBACK=1` is also set —
-don't set it until the networking design has been reviewed).
+`config.py` refuses to start if:
+
+- the endpoint is not `https://<name>.cognitiveservices.azure.com/` (or `.openai.azure.com`)
+- the client id is not a GUID, or the token is shorter than 32 characters
+- `RILEY_PROXY_HOST` is `0.0.0.0` or `::` (never allowed) or not an IP address
+- `RILEY_PROXY_HOST` is not loopback and either `RILEY_PROXY_ALLOW_NON_LOOPBACK=1` or
+  `RILEY_PROXY_ALLOWED_CLIENTS` is missing
+- an allowlist entry is not a CIDR with zero host bits, or is broader than /16 (IPv4) or /64 (IPv6)
+
+The default is still `127.0.0.1` with a loopback-only allowlist. The prepared Docker settings
+are commented out at the bottom of `.env.example`.
 
 ## Run
 
@@ -143,7 +155,7 @@ Expected: `127.0.0.1:8787` and nothing on `0.0.0.0` or `*`. Uvicorn is started w
 ~/.venvs/riley_proxy/bin/python -m pytest -q
 ```
 
-104 tests. A real `AsyncAzureOpenAI` client is pointed at an in-memory mock transport and the
+146 tests. A real `AsyncAzureOpenAI` client is pointed at an in-memory mock transport and the
 token provider is a fake, so the actual SDK request and streaming code is exercised without any
 network access or real credentials. Coverage: health; missing/invalid/malformed tokens;
 successful completions (URL, api-version, Azure bearer token, parameter translation, token cap);
@@ -152,7 +164,10 @@ model/deployment restrictions; unsupported parameters; Azure 400/401/403/404/429
 errors, timeouts, managed identity failure; mid-stream errors and dropped connections;
 body size limits (declared and chunked), content type, malformed JSON, invalid messages;
 unknown routes and disabled docs; no CORS; nothing sensitive in logs; config validation;
-and that the token provider uses `ManagedIdentityCredential` with the right client id and scope.
+that the token provider uses `ManagedIdentityCredential` with the right client id and scope;
+and the client allowlist: loopback default, the prepared Docker allowlist (permitted and
+rejected peers, IPv4-mapped IPv6, spoofed `X-Forwarded-For`), token still required for permitted
+clients, streaming through the middleware, and invalid allowlist/bind configurations.
 
 ## Local curl examples
 
@@ -232,96 +247,241 @@ Use only public or synthetic prompts.
    confirm token refresh works.
 7. Stop it with Ctrl+C.
 
-## Connecting OpenClaw (not done yet — needs review first)
+## Connecting OpenClaw (prepared, not deployed)
 
-Nothing here has been applied. The proxy stays on `127.0.0.1`, which a bridge-networked
-container cannot reach. Steps to review before connecting Riley:
+Design: the proxy binds to `172.17.0.1` (the host's `docker0` address, not routable from outside
+the VM) and only accepts connections from the `openclaw_default` subnet (`172.18.0.0/16`) and the
+host itself (`172.17.0.1/32`). OpenClaw calls `http://172.17.0.1:8787/v1` and sends the proxy
+token from its process environment. Using the IP literal means the Gateway does not depend on
+`host.docker.internal` being configured.
 
-**1. Check how the OpenClaw container is networked** (read-only):
+Nothing in this section changes OpenClaw's tool profile, sandbox mode, Docker networks, the host
+firewall or the managed identity. Container and project names below match the diagnostics
+(`openclaw-openclaw-gateway-1`, service `openclaw-gateway`, network `openclaw_default`).
+
+### Step 0 — read-only checks
+
+Run these in the OpenClaw checkout directory. The Python filter prints only the env-file paths,
+hosts, ports and networks. It never prints environment values, because `docker compose config`
+resolves them.
 
 ```bash
-docker ps --format '{{.Names}}\t{{.Networks}}'
+docker compose config --format json | python3 -c 'import json,sys; s=json.load(sys.stdin)["services"]["openclaw-gateway"]; [print(k+":", s.get(k)) for k in ("env_file","extra_hosts","ports","networks")]'
+```
+
+Expected: `env_file` lists the `.env` in that directory. If it does not, the token will not reach
+the Gateway in step 2 and you need either a reviewed compose change
+(`environment: { RILEY_PROXY_TOKEN: ${RILEY_PROXY_TOKEN} }`) or the `~/.openclaw/.env` fallback
+described in step 2.
+
+Confirm the subnet the allowlist assumes:
+
+```bash
+docker network inspect openclaw_default --format '{{(index .IPAM.Config 0).Subnet}}'
+```
+
+It should print `172.18.0.0/16`. If it does not, use that value in step 1.
+
+### Step 1 — move the proxy to the docker0 address
+
+```bash
+cd ~/cloudfiles/code/Users/<your-user>/playground && git pull && cd riley_proxy
 ```
 
 ```bash
-docker inspect <openclaw-container> --format '{{.HostConfig.NetworkMode}}'
+~/.venvs/riley_proxy/bin/pip install -r requirements-dev.txt && ~/.venvs/riley_proxy/bin/python -m pytest -q
 ```
 
-If it is `host`, the container already shares the host's loopback and could reach the proxy (and
-everything else on 127.0.0.1) directly — that is a broader exposure than intended and is worth
-discussing before going further.
+Stop the running proxy (Ctrl+C in its terminal). Then add these lines to `.env`. They are the
+commented block at the end of `.env.example`.
 
-**2. Check the container cannot get Azure tokens by itself.** This is the most important check:
-on Azure VMs the Instance Metadata Service (IMDS, `169.254.169.254`) is often reachable from
-bridge-networked containers, and IMDS hands out managed identity tokens to anyone who asks with a
-`Metadata: true` header. If OpenClaw can reach it, the proxy does not actually keep the identity
-out of the container. A non-token-minting check (instance metadata, not the token endpoint):
+```
+RILEY_PROXY_HOST=172.17.0.1
+RILEY_PROXY_ALLOW_NON_LOOPBACK=1
+RILEY_PROXY_ALLOWED_CLIENTS=172.18.0.0/16,172.17.0.1/32
+```
 
 ```bash
-docker exec <openclaw-container> sh -c 'curl -s -m 5 -o /dev/null -w "%{http_code}\n" -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2021-02-01"'
+set -a && . ./.env && set +a && ~/.venvs/riley_proxy/bin/python app.py
 ```
 
-`200` means IMDS is reachable from the container. Also list (names only) any identity-related
-environment variables inside the container:
+Verify from a second terminal. The listener should be `172.17.0.1:8787` only, with no
+`127.0.0.1`, `0.0.0.0` or `*`:
 
 ```bash
-docker exec <openclaw-container> sh -c 'env | cut -d= -f1 | grep -iE "MSI|IDENTITY|AZURE" || true'
+ss -ltn | grep ':8787 '
 ```
 
-If IMDS is reachable, the fix is a host firewall rule (for example in Docker's `DOCKER-USER`
-iptables chain) that drops traffic from Docker bridges to `169.254.169.254`. That is a host
-change and needs your approval.
+Host health check (allowed through `172.17.0.1/32`):
 
-**3. Pick the access path.** Recommended for review: bind the proxy to the Docker bridge gateway
-address (not `0.0.0.0`) and let the container reach it via `host.docker.internal`:
+```bash
+curl -s -w ' %{http_code}\n' http://172.17.0.1:8787/health
+```
 
-- find the gateway: `docker network inspect bridge --format '{{(index .IPAM.Config 0).Gateway}}'`
-  (usually `172.17.0.1`; for a compose network use that network's name)
-- in `.env`: `RILEY_PROXY_HOST=172.17.0.1` and `RILEY_PROXY_ALLOW_NON_LOOPBACK=1`
-- OpenClaw's compose service needs `extra_hosts: ["host.docker.internal:host-gateway"]` if it
-  doesn't have it already (that is an OpenClaw compose change — your call)
-- from the container: `curl -s http://host.docker.internal:8787/health`
+From a throwaway container on `openclaw_default` (expect `HTTP 200`):
 
-Trade-off: every container on that host can reach the proxy, so the proxy token is the only
-access control. The bridge address is not routable from outside the VM. Not recommended:
-`0.0.0.0` binding, `network_mode: host` for OpenClaw, or running the proxy in its own container
-(it would then need IMDS access from containers, which is exactly what step 2 tries to rule out).
+```bash
+docker run --rm --network openclaw_default --entrypoint node ghcr.io/openclaw/openclaw:latest -e 'fetch("http://172.17.0.1:8787/health",{signal:AbortSignal.timeout(5000)}).then(r=>console.log("HTTP",r.status)).catch(e=>console.log("failed:",e.cause?.code||e.message))'
+```
 
-**4. Point OpenClaw at the proxy** as a custom OpenAI-compatible provider. The shape is roughly
-as follows — check the exact keys against the docs for OpenClaw 2026.9.8:
+From a container on the default bridge, which is not allowlisted (expect `HTTP 403`):
 
-```json5
+```bash
+docker run --rm --network bridge --entrypoint node ghcr.io/openclaw/openclaw:latest -e 'fetch("http://172.17.0.1:8787/health",{signal:AbortSignal.timeout(5000)}).then(r=>console.log("HTTP",r.status)).catch(e=>console.log("failed:",e.cause?.code||e.message))'
+```
+
+The proxy terminal should show `rejected request from non-allowlisted client 172.17.0.x` for
+the second container.
+
+### Step 2 — give the Gateway the token without putting it in openclaw.json
+
+OpenClaw's stock compose file loads the checkout's `.env` into the Gateway with `env_file`, so a
+line there becomes a process environment variable inside the container. Append it from the
+proxy's `.env` without printing it. Run this in the OpenClaw checkout directory, and first make
+sure the file has no `RILEY_PROXY_TOKEN` line already:
+
+```bash
+grep -c '^RILEY_PROXY_TOKEN=' .env; grep '^RILEY_PROXY_TOKEN=' ~/cloudfiles/code/Users/<your-user>/playground/riley_proxy/.env >> .env && chmod 600 .env
+```
+
+Only the proxy token goes into OpenClaw's `.env`. Do not copy the `AZURE_*` values. Because
+`env_file` passes every line in that file into the container, Azure settings there would hand
+the container details it does not need.
+
+Fallback if the compose file has no `env_file`: OpenClaw also reads `~/.openclaw/.env` (the
+mounted config directory) at startup. The token is then in a file inside the container's mount
+rather than its environment. The exposure is similar; it is still not in `openclaw.json`.
+
+### Step 3 — add the provider to openclaw.json
+
+Back up the file first:
+
+```bash
+cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.bak-riley
+```
+
+Merge in the following. Leave `tools` and `agents.defaults.sandbox` untouched. The `apiKey` is a
+SecretRef that OpenClaw resolves from the process environment when the provider is used, so the
+token never appears in the JSON. The inline form `"apiKey": "${RILEY_PROXY_TOKEN}"` also works;
+the SecretRef is preferred because nothing can expand it and write the resolved value back. Set
+`contextWindow` and `maxTokens` to your deployment's real limits.
+
+```json
 {
-  models: {
-    mode: "merge",
-    providers: {
+  "models": {
+    "mode": "merge",
+    "providers": {
       "riley-azure": {
-        baseUrl: "http://host.docker.internal:8787/v1",
-        apiKey: "${RILEY_PROXY_TOKEN}",   // the proxy token, not an Azure key
-        api: "openai-completions",
-        models: [{ id: "<AZURE_DEPLOYMENT>", name: "Riley (Azure)", contextWindow: 128000, maxTokens: 16384 }]
+        "baseUrl": "http://172.17.0.1:8787/v1",
+        "apiKey": { "source": "env", "provider": "default", "id": "RILEY_PROXY_TOKEN" },
+        "api": "openai-completions",
+        "models": [
+          { "id": "<AZURE_DEPLOYMENT>", "name": "Riley (Azure)", "contextWindow": 128000, "maxTokens": 16384 }
+        ]
       }
     }
   },
-  agents: { defaults: { model: { primary: "riley-azure/<AZURE_DEPLOYMENT>" } } }
+  "agents": { "defaults": { "model": { "primary": "riley-azure/<AZURE_DEPLOYMENT>" } } }
 }
 ```
 
-If OpenClaw sends a parameter not on the allowlist, the proxy answers 400
-`Unsupported parameter(s): <name>`. Review the parameter, then add it to `ALLOWED_PARAMS` in
-`app.py` if it is safe.
+### Step 4 — start the Gateway and verify the token path
+
+`env_file` is read when the container is created, so recreate it. Run this in the OpenClaw
+checkout:
+
+```bash
+docker compose up -d --force-recreate openclaw-gateway
+```
+
+Check that the token is present in the Gateway's environment. This prints only its length:
+
+```bash
+docker exec openclaw-openclaw-gateway-1 node -e 'const t=process.env.RILEY_PROXY_TOKEN||""; console.log(t ? "present, "+t.length+" chars" : "MISSING")'
+```
+
+Check that the token is not in openclaw.json (expect `0`):
+
+```bash
+grep -cFf <(grep '^RILEY_PROXY_TOKEN=' ~/cloudfiles/code/Users/<your-user>/playground/riley_proxy/.env | cut -d= -f2-) ~/.openclaw/openclaw.json
+```
+
+Check that tool restrictions are unchanged (expect `minimal`, the same deny list, and sandbox `off`):
+
+```bash
+python3 -c 'import json,os; c=json.load(open(os.path.expanduser("~/.openclaw/openclaw.json"))); t=c.get("tools",{}); print(t.get("profile"), t.get("deny"), c.get("agents",{}).get("defaults",{}).get("sandbox",{}).get("mode"))'
+```
+
+Call the proxy directly from the Gateway container with a synthetic prompt. It prints the HTTP
+status and the reply only:
+
+```bash
+docker exec openclaw-openclaw-gateway-1 node -e 'fetch("http://172.17.0.1:8787/v1/chat/completions",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+process.env.RILEY_PROXY_TOKEN},body:JSON.stringify({model:"<AZURE_DEPLOYMENT>",messages:[{role:"user",content:"Reply with: pong"}]})}).then(async r=>{const j=await r.json(); console.log(r.status, j.choices?.[0]?.message?.content ?? j.error)})'
+```
+
+Check which ports the Gateway publishes (see limitations):
+
+```bash
+docker port openclaw-openclaw-gateway-1
+```
+
+### Step 5 — Riley's first response
+
+Send Riley a synthetic message through your usual OpenClaw entry point (Control UI or channel).
+The proxy terminal should show `POST /v1/chat/completions HTTP/1.1" 200` from a `172.18.0.x`
+address. If OpenClaw sends a parameter the proxy does not accept, OpenClaw's error contains
+`Unsupported parameter(s): <name>`. Review that parameter before adding it to `ALLOWED_PARAMS`.
+
+### Rollback
+
+1. In the proxy `.env`, remove the three lines from step 1 and restart the proxy (back to
+   `127.0.0.1`).
+2. Restore `~/.openclaw/openclaw.json.bak-riley`.
+3. Delete the `RILEY_PROXY_TOKEN` line from OpenClaw's `.env`.
+4. Run `docker compose up -d --force-recreate openclaw-gateway`.
+
+### Phase 2 (pending approval, not part of these steps)
+
+Block the instance metadata service and WireServer for containers with `DOCKER-USER` rules, and
+optionally add `INPUT` rules so non-allowlisted containers cannot open a TCP connection at all.
+See the networking proposal; nothing here applies those rules.
 
 ## Remaining security limitations
 
-- **IMDS reachability from containers** (above) is unverified. Until it is checked, assume a
-  container on this host might be able to obtain the managed identity's tokens directly.
-- **One static shared token.** Anything inside the OpenClaw container — including tools, skills
-  or code the agent runs, or a prompt-injected agent — can read the token from OpenClaw's config
-  and call the model. Rotation is manual (change `.env` and OpenClaw config, restart both).
+- **The subnet allowlist does not identify Riley.** It admits any process whose packets come
+  from `172.18.0.0/16`, plus anything on the host via `172.17.0.1/32`. That includes:
+  - every container on `openclaw_default`, such as other compose services or future sidecars
+  - any container someone attaches with `docker run --network openclaw_default`
+  - every process inside the Gateway container, including plugins and anything its tools start
+  - any process on the host
+
+  If the network is recreated with a different subnet, the allowlist stops matching and the
+  proxy fails closed. The bearer token is the real authenticator; the allowlist only shrinks who
+  can try. Stronger options, each needing a reviewed change:
+  - a dedicated network holding only the Gateway, with a fixed IP and a `/32` allowlist
+  - `INPUT` firewall rules
+  - mTLS
+- **Docker access is root-equivalent.** Anyone who can run `docker` on the host can read the
+  token (`docker inspect`, `docker exec`), join `openclaw_default`, or read the proxy `.env`.
+- **The token is visible inside the Gateway container.** It sits in the process environment, so
+  every process in the container can read it. With sandbox mode `off`, tools run in that
+  container; `exec`, `process`, `write`, `edit`, `apply_patch` and `browser` are currently denied.
+  Rotation is manual: change both `.env` files, restart the proxy, recreate the Gateway.
+- **The instance metadata service is reachable from containers** (diagnostics returned HTTP
+  200). The host's identity comes from Azure ML's local `MSI_ENDPOINT`, which needs `MSI_SECRET`
+  (present only on the host). Whether the metadata service would also issue tokens to a container
+  is unverified, because checking would mean requesting one. Until the phase 2 `DOCKER-USER` rule
+  is approved and applied, assume it might.
+- **Rejected clients still complete a TCP handshake.** The allowlist is enforced in the
+  application; only firewall rules would stop the connection itself.
+- **The Gateway's own ports.** OpenClaw's stock compose file publishes 18789, 18790 and 3978 on
+  all interfaces. This is separate from the proxy; check `docker port` and the compute instance's
+  NSG after starting the Gateway.
+- **One static shared token** that any holder can use.
 - **No per-client rate limit or spend limit.** Controls are the completion-token cap, body size
   limit, 32 concurrent connections, and Azure's own quota on the deployment.
-- **Plain HTTP.** Fine on loopback or the local bridge; anyone with root on the host can observe
-  traffic. Do not expose it beyond the host.
+- **Plain HTTP over the Docker bridge.** It is not routable off the host, but root on the host can
+  observe it.
 - **Content is not inspected.** Prompts go to Azure as-is; Azure content filtering is the only
   filter. `image_url` parts with remote URLs are forwarded, so Azure may fetch URLs supplied by
   the client (from Azure's network, not this host).
@@ -329,6 +489,6 @@ If OpenClaw sends a parameter not on the allowlist, the proxy answers 400
   rest. Azure's message for a 400 is returned to the caller (but not logged).
 - **Not a managed service.** It runs as a foreground process; it does not restart on failure or
   when the compute instance restarts.
-- **`/health` is unauthenticated.** It reveals only that the proxy is up.
+- **`/health` reveals only that the proxy is up**, and only to allowlisted clients.
 - **Dependencies are pinned by version, not by hash.** Use your company's package mirror or add
   `--require-hashes` if your policy requires it.

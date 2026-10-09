@@ -27,6 +27,7 @@ FAKE_AZURE_TOKEN = "fake-azure-access-token"
 DEPLOYMENT = "riley-test-deployment"
 ENDPOINT_HOST = "example-resource.cognitiveservices.azure.com"
 AUTH = {"Authorization": f"Bearer {PROXY_TOKEN}"}
+LOOPBACK_CLIENT = ("127.0.0.1", 50000)
 
 BASE_ENV = {
     "AZURE_ENDPOINT": f"https://{ENDPOINT_HOST}/",
@@ -160,7 +161,7 @@ def token_provider():
 def client(settings, upstream, token_provider):
     http_client = sdk_http.AsyncClient(transport=sdk_http.MockTransport(upstream))
     azure = proxy.build_client(settings, token_provider, http_client=http_client, max_retries=0)
-    with TestClient(proxy.create_app(settings, azure)) as test_client:
+    with TestClient(proxy.create_app(settings, azure), client=LOOPBACK_CLIENT) as test_client:
         yield test_client
 
 
@@ -680,7 +681,14 @@ def test_invalid_configuration_is_rejected(override):
 
 
 def test_non_loopback_host_requires_explicit_opt_in():
-    s = load_settings({**BASE_ENV, "RILEY_PROXY_HOST": "172.17.0.1", "RILEY_PROXY_ALLOW_NON_LOOPBACK": "1"})
+    s = load_settings(
+        {
+            **BASE_ENV,
+            "RILEY_PROXY_HOST": "172.17.0.1",
+            "RILEY_PROXY_ALLOW_NON_LOOPBACK": "1",
+            "RILEY_PROXY_ALLOWED_CLIENTS": "172.18.0.0/16",
+        }
+    )
     assert s.host == "172.17.0.1"
 
 
@@ -708,3 +716,156 @@ def test_token_provider_uses_managed_identity_with_client_id_and_scope(settings,
     assert seen["client_id"] == BASE_ENV["AZURE_CLIENT_ID"]
     assert seen["scopes"] == ("https://cognitiveservices.azure.com/.default",)
     assert asyncio.run(provider()) == "token-from-fake-credential"
+
+
+# --- client source-IP allowlist -------------------------------------------------------
+
+# The prepared Docker deployment: bind to docker0, allow the openclaw_default subnet and the host.
+DOCKER_ENV = {
+    **BASE_ENV,
+    "RILEY_PROXY_HOST": "172.17.0.1",
+    "RILEY_PROXY_ALLOW_NON_LOOPBACK": "1",
+    "RILEY_PROXY_ALLOWED_CLIENTS": "172.18.0.0/16,172.17.0.1/32",
+}
+
+
+@pytest.fixture
+def make_client(upstream, token_provider):
+    """Build a TestClient whose requests appear to come from `peer`."""
+    clients = []
+
+    def build(env, peer):
+        settings = load_settings(env)
+        http_client = sdk_http.AsyncClient(transport=sdk_http.MockTransport(upstream))
+        azure = proxy.build_client(settings, token_provider, http_client=http_client, max_retries=0)
+        test_client = TestClient(proxy.create_app(settings, azure), client=(peer, 50000))
+        clients.append(test_client)
+        return test_client.__enter__()
+
+    yield build
+    for test_client in clients:
+        test_client.__exit__(None, None, None)
+
+
+@pytest.mark.parametrize("peer", ["127.0.0.1", "127.0.0.2", "::1"])
+def test_default_allowlist_permits_loopback(make_client, peer):
+    client = make_client(BASE_ENV, peer)
+    assert client.get("/health").status_code == 200
+    assert client.post("/v1/chat/completions", json=chat_body(), headers=AUTH).status_code == 200
+
+
+@pytest.mark.parametrize("peer", ["172.18.0.5", "172.17.0.2", "10.0.0.4", "testclient", ""])
+def test_default_allowlist_rejects_non_loopback(make_client, upstream, peer):
+    client = make_client(BASE_ENV, peer)
+    resp = client.post("/v1/chat/completions", json=chat_body(), headers=AUTH)
+    assert resp.status_code == 403
+    assert resp.json()["error"]["code"] == "client_not_allowed"
+    assert upstream.requests == []
+
+
+@pytest.mark.parametrize("peer", ["172.18.0.2", "172.18.255.254", "172.17.0.1", "::ffff:172.18.0.9"])
+def test_docker_allowlist_permits_approved_clients(make_client, upstream, peer):
+    client = make_client(DOCKER_ENV, peer)
+    assert client.get("/health").status_code == 200
+    resp = client.post("/v1/chat/completions", json=chat_body(), headers=AUTH)
+    assert resp.status_code == 200
+    assert resp.json() == COMPLETION
+    assert len(upstream.requests) == 1
+
+
+@pytest.mark.parametrize("peer", ["172.17.0.2", "172.19.0.2", "127.0.0.1", "::1", "10.1.2.3", "::ffff:172.17.0.2"])
+def test_docker_allowlist_rejects_other_clients_even_with_valid_token(make_client, upstream, token_provider, peer):
+    client = make_client(DOCKER_ENV, peer)
+    for method, path in [("GET", "/health"), ("POST", "/v1/chat/completions"), ("GET", "/docs"), ("GET", "/nope")]:
+        kwargs = {"json": chat_body()} if method == "POST" else {}
+        resp = client.request(method, path, headers=AUTH, **kwargs)
+        assert resp.status_code == 403, path
+        assert resp.json()["error"]["code"] == "client_not_allowed"
+    assert upstream.requests == []
+    assert token_provider.state["calls"] == 0
+
+
+@pytest.mark.parametrize(
+    "headers",
+    [{}, {"Authorization": "Bearer wrong-token"}, {"Authorization": f"Basic {PROXY_TOKEN}"}],
+)
+def test_allowed_client_still_needs_valid_token(make_client, upstream, headers):
+    client = make_client(DOCKER_ENV, "172.18.0.2")
+    resp = client.post("/v1/chat/completions", json=chat_body(), headers=headers)
+    assert resp.status_code == 401
+    assert resp.json()["error"]["code"] == "invalid_proxy_token"
+    assert upstream.requests == []
+
+
+def test_forwarded_headers_do_not_bypass_allowlist(make_client, upstream):
+    client = make_client(DOCKER_ENV, "172.17.0.2")
+    spoof = {**AUTH, "X-Forwarded-For": "172.18.0.2", "X-Real-IP": "172.18.0.2", "Forwarded": "for=172.18.0.2"}
+    assert client.post("/v1/chat/completions", json=chat_body(), headers=spoof).status_code == 403
+    assert upstream.requests == []
+
+
+def test_allowed_client_can_stream(make_client, upstream):
+    events = [_chunk({"role": "assistant", "content": "Hi"}), _chunk({}, "stop")]
+    upstream.handler = lambda req: sdk_http.Response(
+        200, content=sse_body(events), headers={"content-type": "text/event-stream"}
+    )
+    client = make_client(DOCKER_ENV, "172.18.0.2")
+    resp = client.post("/v1/chat/completions", json=chat_body(stream=True), headers=AUTH)
+    assert parse_sse(resp.text) == events + ["[DONE]"]
+
+
+def test_rejected_client_is_logged_without_token(make_client, caplog):
+    client = make_client(DOCKER_ENV, "172.17.0.2")
+    with caplog.at_level(logging.INFO):
+        client.post("/v1/chat/completions", json=chat_body(), headers=AUTH)
+    assert "172.17.0.2" in caplog.text
+    assert PROXY_TOKEN not in caplog.text
+
+
+def test_prepared_docker_configuration_loads():
+    s = load_settings(DOCKER_ENV)
+    assert s.host == "172.17.0.1"
+    assert [str(n) for n in s.allowed_clients] == ["172.18.0.0/16", "172.17.0.1/32"]
+    assert PROXY_TOKEN not in repr(s)
+
+
+def test_explicit_allowlist_on_loopback_replaces_default():
+    s = load_settings({**BASE_ENV, "RILEY_PROXY_ALLOWED_CLIENTS": "127.0.0.1/32"})
+    assert [str(n) for n in s.allowed_clients] == ["127.0.0.1/32"]
+
+
+def test_default_bind_is_still_loopback():
+    assert load_settings(BASE_ENV).host == "127.0.0.1"
+
+
+@pytest.mark.parametrize(
+    "override",
+    [
+        # non-loopback bind without an allowlist
+        {"RILEY_PROXY_ALLOWED_CLIENTS": ""},
+        # malformed or overly broad allowlists
+        {"RILEY_PROXY_ALLOWED_CLIENTS": "not-an-ip"},
+        {"RILEY_PROXY_ALLOWED_CLIENTS": "172.18.0.0/16,garbage"},
+        {"RILEY_PROXY_ALLOWED_CLIENTS": "172.18.0.1/16"},
+        {"RILEY_PROXY_ALLOWED_CLIENTS": "172.18.0.0/33"},
+        {"RILEY_PROXY_ALLOWED_CLIENTS": "0.0.0.0/0"},
+        {"RILEY_PROXY_ALLOWED_CLIENTS": "10.0.0.0/8"},
+        {"RILEY_PROXY_ALLOWED_CLIENTS": "::/0"},
+        {"RILEY_PROXY_ALLOWED_CLIENTS": "fd00::/8"},
+        # all-interfaces binds are refused even with opt-in and an allowlist
+        {"RILEY_PROXY_HOST": "0.0.0.0"},
+        {"RILEY_PROXY_HOST": "::"},
+        {"RILEY_PROXY_HOST": "docker-host"},
+        # opt-in still required
+        {"RILEY_PROXY_ALLOW_NON_LOOPBACK": ""},
+        {"RILEY_PROXY_ALLOW_NON_LOOPBACK": "yes"},
+    ],
+)
+def test_invalid_allowlist_configuration_is_rejected(override):
+    with pytest.raises(ConfigError):
+        load_settings({**DOCKER_ENV, **override})
+
+
+def test_invalid_allowlist_rejected_even_on_loopback():
+    with pytest.raises(ConfigError):
+        load_settings({**BASE_ENV, "RILEY_PROXY_ALLOWED_CLIENTS": "0.0.0.0/0"})
