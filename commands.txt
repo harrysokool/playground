@@ -3,6 +3,7 @@ from azure.identity import ManagedIdentityCredential
 from openai import AzureOpenAI
 
 
+
 credential = ManagedIdentityCredential(client_id=CLIENT_ID)
 
 def get_token():
@@ -36,4 +37,4 @@ PY
 
 
 FAILED: BadRequestError
-Error code: 400 - {'error': {'code': 'API endpoint does not match resource', 'message': 'API called openai-api-2024-12-01-preview not matching any APIs in resource.'}}
+Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}
