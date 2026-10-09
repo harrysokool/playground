@@ -1,4 +1,4 @@
-command -v az || echo "Azure CLI not installed"
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ command -v az || echo "Azure CLI not installed"
 
 
 
@@ -6,3 +6,8 @@ grep -R -n -m 5 \
   "get-access-token" \
   extensions/microsoft-foundry \
   2>/dev/null | head -20
+/anaconda/envs/azureml_py38/bin/az
+extensions/microsoft-foundry/cli.ts:119:  const args = ["account", "get-access-token"];
+extensions/microsoft-foundry/index.test.ts:629:          "get-access-token",
+extensions/microsoft-foundry/index.test.ts:871:        return Array.isArray(args) && args[0] === "account" && args[1] === "get-access-token";
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
