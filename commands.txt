@@ -1,17 +1,17 @@
-az login --identity \
-  --client-id "YOUR_MANAGED_IDENTITY_CLIENT_ID" \
+  (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ az login --identity \
+  --client-id "" \
   --allow-no-subscriptions \
   --output none
-
-
-
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
   az account get-access-token \
   --resource https://cognitiveservices.azure.com/ \
   --query expiresOn \
   --output tsv
   
-
-  docker run --rm \
+2026-10-10 01:53:50.000000
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$   docker run --rm \
   --entrypoint sh \
   ghcr.io/openclaw/openclaw:latest \
   -c 'command -v az || echo "Azure CLI missing inside Docker"'
+Azure CLI missing inside Docker
+(azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/openclaw$ 
