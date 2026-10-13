@@ -116,3 +116,29 @@ cut around it.
 
 **If exact physical size matters, print the PDFs instead:** they carry the size themselves, and
 include trim marks.
+
+## Version 2 benchmark inputs and scoring
+
+The benchmark runs on **all images in `printable_images/`** except `contact_sheet.png`: seven phone
+photos of the printed receipts, plus two receipts carried over from Version 1. The pharmacy till
+slip (receipt7) was not photographed, so it's not scored.
+
+`benchmark_inputs/` contains relative symlinks that give each image the name its ground-truth
+row expects. The originals stay untouched, and nothing is duplicated.
+
+| Input (symlink) | Image | Receipt | Ground truth from |
+|---|---|---|---|
+| `receipt1.png` | `printable_images/r1.png` | GP clinic | spec r1 |
+| `receipt2.png` | `printable_images/r3.png` | Specialist | spec r2 |
+| `receipt3.png` | `printable_images/r4.png` | Hospital invoice | spec r3 |
+| `receipt4.png` | `printable_images/r5.png` | Chinese medicine | spec r4 |
+| `receipt5.png` | `printable_images/r6.png` | Dental | spec r5 |
+| `receipt6.png` | `printable_images/r7.png` | Physiotherapy | spec r6 |
+| `receipt8.png` | `printable_images/r2.png` | Medical centre | spec r8 |
+| `receipt9.jpg` | `printable_images/r8.jpg` | Vet invoice (Version 1 receipt4) | Version 1 ground truth |
+| `receipt10.png` | `printable_images/r9.png` | NZ pharmacy (Version 1 receipt6) | Version 1 ground truth |
+
+`benchmark_ground_truth.xlsx` has exactly these nine rows, with values copied unchanged from
+`receipts_spec.json` and `data/ground_truth/ground_truth_template.xlsx`. The test
+`tests/test_receipts_v2.py` checks it field by field against both sources, and checks that each
+row has exactly one input image.

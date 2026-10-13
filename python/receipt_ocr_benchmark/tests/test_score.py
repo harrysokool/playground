@@ -68,6 +68,13 @@ def test_dates_compare_by_meaning_without_day_month_swap():
     assert not matches("service_date", "2026-02-07", "2026-07-02")  # swapped day/month is wrong
 
 
+def test_traditional_chinese_dates_are_read_by_the_scorer():
+    assert matches("service_date", "2026-06-09", "2026年6月9日")
+    assert matches("service_date", "2026-06-09", "診症日期：2026年 6月 9日")
+    assert not matches("service_date", "2026-06-09", "2026年9月6日")
+    assert not matches("service_date", "2026-06-09", "2026年2月30日")  # invalid date is wrong, not a crash
+
+
 def test_names_and_amounts_use_simple_normalization():
     assert matches("doctor_name", "Dr Jessica Sterenborg", "Dr. Jessica  Sterenborg")
     assert matches("doctor_name", "李俊年", "李俊年醫生")

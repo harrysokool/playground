@@ -263,6 +263,42 @@ To try the prompt without paying for DI again, add `--reuse-di results/azure_di/
 That still calls AOAI, and its DI timings come from the earlier run, so use it for development
 only, not the final numbers.
 
+## Version 2 benchmark (Azure ML only)
+
+Version 1 (six receipts) is frozen at the Git tag `ocr-benchmark-v1`, results included.
+Version 2 uses nine receipt images (see `data/receipts_v2/README.md`). All four approaches run
+**on Azure ML compute only**, with the unchanged code, rules and prompt; outputs go to `results/v2/`.
+The only scorer change is that a Traditional Chinese date such as `2026年6月9日` is now read as
+written. Extraction is unchanged.
+
+```bash
+cd <repo>/python/receipt_ocr_benchmark && git pull
+source ~/venvs/paddle322/bin/activate
+pip install -r requirements-dev.txt -r requirements-azure-openai.txt
+export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
+export AZURE_CLIENT_ID="<managed-identity-client-id>"
+export AZURE_DI_ENDPOINT="https://<di-resource>.cognitiveservices.azure.com/"
+export AZURE_OPENAI_ENDPOINT="https://<aoai-resource>.openai.azure.com/"
+export AZURE_OPENAI_DEPLOYMENT="gpt-5-mini"
+python -m pytest -q
+
+IN=data/receipts_v2/benchmark_inputs
+OUT=results/v2
+python -m receipt_bench.cli --config configs/paddle_light.yaml --input $IN --output $OUT/paddle_light
+python -m receipt_bench.cli --config configs/paddle_heavy.yaml --input $IN --output $OUT/paddle_heavy
+python -m receipt_bench.extract_cli --rules general --input $OUT/paddle_light --output $OUT/extracted_general_light
+python -m receipt_bench.extract_cli --rules general --input $OUT/paddle_heavy --output $OUT/extracted_general_heavy
+python -m receipt_bench.azure_di --input $IN --output $OUT/azure_di
+python -m receipt_bench.extract_cli --rules general --input $OUT/azure_di --output $OUT/extracted_general_azure_di
+python -m receipt_bench.di_aoai --input $IN --output $OUT/di_aoai
+python -m receipt_bench.score --ground-truth data/receipts_v2/benchmark_ground_truth.xlsx \
+    --approach paddle_light=$OUT/extracted_general_light \
+    --approach paddle_heavy=$OUT/extracted_general_heavy \
+    --approach azure_di=$OUT/extracted_general_azure_di \
+    --approach azure_di_aoai=$OUT/di_aoai \
+    --output-dir $OUT/scores
+```
+
 ## Scoring all approaches (Phase 1 of the final comparison)
 
 `receipt_bench/score.py` scores any number of named approaches against the same ground truth

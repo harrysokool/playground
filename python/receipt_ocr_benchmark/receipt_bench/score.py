@@ -19,7 +19,8 @@ Each of the six fields of each receipt is marked:
 Accuracy = Correct / applicable (non-N/A) fields x 100, overall and per field.
 
 Normalization: names ignore case, punctuation, spacing and titles (Dr / 醫生 / 医生). Dates are
-compared as calendar dates: ground truth must be ISO YYYY-MM-DD text; a non-ISO predicted date
+compared as calendar dates: ground truth must be ISO YYYY-MM-DD text; a Chinese date (2026年6月9日) is
+read as written; any other non-ISO predicted date
 is read day-first (Hong Kong convention). Amounts are equal within 0.005. Other fields are an
 exact string match.
 
@@ -126,13 +127,24 @@ def _norm_name(v: str) -> str:
     return re.sub(r"\s+", " ", t).strip()
 
 
+# Traditional Chinese date, e.g. 2026年6月9日. Read here in the scorer only, so a correct answer
+# copied as printed counts; the extraction rules' own date parsing is unchanged.
+_ZH_DATE = re.compile(r"(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日")
+
+
 def _to_date(v) -> date | None:
     s = str(v).strip()
     try:
         return date.fromisoformat(s)
     except ValueError:
-        parsed = parse_date(s)  # day-first
-        return date.fromisoformat(parsed[0]) if parsed else None
+        pass
+    if m := _ZH_DATE.search(s):
+        try:
+            return date(int(m[1]), int(m[2]), int(m[3]))
+        except ValueError:
+            return None
+    parsed = parse_date(s)  # day-first
+    return date.fromisoformat(parsed[0]) if parsed else None
 
 
 def _to_amount(v) -> float | None:
