@@ -1,0 +1,30 @@
+{
+  "document_id": "receipt3",
+  "doctor_name": "主诊醫生",
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": null,
+  "service_date": null,
+  "total_amount": 2195.5,
+  "sources": {
+    "doctor_name": "Attending Doctor 主诊醫生",
+    "total_amount": "2,195.50"
+  },
+  "rules": {
+    "doctor_name": "label 'attending doctor' (same block)",
+    "total_amount": "unlabelled column sum of 4 amounts above"
+  },
+  "validations": [
+    "total_amount: 950.00 + 620.00 + 380.00 + 245.50 == 2,195.50"
+  ],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value",
+    "patient_name: no label or reusable pattern produced a confident value",
+    "receipt_number: no label or reusable pattern produced a confident value",
+    "service_date: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 67849.41080999852,
+    "extract_ms": 17.69460599825834
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "document_id": "receipt6",
+  "doctor_name": "Dr. Kwok Man Hin",
+  "registration_number": "PT004175",
+  "patient_name": "Yeung Tsz Kit",
+  "receipt_number": "RCP-10388",
+  "service_date": "2026-07-17",
+  "total_amount": null,
+  "sources": {
+    "doctor_name": "Dr. Kwok Man Hin",
+    "registration_number": "Reg. No. | PT004175",
+    "patient_name": "Name | Yeung Tsz Kit",
+    "receipt_number": "Receipt No.RCP-10388",
+    "service_date": "Date Issued 17 Jul 2026"
+  },
+  "rules": {
+    "doctor_name": "unlabelled 'Dr <name>' pattern",
+    "registration_number": "label 'reg. no' (right)",
+    "patient_name": "label 'name' (right)",
+    "receipt_number": "label 'receipt no' (same block)",
+    "service_date": "label 'date' (same block), textual"
+  },
+  "validations": [],
+  "warnings": [
+    "total_amount: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 13561.125174001063,
+    "extract_ms": 5.640952000248944
+  }
+}

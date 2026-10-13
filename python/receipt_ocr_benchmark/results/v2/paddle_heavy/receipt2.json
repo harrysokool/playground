@@ -1,0 +1,93 @@
+{
+  "document_id": "receipt2",
+  "engine_config": {
+    "engine_config_name": "paddle_heavy",
+    "text_detection_model_name": "PP-OCRv5_server_det",
+    "text_detection_model_dir": "models/PP-OCRv5_server_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_server_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_server_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 3024,
+      "height": 4032,
+      "blocks": [
+        {
+          "text": "For Kowloon Heart and Vascular Centre",
+          "confidence": 0.9294785261154175,
+          "polygon": [
+            [
+              1864,
+              3436
+            ],
+            [
+              2572,
+              3421
+            ],
+            [
+              2573,
+              3468
+            ],
+            [
+              1865,
+              3483
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "Payment received with thanks.",
+          "confidence": 0.9687299132347107,
+          "polygon": [
+            [
+              388,
+              3450
+            ],
+            [
+              942,
+              3440
+            ],
+            [
+              943,
+              3488
+            ],
+            [
+              389,
+              3498
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "SAMPLE/測試樣本",
+          "confidence": 0.9038270711898804,
+          "polygon": [
+            [
+              2335,
+              3656
+            ],
+            [
+              2623,
+              3654
+            ],
+            [
+              2623,
+              3692
+            ],
+            [
+              2336,
+              3694
+            ]
+          ],
+          "reading_order": 2
+        }
+      ],
+      "plain_text": "For Kowloon Heart and Vascular Centre\nPayment received with thanks.\nSAMPLE/測試樣本"
+    }
+  ],
+  "timings": {
+    "total_ms": 55278.56276499733
+  }
+}

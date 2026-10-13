@@ -1,0 +1,1565 @@
+{
+  "document_id": "receipt3",
+  "engine_config": {
+    "engine_config_name": "paddle_light",
+    "text_detection_model_name": "PP-OCRv5_mobile_det",
+    "text_detection_model_dir": "models/PP-OCRv5_mobile_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_mobile_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_mobile_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 3024,
+      "height": 4032,
+      "blocks": [
+        {
+          "text": "Lantern Bay Hospital 朗湾醫院",
+          "confidence": 0.9408301711082458,
+          "polygon": [
+            [
+              562,
+              435
+            ],
+            [
+              1462,
+              439
+            ],
+            [
+              1462,
+              523
+            ],
+            [
+              562,
+              520
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "LB",
+          "confidence": 0.9976179599761963,
+          "polygon": [
+            [
+              414,
+              463
+            ],
+            [
+              501,
+              463
+            ],
+            [
+              501,
+              519
+            ],
+            [
+              414,
+              519
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "8Lantern Bay Road,",
+          "confidence": 0.9691735506057739,
+          "polygon": [
+            [
+              2268,
+              471
+            ],
+            [
+              2597,
+              475
+            ],
+            [
+              2596,
+              520
+            ],
+            [
+              2268,
+              516
+            ]
+          ],
+          "reading_order": 2
+        },
+        {
+          "text": "Outpatient Department 門診部",
+          "confidence": 0.9731481671333313,
+          "polygon": [
+            [
+              565,
+              516
+            ],
+            [
+              1106,
+              520
+            ],
+            [
+              1106,
+              576
+            ],
+            [
+              565,
+              571
+            ]
+          ],
+          "reading_order": 3
+        },
+        {
+          "text": "Tuen Mun, New Territories",
+          "confidence": 0.9690386056900024,
+          "polygon": [
+            [
+              2185,
+              519
+            ],
+            [
+              2599,
+              526
+            ],
+            [
+              2598,
+              572
+            ],
+            [
+              2184,
+              564
+            ]
+          ],
+          "reading_order": 4
+        },
+        {
+          "text": "Tel:20003360",
+          "confidence": 0.9452540278434753,
+          "polygon": [
+            [
+              2359,
+              576
+            ],
+            [
+              2598,
+              576
+            ],
+            [
+              2598,
+              618
+            ],
+            [
+              2359,
+              618
+            ]
+          ],
+          "reading_order": 5
+        },
+        {
+          "text": "OUTPATIENT INVOICE 門診發票",
+          "confidence": 0.9608733057975769,
+          "polygon": [
+            [
+              1016,
+              680
+            ],
+            [
+              1960,
+              707
+            ],
+            [
+              1958,
+              793
+            ],
+            [
+              1014,
+              765
+            ]
+          ],
+          "reading_order": 6
+        },
+        {
+          "text": "InvoiceNo.發票编號",
+          "confidence": 0.9384236335754395,
+          "polygon": [
+            [
+              397,
+              831
+            ],
+            [
+              755,
+              841
+            ],
+            [
+              754,
+              889
+            ],
+            [
+              396,
+              880
+            ]
+          ],
+          "reading_order": 7
+        },
+        {
+          "text": "OPI-2026-0048213",
+          "confidence": 0.985988438129425,
+          "polygon": [
+            [
+              941,
+              836
+            ],
+            [
+              1298,
+              840
+            ],
+            [
+              1298,
+              891
+            ],
+            [
+              941,
+              888
+            ]
+          ],
+          "reading_order": 8
+        },
+        {
+          "text": "Invoice Date發票日期",
+          "confidence": 0.9631150364875793,
+          "polygon": [
+            [
+              1517,
+              853
+            ],
+            [
+              1886,
+              867
+            ],
+            [
+              1884,
+              916
+            ],
+            [
+              1515,
+              902
+            ]
+          ],
+          "reading_order": 9
+        },
+        {
+          "text": "25 May 2026",
+          "confidence": 0.9442600011825562,
+          "polygon": [
+            [
+              2049,
+              865
+            ],
+            [
+              2298,
+              871
+            ],
+            [
+              2296,
+              927
+            ],
+            [
+              2047,
+              921
+            ]
+          ],
+          "reading_order": 10
+        },
+        {
+          "text": "Patient 病人",
+          "confidence": 0.9088152050971985,
+          "polygon": [
+            [
+              393,
+              929
+            ],
+            [
+              607,
+              936
+            ],
+            [
+              605,
+              984
+            ],
+            [
+              392,
+              977
+            ]
+          ],
+          "reading_order": 11
+        },
+        {
+          "text": "TAM KA YAN",
+          "confidence": 0.9243999719619751,
+          "polygon": [
+            [
+              940,
+              935
+            ],
+            [
+              1196,
+              940
+            ],
+            [
+              1195,
+              989
+            ],
+            [
+              939,
+              985
+            ]
+          ],
+          "reading_order": 12
+        },
+        {
+          "text": "Patient No.病人编号",
+          "confidence": 0.9356710314750671,
+          "polygon": [
+            [
+              1515,
+              952
+            ],
+            [
+              1863,
+              966
+            ],
+            [
+              1861,
+              1015
+            ],
+            [
+              1513,
+              1000
+            ]
+          ],
+          "reading_order": 13
+        },
+        {
+          "text": "LB-0371526",
+          "confidence": 0.9981743097305298,
+          "polygon": [
+            [
+              2051,
+              964
+            ],
+            [
+              2284,
+              969
+            ],
+            [
+              2283,
+              1018
+            ],
+            [
+              2050,
+              1014
+            ]
+          ],
+          "reading_order": 14
+        },
+        {
+          "text": "Attendance Date 就診日期",
+          "confidence": 0.9521483182907104,
+          "polygon": [
+            [
+              390,
+              1032
+            ],
+            [
+              842,
+              1044
+            ],
+            [
+              841,
+              1091
+            ],
+            [
+              389,
+              1079
+            ]
+          ],
+          "reading_order": 15
+        },
+        {
+          "text": "18May 2026",
+          "confidence": 0.9745779037475586,
+          "polygon": [
+            [
+              939,
+              1038
+            ],
+            [
+              1188,
+              1044
+            ],
+            [
+              1186,
+              1099
+            ],
+            [
+              938,
+              1093
+            ]
+          ],
+          "reading_order": 16
+        },
+        {
+          "text": "Episode No.診症编號",
+          "confidence": 0.912382960319519,
+          "polygon": [
+            [
+              1514,
+              1058
+            ],
+            [
+              1881,
+              1066
+            ],
+            [
+              1880,
+              1117
+            ],
+            [
+              1513,
+              1109
+            ]
+          ],
+          "reading_order": 17
+        },
+        {
+          "text": "E2605180412",
+          "confidence": 0.9978784322738647,
+          "polygon": [
+            [
+              2049,
+              1065
+            ],
+            [
+              2311,
+              1071
+            ],
+            [
+              2309,
+              1120
+            ],
+            [
+              2048,
+              1115
+            ]
+          ],
+          "reading_order": 18
+        },
+        {
+          "text": "Attending Doctor 主診醫生",
+          "confidence": 0.9133040308952332,
+          "polygon": [
+            [
+              386,
+              1131
+            ],
+            [
+              840,
+              1141
+            ],
+            [
+              839,
+              1192
+            ],
+            [
+              385,
+              1181
+            ]
+          ],
+          "reading_order": 19
+        },
+        {
+          "text": "Dr. Chow Ka Ho",
+          "confidence": 0.9148567318916321,
+          "polygon": [
+            [
+              937,
+              1141
+            ],
+            [
+              1251,
+              1148
+            ],
+            [
+              1250,
+              1197
+            ],
+            [
+              936,
+              1189
+            ]
+          ],
+          "reading_order": 20
+        },
+        {
+          "text": "Policy No.保單编号",
+          "confidence": 0.8921557664871216,
+          "polygon": [
+            [
+              1512,
+              1159
+            ],
+            [
+              1843,
+              1168
+            ],
+            [
+              1842,
+              1217
+            ],
+            [
+              1511,
+              1208
+            ]
+          ],
+          "reading_order": 21
+        },
+        {
+          "text": "VH-58210937",
+          "confidence": 0.9985155463218689,
+          "polygon": [
+            [
+              2047,
+              1166
+            ],
+            [
+              2306,
+              1169
+            ],
+            [
+              2306,
+              1218
+            ],
+            [
+              2047,
+              1214
+            ]
+          ],
+          "reading_order": 22
+        },
+        {
+          "text": "Insurer保險公司",
+          "confidence": 0.9593225717544556,
+          "polygon": [
+            [
+              381,
+              1234
+            ],
+            [
+              672,
+              1241
+            ],
+            [
+              671,
+              1290
+            ],
+            [
+              380,
+              1283
+            ]
+          ],
+          "reading_order": 23
+        },
+        {
+          "text": "Evergreen Assurance",
+          "confidence": 0.9959357380867004,
+          "polygon": [
+            [
+              935,
+              1246
+            ],
+            [
+              1364,
+              1255
+            ],
+            [
+              1362,
+              1307
+            ],
+            [
+              934,
+              1297
+            ]
+          ],
+          "reading_order": 24
+        },
+        {
+          "text": "Item Code",
+          "confidence": 0.9824605584144592,
+          "polygon": [
+            [
+              365,
+              1406
+            ],
+            [
+              564,
+              1413
+            ],
+            [
+              563,
+              1458
+            ],
+            [
+              363,
+              1451
+            ]
+          ],
+          "reading_order": 25
+        },
+        {
+          "text": "Description",
+          "confidence": 0.9981704354286194,
+          "polygon": [
+            [
+              677,
+              1416
+            ],
+            [
+              900,
+              1423
+            ],
+            [
+              899,
+              1471
+            ],
+            [
+              675,
+              1464
+            ]
+          ],
+          "reading_order": 26
+        },
+        {
+          "text": "项目编號",
+          "confidence": 0.797196626663208,
+          "polygon": [
+            [
+              362,
+              1449
+            ],
+            [
+              532,
+              1455
+            ],
+            [
+              530,
+              1509
+            ],
+            [
+              360,
+              1502
+            ]
+          ],
+          "reading_order": 27
+        },
+        {
+          "text": "Qty",
+          "confidence": 0.9833956360816956,
+          "polygon": [
+            [
+              1793,
+              1441
+            ],
+            [
+              1868,
+              1450
+            ],
+            [
+              1863,
+              1497
+            ],
+            [
+              1787,
+              1488
+            ]
+          ],
+          "reading_order": 28
+        },
+        {
+          "text": "Unit Price (HK$)",
+          "confidence": 0.9556617736816406,
+          "polygon": [
+            [
+              1938,
+              1442
+            ],
+            [
+              2234,
+              1449
+            ],
+            [
+              2233,
+              1497
+            ],
+            [
+              1937,
+              1491
+            ]
+          ],
+          "reading_order": 29
+        },
+        {
+          "text": "Amount (HKS)",
+          "confidence": 0.9002468585968018,
+          "polygon": [
+            [
+              2311,
+              1450
+            ],
+            [
+              2575,
+              1447
+            ],
+            [
+              2576,
+              1496
+            ],
+            [
+              2312,
+              1498
+            ]
+          ],
+          "reading_order": 30
+        },
+        {
+          "text": "项目",
+          "confidence": 0.7995935678482056,
+          "polygon": [
+            [
+              675,
+              1460
+            ],
+            [
+              763,
+              1463
+            ],
+            [
+              762,
+              1514
+            ],
+            [
+              673,
+              1512
+            ]
+          ],
+          "reading_order": 31
+        },
+        {
+          "text": "數量",
+          "confidence": 0.9320839643478394,
+          "polygon": [
+            [
+              1784,
+              1485
+            ],
+            [
+              1870,
+              1488
+            ],
+            [
+              1869,
+              1541
+            ],
+            [
+              1782,
+              1538
+            ]
+          ],
+          "reading_order": 32
+        },
+        {
+          "text": "單價",
+          "confidence": 0.9952406883239746,
+          "polygon": [
+            [
+              2145,
+              1492
+            ],
+            [
+              2234,
+              1492
+            ],
+            [
+              2234,
+              1543
+            ],
+            [
+              2145,
+              1543
+            ]
+          ],
+          "reading_order": 33
+        },
+        {
+          "text": "金額",
+          "confidence": 0.8077754974365234,
+          "polygon": [
+            [
+              2489,
+              1493
+            ],
+            [
+              2580,
+              1493
+            ],
+            [
+              2580,
+              1544
+            ],
+            [
+              2489,
+              1544
+            ]
+          ],
+          "reading_order": 34
+        },
+        {
+          "text": "OPC-0120",
+          "confidence": 0.99831223487854,
+          "polygon": [
+            [
+              362,
+              1558
+            ],
+            [
+              573,
+              1563
+            ],
+            [
+              572,
+              1612
+            ],
+            [
+              361,
+              1607
+            ]
+          ],
+          "reading_order": 35
+        },
+        {
+          "text": "Specialist outpatient consultation 專科門診診症",
+          "confidence": 0.9600237607955933,
+          "polygon": [
+            [
+              674,
+              1566
+            ],
+            [
+              1540,
+              1585
+            ],
+            [
+              1538,
+              1639
+            ],
+            [
+              673,
+              1621
+            ]
+          ],
+          "reading_order": 36
+        },
+        {
+          "text": "1",
+          "confidence": 0.9977380037307739,
+          "polygon": [
+            [
+              1806,
+              1594
+            ],
+            [
+              1845,
+              1594
+            ],
+            [
+              1845,
+              1640
+            ],
+            [
+              1806,
+              1640
+            ]
+          ],
+          "reading_order": 37
+        },
+        {
+          "text": "950.00",
+          "confidence": 0.9973201751708984,
+          "polygon": [
+            [
+              2095,
+              1596
+            ],
+            [
+              2231,
+              1599
+            ],
+            [
+              2230,
+              1646
+            ],
+            [
+              2094,
+              1644
+            ]
+          ],
+          "reading_order": 38
+        },
+        {
+          "text": "950.00",
+          "confidence": 0.9970882534980774,
+          "polygon": [
+            [
+              2438,
+              1600
+            ],
+            [
+              2579,
+              1600
+            ],
+            [
+              2579,
+              1646
+            ],
+            [
+              2438,
+              1646
+            ]
+          ],
+          "reading_order": 39
+        },
+        {
+          "text": "RAD-1140",
+          "confidence": 0.9982326030731201,
+          "polygon": [
+            [
+              358,
+              1672
+            ],
+            [
+              565,
+              1677
+            ],
+            [
+              564,
+              1726
+            ],
+            [
+              357,
+              1721
+            ]
+          ],
+          "reading_order": 40
+        },
+        {
+          "text": "ChestX-ray胸部X光",
+          "confidence": 0.9714365005493164,
+          "polygon": [
+            [
+              674,
+              1680
+            ],
+            [
+              1068,
+              1690
+            ],
+            [
+              1067,
+              1742
+            ],
+            [
+              673,
+              1732
+            ]
+          ],
+          "reading_order": 41
+        },
+        {
+          "text": "1",
+          "confidence": 0.996275782585144,
+          "polygon": [
+            [
+              1803,
+              1706
+            ],
+            [
+              1844,
+              1706
+            ],
+            [
+              1844,
+              1751
+            ],
+            [
+              1803,
+              1751
+            ]
+          ],
+          "reading_order": 42
+        },
+        {
+          "text": "620.00",
+          "confidence": 0.9970579147338867,
+          "polygon": [
+            [
+              2092,
+              1709
+            ],
+            [
+              2230,
+              1709
+            ],
+            [
+              2230,
+              1759
+            ],
+            [
+              2092,
+              1759
+            ]
+          ],
+          "reading_order": 43
+        },
+        {
+          "text": "620.00",
+          "confidence": 0.997447669506073,
+          "polygon": [
+            [
+              2438,
+              1712
+            ],
+            [
+              2577,
+              1712
+            ],
+            [
+              2577,
+              1759
+            ],
+            [
+              2438,
+              1759
+            ]
+          ],
+          "reading_order": 44
+        },
+        {
+          "text": "LAB-2071",
+          "confidence": 0.9986337423324585,
+          "polygon": [
+            [
+              354,
+              1789
+            ],
+            [
+              553,
+              1792
+            ],
+            [
+              552,
+              1839
+            ],
+            [
+              354,
+              1835
+            ]
+          ],
+          "reading_order": 45
+        },
+        {
+          "text": "Blood test(CBC)血液檢查",
+          "confidence": 0.9567437171936035,
+          "polygon": [
+            [
+              669,
+              1793
+            ],
+            [
+              1170,
+              1802
+            ],
+            [
+              1170,
+              1857
+            ],
+            [
+              668,
+              1848
+            ]
+          ],
+          "reading_order": 46
+        },
+        {
+          "text": "1",
+          "confidence": 0.9968072175979614,
+          "polygon": [
+            [
+              1805,
+              1820
+            ],
+            [
+              1840,
+              1820
+            ],
+            [
+              1840,
+              1862
+            ],
+            [
+              1805,
+              1862
+            ]
+          ],
+          "reading_order": 47
+        },
+        {
+          "text": "380.00",
+          "confidence": 0.9981966614723206,
+          "polygon": [
+            [
+              2091,
+              1819
+            ],
+            [
+              2230,
+              1822
+            ],
+            [
+              2229,
+              1872
+            ],
+            [
+              2090,
+              1870
+            ]
+          ],
+          "reading_order": 48
+        },
+        {
+          "text": "380.00",
+          "confidence": 0.9966845512390137,
+          "polygon": [
+            [
+              2434,
+              1823
+            ],
+            [
+              2577,
+              1826
+            ],
+            [
+              2576,
+              1873
+            ],
+            [
+              2434,
+              1871
+            ]
+          ],
+          "reading_order": 49
+        },
+        {
+          "text": "PHM-9003",
+          "confidence": 0.9986511468887329,
+          "polygon": [
+            [
+              353,
+              1897
+            ],
+            [
+              568,
+              1904
+            ],
+            [
+              567,
+              1953
+            ],
+            [
+              351,
+              1946
+            ]
+          ],
+          "reading_order": 50
+        },
+        {
+          "text": "Drugs 藥物",
+          "confidence": 0.9390180110931396,
+          "polygon": [
+            [
+              667,
+              1907
+            ],
+            [
+              888,
+              1910
+            ],
+            [
+              887,
+              1967
+            ],
+            [
+              666,
+              1963
+            ]
+          ],
+          "reading_order": 51
+        },
+        {
+          "text": "1",
+          "confidence": 0.9968012571334839,
+          "polygon": [
+            [
+              1802,
+              1928
+            ],
+            [
+              1838,
+              1928
+            ],
+            [
+              1838,
+              1971
+            ],
+            [
+              1802,
+              1971
+            ]
+          ],
+          "reading_order": 52
+        },
+        {
+          "text": "245.50",
+          "confidence": 0.9987114071846008,
+          "polygon": [
+            [
+              2090,
+              1929
+            ],
+            [
+              2227,
+              1932
+            ],
+            [
+              2226,
+              1979
+            ],
+            [
+              2089,
+              1976
+            ]
+          ],
+          "reading_order": 53
+        },
+        {
+          "text": "245.50",
+          "confidence": 0.9983212351799011,
+          "polygon": [
+            [
+              2434,
+              1935
+            ],
+            [
+              2576,
+              1935
+            ],
+            [
+              2576,
+              1983
+            ],
+            [
+              2434,
+              1983
+            ]
+          ],
+          "reading_order": 54
+        },
+        {
+          "text": "Total Charges 總收費",
+          "confidence": 0.9732752442359924,
+          "polygon": [
+            [
+              1226,
+              2076
+            ],
+            [
+              1695,
+              2082
+            ],
+            [
+              1694,
+              2144
+            ],
+            [
+              1225,
+              2139
+            ]
+          ],
+          "reading_order": 55
+        },
+        {
+          "text": "2,195.50",
+          "confidence": 0.9891867637634277,
+          "polygon": [
+            [
+              2374,
+              2095
+            ],
+            [
+              2576,
+              2095
+            ],
+            [
+              2576,
+              2148
+            ],
+            [
+              2374,
+              2148
+            ]
+          ],
+          "reading_order": 56
+        },
+        {
+          "text": "Less:Paid by insurer(direct billing)保險公司直接付款",
+          "confidence": 0.9588274359703064,
+          "polygon": [
+            [
+              1225,
+              2188
+            ],
+            [
+              2203,
+              2202
+            ],
+            [
+              2202,
+              2256
+            ],
+            [
+              1224,
+              2243
+            ]
+          ],
+          "reading_order": 57
+        },
+        {
+          "text": "(1,800.00)",
+          "confidence": 0.9629252552986145,
+          "polygon": [
+            [
+              2370,
+              2200
+            ],
+            [
+              2577,
+              2204
+            ],
+            [
+              2576,
+              2261
+            ],
+            [
+              2369,
+              2258
+            ]
+          ],
+          "reading_order": 58
+        },
+        {
+          "text": "Less:Paid by patient病人已付",
+          "confidence": 0.9809675216674805,
+          "polygon": [
+            [
+              1222,
+              2289
+            ],
+            [
+              1783,
+              2294
+            ],
+            [
+              1782,
+              2350
+            ],
+            [
+              1221,
+              2344
+            ]
+          ],
+          "reading_order": 59
+        },
+        {
+          "text": "(395.50)",
+          "confidence": 0.9755655527114868,
+          "polygon": [
+            [
+              2405,
+              2302
+            ],
+            [
+              2577,
+              2306
+            ],
+            [
+              2576,
+              2363
+            ],
+            [
+              2403,
+              2359
+            ]
+          ],
+          "reading_order": 60
+        },
+        {
+          "text": "Balance Due 尚欠餘額",
+          "confidence": 0.9572851657867432,
+          "polygon": [
+            [
+              1222,
+              2393
+            ],
+            [
+              1651,
+              2397
+            ],
+            [
+              1650,
+              2450
+            ],
+            [
+              1221,
+              2445
+            ]
+          ],
+          "reading_order": 61
+        },
+        {
+          "text": "0.00",
+          "confidence": 0.9962429404258728,
+          "polygon": [
+            [
+              2480,
+              2408
+            ],
+            [
+              2577,
+              2411
+            ],
+            [
+              2576,
+              2461
+            ],
+            [
+              2479,
+              2458
+            ]
+          ],
+          "reading_order": 62
+        },
+        {
+          "text": "Direct biling arranged with Evergreen Assurance under the policy shown above.直接付款安排由上述保單之保險公司處理",
+          "confidence": 0.9679283499717712,
+          "polygon": [
+            [
+              362,
+              2577
+            ],
+            [
+              2465,
+              2598
+            ],
+            [
+              2465,
+              2658
+            ],
+            [
+              362,
+              2638
+            ]
+          ],
+          "reading_order": 63
+        },
+        {
+          "text": "This isa computer-generated invoice.此乃電腦發出之發票",
+          "confidence": 0.9551194310188293,
+          "polygon": [
+            [
+              295,
+              3672
+            ],
+            [
+              1226,
+              3692
+            ],
+            [
+              1225,
+              3739
+            ],
+            [
+              294,
+              3719
+            ]
+          ],
+          "reading_order": 64
+        },
+        {
+          "text": "Page1of1",
+          "confidence": 0.995819628238678,
+          "polygon": [
+            [
+              2388,
+              3676
+            ],
+            [
+              2578,
+              3681
+            ],
+            [
+              2577,
+              3727
+            ],
+            [
+              2387,
+              3722
+            ]
+          ],
+          "reading_order": 65
+        },
+        {
+          "text": "SAMPLE/測試樣本",
+          "confidence": 0.96256023645401,
+          "polygon": [
+            [
+              2274,
+              3797
+            ],
+            [
+              2548,
+              3793
+            ],
+            [
+              2549,
+              3834
+            ],
+            [
+              2274,
+              3839
+            ]
+          ],
+          "reading_order": 66
+        }
+      ],
+      "plain_text": "Lantern Bay Hospital 朗湾醫院\nLB\n8Lantern Bay Road,\nOutpatient Department 門診部\nTuen Mun, New Territories\nTel:20003360\nOUTPATIENT INVOICE 門診發票\nInvoiceNo.發票编號\nOPI-2026-0048213\nInvoice Date發票日期\n25 May 2026\nPatient 病人\nTAM KA YAN\nPatient No.病人编号\nLB-0371526\nAttendance Date 就診日期\n18May 2026\nEpisode No.診症编號\nE2605180412\nAttending Doctor 主診醫生\nDr. Chow Ka Ho\nPolicy No.保單编号\nVH-58210937\nInsurer保險公司\nEvergreen Assurance\nItem Code\nDescription\n项目编號\nQty\nUnit Price (HK$)\nAmount (HKS)\n项目\n數量\n單價\n金額\nOPC-0120\nSpecialist outpatient consultation 專科門診診症\n1\n950.00\n950.00\nRAD-1140\nChestX-ray胸部X光\n1\n620.00\n620.00\nLAB-2071\nBlood test(CBC)血液檢查\n1\n380.00\n380.00\nPHM-9003\nDrugs 藥物\n1\n245.50\n245.50\nTotal Charges 總收費\n2,195.50\nLess:Paid by insurer(direct billing)保險公司直接付款\n(1,800.00)\nLess:Paid by patient病人已付\n(395.50)\nBalance Due 尚欠餘額\n0.00\nDirect biling arranged with Evergreen Assurance under the policy shown above.直接付款安排由上述保單之保險公司處理\nThis isa computer-generated invoice.此乃電腦發出之發票\nPage1of1\nSAMPLE/測試樣本"
+    }
+  ],
+  "timings": {
+    "total_ms": 18953.615587000968
+  }
+}

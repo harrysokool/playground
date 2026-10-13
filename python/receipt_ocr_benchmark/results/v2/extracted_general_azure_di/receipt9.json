@@ -1,0 +1,33 @@
+{
+  "document_id": "receipt9",
+  "doctor_name": "Dr. Lok Vichol",
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": "369303",
+  "service_date": "2023-02-09",
+  "total_amount": 1361.0,
+  "sources": {
+    "doctor_name": "Dr. Lok Vichol",
+    "receipt_number": "Invoice No: 369303",
+    "service_date": "Feb 09, 2023",
+    "total_amount": "Total Amount | HKD 1361.00"
+  },
+  "rules": {
+    "doctor_name": "unlabelled 'Dr <name>' pattern",
+    "receipt_number": "label 'invoice no' (same block)",
+    "service_date": "unlabelled: 9/11 dates on the page agree",
+    "total_amount": "total: label 'total amount' (right)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'total': 1361.0, 'subtotal': 1361.5, 'balance': 0.0}",
+    "total_amount: total 1361.0 != subtotal 1361.5 with no tax/charge found"
+  ],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value",
+    "patient_name: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 3371.634544000699,
+    "extract_ms": 12.137724999774946
+  }
+}

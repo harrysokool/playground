@@ -1,0 +1,2721 @@
+{
+  "di_ms": 3683.320703003119,
+  "result": {
+    "apiVersion": "2024-11-30",
+    "modelId": "prebuilt-read",
+    "stringIndexType": "textElements",
+    "content": "++\nHarbourfront Family Clinic Shop 12, G/F, Harbour View Court, 33 Kwun Tong Road, Kowloon Tel: 2000 4187\nDOCTOR Dr. Tsang Hoi Lam MBBS (HK) · Reg. No. M17642\nRECEIPT\nPatient Name: Leung Wai Kei\nReceipt No .: HFC-260314-0087\nPatient No .: HF-20931\nDate: 14/03/2026\nDescription\nAmount (HK$)\nConsultation\n380.00\nMedication (3 days)\n120.00\nSick leave certificate\n50.00\nTotal\nHK$550.00\nPaid by Octopus\nHK$550.00\nThank you for your visit. Please keep this receipt for insurance claims.\nClinic stamp / signature\nSAMPLE / 測試樣本",
+    "pages": [
+      {
+        "pageNumber": 1,
+        "angle": 1.7072670459747314,
+        "width": 3024,
+        "height": 4032,
+        "unit": "pixel",
+        "words": [
+          {
+            "content": "++",
+            "polygon": [
+              1597,
+              543,
+              1697,
+              543,
+              1697,
+              645,
+              1597,
+              644
+            ],
+            "confidence": 0.527,
+            "span": {
+              "offset": 0,
+              "length": 2
+            }
+          },
+          {
+            "content": "Harbourfront",
+            "polygon": [
+              1059,
+              709,
+              1641,
+              724,
+              1638,
+              815,
+              1055,
+              787
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 3,
+              "length": 12
+            }
+          },
+          {
+            "content": "Family",
+            "polygon": [
+              1668,
+              725,
+              1962,
+              732,
+              1959,
+              829,
+              1664,
+              816
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 16,
+              "length": 6
+            }
+          },
+          {
+            "content": "Clinic",
+            "polygon": [
+              1988,
+              733,
+              2236,
+              739,
+              2236,
+              839,
+              1984,
+              830
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 23,
+              "length": 6
+            }
+          },
+          {
+            "content": "Shop",
+            "polygon": [
+              973,
+              824,
+              1080,
+              828,
+              1079,
+              876,
+              972,
+              871
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 30,
+              "length": 4
+            }
+          },
+          {
+            "content": "12,",
+            "polygon": [
+              1098,
+              828,
+              1153,
+              830,
+              1152,
+              879,
+              1097,
+              876
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 35,
+              "length": 3
+            }
+          },
+          {
+            "content": "G/F,",
+            "polygon": [
+              1172,
+              831,
+              1249,
+              833,
+              1248,
+              882,
+              1171,
+              879
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 39,
+              "length": 4
+            }
+          },
+          {
+            "content": "Harbour",
+            "polygon": [
+              1269,
+              834,
+              1432,
+              839,
+              1431,
+              889,
+              1268,
+              883
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 44,
+              "length": 7
+            }
+          },
+          {
+            "content": "View",
+            "polygon": [
+              1447,
+              839,
+              1541,
+              842,
+              1541,
+              893,
+              1446,
+              889
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 52,
+              "length": 4
+            }
+          },
+          {
+            "content": "Court,",
+            "polygon": [
+              1556,
+              843,
+              1677,
+              846,
+              1676,
+              897,
+              1556,
+              893
+            ],
+            "confidence": 0.986,
+            "span": {
+              "offset": 57,
+              "length": 6
+            }
+          },
+          {
+            "content": "33",
+            "polygon": [
+              1693,
+              847,
+              1742,
+              848,
+              1742,
+              899,
+              1693,
+              898
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 64,
+              "length": 2
+            }
+          },
+          {
+            "content": "Kwun",
+            "polygon": [
+              1759,
+              849,
+              1871,
+              852,
+              1871,
+              903,
+              1759,
+              900
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 67,
+              "length": 4
+            }
+          },
+          {
+            "content": "Tong",
+            "polygon": [
+              1885,
+              852,
+              1981,
+              855,
+              1981,
+              906,
+              1885,
+              903
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 72,
+              "length": 4
+            }
+          },
+          {
+            "content": "Road,",
+            "polygon": [
+              1999,
+              855,
+              2116,
+              859,
+              2116,
+              909,
+              1999,
+              906
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 77,
+              "length": 5
+            }
+          },
+          {
+            "content": "Kowloon",
+            "polygon": [
+              2134,
+              859,
+              2314,
+              864,
+              2314,
+              914,
+              2134,
+              910
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 83,
+              "length": 7
+            }
+          },
+          {
+            "content": "Tel:",
+            "polygon": [
+              1486,
+              904,
+              1557,
+              906,
+              1555,
+              948,
+              1484,
+              946
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 91,
+              "length": 4
+            }
+          },
+          {
+            "content": "2000",
+            "polygon": [
+              1573,
+              906,
+              1673,
+              909,
+              1671,
+              952,
+              1571,
+              948
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 96,
+              "length": 4
+            }
+          },
+          {
+            "content": "4187",
+            "polygon": [
+              1688,
+              910,
+              1790,
+              913,
+              1790,
+              956,
+              1687,
+              952
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 101,
+              "length": 4
+            }
+          },
+          {
+            "content": "DOCTOR",
+            "polygon": [
+              1525,
+              1075,
+              1737,
+              1079,
+              1735,
+              1120,
+              1524,
+              1116
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 106,
+              "length": 6
+            }
+          },
+          {
+            "content": "Dr.",
+            "polygon": [
+              1303,
+              1127,
+              1427,
+              1131,
+              1425,
+              1199,
+              1301,
+              1194
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 113,
+              "length": 3
+            }
+          },
+          {
+            "content": "Tsang",
+            "polygon": [
+              1441,
+              1131,
+              1639,
+              1137,
+              1638,
+              1205,
+              1439,
+              1199
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 117,
+              "length": 5
+            }
+          },
+          {
+            "content": "Hoi",
+            "polygon": [
+              1659,
+              1138,
+              1782,
+              1141,
+              1780,
+              1209,
+              1658,
+              1206
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 123,
+              "length": 3
+            }
+          },
+          {
+            "content": "Lam",
+            "polygon": [
+              1802,
+              1141,
+              1956,
+              1145,
+              1956,
+              1211,
+              1800,
+              1209
+            ],
+            "confidence": 0.999,
+            "span": {
+              "offset": 127,
+              "length": 3
+            }
+          },
+          {
+            "content": "MBBS",
+            "polygon": [
+              1227,
+              1207,
+              1386,
+              1211,
+              1384,
+              1272,
+              1226,
+              1265
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 131,
+              "length": 4
+            }
+          },
+          {
+            "content": "(HK)",
+            "polygon": [
+              1405,
+              1211,
+              1512,
+              1214,
+              1510,
+              1276,
+              1404,
+              1273
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 136,
+              "length": 4
+            }
+          },
+          {
+            "content": "·",
+            "polygon": [
+              1549,
+              1215,
+              1558,
+              1215,
+              1556,
+              1278,
+              1547,
+              1277
+            ],
+            "confidence": 0.638,
+            "span": {
+              "offset": 141,
+              "length": 1
+            }
+          },
+          {
+            "content": "Reg.",
+            "polygon": [
+              1595,
+              1216,
+              1704,
+              1219,
+              1703,
+              1281,
+              1593,
+              1279
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 143,
+              "length": 4
+            }
+          },
+          {
+            "content": "No.",
+            "polygon": [
+              1727,
+              1220,
+              1805,
+              1222,
+              1803,
+              1282,
+              1725,
+              1281
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 148,
+              "length": 3
+            }
+          },
+          {
+            "content": "M17642",
+            "polygon": [
+              1828,
+              1223,
+              2030,
+              1229,
+              2030,
+              1282,
+              1826,
+              1282
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 152,
+              "length": 6
+            }
+          },
+          {
+            "content": "RECEIPT",
+            "polygon": [
+              1378,
+              1383,
+              1847,
+              1395,
+              1847,
+              1453,
+              1376,
+              1443
+            ],
+            "confidence": 0.963,
+            "span": {
+              "offset": 159,
+              "length": 7
+            }
+          },
+          {
+            "content": "Patient",
+            "polygon": [
+              597,
+              1491,
+              775,
+              1499,
+              773,
+              1553,
+              595,
+              1539
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 167,
+              "length": 7
+            }
+          },
+          {
+            "content": "Name:",
+            "polygon": [
+              795,
+              1500,
+              958,
+              1508,
+              955,
+              1566,
+              793,
+              1555
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 175,
+              "length": 5
+            }
+          },
+          {
+            "content": "Leung",
+            "polygon": [
+              993,
+              1509,
+              1143,
+              1516,
+              1140,
+              1576,
+              990,
+              1568
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 181,
+              "length": 5
+            }
+          },
+          {
+            "content": "Wai",
+            "polygon": [
+              1162,
+              1517,
+              1252,
+              1522,
+              1249,
+              1581,
+              1159,
+              1577
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 187,
+              "length": 3
+            }
+          },
+          {
+            "content": "Kei",
+            "polygon": [
+              1275,
+              1523,
+              1356,
+              1526,
+              1354,
+              1585,
+              1271,
+              1582
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 191,
+              "length": 3
+            }
+          },
+          {
+            "content": "Receipt",
+            "polygon": [
+              1783,
+              1543,
+              1973,
+              1546,
+              1972,
+              1602,
+              1782,
+              1599
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 195,
+              "length": 7
+            }
+          },
+          {
+            "content": "No",
+            "polygon": [
+              1992,
+              1546,
+              2047,
+              1547,
+              2046,
+              1602,
+              1991,
+              1602
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 203,
+              "length": 2
+            }
+          },
+          {
+            "content": ".:",
+            "polygon": [
+              2058,
+              1547,
+              2094,
+              1547,
+              2094,
+              1602,
+              2057,
+              1602
+            ],
+            "confidence": 0.963,
+            "span": {
+              "offset": 206,
+              "length": 2
+            }
+          },
+          {
+            "content": "HFC-260314-0087",
+            "polygon": [
+              2167,
+              1549,
+              2663,
+              1549,
+              2662,
+              1601,
+              2166,
+              1600
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 209,
+              "length": 15
+            }
+          },
+          {
+            "content": "Patient",
+            "polygon": [
+              591,
+              1589,
+              770,
+              1597,
+              767,
+              1646,
+              587,
+              1638
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 225,
+              "length": 7
+            }
+          },
+          {
+            "content": "No",
+            "polygon": [
+              790,
+              1598,
+              847,
+              1601,
+              844,
+              1650,
+              786,
+              1647
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 233,
+              "length": 2
+            }
+          },
+          {
+            "content": ".:",
+            "polygon": [
+              857,
+              1602,
+              893,
+              1604,
+              892,
+              1652,
+              854,
+              1650
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 236,
+              "length": 2
+            }
+          },
+          {
+            "content": "HF-20931",
+            "polygon": [
+              984,
+              1609,
+              1230,
+              1619,
+              1230,
+              1665,
+              980,
+              1657
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 239,
+              "length": 8
+            }
+          },
+          {
+            "content": "Date:",
+            "polygon": [
+              1779,
+              1632,
+              1920,
+              1633,
+              1920,
+              1691,
+              1779,
+              1689
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 248,
+              "length": 5
+            }
+          },
+          {
+            "content": "14/03/2026",
+            "polygon": [
+              2173,
+              1646,
+              2467,
+              1648,
+              2465,
+              1695,
+              2175,
+              1695
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 254,
+              "length": 10
+            }
+          },
+          {
+            "content": "Description",
+            "polygon": [
+              578,
+              1757,
+              845,
+              1770,
+              845,
+              1818,
+              574,
+              1801
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 265,
+              "length": 11
+            }
+          },
+          {
+            "content": "Amount",
+            "polygon": [
+              2323,
+              1817,
+              2515,
+              1819,
+              2513,
+              1870,
+              2322,
+              1867
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 277,
+              "length": 6
+            }
+          },
+          {
+            "content": "(HK$)",
+            "polygon": [
+              2529,
+              1820,
+              2663,
+              1821,
+              2663,
+              1871,
+              2528,
+              1870
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 284,
+              "length": 5
+            }
+          },
+          {
+            "content": "Consultation",
+            "polygon": [
+              569,
+              1874,
+              893,
+              1888,
+              891,
+              1937,
+              566,
+              1925
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 290,
+              "length": 12
+            }
+          },
+          {
+            "content": "380.00",
+            "polygon": [
+              2472,
+              1935,
+              2667,
+              1937,
+              2667,
+              1993,
+              2470,
+              1994
+            ],
+            "confidence": 0.999,
+            "span": {
+              "offset": 303,
+              "length": 6
+            }
+          },
+          {
+            "content": "Medication",
+            "polygon": [
+              559,
+              2000,
+              842,
+              2013,
+              837,
+              2073,
+              554,
+              2062
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 310,
+              "length": 10
+            }
+          },
+          {
+            "content": "(3",
+            "polygon": [
+              864,
+              2014,
+              910,
+              2016,
+              906,
+              2076,
+              859,
+              2074
+            ],
+            "confidence": 0.972,
+            "span": {
+              "offset": 321,
+              "length": 2
+            }
+          },
+          {
+            "content": "days)",
+            "polygon": [
+              929,
+              2017,
+              1069,
+              2023,
+              1066,
+              2083,
+              924,
+              2077
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 324,
+              "length": 5
+            }
+          },
+          {
+            "content": "120.00",
+            "polygon": [
+              2480,
+              2068,
+              2665,
+              2072,
+              2665,
+              2130,
+              2480,
+              2130
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 330,
+              "length": 6
+            }
+          },
+          {
+            "content": "Sick",
+            "polygon": [
+              546,
+              2134,
+              659,
+              2140,
+              655,
+              2198,
+              541,
+              2194
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 337,
+              "length": 4
+            }
+          },
+          {
+            "content": "leave",
+            "polygon": [
+              679,
+              2140,
+              816,
+              2146,
+              813,
+              2204,
+              675,
+              2199
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 342,
+              "length": 5
+            }
+          },
+          {
+            "content": "certificate",
+            "polygon": [
+              836,
+              2147,
+              1080,
+              2154,
+              1080,
+              2214,
+              833,
+              2205
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 348,
+              "length": 11
+            }
+          },
+          {
+            "content": "50.00",
+            "polygon": [
+              2515,
+              2215,
+              2669,
+              2218,
+              2668,
+              2265,
+              2515,
+              2264
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 360,
+              "length": 5
+            }
+          },
+          {
+            "content": "Total",
+            "polygon": [
+              528,
+              2278,
+              688,
+              2284,
+              687,
+              2343,
+              526,
+              2336
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 366,
+              "length": 5
+            }
+          },
+          {
+            "content": "HK$550.00",
+            "polygon": [
+              2329,
+              2350,
+              2670,
+              2360,
+              2670,
+              2420,
+              2327,
+              2411
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 372,
+              "length": 9
+            }
+          },
+          {
+            "content": "Paid",
+            "polygon": [
+              521,
+              2427,
+              641,
+              2431,
+              638,
+              2495,
+              519,
+              2491
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 382,
+              "length": 4
+            }
+          },
+          {
+            "content": "by",
+            "polygon": [
+              661,
+              2432,
+              722,
+              2434,
+              720,
+              2497,
+              658,
+              2495
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 387,
+              "length": 2
+            }
+          },
+          {
+            "content": "Octopus",
+            "polygon": [
+              740,
+              2435,
+              962,
+              2443,
+              962,
+              2504,
+              737,
+              2498
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 390,
+              "length": 7
+            }
+          },
+          {
+            "content": "HK$550.00",
+            "polygon": [
+              2363,
+              2499,
+              2674,
+              2509,
+              2674,
+              2568,
+              2360,
+              2557
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 398,
+              "length": 9
+            }
+          },
+          {
+            "content": "Thank",
+            "polygon": [
+              447,
+              3411,
+              581,
+              3420,
+              578,
+              3475,
+              445,
+              3467
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 408,
+              "length": 5
+            }
+          },
+          {
+            "content": "you",
+            "polygon": [
+              596,
+              3420,
+              670,
+              3425,
+              667,
+              3480,
+              593,
+              3476
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 414,
+              "length": 3
+            }
+          },
+          {
+            "content": "for",
+            "polygon": [
+              686,
+              3426,
+              742,
+              3429,
+              738,
+              3484,
+              683,
+              3481
+            ],
+            "confidence": 0.999,
+            "span": {
+              "offset": 418,
+              "length": 3
+            }
+          },
+          {
+            "content": "your",
+            "polygon": [
+              755,
+              3429,
+              848,
+              3434,
+              844,
+              3490,
+              751,
+              3485
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 422,
+              "length": 4
+            }
+          },
+          {
+            "content": "visit.",
+            "polygon": [
+              860,
+              3435,
+              958,
+              3440,
+              956,
+              3495,
+              856,
+              3490
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 427,
+              "length": 6
+            }
+          },
+          {
+            "content": "Please",
+            "polygon": [
+              443,
+              3472,
+              588,
+              3480,
+              586,
+              3535,
+              441,
+              3525
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 434,
+              "length": 6
+            }
+          },
+          {
+            "content": "keep",
+            "polygon": [
+              605,
+              3481,
+              706,
+              3486,
+              704,
+              3542,
+              602,
+              3536
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 441,
+              "length": 4
+            }
+          },
+          {
+            "content": "this",
+            "polygon": [
+              721,
+              3487,
+              795,
+              3490,
+              793,
+              3547,
+              718,
+              3543
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 446,
+              "length": 4
+            }
+          },
+          {
+            "content": "receipt",
+            "polygon": [
+              810,
+              3491,
+              953,
+              3498,
+              951,
+              3554,
+              808,
+              3548
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 451,
+              "length": 7
+            }
+          },
+          {
+            "content": "for",
+            "polygon": [
+              969,
+              3498,
+              1025,
+              3501,
+              1023,
+              3557,
+              967,
+              3555
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 459,
+              "length": 3
+            }
+          },
+          {
+            "content": "insurance",
+            "polygon": [
+              1040,
+              3501,
+              1247,
+              3510,
+              1245,
+              3563,
+              1038,
+              3557
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 463,
+              "length": 9
+            }
+          },
+          {
+            "content": "claims.",
+            "polygon": [
+              1263,
+              3510,
+              1412,
+              3516,
+              1412,
+              3566,
+              1261,
+              3564
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 473,
+              "length": 7
+            }
+          },
+          {
+            "content": "Clinic",
+            "polygon": [
+              2033,
+              3544,
+              2153,
+              3550,
+              2149,
+              3611,
+              2028,
+              3608
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 481,
+              "length": 6
+            }
+          },
+          {
+            "content": "stamp",
+            "polygon": [
+              2169,
+              3551,
+              2298,
+              3557,
+              2295,
+              3616,
+              2165,
+              3612
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 488,
+              "length": 5
+            }
+          },
+          {
+            "content": "/",
+            "polygon": [
+              2312,
+              3558,
+              2328,
+              3559,
+              2325,
+              3617,
+              2309,
+              3616
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 494,
+              "length": 1
+            }
+          },
+          {
+            "content": "signature",
+            "polygon": [
+              2342,
+              3559,
+              2544,
+              3567,
+              2544,
+              3625,
+              2340,
+              3617
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 496,
+              "length": 9
+            }
+          },
+          {
+            "content": "SAMPLE",
+            "polygon": [
+              2390,
+              3760,
+              2565,
+              3766,
+              2564,
+              3813,
+              2389,
+              3808
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 506,
+              "length": 6
+            }
+          },
+          {
+            "content": "/",
+            "polygon": [
+              2572,
+              3766,
+              2609,
+              3768,
+              2608,
+              3815,
+              2571,
+              3814
+            ],
+            "confidence": 0.986,
+            "span": {
+              "offset": 513,
+              "length": 1
+            }
+          },
+          {
+            "content": "測",
+            "polygon": [
+              2610,
+              3768,
+              2640,
+              3768,
+              2639,
+              3816,
+              2609,
+              3815
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 515,
+              "length": 1
+            }
+          },
+          {
+            "content": "試",
+            "polygon": [
+              2654,
+              3769,
+              2684,
+              3770,
+              2683,
+              3817,
+              2652,
+              3816
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 516,
+              "length": 1
+            }
+          },
+          {
+            "content": "樣",
+            "polygon": [
+              2703,
+              3770,
+              2734,
+              3771,
+              2733,
+              3819,
+              2702,
+              3818
+            ],
+            "confidence": 0.985,
+            "span": {
+              "offset": 517,
+              "length": 1
+            }
+          },
+          {
+            "content": "本",
+            "polygon": [
+              2747,
+              3771,
+              2787,
+              3772,
+              2787,
+              3820,
+              2746,
+              3819
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 518,
+              "length": 1
+            }
+          }
+        ],
+        "lines": [
+          {
+            "content": "++",
+            "polygon": [
+              1597,
+              543,
+              1695,
+              544,
+              1696,
+              645,
+              1597,
+              645
+            ],
+            "spans": [
+              {
+                "offset": 0,
+                "length": 2
+              }
+            ]
+          },
+          {
+            "content": "Harbourfront Family Clinic",
+            "polygon": [
+              1057,
+              709,
+              2235,
+              738,
+              2232,
+              838,
+              1054,
+              797
+            ],
+            "spans": [
+              {
+                "offset": 3,
+                "length": 26
+              }
+            ]
+          },
+          {
+            "content": "Shop 12, G/F, Harbour View Court, 33 Kwun Tong Road, Kowloon",
+            "polygon": [
+              972,
+              824,
+              2314,
+              864,
+              2313,
+              914,
+              971,
+              874
+            ],
+            "spans": [
+              {
+                "offset": 30,
+                "length": 60
+              }
+            ]
+          },
+          {
+            "content": "Tel: 2000 4187",
+            "polygon": [
+              1485,
+              903,
+              1789,
+              912,
+              1788,
+              955,
+              1484,
+              945
+            ],
+            "spans": [
+              {
+                "offset": 91,
+                "length": 14
+              }
+            ]
+          },
+          {
+            "content": "DOCTOR",
+            "polygon": [
+              1524,
+              1075,
+              1736,
+              1078,
+              1735,
+              1119,
+              1523,
+              1116
+            ],
+            "spans": [
+              {
+                "offset": 106,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "Dr. Tsang Hoi Lam",
+            "polygon": [
+              1302,
+              1126,
+              1956,
+              1144,
+              1954,
+              1211,
+              1300,
+              1195
+            ],
+            "spans": [
+              {
+                "offset": 113,
+                "length": 17
+              }
+            ]
+          },
+          {
+            "content": "MBBS (HK) · Reg. No. M17642",
+            "polygon": [
+              1227,
+              1207,
+              2029,
+              1226,
+              2028,
+              1282,
+              1226,
+              1268
+            ],
+            "spans": [
+              {
+                "offset": 131,
+                "length": 27
+              }
+            ]
+          },
+          {
+            "content": "RECEIPT",
+            "polygon": [
+              1377,
+              1383,
+              1846,
+              1394,
+              1845,
+              1453,
+              1375,
+              1442
+            ],
+            "spans": [
+              {
+                "offset": 159,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "Patient Name: Leung Wai Kei",
+            "polygon": [
+              597,
+              1490,
+              1355,
+              1526,
+              1351,
+              1585,
+              594,
+              1545
+            ],
+            "spans": [
+              {
+                "offset": 167,
+                "length": 27
+              }
+            ]
+          },
+          {
+            "content": "Receipt No .:",
+            "polygon": [
+              1782,
+              1542,
+              2093,
+              1546,
+              2092,
+              1602,
+              1781,
+              1598
+            ],
+            "spans": [
+              {
+                "offset": 195,
+                "length": 13
+              }
+            ]
+          },
+          {
+            "content": "HFC-260314-0087",
+            "polygon": [
+              2166,
+              1548,
+              2662,
+              1548,
+              2662,
+              1600,
+              2166,
+              1599
+            ],
+            "spans": [
+              {
+                "offset": 209,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "Patient No .:",
+            "polygon": [
+              589,
+              1588,
+              892,
+              1602,
+              890,
+              1651,
+              587,
+              1636
+            ],
+            "spans": [
+              {
+                "offset": 225,
+                "length": 13
+              }
+            ]
+          },
+          {
+            "content": "HF-20931",
+            "polygon": [
+              982,
+              1609,
+              1229,
+              1618,
+              1228,
+              1665,
+              980,
+              1655
+            ],
+            "spans": [
+              {
+                "offset": 239,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "Date:",
+            "polygon": [
+              1781,
+              1632,
+              1919,
+              1635,
+              1917,
+              1690,
+              1779,
+              1690
+            ],
+            "spans": [
+              {
+                "offset": 248,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "14/03/2026",
+            "polygon": [
+              2173,
+              1646,
+              2466,
+              1647,
+              2466,
+              1694,
+              2173,
+              1693
+            ],
+            "spans": [
+              {
+                "offset": 254,
+                "length": 10
+              }
+            ]
+          },
+          {
+            "content": "Description",
+            "polygon": [
+              577,
+              1756,
+              844,
+              1770,
+              842,
+              1817,
+              574,
+              1802
+            ],
+            "spans": [
+              {
+                "offset": 265,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "Amount (HK$)",
+            "polygon": [
+              2322,
+              1816,
+              2662,
+              1821,
+              2661,
+              1870,
+              2322,
+              1866
+            ],
+            "spans": [
+              {
+                "offset": 277,
+                "length": 12
+              }
+            ]
+          },
+          {
+            "content": "Consultation",
+            "polygon": [
+              568,
+              1873,
+              892,
+              1887,
+              890,
+              1937,
+              566,
+              1923
+            ],
+            "spans": [
+              {
+                "offset": 290,
+                "length": 12
+              }
+            ]
+          },
+          {
+            "content": "380.00",
+            "polygon": [
+              2470,
+              1934,
+              2666,
+              1935,
+              2666,
+              1993,
+              2470,
+              1993
+            ],
+            "spans": [
+              {
+                "offset": 303,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "Medication (3 days)",
+            "polygon": [
+              556,
+              1999,
+              1068,
+              2021,
+              1065,
+              2082,
+              554,
+              2061
+            ],
+            "spans": [
+              {
+                "offset": 310,
+                "length": 19
+              }
+            ]
+          },
+          {
+            "content": "120.00",
+            "polygon": [
+              2479,
+              2068,
+              2664,
+              2070,
+              2664,
+              2130,
+              2479,
+              2128
+            ],
+            "spans": [
+              {
+                "offset": 330,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "Sick leave certificate",
+            "polygon": [
+              543,
+              2134,
+              1080,
+              2153,
+              1077,
+              2213,
+              541,
+              2193
+            ],
+            "spans": [
+              {
+                "offset": 337,
+                "length": 22
+              }
+            ]
+          },
+          {
+            "content": "50.00",
+            "polygon": [
+              2514,
+              2214,
+              2668,
+              2215,
+              2667,
+              2265,
+              2514,
+              2263
+            ],
+            "spans": [
+              {
+                "offset": 360,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "Total",
+            "polygon": [
+              530,
+              2278,
+              687,
+              2285,
+              685,
+              2343,
+              526,
+              2337
+            ],
+            "spans": [
+              {
+                "offset": 366,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "HK$550.00",
+            "polygon": [
+              2328,
+              2350,
+              2669,
+              2358,
+              2668,
+              2419,
+              2326,
+              2410
+            ],
+            "spans": [
+              {
+                "offset": 372,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "Paid by Octopus",
+            "polygon": [
+              521,
+              2426,
+              961,
+              2441,
+              959,
+              2504,
+              519,
+              2489
+            ],
+            "spans": [
+              {
+                "offset": 382,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "HK$550.00",
+            "polygon": [
+              2361,
+              2498,
+              2673,
+              2508,
+              2671,
+              2567,
+              2359,
+              2557
+            ],
+            "spans": [
+              {
+                "offset": 398,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "Thank you for your visit.",
+            "polygon": [
+              446,
+              3411,
+              957,
+              3439,
+              954,
+              3494,
+              444,
+              3466
+            ],
+            "spans": [
+              {
+                "offset": 408,
+                "length": 25
+              }
+            ]
+          },
+          {
+            "content": "Please keep this receipt for insurance claims.",
+            "polygon": [
+              442,
+              3472,
+              1411,
+              3514,
+              1408,
+              3566,
+              440,
+              3530
+            ],
+            "spans": [
+              {
+                "offset": 434,
+                "length": 46
+              }
+            ]
+          },
+          {
+            "content": "Clinic stamp / signature",
+            "polygon": [
+              2030,
+              3543,
+              2543,
+              3563,
+              2541,
+              3625,
+              2028,
+              3607
+            ],
+            "spans": [
+              {
+                "offset": 481,
+                "length": 24
+              }
+            ]
+          },
+          {
+            "content": "SAMPLE / 測試樣本",
+            "polygon": [
+              2390,
+              3759,
+              2786,
+              3772,
+              2785,
+              3819,
+              2388,
+              3807
+            ],
+            "spans": [
+              {
+                "offset": 506,
+                "length": 13
+              }
+            ]
+          }
+        ],
+        "spans": [
+          {
+            "offset": 0,
+            "length": 519
+          }
+        ]
+      }
+    ],
+    "paragraphs": [
+      {
+        "spans": [
+          {
+            "offset": 0,
+            "length": 2
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1597,
+              543,
+              1696,
+              543,
+              1696,
+              645,
+              1597,
+              645
+            ]
+          }
+        ],
+        "content": "++"
+      },
+      {
+        "spans": [
+          {
+            "offset": 3,
+            "length": 102
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              975,
+              707,
+              2317,
+              740,
+              2312,
+              968,
+              969,
+              935
+            ]
+          }
+        ],
+        "content": "Harbourfront Family Clinic Shop 12, G/F, Harbour View Court, 33 Kwun Tong Road, Kowloon Tel: 2000 4187"
+      },
+      {
+        "spans": [
+          {
+            "offset": 106,
+            "length": 52
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1229,
+              1069,
+              2031,
+              1083,
+              2028,
+              1282,
+              1226,
+              1268
+            ]
+          }
+        ],
+        "content": "DOCTOR Dr. Tsang Hoi Lam MBBS (HK) · Reg. No. M17642"
+      },
+      {
+        "spans": [
+          {
+            "offset": 159,
+            "length": 7
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1376,
+              1383,
+              1846,
+              1394,
+              1845,
+              1453,
+              1375,
+              1442
+            ]
+          }
+        ],
+        "content": "RECEIPT"
+      },
+      {
+        "spans": [
+          {
+            "offset": 167,
+            "length": 27
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              597,
+              1486,
+              1355,
+              1526,
+              1352,
+              1585,
+              594,
+              1545
+            ]
+          }
+        ],
+        "content": "Patient Name: Leung Wai Kei"
+      },
+      {
+        "spans": [
+          {
+            "offset": 195,
+            "length": 29
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1781,
+              1542,
+              2662,
+              1548,
+              2662,
+              1606,
+              1781,
+              1600
+            ]
+          }
+        ],
+        "content": "Receipt No .: HFC-260314-0087"
+      },
+      {
+        "spans": [
+          {
+            "offset": 225,
+            "length": 22
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              589,
+              1588,
+              1230,
+              1618,
+              1228,
+              1667,
+              587,
+              1637
+            ]
+          }
+        ],
+        "content": "Patient No .: HF-20931"
+      },
+      {
+        "spans": [
+          {
+            "offset": 248,
+            "length": 16
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1779,
+              1632,
+              2466,
+              1637,
+              2466,
+              1695,
+              1779,
+              1690
+            ]
+          }
+        ],
+        "content": "Date: 14/03/2026"
+      },
+      {
+        "spans": [
+          {
+            "offset": 265,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              577,
+              1755,
+              845,
+              1770,
+              842,
+              1817,
+              574,
+              1802
+            ]
+          }
+        ],
+        "content": "Description"
+      },
+      {
+        "spans": [
+          {
+            "offset": 277,
+            "length": 12
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2322,
+              1816,
+              2662,
+              1821,
+              2661,
+              1871,
+              2321,
+              1866
+            ]
+          }
+        ],
+        "content": "Amount (HK$)"
+      },
+      {
+        "spans": [
+          {
+            "offset": 290,
+            "length": 12
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              568,
+              1873,
+              892,
+              1887,
+              890,
+              1937,
+              566,
+              1923
+            ]
+          }
+        ],
+        "content": "Consultation"
+      },
+      {
+        "spans": [
+          {
+            "offset": 303,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2470,
+              1934,
+              2666,
+              1934,
+              2666,
+              1993,
+              2470,
+              1993
+            ]
+          }
+        ],
+        "content": "380.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 310,
+            "length": 19
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              556,
+              1999,
+              1068,
+              2021,
+              1065,
+              2083,
+              553,
+              2061
+            ]
+          }
+        ],
+        "content": "Medication (3 days)"
+      },
+      {
+        "spans": [
+          {
+            "offset": 330,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2479,
+              2068,
+              2665,
+              2070,
+              2664,
+              2130,
+              2478,
+              2128
+            ]
+          }
+        ],
+        "content": "120.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 337,
+            "length": 22
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              543,
+              2134,
+              1080,
+              2153,
+              1078,
+              2213,
+              541,
+              2194
+            ]
+          }
+        ],
+        "content": "Sick leave certificate"
+      },
+      {
+        "spans": [
+          {
+            "offset": 360,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2514,
+              2214,
+              2668,
+              2215,
+              2668,
+              2265,
+              2514,
+              2264
+            ]
+          }
+        ],
+        "content": "50.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 366,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              528,
+              2278,
+              687,
+              2284,
+              685,
+              2343,
+              526,
+              2337
+            ]
+          }
+        ],
+        "content": "Total"
+      },
+      {
+        "spans": [
+          {
+            "offset": 372,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2328,
+              2349,
+              2670,
+              2358,
+              2668,
+              2419,
+              2326,
+              2410
+            ]
+          }
+        ],
+        "content": "HK$550.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 382,
+            "length": 15
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              521,
+              2426,
+              961,
+              2441,
+              959,
+              2504,
+              519,
+              2489
+            ]
+          }
+        ],
+        "content": "Paid by Octopus"
+      },
+      {
+        "spans": [
+          {
+            "offset": 398,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2361,
+              2498,
+              2673,
+              2508,
+              2671,
+              2567,
+              2359,
+              2557
+            ]
+          }
+        ],
+        "content": "HK$550.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 408,
+            "length": 72
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              444,
+              3411,
+              1413,
+              3447,
+              1409,
+              3566,
+              440,
+              3530
+            ]
+          }
+        ],
+        "content": "Thank you for your visit. Please keep this receipt for insurance claims."
+      },
+      {
+        "spans": [
+          {
+            "offset": 481,
+            "length": 24
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2030,
+              3543,
+              2543,
+              3561,
+              2541,
+              3625,
+              2028,
+              3607
+            ]
+          }
+        ],
+        "content": "Clinic stamp / signature"
+      },
+      {
+        "spans": [
+          {
+            "offset": 506,
+            "length": 13
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2389,
+              3759,
+              2786,
+              3771,
+              2785,
+              3819,
+              2388,
+              3807
+            ]
+          }
+        ],
+        "content": "SAMPLE / 測試樣本"
+      }
+    ],
+    "styles": [],
+    "contentFormat": "text"
+  }
+}

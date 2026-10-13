@@ -1,0 +1,63 @@
+{
+  "document_id": "receipt5",
+  "status": "ok",
+  "doctor_name": "Dr. Ho Ching Yee, BDS (HK)",
+  "registration_number": "D03158",
+  "patient_name": "馮浩霖",
+  "receipt_number": "DEN-77342",
+  "service_date": "2026-06-27",
+  "total_amount": 1575.0,
+  "raw_fields": {
+    "doctor_name": "Dr. Ho Ching Yee, BDS (HK)",
+    "registration_number": "D03158",
+    "patient_name": "馮浩霖",
+    "receipt_number": "DEN-77342",
+    "service_date": "27/06/2026",
+    "total_amount": "HK$1,575.00"
+  },
+  "warnings": [],
+  "input_text": "Silverleaf Dental 銀葉牙科診所\nUnit 502, 5/F, Eastwood Centre,\n95 King's Road, North Point\nTel 電話:2000 5194\nRECEIPT 收據\nReceipt No. 收據編號:DEN-77342\nPatient 病人:\n馮浩霖\nDentist 牙醫:\nPatient ID 病人編號:\nSL-40217\nReg. No. 註冊編號:\nDr. Ho Ching Yee, BDS (HK)\nD03158\nTreatment Date 治療日期:\n27/06/2026\nTreatment 治療項目\nQty\nUnit (HK$)\nAmount (HK$)\nScaling and polishing 洗牙及拋光\n1\n650.00\n650.00\nDental X-ray 牙科X光\n2\n150.00\n300.00\nComposite filling, tooth 36 樹脂補牙\n1\n800.00\n800.00\nNext Recall 下次覆診:27/12/2026\nSubtotal 小計\n1,750.00\nRegular check-ups help keep your teeth\nMember discount 10% 會員折扣\n-175.00\nhealthy. 定期檢查,保持牙齒健康。\nTotal 總額\nHK$1,575.00\nPaid by EPS 易辦事\n1,575.00\nSAMPLE / 測試樣本",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 139,
+      "prompt_tokens": 595,
+      "total_tokens": 734,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 64,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 6,
+        "engine_ttft_ms": 31,
+        "engine_ttlt_ms": 1159,
+        "pre_inference_ms": 144,
+        "service_tbt_ms": 6,
+        "service_ttft_ms": 223,
+        "service_ttlt_ms": 1340,
+        "user_visible_ttft_ms": 80
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2667.0294430005015,
+    "aoai_ms": 1872.2198979994573,
+    "total_ms": 4539.249340999959,
+    "ocr_predict_ms": 2667.0294430005015,
+    "extract_ms": 1872.2198979994573
+  }
+}

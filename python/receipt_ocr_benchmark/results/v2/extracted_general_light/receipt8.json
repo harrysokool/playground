@@ -1,0 +1,30 @@
+{
+  "document_id": "receipt8",
+  "doctor_name": null,
+  "registration_number": null,
+  "patient_name": "病人",
+  "receipt_number": null,
+  "service_date": null,
+  "total_amount": 795.0,
+  "sources": {
+    "patient_name": "Patient 病人",
+    "total_amount": "HK$795.00"
+  },
+  "rules": {
+    "patient_name": "label 'patient' (same block)",
+    "total_amount": "unlabelled column sum of 3 amounts above"
+  },
+  "validations": [
+    "total_amount: 420.00 + 280.00 + 95.00 == HK$795.00"
+  ],
+  "warnings": [
+    "doctor_name: 2 different doctor candidates: ['Dr. Siu Ka Wai', '主診醫生']",
+    "registration_number: no label or reusable pattern produced a confident value",
+    "receipt_number: no label or reusable pattern produced a confident value",
+    "service_date: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 15693.323567000334,
+    "extract_ms": 7.327266001084354
+  }
+}

@@ -1,0 +1,967 @@
+{
+  "document_id": "receipt6",
+  "engine_config": {
+    "engine_config_name": "paddle_heavy",
+    "text_detection_model_name": "PP-OCRv5_server_det",
+    "text_detection_model_dir": "models/PP-OCRv5_server_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_server_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_server_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 3024,
+      "height": 4032,
+      "blocks": [
+        {
+          "text": "NORTHPOINT",
+          "confidence": 0.9962888956069946,
+          "polygon": [
+            [
+              399,
+              246
+            ],
+            [
+              1052,
+              261
+            ],
+            [
+              1050,
+              340
+            ],
+            [
+              398,
+              326
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "MOTION",
+          "confidence": 0.9727888107299805,
+          "polygon": [
+            [
+              1070,
+              262
+            ],
+            [
+              1482,
+              276
+            ],
+            [
+              1479,
+              357
+            ],
+            [
+              1068,
+              343
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "Flat B,11/F,Java Commercial Centre,",
+          "confidence": 0.9335987567901611,
+          "polygon": [
+            [
+              1934,
+              273
+            ],
+            [
+              2547,
+              280
+            ],
+            [
+              2546,
+              324
+            ],
+            [
+              1933,
+              316
+            ]
+          ],
+          "reading_order": 2
+        },
+        {
+          "text": "福",
+          "confidence": 0.10183055698871613,
+          "polygon": [
+            [
+              1035,
+              286
+            ],
+            [
+              1060,
+              286
+            ],
+            [
+              1060,
+              318
+            ],
+            [
+              1035,
+              318
+            ]
+          ],
+          "reading_order": 3
+        },
+        {
+          "text": "128 Java Road, North Point",
+          "confidence": 0.9432741403579712,
+          "polygon": [
+            [
+              2103,
+              328
+            ],
+            [
+              2550,
+              335
+            ],
+            [
+              2549,
+              376
+            ],
+            [
+              2102,
+              370
+            ]
+          ],
+          "reading_order": 4
+        },
+        {
+          "text": "PHYSIOTHERAPY CENTRE",
+          "confidence": 0.97467440366745,
+          "polygon": [
+            [
+              396,
+              342
+            ],
+            [
+              999,
+              354
+            ],
+            [
+              998,
+              398
+            ],
+            [
+              395,
+              387
+            ]
+          ],
+          "reading_order": 5
+        },
+        {
+          "text": "Tel:20008452",
+          "confidence": 0.9713903069496155,
+          "polygon": [
+            [
+              2300,
+              381
+            ],
+            [
+              2549,
+              387
+            ],
+            [
+              2548,
+              429
+            ],
+            [
+              2299,
+              422
+            ]
+          ],
+          "reading_order": 6
+        },
+        {
+          "text": "RECEIPT",
+          "confidence": 0.9853768348693848,
+          "polygon": [
+            [
+              386,
+              629
+            ],
+            [
+              805,
+              629
+            ],
+            [
+              805,
+              709
+            ],
+            [
+              386,
+              709
+            ]
+          ],
+          "reading_order": 7
+        },
+        {
+          "text": "Receipt No.RCP-10388",
+          "confidence": 0.961356520652771,
+          "polygon": [
+            [
+              2089,
+              693
+            ],
+            [
+              2550,
+              700
+            ],
+            [
+              2549,
+              748
+            ],
+            [
+              2088,
+              742
+            ]
+          ],
+          "reading_order": 8
+        },
+        {
+          "text": "Date Issued 17 Jul 2026",
+          "confidence": 0.9298331141471863,
+          "polygon": [
+            [
+              2096,
+              756
+            ],
+            [
+              2549,
+              766
+            ],
+            [
+              2548,
+              812
+            ],
+            [
+              2095,
+              801
+            ]
+          ],
+          "reading_order": 9
+        },
+        {
+          "text": "CLIENT",
+          "confidence": 0.9721553921699524,
+          "polygon": [
+            [
+              439,
+              927
+            ],
+            [
+              606,
+              930
+            ],
+            [
+              606,
+              972
+            ],
+            [
+              438,
+              970
+            ]
+          ],
+          "reading_order": 10
+        },
+        {
+          "text": "PHYSIOTHERAPIST",
+          "confidence": 0.9817296266555786,
+          "polygon": [
+            [
+              1567,
+              956
+            ],
+            [
+              1989,
+              962
+            ],
+            [
+              1988,
+              1003
+            ],
+            [
+              1566,
+              998
+            ]
+          ],
+          "reading_order": 11
+        },
+        {
+          "text": "Name",
+          "confidence": 0.9942734837532043,
+          "polygon": [
+            [
+              434,
+              1010
+            ],
+            [
+              568,
+              1012
+            ],
+            [
+              567,
+              1063
+            ],
+            [
+              433,
+              1060
+            ]
+          ],
+          "reading_order": 12
+        },
+        {
+          "text": "Yeung Tsz Kit",
+          "confidence": 0.9651169180870056,
+          "polygon": [
+            [
+              773,
+              1013
+            ],
+            [
+              1052,
+              1021
+            ],
+            [
+              1050,
+              1077
+            ],
+            [
+              772,
+              1069
+            ]
+          ],
+          "reading_order": 13
+        },
+        {
+          "text": "Name",
+          "confidence": 0.9928054809570312,
+          "polygon": [
+            [
+              1564,
+              1037
+            ],
+            [
+              1695,
+              1041
+            ],
+            [
+              1694,
+              1092
+            ],
+            [
+              1563,
+              1088
+            ]
+          ],
+          "reading_order": 14
+        },
+        {
+          "text": "CHEUNG Hoi Ying",
+          "confidence": 0.9654390215873718,
+          "polygon": [
+            [
+              1901,
+              1038
+            ],
+            [
+              2279,
+              1046
+            ],
+            [
+              2278,
+              1101
+            ],
+            [
+              1900,
+              1093
+            ]
+          ],
+          "reading_order": 15
+        },
+        {
+          "text": "Client No.",
+          "confidence": 0.9708176851272583,
+          "polygon": [
+            [
+              434,
+              1085
+            ],
+            [
+              646,
+              1090
+            ],
+            [
+              645,
+              1138
+            ],
+            [
+              433,
+              1134
+            ]
+          ],
+          "reading_order": 16
+        },
+        {
+          "text": "NM-5582",
+          "confidence": 0.9964490532875061,
+          "polygon": [
+            [
+              773,
+              1090
+            ],
+            [
+              977,
+              1096
+            ],
+            [
+              975,
+              1145
+            ],
+            [
+              772,
+              1140
+            ]
+          ],
+          "reading_order": 17
+        },
+        {
+          "text": "Title",
+          "confidence": 0.9659420251846313,
+          "polygon": [
+            [
+              1560,
+              1111
+            ],
+            [
+              1663,
+              1115
+            ],
+            [
+              1661,
+              1169
+            ],
+            [
+              1558,
+              1165
+            ]
+          ],
+          "reading_order": 18
+        },
+        {
+          "text": "Registered Physiotherapist",
+          "confidence": 0.9644783735275269,
+          "polygon": [
+            [
+              1900,
+              1119
+            ],
+            [
+              2445,
+              1122
+            ],
+            [
+              2445,
+              1175
+            ],
+            [
+              1900,
+              1172
+            ]
+          ],
+          "reading_order": 19
+        },
+        {
+          "text": "Referred by",
+          "confidence": 0.9740148782730103,
+          "polygon": [
+            [
+              431,
+              1157
+            ],
+            [
+              678,
+              1163
+            ],
+            [
+              677,
+              1219
+            ],
+            [
+              430,
+              1213
+            ]
+          ],
+          "reading_order": 20
+        },
+        {
+          "text": "Dr.Kwok Man Hin",
+          "confidence": 0.9607999920845032,
+          "polygon": [
+            [
+              773,
+              1165
+            ],
+            [
+              1143,
+              1177
+            ],
+            [
+              1141,
+              1225
+            ],
+            [
+              772,
+              1213
+            ]
+          ],
+          "reading_order": 21
+        },
+        {
+          "text": "Reg. No.",
+          "confidence": 0.9529110193252563,
+          "polygon": [
+            [
+              1560,
+              1183
+            ],
+            [
+              1745,
+              1189
+            ],
+            [
+              1743,
+              1251
+            ],
+            [
+              1558,
+              1244
+            ]
+          ],
+          "reading_order": 22
+        },
+        {
+          "text": "PT004175",
+          "confidence": 0.983191967010498,
+          "polygon": [
+            [
+              1898,
+              1190
+            ],
+            [
+              2111,
+              1193
+            ],
+            [
+              2111,
+              1242
+            ],
+            [
+              1898,
+              1240
+            ]
+          ],
+          "reading_order": 23
+        },
+        {
+          "text": "Session Date 16 Jul 2026",
+          "confidence": 0.960965633392334,
+          "polygon": [
+            [
+              420,
+              1414
+            ],
+            [
+              982,
+              1430
+            ],
+            [
+              980,
+              1477
+            ],
+            [
+              419,
+              1461
+            ]
+          ],
+          "reading_order": 24
+        },
+        {
+          "text": "Next Appointment 23 Jul 2026",
+          "confidence": 0.9442592859268188,
+          "polygon": [
+            [
+              1127,
+              1435
+            ],
+            [
+              1759,
+              1446
+            ],
+            [
+              1758,
+              1496
+            ],
+            [
+              1126,
+              1486
+            ]
+          ],
+          "reading_order": 25
+        },
+        {
+          "text": "SERVICE",
+          "confidence": 0.9805883765220642,
+          "polygon": [
+            [
+              350,
+              1627
+            ],
+            [
+              541,
+              1631
+            ],
+            [
+              540,
+              1674
+            ],
+            [
+              349,
+              1669
+            ]
+          ],
+          "reading_order": 26
+        },
+        {
+          "text": "FEE",
+          "confidence": 0.9815540313720703,
+          "polygon": [
+            [
+              2461,
+              1660
+            ],
+            [
+              2553,
+              1660
+            ],
+            [
+              2553,
+              1705
+            ],
+            [
+              2461,
+              1705
+            ]
+          ],
+          "reading_order": 27
+        },
+        {
+          "text": "Initial physiotherapy assessment",
+          "confidence": 0.9644550085067749,
+          "polygon": [
+            [
+              348,
+              1744
+            ],
+            [
+              1027,
+              1761
+            ],
+            [
+              1025,
+              1816
+            ],
+            [
+              346,
+              1799
+            ]
+          ],
+          "reading_order": 28
+        },
+        {
+          "text": "HK$650.00",
+          "confidence": 0.9957444071769714,
+          "polygon": [
+            [
+              2314,
+              1776
+            ],
+            [
+              2550,
+              1779
+            ],
+            [
+              2549,
+              1829
+            ],
+            [
+              2313,
+              1825
+            ]
+          ],
+          "reading_order": 29
+        },
+        {
+          "text": "Treatment:manual therapy and interferential therapy",
+          "confidence": 0.9541139602661133,
+          "polygon": [
+            [
+              344,
+              1884
+            ],
+            [
+              1429,
+              1907
+            ],
+            [
+              1428,
+              1961
+            ],
+            [
+              342,
+              1937
+            ]
+          ],
+          "reading_order": 30
+        },
+        {
+          "text": "HK$550.00",
+          "confidence": 0.9929700493812561,
+          "polygon": [
+            [
+              2312,
+              1913
+            ],
+            [
+              2549,
+              1916
+            ],
+            [
+              2548,
+              1969
+            ],
+            [
+              2311,
+              1965
+            ]
+          ],
+          "reading_order": 31
+        },
+        {
+          "text": "Total",
+          "confidence": 0.9956257939338684,
+          "polygon": [
+            [
+              404,
+              2154
+            ],
+            [
+              502,
+              2156
+            ],
+            [
+              501,
+              2202
+            ],
+            [
+              403,
+              2199
+            ]
+          ],
+          "reading_order": 32
+        },
+        {
+          "text": "Amount Paid(FPS)",
+          "confidence": 0.941683292388916,
+          "polygon": [
+            [
+              1150,
+              2166
+            ],
+            [
+              1465,
+              2169
+            ],
+            [
+              1464,
+              2210
+            ],
+            [
+              1150,
+              2206
+            ]
+          ],
+          "reading_order": 33
+        },
+        {
+          "text": "Outstanding Balance",
+          "confidence": 0.9941703677177429,
+          "polygon": [
+            [
+              1869,
+              2173
+            ],
+            [
+              2229,
+              2178
+            ],
+            [
+              2228,
+              2223
+            ],
+            [
+              1869,
+              2217
+            ]
+          ],
+          "reading_order": 34
+        },
+        {
+          "text": "HK$1,200.00",
+          "confidence": 0.9736850261688232,
+          "polygon": [
+            [
+              405,
+              2227
+            ],
+            [
+              835,
+              2232
+            ],
+            [
+              834,
+              2297
+            ],
+            [
+              404,
+              2293
+            ]
+          ],
+          "reading_order": 35
+        },
+        {
+          "text": "HK$700.00",
+          "confidence": 0.994608461856842,
+          "polygon": [
+            [
+              1148,
+              2234
+            ],
+            [
+              1504,
+              2237
+            ],
+            [
+              1504,
+              2299
+            ],
+            [
+              1148,
+              2296
+            ]
+          ],
+          "reading_order": 36
+        },
+        {
+          "text": "HK$500.00",
+          "confidence": 0.9923298358917236,
+          "polygon": [
+            [
+              1869,
+              2241
+            ],
+            [
+              2228,
+              2249
+            ],
+            [
+              2227,
+              2313
+            ],
+            [
+              1867,
+              2305
+            ]
+          ],
+          "reading_order": 37
+        },
+        {
+          "text": "Please settle the outstanding balance at your next appointment.Thank you.",
+          "confidence": 0.9386628866195679,
+          "polygon": [
+            [
+              332,
+              2427
+            ],
+            [
+              1688,
+              2434
+            ],
+            [
+              1688,
+              2485
+            ],
+            [
+              332,
+              2478
+            ]
+          ],
+          "reading_order": 38
+        },
+        {
+          "text": "Northpoint Motion Physiotherapy Centre",
+          "confidence": 0.9631905555725098,
+          "polygon": [
+            [
+              316,
+              3479
+            ],
+            [
+              997,
+              3481
+            ],
+            [
+              997,
+              3528
+            ],
+            [
+              316,
+              3526
+            ]
+          ],
+          "reading_order": 39
+        },
+        {
+          "text": "SAMPLE/測試樣本",
+          "confidence": 0.9156107306480408,
+          "polygon": [
+            [
+              2233,
+              3607
+            ],
+            [
+              2511,
+              3615
+            ],
+            [
+              2510,
+              3653
+            ],
+            [
+              2231,
+              3646
+            ]
+          ],
+          "reading_order": 40
+        }
+      ],
+      "plain_text": "NORTHPOINT\nMOTION\nFlat B,11/F,Java Commercial Centre,\n福\n128 Java Road, North Point\nPHYSIOTHERAPY CENTRE\nTel:20008452\nRECEIPT\nReceipt No.RCP-10388\nDate Issued 17 Jul 2026\nCLIENT\nPHYSIOTHERAPIST\nName\nYeung Tsz Kit\nName\nCHEUNG Hoi Ying\nClient No.\nNM-5582\nTitle\nRegistered Physiotherapist\nReferred by\nDr.Kwok Man Hin\nReg. No.\nPT004175\nSession Date 16 Jul 2026\nNext Appointment 23 Jul 2026\nSERVICE\nFEE\nInitial physiotherapy assessment\nHK$650.00\nTreatment:manual therapy and interferential therapy\nHK$550.00\nTotal\nAmount Paid(FPS)\nOutstanding Balance\nHK$1,200.00\nHK$700.00\nHK$500.00\nPlease settle the outstanding balance at your next appointment.Thank you.\nNorthpoint Motion Physiotherapy Centre\nSAMPLE/測試樣本"
+    }
+  ],
+  "timings": {
+    "total_ms": 63012.06829500006
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "document_id": "receipt1",
+  "status": "ok",
+  "doctor_name": "Dr. Tsang Hoi Lam",
+  "registration_number": "MBBS (HK) · Reg. No. M17642",
+  "patient_name": "Leung Wai Kei",
+  "receipt_number": "HFC-260314-0087",
+  "service_date": "2026-03-14",
+  "total_amount": 550.0,
+  "raw_fields": {
+    "doctor_name": "Dr. Tsang Hoi Lam",
+    "registration_number": "MBBS (HK) · Reg. No. M17642",
+    "patient_name": "Leung Wai Kei",
+    "receipt_number": "HFC-260314-0087",
+    "service_date": "14/03/2026",
+    "total_amount": "HK$550.00"
+  },
+  "warnings": [],
+  "input_text": "++\nHarbourfront Family Clinic\nShop 12, G/F, Harbour View Court, 33 Kwun Tong Road, Kowloon\nTel: 2000 4187\nDOCTOR\nDr. Tsang Hoi Lam\nMBBS (HK) · Reg. No. M17642\nRECEIPT\nPatient Name: Leung Wai Kei\nReceipt No .:\nHFC-260314-0087\nPatient No .:\nHF-20931\nDate:\n14/03/2026\nDescription\nAmount (HK$)\nConsultation\n380.00\nMedication (3 days)\n120.00\nSick leave certificate\n50.00\nTotal\nHK$550.00\nPaid by Octopus\nHK$550.00\nThank you for your visit.\nPlease keep this receipt for insurance claims.\nClinic stamp / signature\nSAMPLE / 測試樣本",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 228,
+      "prompt_tokens": 471,
+      "total_tokens": 699,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 128,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 6,
+        "engine_ttft_ms": 37,
+        "engine_ttlt_ms": 1743,
+        "pre_inference_ms": 100,
+        "service_tbt_ms": 6,
+        "service_ttft_ms": 177,
+        "service_ttlt_ms": 1875,
+        "user_visible_ttft_ms": 76
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 3675.614088002476,
+    "aoai_ms": 3370.3875229984988,
+    "total_ms": 7046.001611000975,
+    "ocr_predict_ms": 3675.614088002476,
+    "extract_ms": 3370.3875229984988
+  }
+}

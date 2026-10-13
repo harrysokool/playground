@@ -1,0 +1,1059 @@
+{
+  "document_id": "receipt8",
+  "engine_config": {
+    "engine_config_name": "paddle_heavy",
+    "text_detection_model_name": "PP-OCRv5_server_det",
+    "text_detection_model_dir": "models/PP-OCRv5_server_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_server_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_server_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 3024,
+      "height": 4032,
+      "blocks": [
+        {
+          "text": "3/F,Crestview Plaza,",
+          "confidence": 0.9712435007095337,
+          "polygon": [
+            [
+              2250,
+              335
+            ],
+            [
+              2601,
+              320
+            ],
+            [
+              2602,
+              361
+            ],
+            [
+              2252,
+              377
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "Crestview Medical Centre",
+          "confidence": 0.9669620990753174,
+          "polygon": [
+            [
+              713,
+              363
+            ],
+            [
+              1551,
+              332
+            ],
+            [
+              1554,
+              406
+            ],
+            [
+              716,
+              437
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "c",
+          "confidence": 0.9266162514686584,
+          "polygon": [
+            [
+              529,
+              398
+            ],
+            [
+              599,
+              398
+            ],
+            [
+              599,
+              468
+            ],
+            [
+              529,
+              468
+            ]
+          ],
+          "reading_order": 2
+        },
+        {
+          "text": "21 Sha Tin Centre Street, Sha Tin",
+          "confidence": 0.9448092579841614,
+          "polygon": [
+            [
+              2044,
+              390
+            ],
+            [
+              2605,
+              369
+            ],
+            [
+              2606,
+              414
+            ],
+            [
+              2046,
+              434
+            ]
+          ],
+          "reading_order": 3
+        },
+        {
+          "text": "嶺景医療中心",
+          "confidence": 0.8785622715950012,
+          "polygon": [
+            [
+              712,
+              445
+            ],
+            [
+              1138,
+              426
+            ],
+            [
+              1141,
+              506
+            ],
+            [
+              716,
+              524
+            ]
+          ],
+          "reading_order": 4
+        },
+        {
+          "text": "Tel電话：20002759",
+          "confidence": 0.9488032460212708,
+          "polygon": [
+            [
+              2269,
+              437
+            ],
+            [
+              2607,
+              421
+            ],
+            [
+              2609,
+              465
+            ],
+            [
+              2272,
+              481
+            ]
+          ],
+          "reading_order": 5
+        },
+        {
+          "text": "RECEIPT 收據",
+          "confidence": 0.9108014106750488,
+          "polygon": [
+            [
+              457,
+              647
+            ],
+            [
+              918,
+              651
+            ],
+            [
+              917,
+              720
+            ],
+            [
+              456,
+              715
+            ]
+          ],
+          "reading_order": 6
+        },
+        {
+          "text": "Receipt No.收據编號：MC-2609-3391",
+          "confidence": 0.9203954935073853,
+          "polygon": [
+            [
+              1894,
+              638
+            ],
+            [
+              2617,
+              615
+            ],
+            [
+              2618,
+              667
+            ],
+            [
+              1895,
+              689
+            ]
+          ],
+          "reading_order": 7
+        },
+        {
+          "text": "Visit Date 就诊日期",
+          "confidence": 0.9375343918800354,
+          "polygon": [
+            [
+              1597,
+              811
+            ],
+            [
+              1902,
+              808
+            ],
+            [
+              1902,
+              850
+            ],
+            [
+              1598,
+              852
+            ]
+          ],
+          "reading_order": 8
+        },
+        {
+          "text": "Patient 病人",
+          "confidence": 0.9579184651374817,
+          "polygon": [
+            [
+              456,
+              827
+            ],
+            [
+              661,
+              833
+            ],
+            [
+              660,
+              878
+            ],
+            [
+              455,
+              873
+            ]
+          ],
+          "reading_order": 9
+        },
+        {
+          "text": "3 Sep 2026",
+          "confidence": 0.9265192151069641,
+          "polygon": [
+            [
+              1597,
+              858
+            ],
+            [
+              1822,
+              856
+            ],
+            [
+              1823,
+              905
+            ],
+            [
+              1598,
+              907
+            ]
+          ],
+          "reading_order": 10
+        },
+        {
+          "text": "蔡嘉穎",
+          "confidence": 0.8504549860954285,
+          "polygon": [
+            [
+              455,
+              878
+            ],
+            [
+              599,
+              881
+            ],
+            [
+              597,
+              936
+            ],
+            [
+              454,
+              932
+            ]
+          ],
+          "reading_order": 11
+        },
+        {
+          "text": "Reg.No.註册編號",
+          "confidence": 0.8441851139068604,
+          "polygon": [
+            [
+              1601,
+              969
+            ],
+            [
+              1896,
+              964
+            ],
+            [
+              1896,
+              1009
+            ],
+            [
+              1602,
+              1013
+            ]
+          ],
+          "reading_order": 12
+        },
+        {
+          "text": "Attending Doctor 主診醫生",
+          "confidence": 0.9265455603599548,
+          "polygon": [
+            [
+              455,
+              989
+            ],
+            [
+              885,
+              989
+            ],
+            [
+              885,
+              1030
+            ],
+            [
+              455,
+              1030
+            ]
+          ],
+          "reading_order": 13
+        },
+        {
+          "text": "M19903",
+          "confidence": 0.9986305832862854,
+          "polygon": [
+            [
+              1600,
+              1017
+            ],
+            [
+              1764,
+              1015
+            ],
+            [
+              1765,
+              1061
+            ],
+            [
+              1601,
+              1064
+            ]
+          ],
+          "reading_order": 14
+        },
+        {
+          "text": "Dr. Siu Ka Wai",
+          "confidence": 0.9249528050422668,
+          "polygon": [
+            [
+              454,
+              1033
+            ],
+            [
+              738,
+              1037
+            ],
+            [
+              737,
+              1082
+            ],
+            [
+              453,
+              1077
+            ]
+          ],
+          "reading_order": 15
+        },
+        {
+          "text": "Nurse 護士 (vaccination)",
+          "confidence": 0.8978891372680664,
+          "polygon": [
+            [
+              1602,
+              1120
+            ],
+            [
+              1989,
+              1114
+            ],
+            [
+              1990,
+              1158
+            ],
+            [
+              1603,
+              1164
+            ]
+          ],
+          "reading_order": 16
+        },
+        {
+          "text": "Plan Member No.計划會编號",
+          "confidence": 0.8375959396362305,
+          "polygon": [
+            [
+              454,
+              1136
+            ],
+            [
+              961,
+              1136
+            ],
+            [
+              961,
+              1177
+            ],
+            [
+              454,
+              1177
+            ]
+          ],
+          "reading_order": 17
+        },
+        {
+          "text": "Wan Man Yi",
+          "confidence": 0.9691540002822876,
+          "polygon": [
+            [
+              1602,
+              1170
+            ],
+            [
+              1837,
+              1165
+            ],
+            [
+              1838,
+              1209
+            ],
+            [
+              1603,
+              1214
+            ]
+          ],
+          "reading_order": 18
+        },
+        {
+          "text": "CP-6610428 (Lumen Health Plan)",
+          "confidence": 0.9455532431602478,
+          "polygon": [
+            [
+              452,
+              1182
+            ],
+            [
+              1097,
+              1180
+            ],
+            [
+              1097,
+              1232
+            ],
+            [
+              453,
+              1234
+            ]
+          ],
+          "reading_order": 19
+        },
+        {
+          "text": "Amount 金额(HK$)",
+          "confidence": 0.8796669244766235,
+          "polygon": [
+            [
+              2249,
+              1327
+            ],
+            [
+              2616,
+              1311
+            ],
+            [
+              2619,
+              1362
+            ],
+            [
+              2252,
+              1379
+            ]
+          ],
+          "reading_order": 20
+        },
+        {
+          "text": "Service 服务",
+          "confidence": 0.9389942288398743,
+          "polygon": [
+            [
+              488,
+              1352
+            ],
+            [
+              732,
+              1357
+            ],
+            [
+              731,
+              1406
+            ],
+            [
+              487,
+              1402
+            ]
+          ],
+          "reading_order": 21
+        },
+        {
+          "text": "Performed by 負责人员",
+          "confidence": 0.8734059929847717,
+          "polygon": [
+            [
+              1406,
+              1349
+            ],
+            [
+              1828,
+              1337
+            ],
+            [
+              1829,
+              1386
+            ],
+            [
+              1407,
+              1397
+            ]
+          ],
+          "reading_order": 22
+        },
+        {
+          "text": "420.00",
+          "confidence": 0.9983346462249756,
+          "polygon": [
+            [
+              2476,
+              1439
+            ],
+            [
+              2623,
+              1433
+            ],
+            [
+              2625,
+              1480
+            ],
+            [
+              2477,
+              1486
+            ]
+          ],
+          "reading_order": 23
+        },
+        {
+          "text": "General consultation 普通科诊症",
+          "confidence": 0.9168103337287903,
+          "polygon": [
+            [
+              489,
+              1478
+            ],
+            [
+              1119,
+              1473
+            ],
+            [
+              1119,
+              1521
+            ],
+            [
+              490,
+              1526
+            ]
+          ],
+          "reading_order": 24
+        },
+        {
+          "text": "Dr. Siu Ka Wai",
+          "confidence": 0.9563326835632324,
+          "polygon": [
+            [
+              1408,
+              1470
+            ],
+            [
+              1683,
+              1463
+            ],
+            [
+              1684,
+              1508
+            ],
+            [
+              1409,
+              1514
+            ]
+          ],
+          "reading_order": 25
+        },
+        {
+          "text": "280.00",
+          "confidence": 0.9987759590148926,
+          "polygon": [
+            [
+              2479,
+              1566
+            ],
+            [
+              2630,
+              1560
+            ],
+            [
+              2631,
+              1606
+            ],
+            [
+              2480,
+              1612
+            ]
+          ],
+          "reading_order": 26
+        },
+        {
+          "text": "Nurse 護士: Wan Man Yi",
+          "confidence": 0.9224065542221069,
+          "polygon": [
+            [
+              1412,
+              1596
+            ],
+            [
+              1874,
+              1586
+            ],
+            [
+              1875,
+              1634
+            ],
+            [
+              1413,
+              1643
+            ]
+          ],
+          "reading_order": 27
+        },
+        {
+          "text": "Influenza vaccine 流感疫苗",
+          "confidence": 0.9569637775421143,
+          "polygon": [
+            [
+              488,
+              1607
+            ],
+            [
+              1013,
+              1601
+            ],
+            [
+              1014,
+              1649
+            ],
+            [
+              489,
+              1655
+            ]
+          ],
+          "reading_order": 28
+        },
+        {
+          "text": "95.00",
+          "confidence": 0.9986687898635864,
+          "polygon": [
+            [
+              2509,
+              1696
+            ],
+            [
+              2635,
+              1690
+            ],
+            [
+              2638,
+              1736
+            ],
+            [
+              2511,
+              1742
+            ]
+          ],
+          "reading_order": 29
+        },
+        {
+          "text": "Dispensary配藥處",
+          "confidence": 0.9661557078361511,
+          "polygon": [
+            [
+              1412,
+              1721
+            ],
+            [
+              1767,
+              1711
+            ],
+            [
+              1769,
+              1763
+            ],
+            [
+              1413,
+              1772
+            ]
+          ],
+          "reading_order": 30
+        },
+        {
+          "text": "Medication（2 items）藥物",
+          "confidence": 0.9089423418045044,
+          "polygon": [
+            [
+              488,
+              1732
+            ],
+            [
+              984,
+              1727
+            ],
+            [
+              984,
+              1775
+            ],
+            [
+              489,
+              1780
+            ]
+          ],
+          "reading_order": 31
+        },
+        {
+          "text": "Total合計",
+          "confidence": 0.9477661848068237,
+          "polygon": [
+            [
+              1534,
+              1929
+            ],
+            [
+              1784,
+              1929
+            ],
+            [
+              1784,
+              1996
+            ],
+            [
+              1534,
+              1996
+            ]
+          ],
+          "reading_order": 32
+        },
+        {
+          "text": "HK$795.00",
+          "confidence": 0.9700863361358643,
+          "polygon": [
+            [
+              2400,
+              1921
+            ],
+            [
+              2681,
+              1914
+            ],
+            [
+              2683,
+              1966
+            ],
+            [
+              2402,
+              1973
+            ]
+          ],
+          "reading_order": 33
+        },
+        {
+          "text": "Charges covered under Lumen Health Plan are",
+          "confidence": 0.9692809581756592,
+          "polygon": [
+            [
+              502,
+              1983
+            ],
+            [
+              1312,
+              1969
+            ],
+            [
+              1313,
+              2011
+            ],
+            [
+              503,
+              2024
+            ]
+          ],
+          "reading_order": 34
+        },
+        {
+          "text": "settled directly with the plan.The patient pays the",
+          "confidence": 0.9545907974243164,
+          "polygon": [
+            [
+              502,
+              2043
+            ],
+            [
+              1363,
+              2029
+            ],
+            [
+              1363,
+              2073
+            ],
+            [
+              503,
+              2088
+            ]
+          ],
+          "reading_order": 35
+        },
+        {
+          "text": "HK$695.00",
+          "confidence": 0.9940497875213623,
+          "polygon": [
+            [
+              2450,
+              2037
+            ],
+            [
+              2688,
+              2031
+            ],
+            [
+              2690,
+              2080
+            ],
+            [
+              2451,
+              2086
+            ]
+          ],
+          "reading_order": 36
+        },
+        {
+          "text": "Covered by plan 計劃承保",
+          "confidence": 0.9400040507316589,
+          "polygon": [
+            [
+              1540,
+              2058
+            ],
+            [
+              2045,
+              2047
+            ],
+            [
+              2046,
+              2098
+            ],
+            [
+              1541,
+              2109
+            ]
+          ],
+          "reading_order": 37
+        },
+        {
+          "text": "co-payment shown.計划承保之費用由計划直接支",
+          "confidence": 0.8945968151092529,
+          "polygon": [
+            [
+              501,
+              2101
+            ],
+            [
+              1361,
+              2083
+            ],
+            [
+              1361,
+              2129
+            ],
+            [
+              502,
+              2146
+            ]
+          ],
+          "reading_order": 38
+        },
+        {
+          "text": "HK$100.00",
+          "confidence": 0.9942283630371094,
+          "polygon": [
+            [
+              2454,
+              2146
+            ],
+            [
+              2693,
+              2142
+            ],
+            [
+              2694,
+              2194
+            ],
+            [
+              2455,
+              2199
+            ]
+          ],
+          "reading_order": 39
+        },
+        {
+          "text": "付，病人只需缴付自付额。",
+          "confidence": 0.9542095065116882,
+          "polygon": [
+            [
+              501,
+              2164
+            ],
+            [
+              962,
+              2156
+            ],
+            [
+              962,
+              2200
+            ],
+            [
+              502,
+              2209
+            ]
+          ],
+          "reading_order": 40
+        },
+        {
+          "text": "Co-payment paid (cash)病人自付",
+          "confidence": 0.9738168716430664,
+          "polygon": [
+            [
+              1543,
+              2168
+            ],
+            [
+              2197,
+              2157
+            ],
+            [
+              2198,
+              2208
+            ],
+            [
+              1544,
+              2220
+            ]
+          ],
+          "reading_order": 41
+        },
+        {
+          "text": "Printed列印日期：03/09/202616:52",
+          "confidence": 0.9559716582298279,
+          "polygon": [
+            [
+              447,
+              3516
+            ],
+            [
+              1055,
+              3524
+            ],
+            [
+              1054,
+              3570
+            ],
+            [
+              446,
+              3561
+            ]
+          ],
+          "reading_order": 42
+        },
+        {
+          "text": "Thank you for choosing Crestview Medical Centre.",
+          "confidence": 0.9719171524047852,
+          "polygon": [
+            [
+              1852,
+              3511
+            ],
+            [
+              2727,
+              3499
+            ],
+            [
+              2728,
+              3546
+            ],
+            [
+              1852,
+              3558
+            ]
+          ],
+          "reading_order": 43
+        },
+        {
+          "text": "SAMPLE/測試樣本",
+          "confidence": 0.9314950704574585,
+          "polygon": [
+            [
+              2416,
+              3651
+            ],
+            [
+              2703,
+              3647
+            ],
+            [
+              2704,
+              3688
+            ],
+            [
+              2416,
+              3692
+            ]
+          ],
+          "reading_order": 44
+        }
+      ],
+      "plain_text": "3/F,Crestview Plaza,\nCrestview Medical Centre\nc\n21 Sha Tin Centre Street, Sha Tin\n嶺景医療中心\nTel電话：20002759\nRECEIPT 收據\nReceipt No.收據编號：MC-2609-3391\nVisit Date 就诊日期\nPatient 病人\n3 Sep 2026\n蔡嘉穎\nReg.No.註册編號\nAttending Doctor 主診醫生\nM19903\nDr. Siu Ka Wai\nNurse 護士 (vaccination)\nPlan Member No.計划會编號\nWan Man Yi\nCP-6610428 (Lumen Health Plan)\nAmount 金额(HK$)\nService 服务\nPerformed by 負责人员\n420.00\nGeneral consultation 普通科诊症\nDr. Siu Ka Wai\n280.00\nNurse 護士: Wan Man Yi\nInfluenza vaccine 流感疫苗\n95.00\nDispensary配藥處\nMedication（2 items）藥物\nTotal合計\nHK$795.00\nCharges covered under Lumen Health Plan are\nsettled directly with the plan.The patient pays the\nHK$695.00\nCovered by plan 計劃承保\nco-payment shown.計划承保之費用由計划直接支\nHK$100.00\n付，病人只需缴付自付额。\nCo-payment paid (cash)病人自付\nPrinted列印日期：03/09/202616:52\nThank you for choosing Crestview Medical Centre.\nSAMPLE/測試樣本"
+    }
+  ],
+  "timings": {
+    "total_ms": 64941.311417002
+  }
+}

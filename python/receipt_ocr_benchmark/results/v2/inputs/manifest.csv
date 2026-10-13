@@ -1,0 +1,10 @@
+input,source,orientation,action,size_before,size_after,sha256_16
+receipt1.png,r1.png,6,"rotated upright (EXIF orientation 6), saved as PNG",4032x3024,3024x4032,0387d20bac073b2b
+receipt10.png,r9.png,1,copied unchanged,1280x1707,1280x1707,69b08d60d5fc0146
+receipt2.png,r3.png,6,"rotated upright (EXIF orientation 6), saved as PNG",4032x3024,3024x4032,27e0754bbb8f204e
+receipt3.png,r4.png,6,"rotated upright (EXIF orientation 6), saved as PNG",4032x3024,3024x4032,00b4f02fefcce99d
+receipt4.png,r5.png,6,"rotated upright (EXIF orientation 6), saved as PNG",4032x3024,3024x4032,083a20334536a152
+receipt5.png,r6.png,6,"rotated upright (EXIF orientation 6), saved as PNG",4032x3024,3024x4032,a7c0d58026df80a5
+receipt6.png,r7.png,6,"rotated upright (EXIF orientation 6), saved as PNG",4032x3024,3024x4032,0fd856e713d7af2c
+receipt8.png,r2.png,6,"rotated upright (EXIF orientation 6), saved as PNG",4032x3024,3024x4032,a0402651e157374e
+receipt9.jpg,r8.jpg,1,copied unchanged,1200x1600,1200x1600,82439ebbe239d23e

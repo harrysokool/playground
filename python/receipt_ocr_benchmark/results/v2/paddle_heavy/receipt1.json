@@ -1,0 +1,714 @@
+{
+  "document_id": "receipt1",
+  "engine_config": {
+    "engine_config_name": "paddle_heavy",
+    "text_detection_model_name": "PP-OCRv5_server_det",
+    "text_detection_model_dir": "models/PP-OCRv5_server_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_server_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_server_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 3024,
+      "height": 4032,
+      "blocks": [
+        {
+          "text": "Harbourfront Family Clinic",
+          "confidence": 0.9508494734764099,
+          "polygon": [
+            [
+              1044,
+              695
+            ],
+            [
+              2250,
+              732
+            ],
+            [
+              2246,
+              849
+            ],
+            [
+              1040,
+              812
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "Shop 12, G/F, Harbour View Court, 33 Kwun Tong Road,Kowloon",
+          "confidence": 0.8756116032600403,
+          "polygon": [
+            [
+              969,
+              821
+            ],
+            [
+              2317,
+              860
+            ],
+            [
+              2315,
+              919
+            ],
+            [
+              968,
+              879
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "Tel:20004187",
+          "confidence": 0.981243908405304,
+          "polygon": [
+            [
+              1482,
+              900
+            ],
+            [
+              1791,
+              910
+            ],
+            [
+              1789,
+              958
+            ],
+            [
+              1480,
+              948
+            ]
+          ],
+          "reading_order": 2
+        },
+        {
+          "text": "DOCTOR",
+          "confidence": 0.9613068699836731,
+          "polygon": [
+            [
+              1523,
+              1070
+            ],
+            [
+              1738,
+              1078
+            ],
+            [
+              1736,
+              1124
+            ],
+            [
+              1522,
+              1116
+            ]
+          ],
+          "reading_order": 3
+        },
+        {
+          "text": "Dr. Tsang Hoi Lam",
+          "confidence": 0.9601291418075562,
+          "polygon": [
+            [
+              1296,
+              1120
+            ],
+            [
+              1963,
+              1136
+            ],
+            [
+              1961,
+              1218
+            ],
+            [
+              1294,
+              1203
+            ]
+          ],
+          "reading_order": 4
+        },
+        {
+          "text": "MBBS(HK)·Reg. No. M17642",
+          "confidence": 0.9353042244911194,
+          "polygon": [
+            [
+              1223,
+              1199
+            ],
+            [
+              2033,
+              1222
+            ],
+            [
+              2031,
+              1294
+            ],
+            [
+              1221,
+              1270
+            ]
+          ],
+          "reading_order": 5
+        },
+        {
+          "text": "RECEIPT",
+          "confidence": 0.9123691916465759,
+          "polygon": [
+            [
+              1372,
+              1378
+            ],
+            [
+              1848,
+              1393
+            ],
+            [
+              1846,
+              1458
+            ],
+            [
+              1370,
+              1444
+            ]
+          ],
+          "reading_order": 6
+        },
+        {
+          "text": "Patient Name: Leung Wai Kei",
+          "confidence": 0.9358092546463013,
+          "polygon": [
+            [
+              590,
+              1485
+            ],
+            [
+              1356,
+              1522
+            ],
+            [
+              1353,
+              1590
+            ],
+            [
+              587,
+              1552
+            ]
+          ],
+          "reading_order": 7
+        },
+        {
+          "text": "Receipt No.:",
+          "confidence": 0.9452724456787109,
+          "polygon": [
+            [
+              1779,
+              1536
+            ],
+            [
+              2098,
+              1544
+            ],
+            [
+              2096,
+              1607
+            ],
+            [
+              1777,
+              1599
+            ]
+          ],
+          "reading_order": 8
+        },
+        {
+          "text": "HFC-260314-0087",
+          "confidence": 0.9927260279655457,
+          "polygon": [
+            [
+              2167,
+              1544
+            ],
+            [
+              2660,
+              1549
+            ],
+            [
+              2660,
+              1605
+            ],
+            [
+              2166,
+              1600
+            ]
+          ],
+          "reading_order": 9
+        },
+        {
+          "text": "Patient No.:",
+          "confidence": 0.9551573395729065,
+          "polygon": [
+            [
+              587,
+              1584
+            ],
+            [
+              897,
+              1600
+            ],
+            [
+              894,
+              1655
+            ],
+            [
+              584,
+              1639
+            ]
+          ],
+          "reading_order": 10
+        },
+        {
+          "text": "HF-20931",
+          "confidence": 0.9975946545600891,
+          "polygon": [
+            [
+              980,
+              1603
+            ],
+            [
+              1230,
+              1616
+            ],
+            [
+              1228,
+              1669
+            ],
+            [
+              977,
+              1656
+            ]
+          ],
+          "reading_order": 11
+        },
+        {
+          "text": "Date:",
+          "confidence": 0.9669156074523926,
+          "polygon": [
+            [
+              1775,
+              1631
+            ],
+            [
+              1921,
+              1637
+            ],
+            [
+              1919,
+              1695
+            ],
+            [
+              1773,
+              1689
+            ]
+          ],
+          "reading_order": 12
+        },
+        {
+          "text": "14/03/2026",
+          "confidence": 0.9951938390731812,
+          "polygon": [
+            [
+              2168,
+              1640
+            ],
+            [
+              2468,
+              1644
+            ],
+            [
+              2467,
+              1700
+            ],
+            [
+              2167,
+              1695
+            ]
+          ],
+          "reading_order": 13
+        },
+        {
+          "text": "Description",
+          "confidence": 0.9917429089546204,
+          "polygon": [
+            [
+              573,
+              1752
+            ],
+            [
+              848,
+              1765
+            ],
+            [
+              846,
+              1818
+            ],
+            [
+              570,
+              1806
+            ]
+          ],
+          "reading_order": 14
+        },
+        {
+          "text": "Amount (HK$)",
+          "confidence": 0.9472988247871399,
+          "polygon": [
+            [
+              2318,
+              1810
+            ],
+            [
+              2668,
+              1816
+            ],
+            [
+              2667,
+              1875
+            ],
+            [
+              2317,
+              1870
+            ]
+          ],
+          "reading_order": 15
+        },
+        {
+          "text": "Consultation",
+          "confidence": 0.9962045550346375,
+          "polygon": [
+            [
+              565,
+              1869
+            ],
+            [
+              894,
+              1884
+            ],
+            [
+              892,
+              1939
+            ],
+            [
+              562,
+              1925
+            ]
+          ],
+          "reading_order": 16
+        },
+        {
+          "text": "380.00",
+          "confidence": 0.9986498951911926,
+          "polygon": [
+            [
+              2471,
+              1931
+            ],
+            [
+              2672,
+              1937
+            ],
+            [
+              2670,
+              1997
+            ],
+            [
+              2470,
+              1991
+            ]
+          ],
+          "reading_order": 17
+        },
+        {
+          "text": "Medication (3 days)",
+          "confidence": 0.9555256366729736,
+          "polygon": [
+            [
+              552,
+              1997
+            ],
+            [
+              1067,
+              2020
+            ],
+            [
+              1064,
+              2085
+            ],
+            [
+              549,
+              2063
+            ]
+          ],
+          "reading_order": 18
+        },
+        {
+          "text": "120.00",
+          "confidence": 0.9987315535545349,
+          "polygon": [
+            [
+              2478,
+              2066
+            ],
+            [
+              2673,
+              2072
+            ],
+            [
+              2671,
+              2130
+            ],
+            [
+              2477,
+              2124
+            ]
+          ],
+          "reading_order": 19
+        },
+        {
+          "text": "Sick leave certificate",
+          "confidence": 0.9510208368301392,
+          "polygon": [
+            [
+              539,
+              2135
+            ],
+            [
+              1083,
+              2156
+            ],
+            [
+              1081,
+              2214
+            ],
+            [
+              537,
+              2194
+            ]
+          ],
+          "reading_order": 20
+        },
+        {
+          "text": "50.00",
+          "confidence": 0.9981874227523804,
+          "polygon": [
+            [
+              2509,
+              2204
+            ],
+            [
+              2677,
+              2210
+            ],
+            [
+              2675,
+              2272
+            ],
+            [
+              2507,
+              2266
+            ]
+          ],
+          "reading_order": 21
+        },
+        {
+          "text": "Total",
+          "confidence": 0.9946290850639343,
+          "polygon": [
+            [
+              525,
+              2272
+            ],
+            [
+              696,
+              2280
+            ],
+            [
+              693,
+              2350
+            ],
+            [
+              521,
+              2342
+            ]
+          ],
+          "reading_order": 22
+        },
+        {
+          "text": "HK$550.00",
+          "confidence": 0.9788338541984558,
+          "polygon": [
+            [
+              2323,
+              2341
+            ],
+            [
+              2678,
+              2354
+            ],
+            [
+              2675,
+              2427
+            ],
+            [
+              2320,
+              2413
+            ]
+          ],
+          "reading_order": 23
+        },
+        {
+          "text": "Paid by Octopus",
+          "confidence": 0.936707615852356,
+          "polygon": [
+            [
+              517,
+              2422
+            ],
+            [
+              964,
+              2439
+            ],
+            [
+              961,
+              2509
+            ],
+            [
+              515,
+              2492
+            ]
+          ],
+          "reading_order": 24
+        },
+        {
+          "text": "HK$550.00",
+          "confidence": 0.9950911402702332,
+          "polygon": [
+            [
+              2360,
+              2492
+            ],
+            [
+              2677,
+              2506
+            ],
+            [
+              2674,
+              2573
+            ],
+            [
+              2357,
+              2559
+            ]
+          ],
+          "reading_order": 25
+        },
+        {
+          "text": "Thank you for your visit.",
+          "confidence": 0.9658342003822327,
+          "polygon": [
+            [
+              442,
+              3405
+            ],
+            [
+              958,
+              3433
+            ],
+            [
+              955,
+              3495
+            ],
+            [
+              438,
+              3467
+            ]
+          ],
+          "reading_order": 26
+        },
+        {
+          "text": "Please keep this receipt for insurance claims.",
+          "confidence": 0.9380514621734619,
+          "polygon": [
+            [
+              436,
+              3466
+            ],
+            [
+              1419,
+              3510
+            ],
+            [
+              1416,
+              3577
+            ],
+            [
+              433,
+              3533
+            ]
+          ],
+          "reading_order": 27
+        },
+        {
+          "text": "Clinic stamp/ signature",
+          "confidence": 0.9672034978866577,
+          "polygon": [
+            [
+              2025,
+              3539
+            ],
+            [
+              2548,
+              3561
+            ],
+            [
+              2546,
+              3630
+            ],
+            [
+              2022,
+              3608
+            ]
+          ],
+          "reading_order": 28
+        },
+        {
+          "text": "SAMPLE/測試樣本",
+          "confidence": 0.9068984985351562,
+          "polygon": [
+            [
+              2386,
+              3757
+            ],
+            [
+              2790,
+              3768
+            ],
+            [
+              2789,
+              3823
+            ],
+            [
+              2384,
+              3812
+            ]
+          ],
+          "reading_order": 29
+        }
+      ],
+      "plain_text": "Harbourfront Family Clinic\nShop 12, G/F, Harbour View Court, 33 Kwun Tong Road,Kowloon\nTel:20004187\nDOCTOR\nDr. Tsang Hoi Lam\nMBBS(HK)·Reg. No. M17642\nRECEIPT\nPatient Name: Leung Wai Kei\nReceipt No.:\nHFC-260314-0087\nPatient No.:\nHF-20931\nDate:\n14/03/2026\nDescription\nAmount (HK$)\nConsultation\n380.00\nMedication (3 days)\n120.00\nSick leave certificate\n50.00\nTotal\nHK$550.00\nPaid by Octopus\nHK$550.00\nThank you for your visit.\nPlease keep this receipt for insurance claims.\nClinic stamp/ signature\nSAMPLE/測試樣本"
+    }
+  ],
+  "timings": {
+    "total_ms": 65214.71058899988
+  }
+}

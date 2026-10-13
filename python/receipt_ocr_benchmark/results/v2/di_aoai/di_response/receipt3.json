@@ -1,0 +1,7227 @@
+{
+  "di_ms": 2559.7681530016416,
+  "result": {
+    "apiVersion": "2024-11-30",
+    "modelId": "prebuilt-read",
+    "stringIndexType": "textElements",
+    "content": "LB\nLantern Bay Hospital 朗灣醫院 Outpatient Department 門診部\n8 Lantern Bay Road, Tuen Mun, New Territories Tel: 2000 3360\nOUTPATIENT INVOICE 門診發票\nInvoice No. 發票編號\nOPI-2026-0048213\nInvoice Date 發票日期\n25 May 2026\nPatient 病人\nTAM KA YAN\nPatient No. 病人編號\nLB-0371526\nAttendance Date 就診日期 18 May 2026\nEpisode No. 診症編號\nE2605180412\nAttending Doctor 主診醫生 Dr. Chow Ka Ho\nPolicy No. 保單編號\nVH-58210937\nInsurer 保險公司\nEvergreen Assurance\nItem Code 項目編號\nDescription 項目\nQty 數量\nUnit Price (HK$) 單價\nAmount (HK$) 金額\nOPC-0120\nSpecialist outpatient consultation 專科門診診症\n1\n950.00\n950.00\nRAD-1140\nChest X-ray 胸部X光\n1\n620.00\n620.00\nLAB-2071\nBlood test (CBC) 血液檢查\n1\n380.00\n380.00\nPHM-9003\nDrugs 藥物\n1\n245.50\n245.50\nTotal Charges 總收費\n2,195.50\nLess: Paid by insurer (direct billing)保險公司直接付款\n(1,800.00)\nLess: Paid by patient 病人已付\n(395.50)\nBalance Due 尚欠餘額\n0.00\nDirect billing arranged with Evergreen Assurance under the policy shown above. 直接付款安排由上述保單之保險公司處理。\nThis is a computer-generated invoice.此乃電腦發出之發票。\nPage 1 of 1\nSAMPLE / 測試樣本",
+    "pages": [
+      {
+        "pageNumber": 1,
+        "angle": 0.6807125806808472,
+        "width": 3024,
+        "height": 4032,
+        "unit": "pixel",
+        "words": [
+          {
+            "content": "LB",
+            "polygon": [
+              416,
+              468,
+              499,
+              468,
+              499,
+              513,
+              416,
+              512
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 0,
+              "length": 2
+            }
+          },
+          {
+            "content": "Lantern",
+            "polygon": [
+              574,
+              448,
+              799,
+              448,
+              796,
+              514,
+              571,
+              509
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 3,
+              "length": 7
+            }
+          },
+          {
+            "content": "Bay",
+            "polygon": [
+              823,
+              448,
+              926,
+              448,
+              923,
+              516,
+              820,
+              514
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 11,
+              "length": 3
+            }
+          },
+          {
+            "content": "Hospital",
+            "polygon": [
+              935,
+              448,
+              1187,
+              449,
+              1185,
+              517,
+              933,
+              516
+            ],
+            "confidence": 0.965,
+            "span": {
+              "offset": 15,
+              "length": 8
+            }
+          },
+          {
+            "content": "朗",
+            "polygon": [
+              1210,
+              449,
+              1250,
+              449,
+              1248,
+              517,
+              1208,
+              517
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 24,
+              "length": 1
+            }
+          },
+          {
+            "content": "灣",
+            "polygon": [
+              1277,
+              449,
+              1320,
+              449,
+              1318,
+              517,
+              1275,
+              517
+            ],
+            "confidence": 0.986,
+            "span": {
+              "offset": 25,
+              "length": 1
+            }
+          },
+          {
+            "content": "醫",
+            "polygon": [
+              1339,
+              449,
+              1381,
+              449,
+              1380,
+              517,
+              1337,
+              517
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 26,
+              "length": 1
+            }
+          },
+          {
+            "content": "院",
+            "polygon": [
+              1391,
+              449,
+              1456,
+              449,
+              1456,
+              517,
+              1390,
+              517
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 27,
+              "length": 1
+            }
+          },
+          {
+            "content": "Outpatient",
+            "polygon": [
+              570,
+              523,
+              757,
+              525,
+              757,
+              570,
+              570,
+              568
+            ],
+            "confidence": 0.97,
+            "span": {
+              "offset": 29,
+              "length": 10
+            }
+          },
+          {
+            "content": "Department",
+            "polygon": [
+              758,
+              525,
+              980,
+              526,
+              980,
+              572,
+              758,
+              570
+            ],
+            "confidence": 0.981,
+            "span": {
+              "offset": 40,
+              "length": 10
+            }
+          },
+          {
+            "content": "門",
+            "polygon": [
+              981,
+              526,
+              1010,
+              526,
+              1010,
+              572,
+              981,
+              572
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 51,
+              "length": 1
+            }
+          },
+          {
+            "content": "診",
+            "polygon": [
+              1023,
+              526,
+              1052,
+              526,
+              1052,
+              573,
+              1023,
+              573
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 52,
+              "length": 1
+            }
+          },
+          {
+            "content": "部",
+            "polygon": [
+              1059,
+              526,
+              1104,
+              526,
+              1104,
+              573,
+              1059,
+              573
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 53,
+              "length": 1
+            }
+          },
+          {
+            "content": "8",
+            "polygon": [
+              2274,
+              478,
+              2291,
+              479,
+              2291,
+              515,
+              2274,
+              514
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 55,
+              "length": 1
+            }
+          },
+          {
+            "content": "Lantern",
+            "polygon": [
+              2303,
+              479,
+              2417,
+              481,
+              2417,
+              517,
+              2303,
+              515
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 57,
+              "length": 7
+            }
+          },
+          {
+            "content": "Bay",
+            "polygon": [
+              2430,
+              481,
+              2489,
+              481,
+              2489,
+              517,
+              2430,
+              517
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 65,
+              "length": 3
+            }
+          },
+          {
+            "content": "Road,",
+            "polygon": [
+              2500,
+              481,
+              2593,
+              481,
+              2593,
+              517,
+              2500,
+              517
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 69,
+              "length": 5
+            }
+          },
+          {
+            "content": "Tuen",
+            "polygon": [
+              2187,
+              524,
+              2264,
+              526,
+              2263,
+              564,
+              2186,
+              563
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 75,
+              "length": 4
+            }
+          },
+          {
+            "content": "Mun,",
+            "polygon": [
+              2276,
+              527,
+              2348,
+              529,
+              2348,
+              565,
+              2275,
+              564
+            ],
+            "confidence": 0.977,
+            "span": {
+              "offset": 80,
+              "length": 4
+            }
+          },
+          {
+            "content": "New",
+            "polygon": [
+              2362,
+              529,
+              2429,
+              530,
+              2429,
+              565,
+              2361,
+              565
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 85,
+              "length": 3
+            }
+          },
+          {
+            "content": "Territories",
+            "polygon": [
+              2439,
+              530,
+              2594,
+              531,
+              2594,
+              564,
+              2438,
+              565
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 89,
+              "length": 11
+            }
+          },
+          {
+            "content": "Tel:",
+            "polygon": [
+              2361,
+              581,
+              2421,
+              582,
+              2421,
+              615,
+              2361,
+              615
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 101,
+              "length": 4
+            }
+          },
+          {
+            "content": "2000",
+            "polygon": [
+              2428,
+              582,
+              2504,
+              582,
+              2504,
+              615,
+              2428,
+              615
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 106,
+              "length": 4
+            }
+          },
+          {
+            "content": "3360",
+            "polygon": [
+              2515,
+              582,
+              2595,
+              581,
+              2595,
+              613,
+              2516,
+              615
+            ],
+            "confidence": 0.985,
+            "span": {
+              "offset": 111,
+              "length": 4
+            }
+          },
+          {
+            "content": "OUTPATIENT",
+            "polygon": [
+              1027,
+              706,
+              1407,
+              708,
+              1406,
+              765,
+              1027,
+              753
+            ],
+            "confidence": 0.979,
+            "span": {
+              "offset": 116,
+              "length": 10
+            }
+          },
+          {
+            "content": "INVOICE",
+            "polygon": [
+              1423,
+              708,
+              1682,
+              713,
+              1680,
+              774,
+              1421,
+              766
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 127,
+              "length": 7
+            }
+          },
+          {
+            "content": "門",
+            "polygon": [
+              1705,
+              714,
+              1749,
+              715,
+              1746,
+              776,
+              1703,
+              775
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 135,
+              "length": 1
+            }
+          },
+          {
+            "content": "診",
+            "polygon": [
+              1779,
+              716,
+              1816,
+              717,
+              1813,
+              778,
+              1777,
+              777
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 136,
+              "length": 1
+            }
+          },
+          {
+            "content": "發",
+            "polygon": [
+              1839,
+              718,
+              1875,
+              719,
+              1872,
+              780,
+              1836,
+              779
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 137,
+              "length": 1
+            }
+          },
+          {
+            "content": "票",
+            "polygon": [
+              1906,
+              721,
+              1954,
+              722,
+              1952,
+              782,
+              1902,
+              781
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 138,
+              "length": 1
+            }
+          },
+          {
+            "content": "Invoice",
+            "polygon": [
+              404,
+              841,
+              523,
+              842,
+              520,
+              880,
+              401,
+              876
+            ],
+            "confidence": 0.982,
+            "span": {
+              "offset": 140,
+              "length": 7
+            }
+          },
+          {
+            "content": "No.",
+            "polygon": [
+              528,
+              842,
+              591,
+              844,
+              589,
+              882,
+              526,
+              880
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 148,
+              "length": 3
+            }
+          },
+          {
+            "content": "發",
+            "polygon": [
+              605,
+              844,
+              631,
+              844,
+              629,
+              883,
+              602,
+              882
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 152,
+              "length": 1
+            }
+          },
+          {
+            "content": "票",
+            "polygon": [
+              642,
+              845,
+              666,
+              845,
+              664,
+              884,
+              640,
+              883
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 153,
+              "length": 1
+            }
+          },
+          {
+            "content": "編",
+            "polygon": [
+              681,
+              845,
+              705,
+              846,
+              703,
+              885,
+              679,
+              884
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 154,
+              "length": 1
+            }
+          },
+          {
+            "content": "號",
+            "polygon": [
+              716,
+              846,
+              753,
+              847,
+              752,
+              885,
+              714,
+              885
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 155,
+              "length": 1
+            }
+          },
+          {
+            "content": "OPI-2026-0048213",
+            "polygon": [
+              945,
+              847,
+              1293,
+              851,
+              1293,
+              887,
+              945,
+              885
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 157,
+              "length": 16
+            }
+          },
+          {
+            "content": "Invoice",
+            "polygon": [
+              1520,
+              862,
+              1636,
+              866,
+              1634,
+              904,
+              1518,
+              900
+            ],
+            "confidence": 0.966,
+            "span": {
+              "offset": 174,
+              "length": 7
+            }
+          },
+          {
+            "content": "Date",
+            "polygon": [
+              1642,
+              866,
+              1727,
+              869,
+              1725,
+              907,
+              1639,
+              904
+            ],
+            "confidence": 0.985,
+            "span": {
+              "offset": 182,
+              "length": 4
+            }
+          },
+          {
+            "content": "發",
+            "polygon": [
+              1740,
+              870,
+              1766,
+              870,
+              1764,
+              908,
+              1738,
+              907
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 187,
+              "length": 1
+            }
+          },
+          {
+            "content": "票",
+            "polygon": [
+              1777,
+              871,
+              1801,
+              871,
+              1799,
+              910,
+              1775,
+              909
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 188,
+              "length": 1
+            }
+          },
+          {
+            "content": "日",
+            "polygon": [
+              1812,
+              872,
+              1842,
+              873,
+              1840,
+              912,
+              1810,
+              910
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 189,
+              "length": 1
+            }
+          },
+          {
+            "content": "期",
+            "polygon": [
+              1850,
+              873,
+              1884,
+              874,
+              1884,
+              913,
+              1847,
+              912
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 190,
+              "length": 1
+            }
+          },
+          {
+            "content": "25",
+            "polygon": [
+              2053,
+              874,
+              2100,
+              876,
+              2098,
+              918,
+              2052,
+              917
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 192,
+              "length": 2
+            }
+          },
+          {
+            "content": "May",
+            "polygon": [
+              2113,
+              877,
+              2189,
+              879,
+              2187,
+              920,
+              2112,
+              918
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 195,
+              "length": 3
+            }
+          },
+          {
+            "content": "2026",
+            "polygon": [
+              2202,
+              879,
+              2291,
+              880,
+              2291,
+              921,
+              2200,
+              920
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 199,
+              "length": 4
+            }
+          },
+          {
+            "content": "Patient",
+            "polygon": [
+              398,
+              936,
+              524,
+              941,
+              523,
+              977,
+              396,
+              973
+            ],
+            "confidence": 0.986,
+            "span": {
+              "offset": 204,
+              "length": 7
+            }
+          },
+          {
+            "content": "病",
+            "polygon": [
+              529,
+              941,
+              558,
+              941,
+              557,
+              978,
+              528,
+              977
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 212,
+              "length": 1
+            }
+          },
+          {
+            "content": "人",
+            "polygon": [
+              568,
+              941,
+              603,
+              942,
+              603,
+              980,
+              567,
+              979
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 213,
+              "length": 1
+            }
+          },
+          {
+            "content": "TAM",
+            "polygon": [
+              942,
+              945,
+              1028,
+              946,
+              1027,
+              982,
+              942,
+              982
+            ],
+            "confidence": 0.999,
+            "span": {
+              "offset": 215,
+              "length": 3
+            }
+          },
+          {
+            "content": "KA",
+            "polygon": [
+              1043,
+              946,
+              1100,
+              947,
+              1099,
+              983,
+              1042,
+              983
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 219,
+              "length": 2
+            }
+          },
+          {
+            "content": "YAN",
+            "polygon": [
+              1110,
+              947,
+              1193,
+              948,
+              1192,
+              984,
+              1108,
+              983
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 222,
+              "length": 3
+            }
+          },
+          {
+            "content": "Patient",
+            "polygon": [
+              1518,
+              960,
+              1635,
+              964,
+              1634,
+              1003,
+              1517,
+              997
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 226,
+              "length": 7
+            }
+          },
+          {
+            "content": "No.",
+            "polygon": [
+              1648,
+              965,
+              1712,
+              966,
+              1711,
+              1006,
+              1646,
+              1003
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 234,
+              "length": 3
+            }
+          },
+          {
+            "content": "病",
+            "polygon": [
+              1718,
+              967,
+              1743,
+              967,
+              1741,
+              1007,
+              1716,
+              1006
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 238,
+              "length": 1
+            }
+          },
+          {
+            "content": "人",
+            "polygon": [
+              1754,
+              968,
+              1779,
+              968,
+              1777,
+              1008,
+              1752,
+              1007
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 239,
+              "length": 1
+            }
+          },
+          {
+            "content": "編",
+            "polygon": [
+              1795,
+              969,
+              1819,
+              969,
+              1817,
+              1009,
+              1793,
+              1008
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 240,
+              "length": 1
+            }
+          },
+          {
+            "content": "號",
+            "polygon": [
+              1830,
+              970,
+              1865,
+              970,
+              1865,
+              1010,
+              1828,
+              1009
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 241,
+              "length": 1
+            }
+          },
+          {
+            "content": "LB-0371526",
+            "polygon": [
+              2055,
+              973,
+              2281,
+              978,
+              2281,
+              1014,
+              2054,
+              1010
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 243,
+              "length": 10
+            }
+          },
+          {
+            "content": "Attendance",
+            "polygon": [
+              395,
+              1040,
+              587,
+              1042,
+              586,
+              1082,
+              394,
+              1075
+            ],
+            "confidence": 0.984,
+            "span": {
+              "offset": 254,
+              "length": 10
+            }
+          },
+          {
+            "content": "Date",
+            "polygon": [
+              600,
+              1043,
+              678,
+              1044,
+              676,
+              1084,
+              598,
+              1082
+            ],
+            "confidence": 0.986,
+            "span": {
+              "offset": 265,
+              "length": 4
+            }
+          },
+          {
+            "content": "就",
+            "polygon": [
+              691,
+              1044,
+              718,
+              1045,
+              716,
+              1085,
+              689,
+              1084
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 270,
+              "length": 1
+            }
+          },
+          {
+            "content": "診",
+            "polygon": [
+              729,
+              1045,
+              754,
+              1045,
+              752,
+              1086,
+              727,
+              1085
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 271,
+              "length": 1
+            }
+          },
+          {
+            "content": "日",
+            "polygon": [
+              765,
+              1045,
+              796,
+              1046,
+              794,
+              1087,
+              763,
+              1086
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 272,
+              "length": 1
+            }
+          },
+          {
+            "content": "期",
+            "polygon": [
+              804,
+              1046,
+              841,
+              1047,
+              841,
+              1087,
+              802,
+              1087
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 273,
+              "length": 1
+            }
+          },
+          {
+            "content": "18",
+            "polygon": [
+              945,
+              1047,
+              987,
+              1048,
+              987,
+              1091,
+              945,
+              1090
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 275,
+              "length": 2
+            }
+          },
+          {
+            "content": "May",
+            "polygon": [
+              1001,
+              1049,
+              1077,
+              1050,
+              1077,
+              1093,
+              1001,
+              1091
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 278,
+              "length": 3
+            }
+          },
+          {
+            "content": "2026",
+            "polygon": [
+              1091,
+              1050,
+              1182,
+              1051,
+              1182,
+              1094,
+              1091,
+              1093
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 282,
+              "length": 4
+            }
+          },
+          {
+            "content": "Episode",
+            "polygon": [
+              1517,
+              1066,
+              1653,
+              1069,
+              1651,
+              1109,
+              1515,
+              1105
+            ],
+            "confidence": 0.982,
+            "span": {
+              "offset": 287,
+              "length": 7
+            }
+          },
+          {
+            "content": "No.",
+            "polygon": [
+              1654,
+              1069,
+              1726,
+              1070,
+              1725,
+              1110,
+              1652,
+              1109
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 295,
+              "length": 3
+            }
+          },
+          {
+            "content": "診",
+            "polygon": [
+              1732,
+              1070,
+              1758,
+              1071,
+              1756,
+              1111,
+              1731,
+              1110
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 299,
+              "length": 1
+            }
+          },
+          {
+            "content": "症",
+            "polygon": [
+              1769,
+              1071,
+              1794,
+              1072,
+              1793,
+              1111,
+              1767,
+              1111
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 300,
+              "length": 1
+            }
+          },
+          {
+            "content": "編",
+            "polygon": [
+              1810,
+              1072,
+              1836,
+              1073,
+              1835,
+              1112,
+              1809,
+              1112
+            ],
+            "confidence": 0.97,
+            "span": {
+              "offset": 301,
+              "length": 1
+            }
+          },
+          {
+            "content": "號",
+            "polygon": [
+              1842,
+              1073,
+              1879,
+              1073,
+              1879,
+              1112,
+              1840,
+              1112
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 302,
+              "length": 1
+            }
+          },
+          {
+            "content": "E2605180412",
+            "polygon": [
+              2053,
+              1075,
+              2308,
+              1078,
+              2306,
+              1116,
+              2052,
+              1113
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 304,
+              "length": 11
+            }
+          },
+          {
+            "content": "Attending",
+            "polygon": [
+              390,
+              1138,
+              549,
+              1142,
+              548,
+              1182,
+              388,
+              1177
+            ],
+            "confidence": 0.98,
+            "span": {
+              "offset": 316,
+              "length": 9
+            }
+          },
+          {
+            "content": "Doctor",
+            "polygon": [
+              555,
+              1142,
+              676,
+              1145,
+              674,
+              1186,
+              554,
+              1182
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 326,
+              "length": 6
+            }
+          },
+          {
+            "content": "主",
+            "polygon": [
+              688,
+              1145,
+              714,
+              1145,
+              712,
+              1187,
+              686,
+              1186
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 333,
+              "length": 1
+            }
+          },
+          {
+            "content": "診",
+            "polygon": [
+              725,
+              1146,
+              751,
+              1146,
+              749,
+              1187,
+              723,
+              1187
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 334,
+              "length": 1
+            }
+          },
+          {
+            "content": "醫",
+            "polygon": [
+              768,
+              1146,
+              794,
+              1147,
+              792,
+              1189,
+              766,
+              1188
+            ],
+            "confidence": 0.976,
+            "span": {
+              "offset": 335,
+              "length": 1
+            }
+          },
+          {
+            "content": "生",
+            "polygon": [
+              800,
+              1147,
+              838,
+              1148,
+              838,
+              1189,
+              798,
+              1189
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 336,
+              "length": 1
+            }
+          },
+          {
+            "content": "Dr.",
+            "polygon": [
+              940,
+              1148,
+              994,
+              1150,
+              993,
+              1188,
+              940,
+              1188
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 338,
+              "length": 3
+            }
+          },
+          {
+            "content": "Chow",
+            "polygon": [
+              1009,
+              1150,
+              1118,
+              1153,
+              1118,
+              1190,
+              1009,
+              1189
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 342,
+              "length": 4
+            }
+          },
+          {
+            "content": "Ka",
+            "polygon": [
+              1132,
+              1153,
+              1181,
+              1154,
+              1180,
+              1191,
+              1132,
+              1190
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 347,
+              "length": 2
+            }
+          },
+          {
+            "content": "Ho",
+            "polygon": [
+              1195,
+              1155,
+              1250,
+              1156,
+              1250,
+              1192,
+              1194,
+              1191
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 350,
+              "length": 2
+            }
+          },
+          {
+            "content": "Policy",
+            "polygon": [
+              1515,
+              1166,
+              1617,
+              1168,
+              1617,
+              1210,
+              1515,
+              1206
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 353,
+              "length": 6
+            }
+          },
+          {
+            "content": "No.",
+            "polygon": [
+              1618,
+              1168,
+              1692,
+              1170,
+              1692,
+              1211,
+              1618,
+              1210
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 360,
+              "length": 3
+            }
+          },
+          {
+            "content": "保",
+            "polygon": [
+              1693,
+              1170,
+              1719,
+              1171,
+              1719,
+              1212,
+              1693,
+              1211
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 364,
+              "length": 1
+            }
+          },
+          {
+            "content": "單",
+            "polygon": [
+              1736,
+              1171,
+              1762,
+              1171,
+              1762,
+              1212,
+              1736,
+              1212
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 365,
+              "length": 1
+            }
+          },
+          {
+            "content": "編",
+            "polygon": [
+              1768,
+              1171,
+              1794,
+              1172,
+              1794,
+              1212,
+              1768,
+              1212
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 366,
+              "length": 1
+            }
+          },
+          {
+            "content": "號",
+            "polygon": [
+              1806,
+              1172,
+              1839,
+              1172,
+              1839,
+              1212,
+              1806,
+              1212
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 367,
+              "length": 1
+            }
+          },
+          {
+            "content": "VH-58210937",
+            "polygon": [
+              2049,
+              1175,
+              2301,
+              1179,
+              2301,
+              1213,
+              2048,
+              1211
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 369,
+              "length": 11
+            }
+          },
+          {
+            "content": "Insurer",
+            "polygon": [
+              387,
+              1242,
+              508,
+              1243,
+              507,
+              1282,
+              385,
+              1278
+            ],
+            "confidence": 0.951,
+            "span": {
+              "offset": 381,
+              "length": 7
+            }
+          },
+          {
+            "content": "保",
+            "polygon": [
+              519,
+              1243,
+              548,
+              1243,
+              546,
+              1283,
+              517,
+              1282
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 389,
+              "length": 1
+            }
+          },
+          {
+            "content": "險",
+            "polygon": [
+              559,
+              1243,
+              584,
+              1244,
+              582,
+              1284,
+              557,
+              1283
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 390,
+              "length": 1
+            }
+          },
+          {
+            "content": "公",
+            "polygon": [
+              600,
+              1244,
+              625,
+              1244,
+              623,
+              1286,
+              598,
+              1285
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 391,
+              "length": 1
+            }
+          },
+          {
+            "content": "司",
+            "polygon": [
+              636,
+              1244,
+              671,
+              1244,
+              671,
+              1288,
+              634,
+              1286
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 392,
+              "length": 1
+            }
+          },
+          {
+            "content": "Evergreen",
+            "polygon": [
+              938,
+              1251,
+              1139,
+              1257,
+              1138,
+              1298,
+              937,
+              1295
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 394,
+              "length": 9
+            }
+          },
+          {
+            "content": "Assurance",
+            "polygon": [
+              1152,
+              1257,
+              1362,
+              1261,
+              1362,
+              1303,
+              1151,
+              1299
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 404,
+              "length": 9
+            }
+          },
+          {
+            "content": "Item",
+            "polygon": [
+              369,
+              1413,
+              434,
+              1414,
+              432,
+              1451,
+              366,
+              1449
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 414,
+              "length": 4
+            }
+          },
+          {
+            "content": "Code",
+            "polygon": [
+              465,
+              1415,
+              563,
+              1418,
+              562,
+              1453,
+              463,
+              1451
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 419,
+              "length": 4
+            }
+          },
+          {
+            "content": "項",
+            "polygon": [
+              367,
+              1459,
+              394,
+              1460,
+              393,
+              1499,
+              366,
+              1498
+            ],
+            "confidence": 0.971,
+            "span": {
+              "offset": 424,
+              "length": 1
+            }
+          },
+          {
+            "content": "目",
+            "polygon": [
+              411,
+              1460,
+              436,
+              1460,
+              435,
+              1500,
+              410,
+              1499
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 425,
+              "length": 1
+            }
+          },
+          {
+            "content": "編",
+            "polygon": [
+              447,
+              1460,
+              473,
+              1461,
+              472,
+              1501,
+              446,
+              1500
+            ],
+            "confidence": 0.949,
+            "span": {
+              "offset": 426,
+              "length": 1
+            }
+          },
+          {
+            "content": "號",
+            "polygon": [
+              489,
+              1461,
+              527,
+              1461,
+              527,
+              1502,
+              488,
+              1501
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 427,
+              "length": 1
+            }
+          },
+          {
+            "content": "Description",
+            "polygon": [
+              682,
+              1423,
+              899,
+              1428,
+              899,
+              1469,
+              680,
+              1463
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 429,
+              "length": 11
+            }
+          },
+          {
+            "content": "項",
+            "polygon": [
+              681,
+              1468,
+              708,
+              1469,
+              707,
+              1508,
+              681,
+              1507
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 441,
+              "length": 1
+            }
+          },
+          {
+            "content": "目",
+            "polygon": [
+              724,
+              1469,
+              759,
+              1470,
+              758,
+              1509,
+              723,
+              1508
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 442,
+              "length": 1
+            }
+          },
+          {
+            "content": "Qty",
+            "polygon": [
+              1792,
+              1447,
+              1865,
+              1450,
+              1865,
+              1490,
+              1791,
+              1487
+            ],
+            "confidence": 0.977,
+            "span": {
+              "offset": 444,
+              "length": 3
+            }
+          },
+          {
+            "content": "數",
+            "polygon": [
+              1787,
+              1493,
+              1815,
+              1493,
+              1814,
+              1534,
+              1786,
+              1533
+            ],
+            "confidence": 0.985,
+            "span": {
+              "offset": 448,
+              "length": 1
+            }
+          },
+          {
+            "content": "量",
+            "polygon": [
+              1832,
+              1494,
+              1859,
+              1495,
+              1857,
+              1536,
+              1831,
+              1535
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 449,
+              "length": 1
+            }
+          },
+          {
+            "content": "Unit",
+            "polygon": [
+              1942,
+              1449,
+              2016,
+              1451,
+              2015,
+              1494,
+              1941,
+              1493
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 451,
+              "length": 4
+            }
+          },
+          {
+            "content": "Price",
+            "polygon": [
+              2024,
+              1452,
+              2117,
+              1453,
+              2117,
+              1494,
+              2024,
+              1494
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 456,
+              "length": 5
+            }
+          },
+          {
+            "content": "(HK$)",
+            "polygon": [
+              2126,
+              1453,
+              2230,
+              1453,
+              2230,
+              1494,
+              2126,
+              1494
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 462,
+              "length": 5
+            }
+          },
+          {
+            "content": "單",
+            "polygon": [
+              2152,
+              1499,
+              2180,
+              1499,
+              2180,
+              1540,
+              2152,
+              1540
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 468,
+              "length": 1
+            }
+          },
+          {
+            "content": "價",
+            "polygon": [
+              2192,
+              1499,
+              2231,
+              1499,
+              2231,
+              1540,
+              2192,
+              1540
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 469,
+              "length": 1
+            }
+          },
+          {
+            "content": "Amount",
+            "polygon": [
+              2315,
+              1455,
+              2461,
+              1455,
+              2461,
+              1494,
+              2315,
+              1494
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 471,
+              "length": 6
+            }
+          },
+          {
+            "content": "(HK$)",
+            "polygon": [
+              2468,
+              1455,
+              2575,
+              1454,
+              2575,
+              1495,
+              2468,
+              1494
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 478,
+              "length": 5
+            }
+          },
+          {
+            "content": "金",
+            "polygon": [
+              2493,
+              1500,
+              2525,
+              1500,
+              2526,
+              1540,
+              2493,
+              1540
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 484,
+              "length": 1
+            }
+          },
+          {
+            "content": "額",
+            "polygon": [
+              2531,
+              1500,
+              2575,
+              1500,
+              2575,
+              1539,
+              2532,
+              1540
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 485,
+              "length": 1
+            }
+          },
+          {
+            "content": "OPC-0120",
+            "polygon": [
+              366,
+              1566,
+              570,
+              1571,
+              569,
+              1610,
+              365,
+              1601
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 487,
+              "length": 8
+            }
+          },
+          {
+            "content": "Specialist",
+            "polygon": [
+              680,
+              1577,
+              863,
+              1580,
+              862,
+              1623,
+              679,
+              1620
+            ],
+            "confidence": 0.977,
+            "span": {
+              "offset": 496,
+              "length": 10
+            }
+          },
+          {
+            "content": "outpatient",
+            "polygon": [
+              864,
+              1580,
+              1056,
+              1583,
+              1055,
+              1626,
+              863,
+              1623
+            ],
+            "confidence": 0.967,
+            "span": {
+              "offset": 507,
+              "length": 10
+            }
+          },
+          {
+            "content": "consultation",
+            "polygon": [
+              1057,
+              1583,
+              1280,
+              1586,
+              1279,
+              1630,
+              1056,
+              1626
+            ],
+            "confidence": 0.967,
+            "span": {
+              "offset": 518,
+              "length": 12
+            }
+          },
+          {
+            "content": "專",
+            "polygon": [
+              1295,
+              1586,
+              1324,
+              1587,
+              1323,
+              1630,
+              1294,
+              1630
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 531,
+              "length": 1
+            }
+          },
+          {
+            "content": "科",
+            "polygon": [
+              1336,
+              1587,
+              1364,
+              1587,
+              1363,
+              1631,
+              1335,
+              1630
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 532,
+              "length": 1
+            }
+          },
+          {
+            "content": "門",
+            "polygon": [
+              1376,
+              1587,
+              1404,
+              1588,
+              1403,
+              1631,
+              1375,
+              1631
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 533,
+              "length": 1
+            }
+          },
+          {
+            "content": "診",
+            "polygon": [
+              1416,
+              1588,
+              1443,
+              1588,
+              1442,
+              1632,
+              1415,
+              1632
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 534,
+              "length": 1
+            }
+          },
+          {
+            "content": "診",
+            "polygon": [
+              1456,
+              1588,
+              1483,
+              1589,
+              1482,
+              1633,
+              1454,
+              1632
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 535,
+              "length": 1
+            }
+          },
+          {
+            "content": "症",
+            "polygon": [
+              1501,
+              1589,
+              1537,
+              1590,
+              1537,
+              1633,
+              1500,
+              1633
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 536,
+              "length": 1
+            }
+          },
+          {
+            "content": "1",
+            "polygon": [
+              1817,
+              1601,
+              1836,
+              1602,
+              1834,
+              1634,
+              1816,
+              1633
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 538,
+              "length": 1
+            }
+          },
+          {
+            "content": "950.00",
+            "polygon": [
+              2098,
+              1604,
+              2226,
+              1605,
+              2226,
+              1642,
+              2098,
+              1642
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 540,
+              "length": 6
+            }
+          },
+          {
+            "content": "950.00",
+            "polygon": [
+              2442,
+              1607,
+              2572,
+              1606,
+              2572,
+              1641,
+              2442,
+              1643
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 547,
+              "length": 6
+            }
+          },
+          {
+            "content": "RAD-1140",
+            "polygon": [
+              363,
+              1678,
+              562,
+              1684,
+              559,
+              1721,
+              361,
+              1716
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 554,
+              "length": 8
+            }
+          },
+          {
+            "content": "Chest",
+            "polygon": [
+              677,
+              1687,
+              789,
+              1689,
+              788,
+              1734,
+              675,
+              1730
+            ],
+            "confidence": 0.986,
+            "span": {
+              "offset": 563,
+              "length": 5
+            }
+          },
+          {
+            "content": "X-ray",
+            "polygon": [
+              800,
+              1689,
+              901,
+              1691,
+              900,
+              1736,
+              800,
+              1734
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 569,
+              "length": 5
+            }
+          },
+          {
+            "content": "胸",
+            "polygon": [
+              912,
+              1691,
+              947,
+              1691,
+              946,
+              1736,
+              912,
+              1736
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 575,
+              "length": 1
+            }
+          },
+          {
+            "content": "部",
+            "polygon": [
+              959,
+              1691,
+              988,
+              1691,
+              988,
+              1736,
+              959,
+              1736
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 576,
+              "length": 1
+            }
+          },
+          {
+            "content": "X",
+            "polygon": [
+              994,
+              1691,
+              1023,
+              1691,
+              1023,
+              1736,
+              994,
+              1736
+            ],
+            "confidence": 0.967,
+            "span": {
+              "offset": 577,
+              "length": 1
+            }
+          },
+          {
+            "content": "光",
+            "polygon": [
+              1030,
+              1691,
+              1063,
+              1691,
+              1063,
+              1736,
+              1029,
+              1736
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 578,
+              "length": 1
+            }
+          },
+          {
+            "content": "1",
+            "polygon": [
+              1814,
+              1712,
+              1835,
+              1713,
+              1835,
+              1744,
+              1813,
+              1743
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 580,
+              "length": 1
+            }
+          },
+          {
+            "content": "620.00",
+            "polygon": [
+              2096,
+              1716,
+              2225,
+              1717,
+              2224,
+              1753,
+              2098,
+              1753
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 582,
+              "length": 6
+            }
+          },
+          {
+            "content": "620.00",
+            "polygon": [
+              2442,
+              1720,
+              2572,
+              1720,
+              2570,
+              1754,
+              2441,
+              1755
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 589,
+              "length": 6
+            }
+          },
+          {
+            "content": "LAB-2071",
+            "polygon": [
+              361,
+              1795,
+              551,
+              1800,
+              550,
+              1837,
+              359,
+              1833
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 596,
+              "length": 8
+            }
+          },
+          {
+            "content": "Blood",
+            "polygon": [
+              678,
+              1803,
+              782,
+              1803,
+              781,
+              1848,
+              676,
+              1846
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 605,
+              "length": 5
+            }
+          },
+          {
+            "content": "test",
+            "polygon": [
+              795,
+              1803,
+              866,
+              1803,
+              865,
+              1850,
+              794,
+              1849
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 611,
+              "length": 4
+            }
+          },
+          {
+            "content": "(CBC)",
+            "polygon": [
+              866,
+              1803,
+              1000,
+              1805,
+              999,
+              1850,
+              865,
+              1850
+            ],
+            "confidence": 0.977,
+            "span": {
+              "offset": 616,
+              "length": 5
+            }
+          },
+          {
+            "content": "血",
+            "polygon": [
+              1001,
+              1805,
+              1030,
+              1805,
+              1029,
+              1850,
+              1000,
+              1850
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 622,
+              "length": 1
+            }
+          },
+          {
+            "content": "液",
+            "polygon": [
+              1048,
+              1805,
+              1077,
+              1806,
+              1075,
+              1850,
+              1047,
+              1850
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 623,
+              "length": 1
+            }
+          },
+          {
+            "content": "檢",
+            "polygon": [
+              1089,
+              1806,
+              1118,
+              1807,
+              1116,
+              1850,
+              1088,
+              1850
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 624,
+              "length": 1
+            }
+          },
+          {
+            "content": "查",
+            "polygon": [
+              1130,
+              1807,
+              1168,
+              1808,
+              1168,
+              1850,
+              1129,
+              1850
+            ],
+            "confidence": 0.985,
+            "span": {
+              "offset": 625,
+              "length": 1
+            }
+          },
+          {
+            "content": "1",
+            "polygon": [
+              1814,
+              1825,
+              1832,
+              1827,
+              1831,
+              1858,
+              1812,
+              1856
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 627,
+              "length": 1
+            }
+          },
+          {
+            "content": "380.00",
+            "polygon": [
+              2096,
+              1828,
+              2224,
+              1830,
+              2223,
+              1866,
+              2096,
+              1865
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 629,
+              "length": 6
+            }
+          },
+          {
+            "content": "380.00",
+            "polygon": [
+              2439,
+              1831,
+              2574,
+              1831,
+              2574,
+              1868,
+              2438,
+              1868
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 636,
+              "length": 6
+            }
+          },
+          {
+            "content": "PHM-9003",
+            "polygon": [
+              358,
+              1907,
+              566,
+              1909,
+              566,
+              1946,
+              356,
+              1944
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 643,
+              "length": 8
+            }
+          },
+          {
+            "content": "Drugs",
+            "polygon": [
+              673,
+              1914,
+              787,
+              1914,
+              785,
+              1961,
+              672,
+              1960
+            ],
+            "confidence": 0.986,
+            "span": {
+              "offset": 652,
+              "length": 5
+            }
+          },
+          {
+            "content": "藥",
+            "polygon": [
+              800,
+              1914,
+              832,
+              1915,
+              831,
+              1961,
+              799,
+              1961
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 658,
+              "length": 1
+            }
+          },
+          {
+            "content": "物",
+            "polygon": [
+              845,
+              1915,
+              881,
+              1915,
+              881,
+              1962,
+              844,
+              1961
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 659,
+              "length": 1
+            }
+          },
+          {
+            "content": "1",
+            "polygon": [
+              1811,
+              1933,
+              1832,
+              1934,
+              1831,
+              1965,
+              1810,
+              1963
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 661,
+              "length": 1
+            }
+          },
+          {
+            "content": "245.50",
+            "polygon": [
+              2094,
+              1937,
+              2222,
+              1939,
+              2222,
+              1974,
+              2093,
+              1973
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 663,
+              "length": 6
+            }
+          },
+          {
+            "content": "245.50",
+            "polygon": [
+              2437,
+              1941,
+              2572,
+              1942,
+              2570,
+              1979,
+              2436,
+              1978
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 670,
+              "length": 6
+            }
+          },
+          {
+            "content": "Total",
+            "polygon": [
+              1232,
+              2086,
+              1344,
+              2087,
+              1343,
+              2137,
+              1231,
+              2135
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 677,
+              "length": 5
+            }
+          },
+          {
+            "content": "Charges",
+            "polygon": [
+              1345,
+              2087,
+              1536,
+              2088,
+              1535,
+              2138,
+              1344,
+              2137
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 683,
+              "length": 7
+            }
+          },
+          {
+            "content": "總",
+            "polygon": [
+              1554,
+              2088,
+              1585,
+              2088,
+              1584,
+              2138,
+              1552,
+              2138
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 691,
+              "length": 1
+            }
+          },
+          {
+            "content": "收",
+            "polygon": [
+              1599,
+              2088,
+              1631,
+              2088,
+              1630,
+              2138,
+              1598,
+              2138
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 692,
+              "length": 1
+            }
+          },
+          {
+            "content": "費",
+            "polygon": [
+              1651,
+              2088,
+              1692,
+              2088,
+              1692,
+              2138,
+              1650,
+              2138
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 693,
+              "length": 1
+            }
+          },
+          {
+            "content": "2,195.50",
+            "polygon": [
+              2379,
+              2099,
+              2571,
+              2100,
+              2571,
+              2143,
+              2379,
+              2144
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 695,
+              "length": 8
+            }
+          },
+          {
+            "content": "Less:",
+            "polygon": [
+              1231,
+              2197,
+              1325,
+              2197,
+              1325,
+              2239,
+              1231,
+              2237
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 704,
+              "length": 5
+            }
+          },
+          {
+            "content": "Paid",
+            "polygon": [
+              1341,
+              2197,
+              1421,
+              2198,
+              1421,
+              2241,
+              1341,
+              2240
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 710,
+              "length": 4
+            }
+          },
+          {
+            "content": "by",
+            "polygon": [
+              1422,
+              2198,
+              1474,
+              2198,
+              1474,
+              2243,
+              1421,
+              2241
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 715,
+              "length": 2
+            }
+          },
+          {
+            "content": "insurer",
+            "polygon": [
+              1475,
+              2198,
+              1610,
+              2199,
+              1609,
+              2245,
+              1474,
+              2243
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 718,
+              "length": 7
+            }
+          },
+          {
+            "content": "(direct",
+            "polygon": [
+              1611,
+              2199,
+              1734,
+              2200,
+              1733,
+              2247,
+              1610,
+              2245
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 726,
+              "length": 7
+            }
+          },
+          {
+            "content": "billing)",
+            "polygon": [
+              1747,
+              2200,
+              1875,
+              2202,
+              1874,
+              2249,
+              1746,
+              2247
+            ],
+            "confidence": 0.976,
+            "span": {
+              "offset": 734,
+              "length": 8
+            }
+          },
+          {
+            "content": "保",
+            "polygon": [
+              1876,
+              2202,
+              1905,
+              2202,
+              1903,
+              2249,
+              1875,
+              2249
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 742,
+              "length": 1
+            }
+          },
+          {
+            "content": "險",
+            "polygon": [
+              1917,
+              2202,
+              1946,
+              2203,
+              1945,
+              2250,
+              1916,
+              2250
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 743,
+              "length": 1
+            }
+          },
+          {
+            "content": "公",
+            "polygon": [
+              1953,
+              2203,
+              1982,
+              2203,
+              1980,
+              2250,
+              1951,
+              2250
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 744,
+              "length": 1
+            }
+          },
+          {
+            "content": "司",
+            "polygon": [
+              1994,
+              2203,
+              2029,
+              2204,
+              2027,
+              2250,
+              1992,
+              2250
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 745,
+              "length": 1
+            }
+          },
+          {
+            "content": "直",
+            "polygon": [
+              2041,
+              2204,
+              2070,
+              2204,
+              2068,
+              2251,
+              2039,
+              2251
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 746,
+              "length": 1
+            }
+          },
+          {
+            "content": "接",
+            "polygon": [
+              2083,
+              2204,
+              2111,
+              2205,
+              2109,
+              2251,
+              2081,
+              2251
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 747,
+              "length": 1
+            }
+          },
+          {
+            "content": "付",
+            "polygon": [
+              2118,
+              2205,
+              2147,
+              2205,
+              2145,
+              2251,
+              2116,
+              2251
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 748,
+              "length": 1
+            }
+          },
+          {
+            "content": "款",
+            "polygon": [
+              2159,
+              2206,
+              2202,
+              2206,
+              2202,
+              2251,
+              2157,
+              2251
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 749,
+              "length": 1
+            }
+          },
+          {
+            "content": "(1,800.00)",
+            "polygon": [
+              2377,
+              2210,
+              2573,
+              2211,
+              2572,
+              2256,
+              2377,
+              2255
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 751,
+              "length": 10
+            }
+          },
+          {
+            "content": "Less:",
+            "polygon": [
+              1224,
+              2297,
+              1323,
+              2298,
+              1323,
+              2341,
+              1224,
+              2339
+            ],
+            "confidence": 0.986,
+            "span": {
+              "offset": 762,
+              "length": 5
+            }
+          },
+          {
+            "content": "Paid",
+            "polygon": [
+              1339,
+              2298,
+              1418,
+              2298,
+              1417,
+              2342,
+              1339,
+              2341
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 768,
+              "length": 4
+            }
+          },
+          {
+            "content": "by",
+            "polygon": [
+              1424,
+              2298,
+              1470,
+              2299,
+              1470,
+              2343,
+              1424,
+              2342
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 773,
+              "length": 2
+            }
+          },
+          {
+            "content": "patient",
+            "polygon": [
+              1477,
+              2299,
+              1616,
+              2299,
+              1615,
+              2345,
+              1476,
+              2343
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 776,
+              "length": 7
+            }
+          },
+          {
+            "content": "病",
+            "polygon": [
+              1622,
+              2299,
+              1651,
+              2299,
+              1650,
+              2345,
+              1622,
+              2345
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 784,
+              "length": 1
+            }
+          },
+          {
+            "content": "人",
+            "polygon": [
+              1657,
+              2299,
+              1686,
+              2299,
+              1685,
+              2346,
+              1657,
+              2345
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 785,
+              "length": 1
+            }
+          },
+          {
+            "content": "已",
+            "polygon": [
+              1692,
+              2299,
+              1721,
+              2300,
+              1720,
+              2346,
+              1691,
+              2346
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 786,
+              "length": 1
+            }
+          },
+          {
+            "content": "付",
+            "polygon": [
+              1739,
+              2300,
+              1777,
+              2300,
+              1777,
+              2346,
+              1738,
+              2346
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 787,
+              "length": 1
+            }
+          },
+          {
+            "content": "(395.50)",
+            "polygon": [
+              2411,
+              2310,
+              2570,
+              2314,
+              2570,
+              2357,
+              2410,
+              2354
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 789,
+              "length": 8
+            }
+          },
+          {
+            "content": "Balance",
+            "polygon": [
+              1226,
+              2399,
+              1382,
+              2401,
+              1380,
+              2443,
+              1225,
+              2443
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 798,
+              "length": 7
+            }
+          },
+          {
+            "content": "Due",
+            "polygon": [
+              1388,
+              2401,
+              1470,
+              2401,
+              1469,
+              2444,
+              1387,
+              2443
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 806,
+              "length": 3
+            }
+          },
+          {
+            "content": "尚",
+            "polygon": [
+              1486,
+              2401,
+              1513,
+              2401,
+              1512,
+              2444,
+              1485,
+              2444
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 810,
+              "length": 1
+            }
+          },
+          {
+            "content": "欠",
+            "polygon": [
+              1526,
+              2401,
+              1553,
+              2401,
+              1552,
+              2445,
+              1524,
+              2444
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 811,
+              "length": 1
+            }
+          },
+          {
+            "content": "餘",
+            "polygon": [
+              1566,
+              2401,
+              1594,
+              2401,
+              1592,
+              2446,
+              1565,
+              2445
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 812,
+              "length": 1
+            }
+          },
+          {
+            "content": "額",
+            "polygon": [
+              1606,
+              2400,
+              1649,
+              2400,
+              1649,
+              2447,
+              1605,
+              2446
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 813,
+              "length": 1
+            }
+          },
+          {
+            "content": "0.00",
+            "polygon": [
+              2485,
+              2416,
+              2570,
+              2417,
+              2570,
+              2453,
+              2485,
+              2451
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 815,
+              "length": 4
+            }
+          },
+          {
+            "content": "Direct",
+            "polygon": [
+              371,
+              2591,
+              479,
+              2591,
+              479,
+              2634,
+              371,
+              2633
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 820,
+              "length": 6
+            }
+          },
+          {
+            "content": "billing",
+            "polygon": [
+              480,
+              2592,
+              586,
+              2592,
+              586,
+              2634,
+              480,
+              2634
+            ],
+            "confidence": 0.986,
+            "span": {
+              "offset": 827,
+              "length": 7
+            }
+          },
+          {
+            "content": "arranged",
+            "polygon": [
+              598,
+              2592,
+              756,
+              2592,
+              755,
+              2635,
+              598,
+              2634
+            ],
+            "confidence": 0.984,
+            "span": {
+              "offset": 835,
+              "length": 8
+            }
+          },
+          {
+            "content": "with",
+            "polygon": [
+              756,
+              2592,
+              840,
+              2593,
+              840,
+              2635,
+              756,
+              2635
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 844,
+              "length": 4
+            }
+          },
+          {
+            "content": "Evergreen",
+            "polygon": [
+              841,
+              2593,
+              1027,
+              2594,
+              1026,
+              2636,
+              841,
+              2635
+            ],
+            "confidence": 0.979,
+            "span": {
+              "offset": 849,
+              "length": 9
+            }
+          },
+          {
+            "content": "Assurance",
+            "polygon": [
+              1036,
+              2594,
+              1219,
+              2595,
+              1218,
+              2638,
+              1036,
+              2636
+            ],
+            "confidence": 0.977,
+            "span": {
+              "offset": 859,
+              "length": 9
+            }
+          },
+          {
+            "content": "under",
+            "polygon": [
+              1232,
+              2595,
+              1331,
+              2596,
+              1331,
+              2639,
+              1231,
+              2638
+            ],
+            "confidence": 0.984,
+            "span": {
+              "offset": 869,
+              "length": 5
+            }
+          },
+          {
+            "content": "the",
+            "polygon": [
+              1332,
+              2596,
+              1394,
+              2596,
+              1393,
+              2639,
+              1332,
+              2639
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 875,
+              "length": 3
+            }
+          },
+          {
+            "content": "policy",
+            "polygon": [
+              1394,
+              2596,
+              1501,
+              2597,
+              1501,
+              2640,
+              1394,
+              2639
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 879,
+              "length": 6
+            }
+          },
+          {
+            "content": "shown",
+            "polygon": [
+              1513,
+              2597,
+              1619,
+              2598,
+              1619,
+              2641,
+              1513,
+              2640
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 886,
+              "length": 5
+            }
+          },
+          {
+            "content": "above.",
+            "polygon": [
+              1626,
+              2598,
+              1755,
+              2600,
+              1754,
+              2643,
+              1625,
+              2641
+            ],
+            "confidence": 0.972,
+            "span": {
+              "offset": 892,
+              "length": 6
+            }
+          },
+          {
+            "content": "直",
+            "polygon": [
+              1761,
+              2600,
+              1789,
+              2600,
+              1788,
+              2643,
+              1760,
+              2643
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 899,
+              "length": 1
+            }
+          },
+          {
+            "content": "接",
+            "polygon": [
+              1801,
+              2600,
+              1828,
+              2600,
+              1827,
+              2644,
+              1800,
+              2644
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 900,
+              "length": 1
+            }
+          },
+          {
+            "content": "付",
+            "polygon": [
+              1834,
+              2601,
+              1862,
+              2601,
+              1861,
+              2644,
+              1834,
+              2644
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 901,
+              "length": 1
+            }
+          },
+          {
+            "content": "款",
+            "polygon": [
+              1874,
+              2601,
+              1902,
+              2601,
+              1901,
+              2645,
+              1873,
+              2644
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 902,
+              "length": 1
+            }
+          },
+          {
+            "content": "安",
+            "polygon": [
+              1914,
+              2601,
+              1941,
+              2602,
+              1940,
+              2645,
+              1913,
+              2645
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 903,
+              "length": 1
+            }
+          },
+          {
+            "content": "排",
+            "polygon": [
+              1953,
+              2602,
+              1981,
+              2602,
+              1980,
+              2646,
+              1952,
+              2646
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 904,
+              "length": 1
+            }
+          },
+          {
+            "content": "由",
+            "polygon": [
+              1987,
+              2602,
+              2014,
+              2603,
+              2014,
+              2646,
+              1986,
+              2646
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 905,
+              "length": 1
+            }
+          },
+          {
+            "content": "上",
+            "polygon": [
+              2026,
+              2603,
+              2054,
+              2603,
+              2053,
+              2647,
+              2026,
+              2647
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 906,
+              "length": 1
+            }
+          },
+          {
+            "content": "述",
+            "polygon": [
+              2066,
+              2603,
+              2093,
+              2604,
+              2093,
+              2647,
+              2065,
+              2647
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 907,
+              "length": 1
+            }
+          },
+          {
+            "content": "保",
+            "polygon": [
+              2105,
+              2604,
+              2133,
+              2604,
+              2132,
+              2648,
+              2104,
+              2648
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 908,
+              "length": 1
+            }
+          },
+          {
+            "content": "單",
+            "polygon": [
+              2145,
+              2604,
+              2172,
+              2605,
+              2171,
+              2649,
+              2144,
+              2648
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 909,
+              "length": 1
+            }
+          },
+          {
+            "content": "之",
+            "polygon": [
+              2184,
+              2605,
+              2212,
+              2605,
+              2211,
+              2649,
+              2183,
+              2649
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 910,
+              "length": 1
+            }
+          },
+          {
+            "content": "保",
+            "polygon": [
+              2218,
+              2605,
+              2246,
+              2606,
+              2245,
+              2650,
+              2217,
+              2649
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 911,
+              "length": 1
+            }
+          },
+          {
+            "content": "險",
+            "polygon": [
+              2258,
+              2606,
+              2285,
+              2606,
+              2284,
+              2650,
+              2257,
+              2650
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 912,
+              "length": 1
+            }
+          },
+          {
+            "content": "公",
+            "polygon": [
+              2297,
+              2607,
+              2325,
+              2607,
+              2324,
+              2651,
+              2296,
+              2651
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 913,
+              "length": 1
+            }
+          },
+          {
+            "content": "司",
+            "polygon": [
+              2337,
+              2607,
+              2364,
+              2608,
+              2363,
+              2652,
+              2336,
+              2651
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 914,
+              "length": 1
+            }
+          },
+          {
+            "content": "處",
+            "polygon": [
+              2376,
+              2608,
+              2404,
+              2608,
+              2403,
+              2652,
+              2375,
+              2652
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 915,
+              "length": 1
+            }
+          },
+          {
+            "content": "理",
+            "polygon": [
+              2416,
+              2608,
+              2443,
+              2609,
+              2442,
+              2653,
+              2415,
+              2653
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 916,
+              "length": 1
+            }
+          },
+          {
+            "content": "。",
+            "polygon": [
+              2455,
+              2609,
+              2480,
+              2609,
+              2480,
+              2653,
+              2454,
+              2653
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 917,
+              "length": 1
+            }
+          },
+          {
+            "content": "This",
+            "polygon": [
+              301,
+              3678,
+              371,
+              3680,
+              369,
+              3717,
+              299,
+              3715
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 919,
+              "length": 4
+            }
+          },
+          {
+            "content": "is",
+            "polygon": [
+              372,
+              3680,
+              406,
+              3681,
+              404,
+              3718,
+              370,
+              3717
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 924,
+              "length": 2
+            }
+          },
+          {
+            "content": "a",
+            "polygon": [
+              407,
+              3681,
+              431,
+              3681,
+              429,
+              3719,
+              405,
+              3718
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 927,
+              "length": 1
+            }
+          },
+          {
+            "content": "computer-generated",
+            "polygon": [
+              436,
+              3682,
+              758,
+              3688,
+              757,
+              3727,
+              435,
+              3719
+            ],
+            "confidence": 0.907,
+            "span": {
+              "offset": 929,
+              "length": 18
+            }
+          },
+          {
+            "content": "invoice.",
+            "polygon": [
+              763,
+              3688,
+              896,
+              3691,
+              896,
+              3729,
+              763,
+              3727
+            ],
+            "confidence": 0.96,
+            "span": {
+              "offset": 948,
+              "length": 8
+            }
+          },
+          {
+            "content": "此",
+            "polygon": [
+              897,
+              3691,
+              921,
+              3691,
+              921,
+              3729,
+              897,
+              3729
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 956,
+              "length": 1
+            }
+          },
+          {
+            "content": "乃",
+            "polygon": [
+              932,
+              3691,
+              956,
+              3691,
+              956,
+              3730,
+              932,
+              3729
+            ],
+            "confidence": 0.976,
+            "span": {
+              "offset": 957,
+              "length": 1
+            }
+          },
+          {
+            "content": "電",
+            "polygon": [
+              971,
+              3692,
+              996,
+              3692,
+              996,
+              3730,
+              972,
+              3730
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 958,
+              "length": 1
+            }
+          },
+          {
+            "content": "腦",
+            "polygon": [
+              1006,
+              3692,
+              1030,
+              3692,
+              1031,
+              3731,
+              1006,
+              3730
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 959,
+              "length": 1
+            }
+          },
+          {
+            "content": "發",
+            "polygon": [
+              1046,
+              3693,
+              1070,
+              3693,
+              1070,
+              3731,
+              1046,
+              3731
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 960,
+              "length": 1
+            }
+          },
+          {
+            "content": "出",
+            "polygon": [
+              1080,
+              3693,
+              1105,
+              3693,
+              1105,
+              3731,
+              1081,
+              3731
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 961,
+              "length": 1
+            }
+          },
+          {
+            "content": "之",
+            "polygon": [
+              1115,
+              3693,
+              1139,
+              3694,
+              1140,
+              3731,
+              1116,
+              3731
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 962,
+              "length": 1
+            }
+          },
+          {
+            "content": "發",
+            "polygon": [
+              1150,
+              3694,
+              1174,
+              3694,
+              1175,
+              3732,
+              1150,
+              3731
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 963,
+              "length": 1
+            }
+          },
+          {
+            "content": "票",
+            "polygon": [
+              1189,
+              3694,
+              1217,
+              3694,
+              1218,
+              3732,
+              1190,
+              3732
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 964,
+              "length": 1
+            }
+          },
+          {
+            "content": "。",
+            "polygon": [
+              1230,
+              3694,
+              1245,
+              3695,
+              1245,
+              3732,
+              1231,
+              3732
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 965,
+              "length": 1
+            }
+          },
+          {
+            "content": "Page",
+            "polygon": [
+              2395,
+              3683,
+              2474,
+              3684,
+              2474,
+              3719,
+              2395,
+              3718
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 967,
+              "length": 4
+            }
+          },
+          {
+            "content": "1",
+            "polygon": [
+              2488,
+              3684,
+              2499,
+              3684,
+              2499,
+              3719,
+              2488,
+              3719
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 972,
+              "length": 1
+            }
+          },
+          {
+            "content": "of",
+            "polygon": [
+              2516,
+              3685,
+              2547,
+              3685,
+              2547,
+              3720,
+              2516,
+              3720
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 974,
+              "length": 2
+            }
+          },
+          {
+            "content": "1",
+            "polygon": [
+              2558,
+              3685,
+              2573,
+              3685,
+              2573,
+              3721,
+              2558,
+              3721
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 977,
+              "length": 1
+            }
+          },
+          {
+            "content": "SAMPLE",
+            "polygon": [
+              2279,
+              3803,
+              2400,
+              3802,
+              2400,
+              3833,
+              2279,
+              3834
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 979,
+              "length": 6
+            }
+          },
+          {
+            "content": "/",
+            "polygon": [
+              2409,
+              3802,
+              2425,
+              3802,
+              2425,
+              3833,
+              2409,
+              3833
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 986,
+              "length": 1
+            }
+          },
+          {
+            "content": "測",
+            "polygon": [
+              2429,
+              3802,
+              2450,
+              3801,
+              2450,
+              3833,
+              2429,
+              3833
+            ],
+            "confidence": 0.975,
+            "span": {
+              "offset": 988,
+              "length": 1
+            }
+          },
+          {
+            "content": "試",
+            "polygon": [
+              2459,
+              3801,
+              2479,
+              3801,
+              2479,
+              3833,
+              2459,
+              3833
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 989,
+              "length": 1
+            }
+          },
+          {
+            "content": "樣",
+            "polygon": [
+              2492,
+              3801,
+              2512,
+              3800,
+              2512,
+              3833,
+              2492,
+              3833
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 990,
+              "length": 1
+            }
+          },
+          {
+            "content": "本",
+            "polygon": [
+              2521,
+              3800,
+              2549,
+              3799,
+              2549,
+              3834,
+              2521,
+              3833
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 991,
+              "length": 1
+            }
+          }
+        ],
+        "lines": [
+          {
+            "content": "LB",
+            "polygon": [
+              418,
+              468,
+              498,
+              468,
+              497,
+              513,
+              416,
+              511
+            ],
+            "spans": [
+              {
+                "offset": 0,
+                "length": 2
+              }
+            ]
+          },
+          {
+            "content": "Lantern Bay Hospital 朗灣醫院",
+            "polygon": [
+              571,
+              447,
+              1455,
+              449,
+              1455,
+              517,
+              570,
+              513
+            ],
+            "spans": [
+              {
+                "offset": 3,
+                "length": 25
+              }
+            ]
+          },
+          {
+            "content": "Outpatient Department 門診部",
+            "polygon": [
+              570,
+              523,
+              1104,
+              526,
+              1103,
+              572,
+              570,
+              568
+            ],
+            "spans": [
+              {
+                "offset": 29,
+                "length": 25
+              }
+            ]
+          },
+          {
+            "content": "8 Lantern Bay Road,",
+            "polygon": [
+              2273,
+              478,
+              2592,
+              480,
+              2592,
+              517,
+              2273,
+              515
+            ],
+            "spans": [
+              {
+                "offset": 55,
+                "length": 19
+              }
+            ]
+          },
+          {
+            "content": "Tuen Mun, New Territories",
+            "polygon": [
+              2186,
+              523,
+              2593,
+              528,
+              2593,
+              565,
+              2186,
+              562
+            ],
+            "spans": [
+              {
+                "offset": 75,
+                "length": 25
+              }
+            ]
+          },
+          {
+            "content": "Tel: 2000 3360",
+            "polygon": [
+              2361,
+              581,
+              2594,
+              580,
+              2594,
+              613,
+              2361,
+              614
+            ],
+            "spans": [
+              {
+                "offset": 101,
+                "length": 14
+              }
+            ]
+          },
+          {
+            "content": "OUTPATIENT INVOICE 門診發票",
+            "polygon": [
+              1027,
+              705,
+              1953,
+              720,
+              1952,
+              781,
+              1027,
+              758
+            ],
+            "spans": [
+              {
+                "offset": 116,
+                "length": 23
+              }
+            ]
+          },
+          {
+            "content": "Invoice No. 發票編號",
+            "polygon": [
+              402,
+              840,
+              752,
+              847,
+              751,
+              884,
+              401,
+              877
+            ],
+            "spans": [
+              {
+                "offset": 140,
+                "length": 16
+              }
+            ]
+          },
+          {
+            "content": "OPI-2026-0048213",
+            "polygon": [
+              945,
+              847,
+              1292,
+              849,
+              1292,
+              887,
+              945,
+              884
+            ],
+            "spans": [
+              {
+                "offset": 157,
+                "length": 16
+              }
+            ]
+          },
+          {
+            "content": "Invoice Date 發票日期",
+            "polygon": [
+              1519,
+              861,
+              1883,
+              873,
+              1881,
+              912,
+              1517,
+              900
+            ],
+            "spans": [
+              {
+                "offset": 174,
+                "length": 17
+              }
+            ]
+          },
+          {
+            "content": "25 May 2026",
+            "polygon": [
+              2053,
+              874,
+              2290,
+              878,
+              2290,
+              921,
+              2052,
+              916
+            ],
+            "spans": [
+              {
+                "offset": 192,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "Patient 病人",
+            "polygon": [
+              397,
+              936,
+              602,
+              942,
+              601,
+              979,
+              396,
+              972
+            ],
+            "spans": [
+              {
+                "offset": 204,
+                "length": 10
+              }
+            ]
+          },
+          {
+            "content": "TAM KA YAN",
+            "polygon": [
+              941,
+              944,
+              1192,
+              947,
+              1191,
+              984,
+              941,
+              981
+            ],
+            "spans": [
+              {
+                "offset": 215,
+                "length": 10
+              }
+            ]
+          },
+          {
+            "content": "Patient No. 病人編號",
+            "polygon": [
+              1518,
+              960,
+              1864,
+              970,
+              1862,
+              1010,
+              1516,
+              998
+            ],
+            "spans": [
+              {
+                "offset": 226,
+                "length": 16
+              }
+            ]
+          },
+          {
+            "content": "LB-0371526",
+            "polygon": [
+              2054,
+              973,
+              2280,
+              977,
+              2279,
+              1014,
+              2054,
+              1009
+            ],
+            "spans": [
+              {
+                "offset": 243,
+                "length": 10
+              }
+            ]
+          },
+          {
+            "content": "Attendance Date 就診日期",
+            "polygon": [
+              395,
+              1039,
+              840,
+              1046,
+              839,
+              1087,
+              394,
+              1077
+            ],
+            "spans": [
+              {
+                "offset": 254,
+                "length": 20
+              }
+            ]
+          },
+          {
+            "content": "18 May 2026",
+            "polygon": [
+              944,
+              1047,
+              1182,
+              1051,
+              1181,
+              1093,
+              944,
+              1089
+            ],
+            "spans": [
+              {
+                "offset": 275,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "Episode No. 診症編號",
+            "polygon": [
+              1515,
+              1065,
+              1878,
+              1072,
+              1877,
+              1112,
+              1514,
+              1105
+            ],
+            "spans": [
+              {
+                "offset": 287,
+                "length": 16
+              }
+            ]
+          },
+          {
+            "content": "E2605180412",
+            "polygon": [
+              2052,
+              1074,
+              2307,
+              1077,
+              2306,
+              1115,
+              2052,
+              1112
+            ],
+            "spans": [
+              {
+                "offset": 304,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "Attending Doctor 主診醫生",
+            "polygon": [
+              389,
+              1138,
+              837,
+              1147,
+              836,
+              1188,
+              388,
+              1178
+            ],
+            "spans": [
+              {
+                "offset": 316,
+                "length": 21
+              }
+            ]
+          },
+          {
+            "content": "Dr. Chow Ka Ho",
+            "polygon": [
+              940,
+              1148,
+              1249,
+              1154,
+              1249,
+              1192,
+              940,
+              1187
+            ],
+            "spans": [
+              {
+                "offset": 338,
+                "length": 14
+              }
+            ]
+          },
+          {
+            "content": "Policy No. 保單編號",
+            "polygon": [
+              1515,
+              1165,
+              1839,
+              1172,
+              1838,
+              1212,
+              1515,
+              1207
+            ],
+            "spans": [
+              {
+                "offset": 353,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "VH-58210937",
+            "polygon": [
+              2048,
+              1174,
+              2300,
+              1177,
+              2300,
+              1213,
+              2047,
+              1210
+            ],
+            "spans": [
+              {
+                "offset": 369,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "Insurer 保險公司",
+            "polygon": [
+              386,
+              1241,
+              670,
+              1244,
+              670,
+              1287,
+              385,
+              1280
+            ],
+            "spans": [
+              {
+                "offset": 381,
+                "length": 12
+              }
+            ]
+          },
+          {
+            "content": "Evergreen Assurance",
+            "polygon": [
+              937,
+              1250,
+              1361,
+              1259,
+              1360,
+              1303,
+              936,
+              1294
+            ],
+            "spans": [
+              {
+                "offset": 394,
+                "length": 19
+              }
+            ]
+          },
+          {
+            "content": "Item Code",
+            "polygon": [
+              367,
+              1412,
+              562,
+              1417,
+              561,
+              1452,
+              366,
+              1448
+            ],
+            "spans": [
+              {
+                "offset": 414,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "項目編號",
+            "polygon": [
+              366,
+              1459,
+              526,
+              1460,
+              525,
+              1501,
+              366,
+              1499
+            ],
+            "spans": [
+              {
+                "offset": 424,
+                "length": 4
+              }
+            ]
+          },
+          {
+            "content": "Description",
+            "polygon": [
+              681,
+              1423,
+              898,
+              1427,
+              897,
+              1468,
+              680,
+              1464
+            ],
+            "spans": [
+              {
+                "offset": 429,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "項目",
+            "polygon": [
+              681,
+              1468,
+              758,
+              1470,
+              756,
+              1509,
+              681,
+              1507
+            ],
+            "spans": [
+              {
+                "offset": 441,
+                "length": 2
+              }
+            ]
+          },
+          {
+            "content": "Qty",
+            "polygon": [
+              1793,
+              1447,
+              1864,
+              1451,
+              1864,
+              1489,
+              1791,
+              1487
+            ],
+            "spans": [
+              {
+                "offset": 444,
+                "length": 3
+              }
+            ]
+          },
+          {
+            "content": "數量",
+            "polygon": [
+              1787,
+              1493,
+              1864,
+              1496,
+              1863,
+              1536,
+              1786,
+              1534
+            ],
+            "spans": [
+              {
+                "offset": 448,
+                "length": 2
+              }
+            ]
+          },
+          {
+            "content": "Unit Price (HK$)",
+            "polygon": [
+              1941,
+              1448,
+              2229,
+              1451,
+              2229,
+              1494,
+              1940,
+              1492
+            ],
+            "spans": [
+              {
+                "offset": 451,
+                "length": 16
+              }
+            ]
+          },
+          {
+            "content": "單價",
+            "polygon": [
+              2153,
+              1500,
+              2230,
+              1499,
+              2229,
+              1540,
+              2152,
+              1539
+            ],
+            "spans": [
+              {
+                "offset": 468,
+                "length": 2
+              }
+            ]
+          },
+          {
+            "content": "Amount (HK$)",
+            "polygon": [
+              2314,
+              1454,
+              2574,
+              1454,
+              2574,
+              1494,
+              2314,
+              1494
+            ],
+            "spans": [
+              {
+                "offset": 471,
+                "length": 12
+              }
+            ]
+          },
+          {
+            "content": "金額",
+            "polygon": [
+              2493,
+              1500,
+              2573,
+              1500,
+              2574,
+              1538,
+              2493,
+              1540
+            ],
+            "spans": [
+              {
+                "offset": 484,
+                "length": 2
+              }
+            ]
+          },
+          {
+            "content": "OPC-0120",
+            "polygon": [
+              366,
+              1566,
+              569,
+              1571,
+              568,
+              1609,
+              365,
+              1602
+            ],
+            "spans": [
+              {
+                "offset": 487,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "Specialist outpatient consultation 專科門診診症",
+            "polygon": [
+              679,
+              1576,
+              1536,
+              1589,
+              1535,
+              1632,
+              679,
+              1619
+            ],
+            "spans": [
+              {
+                "offset": 496,
+                "length": 41
+              }
+            ]
+          },
+          {
+            "content": "1",
+            "polygon": [
+              1817,
+              1601,
+              1835,
+              1603,
+              1835,
+              1633,
+              1816,
+              1633
+            ],
+            "spans": [
+              {
+                "offset": 538,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "950.00",
+            "polygon": [
+              2097,
+              1604,
+              2225,
+              1604,
+              2225,
+              1641,
+              2097,
+              1640
+            ],
+            "spans": [
+              {
+                "offset": 540,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "950.00",
+            "polygon": [
+              2441,
+              1606,
+              2571,
+              1606,
+              2571,
+              1641,
+              2441,
+              1642
+            ],
+            "spans": [
+              {
+                "offset": 547,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "RAD-1140",
+            "polygon": [
+              362,
+              1678,
+              561,
+              1683,
+              560,
+              1720,
+              361,
+              1715
+            ],
+            "spans": [
+              {
+                "offset": 554,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "Chest X-ray 胸部X光",
+            "polygon": [
+              675,
+              1686,
+              1063,
+              1691,
+              1062,
+              1736,
+              675,
+              1732
+            ],
+            "spans": [
+              {
+                "offset": 563,
+                "length": 16
+              }
+            ]
+          },
+          {
+            "content": "1",
+            "polygon": [
+              1814,
+              1712,
+              1833,
+              1713,
+              1834,
+              1744,
+              1813,
+              1743
+            ],
+            "spans": [
+              {
+                "offset": 580,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "620.00",
+            "polygon": [
+              2096,
+              1716,
+              2224,
+              1716,
+              2224,
+              1753,
+              2096,
+              1752
+            ],
+            "spans": [
+              {
+                "offset": 582,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "620.00",
+            "polygon": [
+              2440,
+              1719,
+              2571,
+              1719,
+              2572,
+              1753,
+              2440,
+              1754
+            ],
+            "spans": [
+              {
+                "offset": 589,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "LAB-2071",
+            "polygon": [
+              359,
+              1795,
+              550,
+              1798,
+              550,
+              1836,
+              358,
+              1832
+            ],
+            "spans": [
+              {
+                "offset": 596,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "Blood test (CBC) 血液檢查",
+            "polygon": [
+              676,
+              1802,
+              1167,
+              1805,
+              1167,
+              1850,
+              676,
+              1847
+            ],
+            "spans": [
+              {
+                "offset": 605,
+                "length": 21
+              }
+            ]
+          },
+          {
+            "content": "1",
+            "polygon": [
+              1814,
+              1825,
+              1831,
+              1828,
+              1830,
+              1857,
+              1812,
+              1856
+            ],
+            "spans": [
+              {
+                "offset": 627,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "380.00",
+            "polygon": [
+              2096,
+              1828,
+              2223,
+              1829,
+              2223,
+              1866,
+              2096,
+              1864
+            ],
+            "spans": [
+              {
+                "offset": 629,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "380.00",
+            "polygon": [
+              2438,
+              1830,
+              2573,
+              1831,
+              2573,
+              1868,
+              2438,
+              1867
+            ],
+            "spans": [
+              {
+                "offset": 636,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "PHM-9003",
+            "polygon": [
+              355,
+              1906,
+              565,
+              1908,
+              565,
+              1945,
+              355,
+              1944
+            ],
+            "spans": [
+              {
+                "offset": 643,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "Drugs 藥物",
+            "polygon": [
+              672,
+              1914,
+              880,
+              1914,
+              880,
+              1961,
+              672,
+              1959
+            ],
+            "spans": [
+              {
+                "offset": 652,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "1",
+            "polygon": [
+              1811,
+              1933,
+              1831,
+              1935,
+              1830,
+              1965,
+              1810,
+              1964
+            ],
+            "spans": [
+              {
+                "offset": 661,
+                "length": 1
+              }
+            ]
+          },
+          {
+            "content": "245.50",
+            "polygon": [
+              2093,
+              1936,
+              2222,
+              1937,
+              2221,
+              1974,
+              2092,
+              1972
+            ],
+            "spans": [
+              {
+                "offset": 663,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "245.50",
+            "polygon": [
+              2436,
+              1941,
+              2571,
+              1941,
+              2571,
+              1978,
+              2436,
+              1978
+            ],
+            "spans": [
+              {
+                "offset": 670,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "Total Charges 總收費",
+            "polygon": [
+              1231,
+              2086,
+              1691,
+              2088,
+              1691,
+              2138,
+              1230,
+              2135
+            ],
+            "spans": [
+              {
+                "offset": 677,
+                "length": 17
+              }
+            ]
+          },
+          {
+            "content": "2,195.50",
+            "polygon": [
+              2378,
+              2099,
+              2570,
+              2099,
+              2570,
+              2142,
+              2378,
+              2143
+            ],
+            "spans": [
+              {
+                "offset": 695,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "Less: Paid by insurer (direct billing)保險公司直接付款",
+            "polygon": [
+              1231,
+              2196,
+              2201,
+              2205,
+              2201,
+              2251,
+              1231,
+              2240
+            ],
+            "spans": [
+              {
+                "offset": 704,
+                "length": 46
+              }
+            ]
+          },
+          {
+            "content": "(1,800.00)",
+            "polygon": [
+              2376,
+              2209,
+              2572,
+              2210,
+              2572,
+              2255,
+              2376,
+              2254
+            ],
+            "spans": [
+              {
+                "offset": 751,
+                "length": 10
+              }
+            ]
+          },
+          {
+            "content": "Less: Paid by patient 病人已付",
+            "polygon": [
+              1224,
+              2296,
+              1776,
+              2299,
+              1776,
+              2345,
+              1224,
+              2340
+            ],
+            "spans": [
+              {
+                "offset": 762,
+                "length": 26
+              }
+            ]
+          },
+          {
+            "content": "(395.50)",
+            "polygon": [
+              2410,
+              2310,
+              2569,
+              2313,
+              2568,
+              2356,
+              2409,
+              2353
+            ],
+            "spans": [
+              {
+                "offset": 789,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "Balance Due 尚欠餘額",
+            "polygon": [
+              1225,
+              2398,
+              1648,
+              2399,
+              1648,
+              2446,
+              1225,
+              2443
+            ],
+            "spans": [
+              {
+                "offset": 798,
+                "length": 16
+              }
+            ]
+          },
+          {
+            "content": "0.00",
+            "polygon": [
+              2486,
+              2416,
+              2569,
+              2418,
+              2568,
+              2453,
+              2485,
+              2452
+            ],
+            "spans": [
+              {
+                "offset": 815,
+                "length": 4
+              }
+            ]
+          },
+          {
+            "content": "Direct billing arranged with Evergreen Assurance under the policy shown above. 直接付款安排由上述保單之保險公司處理。",
+            "polygon": [
+              371,
+              2591,
+              2479,
+              2605,
+              2479,
+              2652,
+              371,
+              2633
+            ],
+            "spans": [
+              {
+                "offset": 820,
+                "length": 98
+              }
+            ]
+          },
+          {
+            "content": "This is a computer-generated invoice.此乃電腦發出之發票。",
+            "polygon": [
+              299,
+              3678,
+              1245,
+              3694,
+              1244,
+              3732,
+              299,
+              3717
+            ],
+            "spans": [
+              {
+                "offset": 919,
+                "length": 47
+              }
+            ]
+          },
+          {
+            "content": "Page 1 of 1",
+            "polygon": [
+              2395,
+              3683,
+              2572,
+              3685,
+              2572,
+              3720,
+              2395,
+              3718
+            ],
+            "spans": [
+              {
+                "offset": 967,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "SAMPLE / 測試樣本",
+            "polygon": [
+              2279,
+              3801,
+              2548,
+              3799,
+              2548,
+              3833,
+              2279,
+              3834
+            ],
+            "spans": [
+              {
+                "offset": 979,
+                "length": 13
+              }
+            ]
+          }
+        ],
+        "spans": [
+          {
+            "offset": 0,
+            "length": 992
+          }
+        ]
+      }
+    ],
+    "paragraphs": [
+      {
+        "spans": [
+          {
+            "offset": 0,
+            "length": 2
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              417,
+              466,
+              498,
+              468,
+              497,
+              513,
+              416,
+              511
+            ]
+          }
+        ],
+        "content": "LB"
+      },
+      {
+        "spans": [
+          {
+            "offset": 3,
+            "length": 51
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              570,
+              447,
+              1455,
+              449,
+              1455,
+              573,
+              570,
+              571
+            ]
+          }
+        ],
+        "content": "Lantern Bay Hospital 朗灣醫院 Outpatient Department 門診部"
+      },
+      {
+        "spans": [
+          {
+            "offset": 55,
+            "length": 60
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2186,
+              477,
+              2595,
+              480,
+              2594,
+              615,
+              2185,
+              613
+            ]
+          }
+        ],
+        "content": "8 Lantern Bay Road, Tuen Mun, New Territories Tel: 2000 3360"
+      },
+      {
+        "spans": [
+          {
+            "offset": 116,
+            "length": 23
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1027,
+              705,
+              1953,
+              720,
+              1952,
+              781,
+              1026,
+              766
+            ]
+          }
+        ],
+        "content": "OUTPATIENT INVOICE 門診發票"
+      },
+      {
+        "spans": [
+          {
+            "offset": 140,
+            "length": 16
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              402,
+              840,
+              752,
+              847,
+              751,
+              884,
+              401,
+              877
+            ]
+          }
+        ],
+        "content": "Invoice No. 發票編號"
+      },
+      {
+        "spans": [
+          {
+            "offset": 157,
+            "length": 16
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              945,
+              847,
+              1292,
+              849,
+              1292,
+              887,
+              945,
+              885
+            ]
+          }
+        ],
+        "content": "OPI-2026-0048213"
+      },
+      {
+        "spans": [
+          {
+            "offset": 174,
+            "length": 17
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1518,
+              861,
+              1883,
+              873,
+              1882,
+              912,
+              1517,
+              900
+            ]
+          }
+        ],
+        "content": "Invoice Date 發票日期"
+      },
+      {
+        "spans": [
+          {
+            "offset": 192,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2053,
+              873,
+              2291,
+              878,
+              2290,
+              921,
+              2052,
+              916
+            ]
+          }
+        ],
+        "content": "25 May 2026"
+      },
+      {
+        "spans": [
+          {
+            "offset": 204,
+            "length": 10
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              397,
+              936,
+              602,
+              942,
+              601,
+              979,
+              396,
+              973
+            ]
+          }
+        ],
+        "content": "Patient 病人"
+      },
+      {
+        "spans": [
+          {
+            "offset": 215,
+            "length": 10
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              941,
+              944,
+              1192,
+              947,
+              1192,
+              984,
+              941,
+              981
+            ]
+          }
+        ],
+        "content": "TAM KA YAN"
+      },
+      {
+        "spans": [
+          {
+            "offset": 226,
+            "length": 16
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1517,
+              958,
+              1864,
+              970,
+              1863,
+              1010,
+              1516,
+              998
+            ]
+          }
+        ],
+        "content": "Patient No. 病人編號"
+      },
+      {
+        "spans": [
+          {
+            "offset": 243,
+            "length": 10
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2054,
+              973,
+              2280,
+              977,
+              2279,
+              1014,
+              2053,
+              1010
+            ]
+          }
+        ],
+        "content": "LB-0371526"
+      },
+      {
+        "spans": [
+          {
+            "offset": 254,
+            "length": 32
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              395,
+              1038,
+              1182,
+              1051,
+              1181,
+              1093,
+              394,
+              1080
+            ]
+          }
+        ],
+        "content": "Attendance Date 就診日期 18 May 2026"
+      },
+      {
+        "spans": [
+          {
+            "offset": 287,
+            "length": 16
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1515,
+              1065,
+              1878,
+              1072,
+              1877,
+              1112,
+              1514,
+              1105
+            ]
+          }
+        ],
+        "content": "Episode No. 診症編號"
+      },
+      {
+        "spans": [
+          {
+            "offset": 304,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2052,
+              1074,
+              2307,
+              1077,
+              2307,
+              1115,
+              2052,
+              1112
+            ]
+          }
+        ],
+        "content": "E2605180412"
+      },
+      {
+        "spans": [
+          {
+            "offset": 316,
+            "length": 36
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              389,
+              1138,
+              1250,
+              1154,
+              1249,
+              1195,
+              388,
+              1180
+            ]
+          }
+        ],
+        "content": "Attending Doctor 主診醫生 Dr. Chow Ka Ho"
+      },
+      {
+        "spans": [
+          {
+            "offset": 353,
+            "length": 15
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1515,
+              1165,
+              1839,
+              1172,
+              1838,
+              1214,
+              1514,
+              1207
+            ]
+          }
+        ],
+        "content": "Policy No. 保單編號"
+      },
+      {
+        "spans": [
+          {
+            "offset": 369,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2047,
+              1174,
+              2300,
+              1177,
+              2300,
+              1213,
+              2047,
+              1210
+            ]
+          }
+        ],
+        "content": "VH-58210937"
+      },
+      {
+        "spans": [
+          {
+            "offset": 381,
+            "length": 12
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              386,
+              1237,
+              671,
+              1244,
+              670,
+              1287,
+              385,
+              1280
+            ]
+          }
+        ],
+        "content": "Insurer 保險公司"
+      },
+      {
+        "spans": [
+          {
+            "offset": 394,
+            "length": 19
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              937,
+              1250,
+              1361,
+              1259,
+              1360,
+              1303,
+              936,
+              1294
+            ]
+          }
+        ],
+        "content": "Evergreen Assurance"
+      },
+      {
+        "spans": [
+          {
+            "offset": 414,
+            "length": 14
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              367,
+              1412,
+              562,
+              1417,
+              560,
+              1504,
+              365,
+              1499
+            ]
+          }
+        ],
+        "content": "Item Code 項目編號"
+      },
+      {
+        "spans": [
+          {
+            "offset": 429,
+            "length": 14
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              681,
+              1423,
+              898,
+              1427,
+              896,
+              1512,
+              679,
+              1508
+            ]
+          }
+        ],
+        "content": "Description 項目"
+      },
+      {
+        "spans": [
+          {
+            "offset": 444,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1788,
+              1447,
+              1865,
+              1449,
+              1863,
+              1536,
+              1786,
+              1534
+            ]
+          }
+        ],
+        "content": "Qty 數量"
+      },
+      {
+        "spans": [
+          {
+            "offset": 451,
+            "length": 19
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1940,
+              1448,
+              2230,
+              1451,
+              2230,
+              1540,
+              1940,
+              1537
+            ]
+          }
+        ],
+        "content": "Unit Price (HK$) 單價"
+      },
+      {
+        "spans": [
+          {
+            "offset": 471,
+            "length": 15
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2314,
+              1454,
+              2574,
+              1454,
+              2574,
+              1540,
+              2314,
+              1540
+            ]
+          }
+        ],
+        "content": "Amount (HK$) 金額"
+      },
+      {
+        "spans": [
+          {
+            "offset": 487,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              366,
+              1566,
+              569,
+              1571,
+              568,
+              1609,
+              365,
+              1604
+            ]
+          }
+        ],
+        "content": "OPC-0120"
+      },
+      {
+        "spans": [
+          {
+            "offset": 496,
+            "length": 41
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              679,
+              1576,
+              1536,
+              1589,
+              1535,
+              1632,
+              678,
+              1619
+            ]
+          }
+        ],
+        "content": "Specialist outpatient consultation 專科門診診症"
+      },
+      {
+        "spans": [
+          {
+            "offset": 538,
+            "length": 1
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1816,
+              1601,
+              1835,
+              1601,
+              1835,
+              1633,
+              1816,
+              1633
+            ]
+          }
+        ],
+        "content": "1"
+      },
+      {
+        "spans": [
+          {
+            "offset": 540,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2097,
+              1604,
+              2225,
+              1604,
+              2225,
+              1641,
+              2097,
+              1641
+            ]
+          }
+        ],
+        "content": "950.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 547,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2441,
+              1606,
+              2571,
+              1606,
+              2571,
+              1642,
+              2441,
+              1642
+            ]
+          }
+        ],
+        "content": "950.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 554,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              362,
+              1678,
+              561,
+              1683,
+              560,
+              1720,
+              361,
+              1715
+            ]
+          }
+        ],
+        "content": "RAD-1140"
+      },
+      {
+        "spans": [
+          {
+            "offset": 563,
+            "length": 16
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              675,
+              1686,
+              1063,
+              1691,
+              1062,
+              1737,
+              674,
+              1732
+            ]
+          }
+        ],
+        "content": "Chest X-ray 胸部X光"
+      },
+      {
+        "spans": [
+          {
+            "offset": 580,
+            "length": 1
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1814,
+              1712,
+              1835,
+              1713,
+              1834,
+              1744,
+              1813,
+              1743
+            ]
+          }
+        ],
+        "content": "1"
+      },
+      {
+        "spans": [
+          {
+            "offset": 582,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2096,
+              1716,
+              2224,
+              1716,
+              2224,
+              1753,
+              2096,
+              1753
+            ]
+          }
+        ],
+        "content": "620.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 589,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2440,
+              1719,
+              2572,
+              1719,
+              2572,
+              1754,
+              2440,
+              1754
+            ]
+          }
+        ],
+        "content": "620.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 596,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              359,
+              1794,
+              551,
+              1798,
+              550,
+              1836,
+              358,
+              1832
+            ]
+          }
+        ],
+        "content": "LAB-2071"
+      },
+      {
+        "spans": [
+          {
+            "offset": 605,
+            "length": 21
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              676,
+              1802,
+              1167,
+              1805,
+              1167,
+              1850,
+              676,
+              1847
+            ]
+          }
+        ],
+        "content": "Blood test (CBC) 血液檢查"
+      },
+      {
+        "spans": [
+          {
+            "offset": 627,
+            "length": 1
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1814,
+              1825,
+              1832,
+              1826,
+              1830,
+              1857,
+              1812,
+              1856
+            ]
+          }
+        ],
+        "content": "1"
+      },
+      {
+        "spans": [
+          {
+            "offset": 629,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2096,
+              1828,
+              2223,
+              1829,
+              2223,
+              1866,
+              2096,
+              1865
+            ]
+          }
+        ],
+        "content": "380.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 636,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2438,
+              1830,
+              2573,
+              1831,
+              2573,
+              1868,
+              2438,
+              1867
+            ]
+          }
+        ],
+        "content": "380.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 643,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              355,
+              1906,
+              565,
+              1907,
+              565,
+              1945,
+              355,
+              1944
+            ]
+          }
+        ],
+        "content": "PHM-9003"
+      },
+      {
+        "spans": [
+          {
+            "offset": 652,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              672,
+              1914,
+              880,
+              1914,
+              880,
+              1961,
+              672,
+              1961
+            ]
+          }
+        ],
+        "content": "Drugs 藥物"
+      },
+      {
+        "spans": [
+          {
+            "offset": 661,
+            "length": 1
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1811,
+              1933,
+              1831,
+              1934,
+              1830,
+              1965,
+              1810,
+              1964
+            ]
+          }
+        ],
+        "content": "1"
+      },
+      {
+        "spans": [
+          {
+            "offset": 663,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2093,
+              1935,
+              2222,
+              1937,
+              2221,
+              1974,
+              2092,
+              1972
+            ]
+          }
+        ],
+        "content": "245.50"
+      },
+      {
+        "spans": [
+          {
+            "offset": 670,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2436,
+              1941,
+              2571,
+              1941,
+              2571,
+              1978,
+              2436,
+              1978
+            ]
+          }
+        ],
+        "content": "245.50"
+      },
+      {
+        "spans": [
+          {
+            "offset": 677,
+            "length": 17
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1230,
+              2085,
+              1691,
+              2088,
+              1691,
+              2138,
+              1230,
+              2135
+            ]
+          }
+        ],
+        "content": "Total Charges 總收費"
+      },
+      {
+        "spans": [
+          {
+            "offset": 695,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2378,
+              2099,
+              2570,
+              2099,
+              2570,
+              2143,
+              2378,
+              2143
+            ]
+          }
+        ],
+        "content": "2,195.50"
+      },
+      {
+        "spans": [
+          {
+            "offset": 704,
+            "length": 46
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1231,
+              2196,
+              2201,
+              2205,
+              2201,
+              2251,
+              1231,
+              2242
+            ]
+          }
+        ],
+        "content": "Less: Paid by insurer (direct billing)保險公司直接付款"
+      },
+      {
+        "spans": [
+          {
+            "offset": 751,
+            "length": 10
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2376,
+              2209,
+              2572,
+              2210,
+              2572,
+              2255,
+              2376,
+              2254
+            ]
+          }
+        ],
+        "content": "(1,800.00)"
+      },
+      {
+        "spans": [
+          {
+            "offset": 762,
+            "length": 26
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1224,
+              2296,
+              1776,
+              2299,
+              1776,
+              2345,
+              1224,
+              2342
+            ]
+          }
+        ],
+        "content": "Less: Paid by patient 病人已付"
+      },
+      {
+        "spans": [
+          {
+            "offset": 789,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2410,
+              2310,
+              2569,
+              2313,
+              2568,
+              2356,
+              2409,
+              2353
+            ]
+          }
+        ],
+        "content": "(395.50)"
+      },
+      {
+        "spans": [
+          {
+            "offset": 798,
+            "length": 16
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1225,
+              2398,
+              1648,
+              2399,
+              1648,
+              2446,
+              1225,
+              2445
+            ]
+          }
+        ],
+        "content": "Balance Due 尚欠餘額"
+      },
+      {
+        "spans": [
+          {
+            "offset": 815,
+            "length": 4
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2486,
+              2416,
+              2569,
+              2418,
+              2568,
+              2454,
+              2485,
+              2452
+            ]
+          }
+        ],
+        "content": "0.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 820,
+            "length": 98
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              371,
+              2591,
+              2479,
+              2605,
+              2479,
+              2652,
+              371,
+              2638
+            ]
+          }
+        ],
+        "content": "Direct billing arranged with Evergreen Assurance under the policy shown above. 直接付款安排由上述保單之保險公司處理。"
+      },
+      {
+        "spans": [
+          {
+            "offset": 919,
+            "length": 47
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              299,
+              3678,
+              1245,
+              3694,
+              1244,
+              3733,
+              298,
+              3717
+            ]
+          }
+        ],
+        "content": "This is a computer-generated invoice.此乃電腦發出之發票。"
+      },
+      {
+        "spans": [
+          {
+            "offset": 967,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2395,
+              3683,
+              2572,
+              3685,
+              2572,
+              3720,
+              2395,
+              3718
+            ]
+          }
+        ],
+        "content": "Page 1 of 1"
+      },
+      {
+        "spans": [
+          {
+            "offset": 979,
+            "length": 13
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2279,
+              3800,
+              2548,
+              3799,
+              2548,
+              3833,
+              2279,
+              3834
+            ]
+          }
+        ],
+        "content": "SAMPLE / 測試樣本"
+      }
+    ],
+    "styles": [],
+    "contentFormat": "text"
+  }
+}

@@ -1,0 +1,990 @@
+{
+  "document_id": "receipt2",
+  "engine_config": {
+    "engine_config_name": "paddle_light",
+    "text_detection_model_name": "PP-OCRv5_mobile_det",
+    "text_detection_model_dir": "models/PP-OCRv5_mobile_det_infer",
+    "text_recognition_model_name": "PP-OCRv5_mobile_rec",
+    "text_recognition_model_dir": "models/PP-OCRv5_mobile_rec_infer",
+    "device": "cpu"
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 3024,
+      "height": 4032,
+      "blocks": [
+        {
+          "text": "Kowloon Heart and Vascular",
+          "confidence": 0.9837210774421692,
+          "polygon": [
+            [
+              522,
+              263
+            ],
+            [
+              1524,
+              279
+            ],
+            [
+              1523,
+              360
+            ],
+            [
+              520,
+              344
+            ]
+          ],
+          "reading_order": 0
+        },
+        {
+          "text": "OFFICIAL RECEIPT",
+          "confidence": 0.9892752766609192,
+          "polygon": [
+            [
+              1743,
+              305
+            ],
+            [
+              2295,
+              286
+            ],
+            [
+              2297,
+              340
+            ],
+            [
+              1745,
+              359
+            ]
+          ],
+          "reading_order": 1
+        },
+        {
+          "text": "Centre",
+          "confidence": 0.9992157816886902,
+          "polygon": [
+            [
+              524,
+              359
+            ],
+            [
+              771,
+              361
+            ],
+            [
+              771,
+              433
+            ],
+            [
+              524,
+              430
+            ]
+          ],
+          "reading_order": 2
+        },
+        {
+          "text": "SC2026/01593",
+          "confidence": 0.9978599548339844,
+          "polygon": [
+            [
+              2275,
+              390
+            ],
+            [
+              2558,
+              396
+            ],
+            [
+              2557,
+              445
+            ],
+            [
+              2274,
+              438
+            ]
+          ],
+          "reading_order": 3
+        },
+        {
+          "text": "Receipt No.",
+          "confidence": 0.9755836725234985,
+          "polygon": [
+            [
+              1745,
+              403
+            ],
+            [
+              1972,
+              398
+            ],
+            [
+              1973,
+              450
+            ],
+            [
+              1746,
+              455
+            ]
+          ],
+          "reading_order": 4
+        },
+        {
+          "text": "Room 1608, 16/F, Grand Pacific Tower",
+          "confidence": 0.9547974467277527,
+          "polygon": [
+            [
+              521,
+              447
+            ],
+            [
+              1210,
+              455
+            ],
+            [
+              1209,
+              510
+            ],
+            [
+              521,
+              503
+            ]
+          ],
+          "reading_order": 5
+        },
+        {
+          "text": "22 April 2026",
+          "confidence": 0.9710251092910767,
+          "polygon": [
+            [
+              2309,
+              481
+            ],
+            [
+              2562,
+              481
+            ],
+            [
+              2562,
+              536
+            ],
+            [
+              2309,
+              536
+            ]
+          ],
+          "reading_order": 6
+        },
+        {
+          "text": "Consultation Date",
+          "confidence": 0.9806097745895386,
+          "polygon": [
+            [
+              1749,
+              498
+            ],
+            [
+              2085,
+              490
+            ],
+            [
+              2086,
+              534
+            ],
+            [
+              1750,
+              543
+            ]
+          ],
+          "reading_order": 7
+        },
+        {
+          "text": "188 Nathan Road, Tsim Sha Tsui",
+          "confidence": 0.9522391557693481,
+          "polygon": [
+            [
+              524,
+              508
+            ],
+            [
+              1096,
+              512
+            ],
+            [
+              1096,
+              560
+            ],
+            [
+              524,
+              555
+            ]
+          ],
+          "reading_order": 8
+        },
+        {
+          "text": "Tel:20007315",
+          "confidence": 0.9804272651672363,
+          "polygon": [
+            [
+              523,
+              566
+            ],
+            [
+              787,
+              562
+            ],
+            [
+              787,
+              608
+            ],
+            [
+              523,
+              611
+            ]
+          ],
+          "reading_order": 9
+        },
+        {
+          "text": "24 April 2026",
+          "confidence": 0.9620594382286072,
+          "polygon": [
+            [
+              2312,
+              570
+            ],
+            [
+              2565,
+              570
+            ],
+            [
+              2565,
+              625
+            ],
+            [
+              2312,
+              625
+            ]
+          ],
+          "reading_order": 10
+        },
+        {
+          "text": "Receipt Date",
+          "confidence": 0.9838400483131409,
+          "polygon": [
+            [
+              1748,
+              585
+            ],
+            [
+              1998,
+              580
+            ],
+            [
+              1999,
+              630
+            ],
+            [
+              1749,
+              634
+            ]
+          ],
+          "reading_order": 11
+        },
+        {
+          "text": "File No.",
+          "confidence": 0.9527749419212341,
+          "polygon": [
+            [
+              1750,
+              667
+            ],
+            [
+              1902,
+              670
+            ],
+            [
+              1901,
+              724
+            ],
+            [
+              1749,
+              721
+            ]
+          ],
+          "reading_order": 12
+        },
+        {
+          "text": "KHV-11872",
+          "confidence": 0.9984588623046875,
+          "polygon": [
+            [
+              2350,
+              660
+            ],
+            [
+              2567,
+              665
+            ],
+            [
+              2566,
+              711
+            ],
+            [
+              2349,
+              706
+            ]
+          ],
+          "reading_order": 13
+        },
+        {
+          "text": "ATTENDING DOCTOR",
+          "confidence": 0.9776700735092163,
+          "polygon": [
+            [
+              462,
+              910
+            ],
+            [
+              890,
+              903
+            ],
+            [
+              891,
+              950
+            ],
+            [
+              463,
+              958
+            ]
+          ],
+          "reading_order": 14
+        },
+        {
+          "text": "Dr. Ng Chun Yip",
+          "confidence": 0.9691068530082703,
+          "polygon": [
+            [
+              458,
+              969
+            ],
+            [
+              905,
+              967
+            ],
+            [
+              905,
+              1040
+            ],
+            [
+              459,
+              1042
+            ]
+          ],
+          "reading_order": 15
+        },
+        {
+          "text": "Specialist in Cardiology | Reg. No. M20581",
+          "confidence": 0.9553440809249878,
+          "polygon": [
+            [
+              456,
+              1054
+            ],
+            [
+              1379,
+              1052
+            ],
+            [
+              1379,
+              1121
+            ],
+            [
+              457,
+              1123
+            ]
+          ],
+          "reading_order": 16
+        },
+        {
+          "text": "Ho Siu Ming",
+          "confidence": 0.9864677786827087,
+          "polygon": [
+            [
+              813,
+              1275
+            ],
+            [
+              1081,
+              1286
+            ],
+            [
+              1079,
+              1345
+            ],
+            [
+              811,
+              1335
+            ]
+          ],
+          "reading_order": 17
+        },
+        {
+          "text": "Patient:",
+          "confidence": 0.9938250780105591,
+          "polygon": [
+            [
+              394,
+              1285
+            ],
+            [
+              561,
+              1285
+            ],
+            [
+              561,
+              1335
+            ],
+            [
+              394,
+              1335
+            ]
+          ],
+          "reading_order": 18
+        },
+        {
+          "text": "Referred by:",
+          "confidence": 0.9874882102012634,
+          "polygon": [
+            [
+              394,
+              1367
+            ],
+            [
+              657,
+              1371
+            ],
+            [
+              656,
+              1427
+            ],
+            [
+              393,
+              1422
+            ]
+          ],
+          "reading_order": 19
+        },
+        {
+          "text": "Dr. Lam Pui Shan",
+          "confidence": 0.9616301655769348,
+          "polygon": [
+            [
+              817,
+              1369
+            ],
+            [
+              1182,
+              1374
+            ],
+            [
+              1182,
+              1424
+            ],
+            [
+              816,
+              1418
+            ]
+          ],
+          "reading_order": 20
+        },
+        {
+          "text": "No.",
+          "confidence": 0.9925543665885925,
+          "polygon": [
+            [
+              451,
+              1539
+            ],
+            [
+              534,
+              1542
+            ],
+            [
+              533,
+              1593
+            ],
+            [
+              449,
+              1590
+            ]
+          ],
+          "reading_order": 21
+        },
+        {
+          "text": "Description",
+          "confidence": 0.9984331727027893,
+          "polygon": [
+            [
+              621,
+              1539
+            ],
+            [
+              864,
+              1544
+            ],
+            [
+              863,
+              1596
+            ],
+            [
+              620,
+              1591
+            ]
+          ],
+          "reading_order": 22
+        },
+        {
+          "text": "Qty",
+          "confidence": 0.9968574047088623,
+          "polygon": [
+            [
+              1892,
+              1534
+            ],
+            [
+              1977,
+              1540
+            ],
+            [
+              1972,
+              1598
+            ],
+            [
+              1888,
+              1592
+            ]
+          ],
+          "reading_order": 23
+        },
+        {
+          "text": "Amount (HK$)",
+          "confidence": 0.9676909446716309,
+          "polygon": [
+            [
+              2059,
+              1532
+            ],
+            [
+              2346,
+              1529
+            ],
+            [
+              2347,
+              1585
+            ],
+            [
+              2059,
+              1589
+            ]
+          ],
+          "reading_order": 24
+        },
+        {
+          "text": "1",
+          "confidence": 0.9980050921440125,
+          "polygon": [
+            [
+              1911,
+              1657
+            ],
+            [
+              1956,
+              1657
+            ],
+            [
+              1956,
+              1707
+            ],
+            [
+              1911,
+              1707
+            ]
+          ],
+          "reading_order": 25
+        },
+        {
+          "text": "1,200.00",
+          "confidence": 0.9849039912223816,
+          "polygon": [
+            [
+              2397,
+              1650
+            ],
+            [
+              2591,
+              1644
+            ],
+            [
+              2592,
+              1697
+            ],
+            [
+              2399,
+              1703
+            ]
+          ],
+          "reading_order": 26
+        },
+        {
+          "text": "1",
+          "confidence": 0.9980927109718323,
+          "polygon": [
+            [
+              436,
+              1661
+            ],
+            [
+              475,
+              1661
+            ],
+            [
+              475,
+              1711
+            ],
+            [
+              436,
+              1711
+            ]
+          ],
+          "reading_order": 27
+        },
+        {
+          "text": "Specialist consultation",
+          "confidence": 0.9908949136734009,
+          "polygon": [
+            [
+              621,
+              1661
+            ],
+            [
+              1104,
+              1661
+            ],
+            [
+              1104,
+              1716
+            ],
+            [
+              621,
+              1716
+            ]
+          ],
+          "reading_order": 28
+        },
+        {
+          "text": "680.00",
+          "confidence": 0.9965987801551819,
+          "polygon": [
+            [
+              2438,
+              1771
+            ],
+            [
+              2593,
+              1769
+            ],
+            [
+              2594,
+              1820
+            ],
+            [
+              2438,
+              1823
+            ]
+          ],
+          "reading_order": 29
+        },
+        {
+          "text": "2",
+          "confidence": 0.9948408007621765,
+          "polygon": [
+            [
+              430,
+              1783
+            ],
+            [
+              472,
+              1783
+            ],
+            [
+              472,
+              1836
+            ],
+            [
+              430,
+              1836
+            ]
+          ],
+          "reading_order": 30
+        },
+        {
+          "text": "Resting electrocardiogram (ECG)",
+          "confidence": 0.9952214956283569,
+          "polygon": [
+            [
+              619,
+              1783
+            ],
+            [
+              1314,
+              1783
+            ],
+            [
+              1314,
+              1845
+            ],
+            [
+              619,
+              1845
+            ]
+          ],
+          "reading_order": 31
+        },
+        {
+          "text": "1",
+          "confidence": 0.9988155364990234,
+          "polygon": [
+            [
+              1915,
+              1782
+            ],
+            [
+              1955,
+              1782
+            ],
+            [
+              1955,
+              1828
+            ],
+            [
+              1915,
+              1828
+            ]
+          ],
+          "reading_order": 32
+        },
+        {
+          "text": "Total",
+          "confidence": 0.9985600709915161,
+          "polygon": [
+            [
+              1420,
+              1982
+            ],
+            [
+              1558,
+              1982
+            ],
+            [
+              1558,
+              2040
+            ],
+            [
+              1420,
+              2040
+            ]
+          ],
+          "reading_order": 33
+        },
+        {
+          "text": "HKS1,880.00",
+          "confidence": 0.9469355940818787,
+          "polygon": [
+            [
+              2292,
+              1974
+            ],
+            [
+              2642,
+              1972
+            ],
+            [
+              2642,
+              2035
+            ],
+            [
+              2292,
+              2037
+            ]
+          ],
+          "reading_order": 34
+        },
+        {
+          "text": "Paid by Visa (card ending 4421)",
+          "confidence": 0.9747070074081421,
+          "polygon": [
+            [
+              1422,
+              2089
+            ],
+            [
+              2075,
+              2089
+            ],
+            [
+              2075,
+              2147
+            ],
+            [
+              1422,
+              2147
+            ]
+          ],
+          "reading_order": 35
+        },
+        {
+          "text": "HK$1,880.00",
+          "confidence": 0.9849441647529602,
+          "polygon": [
+            [
+              2354,
+              2087
+            ],
+            [
+              2644,
+              2084
+            ],
+            [
+              2644,
+              2137
+            ],
+            [
+              2355,
+              2139
+            ]
+          ],
+          "reading_order": 36
+        },
+        {
+          "text": "Balance",
+          "confidence": 0.9987198114395142,
+          "polygon": [
+            [
+              1422,
+              2195
+            ],
+            [
+              1598,
+              2199
+            ],
+            [
+              1597,
+              2248
+            ],
+            [
+              1421,
+              2245
+            ]
+          ],
+          "reading_order": 37
+        },
+        {
+          "text": "HK$0.00",
+          "confidence": 0.9140406250953674,
+          "polygon": [
+            [
+              2449,
+              2191
+            ],
+            [
+              2646,
+              2191
+            ],
+            [
+              2646,
+              2244
+            ],
+            [
+              2449,
+              2244
+            ]
+          ],
+          "reading_order": 38
+        },
+        {
+          "text": "For Kowloon Heart and Vascular Centre",
+          "confidence": 0.9494012594223022,
+          "polygon": [
+            [
+              1866,
+              3434
+            ],
+            [
+              2572,
+              3420
+            ],
+            [
+              2573,
+              3471
+            ],
+            [
+              1867,
+              3485
+            ]
+          ],
+          "reading_order": 39
+        },
+        {
+          "text": "Payment received with thanks.",
+          "confidence": 0.9592092633247375,
+          "polygon": [
+            [
+              387,
+              3450
+            ],
+            [
+              943,
+              3439
+            ],
+            [
+              944,
+              3490
+            ],
+            [
+              388,
+              3501
+            ]
+          ],
+          "reading_order": 40
+        },
+        {
+          "text": "SAMPLE/測試樣本",
+          "confidence": 0.9471539855003357,
+          "polygon": [
+            [
+              2335,
+              3655
+            ],
+            [
+              2622,
+              3653
+            ],
+            [
+              2622,
+              3691
+            ],
+            [
+              2336,
+              3693
+            ]
+          ],
+          "reading_order": 41
+        }
+      ],
+      "plain_text": "Kowloon Heart and Vascular\nOFFICIAL RECEIPT\nCentre\nSC2026/01593\nReceipt No.\nRoom 1608, 16/F, Grand Pacific Tower\n22 April 2026\nConsultation Date\n188 Nathan Road, Tsim Sha Tsui\nTel:20007315\n24 April 2026\nReceipt Date\nFile No.\nKHV-11872\nATTENDING DOCTOR\nDr. Ng Chun Yip\nSpecialist in Cardiology | Reg. No. M20581\nHo Siu Ming\nPatient:\nReferred by:\nDr. Lam Pui Shan\nNo.\nDescription\nQty\nAmount (HK$)\n1\n1,200.00\n1\nSpecialist consultation\n680.00\n2\nResting electrocardiogram (ECG)\n1\nTotal\nHKS1,880.00\nPaid by Visa (card ending 4421)\nHK$1,880.00\nBalance\nHK$0.00\nFor Kowloon Heart and Vascular Centre\nPayment received with thanks.\nSAMPLE/測試樣本"
+    }
+  ],
+  "timings": {
+    "total_ms": 16483.99482899913
+  }
+}
