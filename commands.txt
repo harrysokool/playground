@@ -1,0 +1,44 @@
+cd /mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground
+
+git pull
+
+cd python/receipt_ocr_benchmark
+
+ls models
+
+
+source .venv/bin/activate
+
+
+export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
+
+python -m receipt_bench.cli \
+  --config configs/paddle_light_azure.yaml \
+  --input data/raw \
+  --output results/paddle_light
+
+
+  python -m receipt_bench.cli \
+  --config configs/paddle_heavy_azure.yaml \
+  --input data/raw \
+  --output results/paddle_heavy
+
+
+
+  python -m receipt_bench.extract_cli \
+  --rules general \
+  --input results/paddle_light \
+  --output results/extracted_general_light
+
+python -m receipt_bench.extract_cli \
+  --rules general \
+  --input results/paddle_heavy \
+  --output results/extracted_general_heavy
+
+
+
+  python -m receipt_bench.score \
+  --ground-truth data/ground_truth/ground_truth_template.xlsx \
+  --approach paddle_light=results/extracted_general_light \
+  --approach paddle_heavy=results/extracted_general_heavy \
+  --output-dir results/scores_paddle
