@@ -105,6 +105,34 @@ python -m receipt_bench.extract_cli --rules general --input results/paddle_light
 python -m receipt_bench.extract_cli --rules general --input results/paddle_heavy --output results/extracted_general_heavy
 ```
 
+## PaddleOCR Light and Heavy end to end (Phase 2 of the final comparison)
+
+Both approaches use the same code and the general rules (Phase 3c). Each one saves:
+- raw OCR, with text, confidence, polygons and `timings.total_ms`, to `results/paddle_<light|heavy>/`;
+- the six extracted fields, plus `sources`, `rules`, `warnings` and
+  `timings.ocr_predict_ms` / `timings.extract_ms`, to `results/extracted_general_<light|heavy>/`.
+
+`score.py` reads the extracted files directly. Processing time = OCR predict + extraction. It
+does not include model loading, which happens once per run.
+
+Run the benchmark on **Azure ML compute** (x86 Linux, CPU). Use the `*_azure.yaml` configs:
+they are identical to the plain ones except `enable_mkldnn: false`. paddlepaddle 3.3.1 crashes
+in the oneDNN CPU backend there (`NotImplementedError: ... ConvertPirAttribute2RuntimeAttribute
+not support`). The heavy model peaked at about 9 GB RAM on the largest receipt, so use a
+compute instance with **at least 16 GB RAM**.
+
+```bash
+export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True   # never contact model hosters
+python -m receipt_bench.cli --config configs/paddle_light_azure.yaml --input data/raw --output results/paddle_light
+python -m receipt_bench.cli --config configs/paddle_heavy_azure.yaml --input data/raw --output results/paddle_heavy
+python -m receipt_bench.extract_cli --rules general --input results/paddle_light --output results/extracted_general_light
+python -m receipt_bench.extract_cli --rules general --input results/paddle_heavy --output results/extracted_general_heavy
+python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
+    --approach paddle_light=results/extracted_general_light \
+    --approach paddle_heavy=results/extracted_general_heavy \
+    --output-dir results/scores_paddle
+```
+
 ## Scoring all approaches (Phase 1 of the final comparison)
 
 `receipt_bench/score.py` scores any number of named approaches against the same ground truth
@@ -170,3 +198,9 @@ python -m pytest
 
 `test_paddle_engine.py` runs both configs for real against a tiny synthetic fixture receipt
 (`tests/fixtures/receipt.png` — no real patient data). Requires `models/` to be populated (see above).
+
+To run only the fast unit tests, without loading any PaddleOCR model or running OCR:
+
+```bash
+python -m pytest -k "not test_paddle_engine_processes_receipt"
+```

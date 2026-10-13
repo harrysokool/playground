@@ -28,6 +28,9 @@ class PaddleEngine:
             use_doc_orientation_classify=False,
             use_doc_unwarping=False,
             use_textline_orientation=False,
+            # Optional. `enable_mkldnn: false` avoids the oneDNN (x86 CPU) backend crash seen on the
+            # Azure VM with paddlepaddle 3.3.1 ("ConvertPirAttribute2RuntimeAttribute not support").
+            **({"enable_mkldnn": config["enable_mkldnn"]} if "enable_mkldnn" in config else {}),
         )
 
     def process(self, document_path: Path) -> RawOCRResult:

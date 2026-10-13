@@ -38,3 +38,23 @@ def test_paddle_engine_processes_receipt(config_path):
     assert len(block.polygon) == 4
 
     assert result.timings["total_ms"] > 0
+
+
+def test_enable_mkldnn_is_passed_only_when_configured(monkeypatch):
+    calls = []
+    monkeypatch.setattr("receipt_bench.paddle_engine.PaddleOCR", lambda **kw: calls.append(kw))
+    base = yaml.safe_load(CONFIGS[0].read_text())
+
+    PaddleEngine(base)
+    PaddleEngine({**base, "enable_mkldnn": False})
+
+    assert "enable_mkldnn" not in calls[0]
+    assert calls[1]["enable_mkldnn"] is False
+
+
+@pytest.mark.parametrize("name", ["paddle_light", "paddle_heavy"])
+def test_azure_config_differs_only_by_onednn_flag(name):
+    base = yaml.safe_load((CONFIG_DIR / f"{name}.yaml").read_text())
+    azure = yaml.safe_load((CONFIG_DIR / f"{name}_azure.yaml").read_text())
+    assert azure == {**base, "enable_mkldnn": False}
+    assert base["device"] == "cpu" and base["text_detection_model_dir"].startswith("models/")

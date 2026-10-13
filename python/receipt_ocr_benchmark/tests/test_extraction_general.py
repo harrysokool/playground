@@ -85,3 +85,17 @@ def test_two_different_unlabelled_doctors_is_ambiguous_not_guessed():
 
     assert r.doctor_name is None
     assert any("different doctor candidates" in w for w in r.warnings)
+
+
+def test_saved_output_is_readable_by_the_scorer(tmp_path):
+    """Phase 2 contract: extract_cli output must load in score.py with fields and timings."""
+    from receipt_bench.score import read_result
+    import json
+
+    r = extract_receipt_general(_raw([_block("Total", 600, 700, 680, 730), _block("$99.00", 800, 700, 900, 730)]))
+    r.timings["extract_ms"] = 1.0
+    r.save(tmp_path / "receipt1.json")
+
+    fields, ms = read_result(json.loads((tmp_path / "receipt1.json").read_text()))
+    assert fields["total_amount"] == 99.0
+    assert ms == 6.0  # ocr_predict_ms (5.0 from the raw OCR) + extract_ms
