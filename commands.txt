@@ -1,23 +1,36 @@
-deactivate
-
-python3.11 -m venv ~/venvs/paddle322
 source ~/venvs/paddle322/bin/activate
-
-python -m pip install --upgrade pip
-
-python -m pip install \
-  paddlepaddle==3.2.2 \
-  paddleocr==3.7.0 \
-  "pyyaml>=6.0" \
-  pytest
+export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
 
 
-  python -c "import paddle; print(paddle.__version__); paddle.utils.run_check()"
+
+python -m receipt_bench.cli \
+  --config configs/paddle_light.yaml \
+  --input data/raw \
+  --output results/paddle_light
 
 
-  export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
 
-python -X faulthandler -m receipt_bench.cli \
+  python -m receipt_bench.cli \
   --config configs/paddle_heavy.yaml \
-  --input data/raw/receipt1.jpeg \
-  --output /tmp/p322_heavy
+  --input data/raw \
+  --output results/paddle_heavy
+
+
+
+  python -m receipt_bench.extract_cli \
+  --rules general \
+  --input results/paddle_light \
+  --output results/extracted_general_light
+
+python -m receipt_bench.extract_cli \
+  --rules general \
+  --input results/paddle_heavy \
+  --output results/extracted_general_heavy
+
+
+
+  python -m receipt_bench.score \
+  --ground-truth data/ground_truth/ground_truth_template.xlsx \
+  --approach paddle_light=results/extracted_general_light \
+  --approach paddle_heavy=results/extracted_general_heavy \
+  --output-dir results/scores_paddle
