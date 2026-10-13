@@ -1,36 +1,30 @@
+git pull
+
+cd python/receipt_ocr_benchmark
+
 source ~/venvs/paddle322/bin/activate
-export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
+
+pip install -r requirements-azure-di.txt
 
 
+export AZURE_CLIENT_ID="YOUR_MANAGED_IDENTITY_CLIENT_ID"
 
-python -m receipt_bench.cli \
-  --config configs/paddle_light.yaml \
+export AZURE_DI_ENDPOINT="https://YOUR_RESOURCE.cognitiveservices.azure.com/"
+
+
+python -m receipt_bench.azure_di \
   --input data/raw \
-  --output results/paddle_light
-
-
-
-  python -m receipt_bench.cli \
-  --config configs/paddle_heavy.yaml \
-  --input data/raw \
-  --output results/paddle_heavy
-
-
+  --output results/azure_di
 
   python -m receipt_bench.extract_cli \
   --rules general \
-  --input results/paddle_light \
-  --output results/extracted_general_light
-
-python -m receipt_bench.extract_cli \
-  --rules general \
-  --input results/paddle_heavy \
-  --output results/extracted_general_heavy
-
+  --input results/azure_di \
+  --output results/extracted_general_azure_di
 
 
   python -m receipt_bench.score \
   --ground-truth data/ground_truth/ground_truth_template.xlsx \
   --approach paddle_light=results/extracted_general_light \
   --approach paddle_heavy=results/extracted_general_heavy \
-  --output-dir results/scores_paddle
+  --approach azure_di=results/extracted_general_azure_di \
+  --output-dir results/scores_paddle_di
