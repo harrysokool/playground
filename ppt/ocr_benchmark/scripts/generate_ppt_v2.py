@@ -1,4 +1,4 @@
-"""Generate the Version 2 Receipt OCR Benchmark deck (8 slides) from the AIA template.
+"""Generate the Version 2 Receipt OCR Benchmark deck (9 slides) from the AIA template.
 
     python3 ppt/ocr_benchmark/scripts/generate_ppt_v2.py --force     (from the repository root)
 
@@ -246,14 +246,23 @@ def no_bullet(p):
     etree.SubElement(pPr, qn("a:buNone"))
 
 
-def text(slide, x, y, w, h, paras, anchor=MSO_ANCHOR.TOP, margin=0.0, fill=None):
+def plain_shape(slide, kind, x, y, w, h, fill, line=None, line_w=2.0):
+    """A shape with a flat fill and either no outline or a `line`-coloured one (no theme style)."""
+    sh = slide.shapes.add_shape(kind, Inches(x), Inches(y), Inches(w), Inches(h))
+    st = sh._element.find(qn("p:style"))
+    if st is not None:
+        sh._element.remove(st)
+    sh.fill.solid(); sh.fill.fore_color.rgb = fill
+    if line is None:
+        sh.line.fill.background()
+    else:
+        sh.line.color.rgb = line; sh.line.width = Pt(line_w)
+    return sh
+
+
+def text(slide, x, y, w, h, paras, anchor=MSO_ANCHOR.TOP, margin=0.0, fill=None, line=None):
     if fill is not None:
-        box = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(y), Inches(w), Inches(h))
-        box.fill.solid(); box.fill.fore_color.rgb = fill
-        box.line.fill.background()
-        st = box._element.find(qn("p:style"))
-        if st is not None:
-            box._element.remove(st)
+        box = plain_shape(slide, MSO_SHAPE.RECTANGLE, x, y, w, h, fill, line)
     else:
         box = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
     tf = box.text_frame
@@ -381,17 +390,22 @@ def example_table(s, x, y, receipt, fields, col_w, row_h=0.72, size=14):
 SOURCE = "Source: python/receipt_ocr_benchmark/results/v2/scores_improved (summary.csv, detail.csv) and extraction JSON."
 TUNED = f"Improved rules were tuned using these {N_RECEIPTS} receipts. The AOAI prompt was not changed."
 
+LIGHT_ACC, AOAI_ACC = acc(IMPR["light"]), acc(AOAI)
+assert LIGHT_ACC == AOAI_ACC, "the deck's story assumes Light + improved rules and DI + AOAI tie"
+AOAI_WRONG = APPLICABLE - int(SUM[AOAI]["correct"])
+
 # ===================================================================== 1. title
 s = prs.slides.add_slide(L_TITLE)
 set_runs(ph(s, 10).text_frame, "Medical Receipt OCR Benchmark")
 sub = ph(s, 1)
 sub.left, sub.top, sub.width, sub.height = Inches(0.39), Inches(4.5), Inches(6.6), Inches(0.9)
-set_runs(sub.text_frame, "Can open-source OCR with rules match Azure AI at extracting receipt fields?")
+set_runs(sub.text_frame, "Can Azure OpenAI replace hand-written extraction rules?")
 p = sub.text_frame.add_paragraph()
 r = p.add_run(); r.text = f"{N_RECEIPTS} receipts · 6 fields · 4 approaches"; style_run(r)
 s.notes_slide.notes_text_frame.text = (
     "Objective: compare open-source OCR plus extraction rules with Azure Document Intelligence plus Azure OpenAI "
-    "for extracting six fields from medical receipts, on accuracy, speed, cost drivers and maintenance. " + SOURCE)
+    "for extracting six fields from medical receipts: accuracy, the manual effort needed to reach it, and the "
+    "ongoing maintenance effort. " + SOURCE)
 
 # ===================================================================== 2. what we tested
 s = content_slide(
@@ -400,7 +414,7 @@ s = content_slide(
     f"Receipts: English, bilingual and Traditional Chinese layouts. Fields: doctor, registration number, patient, "
     f"receipt number, service date, total. {APPLICABLE} fields were present on the receipts and scored. "
     "Step 1 (text recognition, OCR) turns the photo into text; step 2 (field extraction) picks the six values "
-    "from that text. " + SOURCE)
+    "from that text, either with hand-written rules or with Azure OpenAI. " + SOURCE)
 for i, (rcpt, label) in enumerate((("receipt1", "English"), ("receipt3", "Bilingual"), ("receipt4", "Chinese"))):
     x, y, w, h = picture(s, make_thumb(rcpt, f"thumb_{rcpt}"), 0.39 + i * 2.25, 1.95, 2.1, 3.7)
     text(s, x, y + h + 0.08, 2.1, 0.3, [dict(t=label, size=12, color=GREY_TXT)])
@@ -418,9 +432,8 @@ text(s, 7.25, 5.45, 5.69, 0.8, [dict(t=f"Fields: doctor, registration no., patie
 
 # ===================================================================== 3. main results
 s = content_slide(
-    "Results: Field Accuracy and Speed",
-    f"Improving the rules raised PaddleOCR Light from {acc(ORIG['light'])} to {acc(IMPR['light'])}. "
-    f"AOAI reached {acc(AOAI)} without changes.",
+    "Results: Same Accuracy, Different Effort",
+    f"Rules reached {LIGHT_ACC} only after manual tuning. DI + AOAI reached {AOAI_ACC} with its prompt unchanged.",
     f"Accuracy = correct fields / {APPLICABLE} fields present on the {N_RECEIPTS} receipts. "
     f"Original and improved rules read the same OCR text. {TUNED} Time = average per receipt (PaddleOCR: CPU on "
     "Azure ML compute; Azure: API call time incl. network). " + SOURCE)
@@ -441,7 +454,7 @@ for i, (name, o, im, strong) in enumerate(rows, start=1):
 fill_cell(tbl.cell(4, 0), [dict(t="Azure DI + AOAI", size=18, bold=True)], fill=LIGHT)
 fill_cell(tbl.cell(4, 1), [dict(runs=[(acc(AOAI), dict(size=20, bold=True, color=RED)),
                                       (f"  ({count(AOAI)})", dict(size=13, color=GREY_TXT))], align=C)], fill=LIGHT)
-fill_cell(tbl.cell(4, 2), [dict(t="Not applicable (prompt unchanged)", size=13, color=GREY_TXT, align=C)], fill=LIGHT)
+fill_cell(tbl.cell(4, 2), [dict(t="No rules (prompt unchanged)", size=13, color=GREY_TXT, align=C)], fill=LIGHT)
 fill_cell(tbl.cell(4, 3), [dict(t=secs(AOAI), size=20, align=C)], fill=LIGHT)
 for i in range(1, 5):
     for c in range(4):
@@ -449,69 +462,115 @@ for i in range(1, 5):
 note(s, f"* Tuned using these {N_RECEIPTS} receipts, so not a measure of accuracy on new receipts. "
         f"Accuracy = correct fields out of {APPLICABLE}. All approaches processed all {N_RECEIPTS} receipts.", y=5.95)
 
-# ===================================================================== 4. why improving the rules helped
+# ===================================================================== 4. the swap
+s = content_slide(
+    "AOAI Replaces the Manual Rule Layer",
+    "Both pipelines read the text the same way. Only the step that finds the fields changes.",
+    f"Rule-based pipeline: OCR text, then hand-written extraction rules. To reach {LIGHT_ACC} the rules were "
+    f"rewritten after reviewing the errors on these {N_RECEIPTS} receipts (label phrases {VOCAB_ORIG} to "
+    f"{VOCAB_IMPR}). AI pipeline: the same kind of OCR text is passed to Azure OpenAI (gpt-5-mini) with one fixed "
+    f"prompt, which was not changed for these receipts, and it reached {AOAI_ACC}. So on this benchmark the model "
+    "did the job the rules were tuned to do. It still made mistakes, and it has not been tested on a large set of "
+    "unseen receipts. " + SOURCE)
+LANE_W, BX, BW, GAP, BH = 2.75, 3.3, 2.8, 0.6, 1.2
+lanes = [
+    (2.0, "Rule-based", "PaddleOCR Light + improved rules", f"{LIGHT_ACC} after tuning",
+     [("Read text (OCR)", "PaddleOCR Light"),
+      ("Extraction rules", f"written and updated by hand ({VOCAB_ORIG}\u00a0→\u00a0{VOCAB_IMPR} label phrases)"),
+      ("6 fields", "doctor, patient, total, …")]),
+    (3.95, "AI extraction", "Azure DI + AOAI", f"{AOAI_ACC}, prompt unchanged",
+     [("Read text (OCR)", "Azure DI"),
+      ("Azure OpenAI", "one fixed prompt, not changed for these receipts"),
+      ("6 fields", "doctor, patient, total, …")]),
+]
+for y, name, approach, result, boxes in lanes:
+    text(s, 0.39, y, LANE_W, BH, [dict(t=name, size=18, bold=True, after=2),
+                                  dict(t=approach, size=13, color=GREY_TXT, after=6),
+                                  dict(t=result, size=15, bold=True, color=RED)], anchor=MSO_ANCHOR.MIDDLE)
+    for k, (head, desc) in enumerate(boxes):
+        bx = BX + k * (BW + GAP)
+        middle = k == 1
+        text(s, bx, y, BW, BH, [dict(t=head, size=16, bold=True, color=RED if middle else CHAR, after=4),
+                                dict(t=desc, size=12.5, color=CHAR if middle else GREY_TXT)],
+             anchor=MSO_ANCHOR.MIDDLE, margin=0.16, fill=WHITE if middle else LIGHT, line=RED if middle else None)
+        if k:
+            plain_shape(s, MSO_SHAPE.RIGHT_ARROW, bx - GAP + 0.14, y + BH / 2 - 0.15, GAP - 0.28, 0.3, GREY_TXT)
+mid_x = BX + BW + GAP
+plain_shape(s, MSO_SHAPE.DOWN_ARROW, mid_x + BW / 2 - 0.2, 2.0 + BH + 0.1, 0.4, 3.95 - 2.0 - BH - 0.2, RED)
+text(s, mid_x + BW / 2 + 0.35, 2.0 + BH + 0.17, 2.6, 0.4, [dict(t="replaced by", size=14, italic=True, color=RED)])
+text(s, 0.39, 5.45, 12.55, 0.75, [dict(runs=[
+    ("AOAI replaces the manual rule layer. ", dict(bold=True, size=16)),
+    (f"It still makes mistakes ({AOAI_WRONG} of {APPLICABLE} fields wrong) and has not yet been tested on a large "
+     "set of unseen receipts.", dict(size=15))])], anchor=MSO_ANCHOR.MIDDLE, margin=0.25, fill=LIGHT)
+
+# ===================================================================== 5. bilingual example: the rule layer failed
 for v in ("蔡嘉穎", "Dr. Siu Ka Wai"):
     ocr_read("receipt8", v)
+a8 = receipt_score(AOAI, "receipt8")
 s = content_slide(
-    "Why Accuracy Improved: The Rules, Not the OCR",
-    "The OCR read the text correctly. The original rules picked the wrong text.",
+    "Example 1: The OCR Was Right, the Rules Were Wrong",
+    "Both OCR engines read the names. The original rules took the label 病人 as the patient's name.",
     "Receipt 8 (medical centre). Both OCR engines read the patient name and the doctor's name (checked in the raw "
     "OCR). The original rules matched 'Patient' and took the Chinese half of the label, 病人, as the name. The "
-    "improved rules recognise bilingual labels. AOAI read the fields correctly with its unchanged prompt. Values: "
-    "rules on PaddleOCR Light text; detail.csv, checked against the extraction JSON. " + SOURCE)
+    "improved rules needed bilingual labels added by hand. AOAI read the fields correctly with its unchanged prompt "
+    f"({a8[0]} of {a8[1]} fields on this receipt). Values: rules on PaddleOCR Light text; detail.csv, checked "
+    "against the extraction JSON. " + SOURCE)
 crop = make_crop("receipt8", ["Patient 病人", "蔡嘉穎", "Attending Doctor", "Dr. Siu Ka Wai"], "crop_receipt8",
                  ["Patient 病人", "蔡嘉穎", "Attending Doctor", "Dr. Siu Ka Wai"])
 picture(s, crop, 0.39, 1.95, 5.6, 3.9)
 example_table(s, 6.3, 1.95, "receipt8", ["patient_name", "doctor_name"], col_w=(1.15, 1.4, 1.35, 1.35, 1.39))
 text(s, 6.3, 4.25, 6.64, 1.6, [
     dict(t="Original rules: took the Chinese label 病人 (\"patient\") as the patient's name.", size=14, bullet=True,
-         after=8),
-    dict(t="Improved rules: added bilingual labels, so the label and the value are kept apart.", size=14,
-         bullet=True),
+         after=6),
+    dict(t="Improved rules: fixed by adding bilingual labels by hand.", size=14, bullet=True, after=6),
+    dict(t="AOAI: correct with the same prompt; no change needed.", size=14, bullet=True),
 ])
 note(s, "Bilingual medical centre receipt. Rules shown on PaddleOCR Light text; Azure DI with the original rules "
         "made the same patient error.")
 
-# ===================================================================== 5. the maintenance problem
+# ===================================================================== 6. the maintenance cost of rules
 for v in ("麥詠琳", "葉卓謙", "2026年6月9日"):
     ocr_read("receipt4", v)
-o4, i4 = receipt_score(ORIG["light"], "receipt4"), receipt_score(IMPR["light"], "receipt4")
+o4, i4, a4 = (receipt_score(a, "receipt4") for a in (ORIG["light"], IMPR["light"], AOAI))
 reg_o, ok_o = example(ORIG["light"], "receipt9", "receipt_number")
 reg_i, ok_i = example(IMPR["light"], "receipt9", "receipt_number")
 assert ok_o and not ok_i, "expected the receipt9 receipt-number regression"
 s = content_slide(
-    "The Trade-off: Rules Need Manual Maintenance",
-    "High accuracy came from rewriting the rules by hand, and one fix broke another receipt.",
+    f"Example 2: Reaching {LIGHT_ACC} With Rules Took Manual Work",
+    "Each new language or label wording had to be added by hand, and one change broke another receipt.",
     f"Receipt 4 (Chinese medicine): the OCR read every value, but the original rules only knew English labels "
-    f"({o4[0]} of {o4[1]} fields). After adding Chinese labels: {i4[0]} of {i4[1]}. The label vocabulary grew from "
-    f"{VOCAB_ORIG} to {VOCAB_IMPR} phrases (counted in extraction_general.py and extraction_improved.py). On the vet "
-    f"invoice (receipt 9) the original rules found receipt number {reg_o}; after the changes they return {reg_i}. "
-    "Whether AOAI needs less maintenance on new layouts has not been tested yet. " + SOURCE)
+    f"({o4[0]} of {o4[1]} fields). After adding Chinese labels: {i4[0]} of {i4[1]}. DI + AOAI: {a4[0]} of {a4[1]} "
+    f"with no prompt change. The label vocabulary grew from {VOCAB_ORIG} to {VOCAB_IMPR} phrases (counted in "
+    f"extraction_general.py and extraction_improved.py). On the vet invoice (receipt 9) the original rules found "
+    f"receipt number {reg_o}; after the changes they return {reg_i}. Whether AOAI needs less maintenance on new "
+    "layouts has not been tested yet. " + SOURCE)
 crop = make_crop("receipt4", ["病人姓名", "麥詠琳", "診症日期", "2026年6月9日", "主診中醫師", "葉卓謙"],
                  "crop_receipt4", ["麥詠琳", "2026年6月9日", "葉卓謙"])
 picture(s, crop, 0.39, 1.95, 4.6, 2.75)
-text(s, 0.39, 4.8, 4.6, 0.5, [dict(t=f"Chinese medicine receipt: original rules {o4[0]}/{o4[1]} fields, "
-                                     f"improved rules {i4[0]}/{i4[1]}.", size=12, color=GREY_TXT)])
+text(s, 0.39, 4.8, 4.6, 0.75, [dict(t=f"Chinese medicine receipt: original rules {o4[0]}/{o4[1]} fields, improved "
+                                      f"rules {i4[0]}/{i4[1]}, DI + AOAI {a4[0]}/{a4[1]} (prompt unchanged).",
+                                    size=12, color=GREY_TXT)])
 for k, (big, small) in enumerate([(f"{VOCAB_ORIG} → {VOCAB_IMPR}", "label phrases in the rules, added by hand after "
                                                                   "reviewing the errors"),
                                   (f"{reg_o} → {reg_i}", "vet invoice receipt number: correct before the changes, "
                                                          "wrong after (a regression)"),
-                                  ("New layouts", "may need more rule changes and retesting of every receipt")]):
+                                  ("New layouts", "will likely need more rule changes and a retest of every receipt")]):
     text(s, 5.3 + k * 2.6, 1.95, 2.45, 2.75, [dict(t=big, size=22, bold=True, color=RED, after=8),
                                              dict(t=small, size=13)], margin=0.2, fill=LIGHT)
 text(s, 5.3, 4.85, 7.64, 1.1, [
-    dict(t="AOAI used the same prompt for every receipt. Whether that means less maintenance on new layouts still "
+    dict(t="DI + AOAI needed none of these changes for these receipts. Whether that holds for new layouts still "
            "needs to be tested.", size=14),
 ])
 
-# ===================================================================== 6. where errors remain
+# ===================================================================== 7. AOAI still makes mistakes
 ocr_read("receipt9", "FPatient")
 s = content_slide(
-    "Where Errors Remain: Both Approaches Make Mistakes",
+    "Example 3: AOAI Still Makes Mistakes",
     "On the vet invoice, the improved rules and AOAI each got a different field wrong.",
     "Receipt 9 (vet invoice). The improved rules now take the payment table's 'Receipt #' (380048) instead of the "
     "invoice number. Both OCR engines read 'FPatient:' (a stray mark merged into the label), so no rule matched the "
     "patient label; AOAI still found the name. AOAI chose the sub total (1361.50) instead of the total (1361.00). "
+    f"Across all {N_RECEIPTS} receipts AOAI got {AOAI_WRONG} of {APPLICABLE} fields wrong. "
     "Values: detail.csv, checked against the extraction JSON. " + SOURCE)
 top = make_crop("receipt9", ["Invoice No", "FClinician"], "crop_receipt9_top", ["Invoice No", "FClinician"])
 pay = make_crop("receipt9", ["Sub Total", "HKD 1361.50", "Total Amount", "HKD 1361.00", "Details of Payments Received",
@@ -527,50 +586,60 @@ text(s, 6.3, 4.75, 6.64, 1.2, [
     dict(t="AOAI: picked the sub total instead of the total.", size=13, bullet=True),
 ])
 
-# ===================================================================== 7. practical comparison
+# ===================================================================== 8. accuracy and effort
 s = content_slide(
-    "Practical Comparison of the Two Candidates",
-    "Similar accuracy on these receipts; they differ in cost, speed and how new layouts are handled.",
-    f"Accuracy and time from summary.csv. AOAI tokens are averages over the {N_RECEIPTS} receipts. Prices for "
-    "compute, Document Intelligence pages and gpt-5-mini tokens are not yet confirmed. " + SOURCE)
-tbl = table(s, 0.39, 1.95, [3.1, 4.7, 4.75], [0.6] + [0.56] * 6)
+    f"What It Takes to Reach {LIGHT_ACC}",
+    "Same accuracy. The difference is the manual work to get there, and to keep it there.",
+    f"Accuracy and time from summary.csv. The improved rules were tuned on these {N_RECEIPTS} receipts; the AOAI "
+    "prompt was not changed. Lower maintenance for AOAI is the key implication of this benchmark, not a result "
+    f"proven in production. Running cost: DI page plus about {TOKENS_IN} input / {TOKENS_OUT} output gpt-5-mini "
+    "tokens per receipt; prices are not yet confirmed. " + SOURCE)
+tbl = table(s, 0.39, 1.95, [3.0, 4.75, 4.8], [0.6] + [0.56] * 6)
 header_row(tbl, ["", "PaddleOCR Light + improved rules", "Azure DI + AOAI"], size=15)
-comp = [("Accuracy (these 9 receipts)", f"{acc(IMPR['light'])} ({count(IMPR['light'])}), tuned",
-         f"{acc(AOAI)} ({count(AOAI)}), prompt unchanged"),
-        ("Time per receipt", secs(IMPR["light"]), secs(AOAI)),
-        ("Where it runs", "Our own compute, offline", "Azure cloud services"),
-        ("Cost per receipt", "CPU time only, no API fee", f"DI page + about {TOKENS_IN} input / {TOKENS_OUT} output "
-                                                          "tokens (prices to confirm)"),
-        ("New receipt layouts", "Edit rules and retest", "Same prompt; still to be tested"),
-        ("Main risk", "Maintenance and regressions", "API cost and model variability")]
+comp = [(f"Accuracy ({N_RECEIPTS} receipts)", f"{LIGHT_ACC} ({count(IMPR['light'])})", f"{AOAI_ACC} ({count(AOAI)})"),
+        ("Effort to get there", "Rules rewritten by hand after reviewing errors on these receipts",
+         "None: prompt unchanged"),
+        ("Extraction logic", f"{VOCAB_ORIG} → {VOCAB_IMPR} label phrases to maintain", "One fixed prompt"),
+        ("New receipt layouts", "Likely more rule updates and a regression test of every receipt",
+         "Possibly no change; not yet tested"),
+        ("Errors seen", f"{APPLICABLE - int(SUM[IMPR['light']]['correct'])} wrong fields, incl. one regression caused by "
+                        "tuning", f"{AOAI_WRONG} wrong fields, e.g. the vet invoice total"),
+        ("Time and running cost", f"{secs(IMPR['light'])}, own compute, no API fee",
+         f"{secs(AOAI)}, Azure fees per receipt (to confirm)")]
 for i, row in enumerate(comp, start=1):
     for c, v in enumerate(row):
-        fill_cell(tbl.cell(i, c), [dict(t=v, size=14, bold=(c == 0))])
+        fill_cell(tbl.cell(i, c), [dict(t=v, size=14 if i == 1 else 13.5, bold=(c == 0 or i == 1),
+                                        color=RED if (i == 1 and c) else CHAR)])
         cell_border(tbl.cell(i, c), sides="B")
-note(s, "Both approaches read the receipt text well; the differences are in finding the fields.", y=6.1)
+note(s, "The main question is not API price but who maintains the extraction logic. Lower maintenance for AOAI "
+        "is implied by this benchmark, not yet proven.", y=5.95)
 
-# ===================================================================== 8. conclusion
+# ===================================================================== 9. conclusion
 s = content_slide(
     "Conclusion and Next Steps",
-    "Rules can reach high accuracy, but only with ongoing manual work. That is the decision to make.",
-    f"Main finding: PaddleOCR Light reached {acc(IMPR['light'])} and Azure DI {acc(IMPR['di'])} only after the "
-    f"rules were rewritten for these receipts; Azure DI + AOAI reached {acc(AOAI)} with no change. The benchmark "
+    "The real trade-off: maintain extraction rules ourselves, or let AI replace that layer.",
+    f"Main finding: PaddleOCR Light reached {LIGHT_ACC} (and Azure DI {acc(IMPR['di'])}) only after the rules were "
+    f"rewritten for these receipts; Azure DI + AOAI reached {AOAI_ACC} with no change to its prompt. The benchmark "
     f"is small ({N_RECEIPTS} receipts) and the improved rules were tuned on it, so this is not a production "
     "decision. " + SOURCE)
-text(s, 0.39, 1.95, 12.55, 1.55, [
-    dict(t="The question is not only which method is most accurate.", size=19, bold=True, after=6),
-    dict(t="It is whether we want to keep updating extraction rules each time an unfamiliar receipt layout "
-           "appears, or pay per request for a model that may handle new layouts without changes.", size=16),
+text(s, 0.39, 1.95, 12.55, 1.65, [
+    dict(t=f"PaddleOCR Light + improved rules and Azure DI + AOAI both reached {LIGHT_ACC} on this benchmark.",
+         size=16, bullet=True, after=6),
+    dict(t="PaddleOCR Light needed manual rule tuning to get there. Azure DI + AOAI reached the same accuracy "
+           "without changing its prompt.", size=16, bullet=True, after=6),
+    dict(t="So the choice is whether to keep writing and maintaining extraction rules, or to use AI for that "
+           "layer.", size=16, bullet=True, bold=True),
 ], margin=0.3, fill=LIGHT)
 steps = [("1. Freeze both", "Lock the improved rules and the AOAI prompt."),
-         ("2. Test on new receipts", "30+ real, anonymised receipts not seen before. Count the rule changes needed."),
-         ("3. Confirm prices", "Compute, Document Intelligence pages and gpt-5-mini tokens.")]
+         ("2. Test on unseen receipts", "30+ real, anonymised receipts. Measure accuracy and count the rule "
+                                        "changes needed."),
+         ("3. Then compare cost", "Compute, Document Intelligence pages and gpt-5-mini tokens.")]
 sw = (12.55 - 2 * 0.3) / 3
 for i, (head, desc) in enumerate(steps):
-    text(s, 0.39 + i * (sw + 0.3), 3.75, sw, 1.4, [dict(t=head, size=16, bold=True, color=RED, after=6),
-                                                   dict(t=desc, size=14)], margin=0.22, fill=LIGHT)
+    text(s, 0.39 + i * (sw + 0.3), 3.85, sw, 1.4, [dict(t=head, size=16, bold=True, color=RED, after=6),
+                                                  dict(t=desc, size=14)], margin=0.22, fill=LIGHT)
 note(s, f"Limitation: {N_RECEIPTS} receipts, mostly printed mock receipts; the improved rules were tuned on them. "
-        "Candidates for further testing: PaddleOCR Light + improved rules, and Azure DI + AOAI.", y=5.45)
+        "AOAI still makes mistakes and has not been tested on a large unseen set.", y=5.5)
 
 prs.save(OUT)
 print(f"Saved {OUT} ({len(prs.slides)} slides); vocabulary {VOCAB_ORIG} -> {VOCAB_IMPR}")

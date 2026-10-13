@@ -2,7 +2,7 @@
 
     python3 ppt/ocr_benchmark/scripts/check_deck_v2.py      (run on Azure ML after generate_ppt_v2.py)
 
-Checks: 8 slides; any chart value equals summary.csv; every accuracy figure (all seven approaches,
+Checks: 9 slides; any chart value equals summary.csv; every accuracy figure (all seven approaches,
 as "37.3%") and every time figure appear in the slide text; every slide has speaker notes. Writes previews/deck_text.md (all slide text, chart
 data and notes) so the content can be reviewed without opening PowerPoint. Exits non-zero on failure.
 """
@@ -23,8 +23,8 @@ expected_secs = {round(int(r["mean_ms_per_receipt"]) / 1000, 1) for r in SUM.val
 
 prs = Presentation(DECK)
 problems, out = [], [f"# {DECK.name}: text, chart data and notes\n"]
-if len(prs.slides) != 8:
-    problems.append(f"expected 8 slides, found {len(prs.slides)}")
+if len(prs.slides) != 9:
+    problems.append(f"expected 9 slides, found {len(prs.slides)}")
 all_text = []
 for i, s in enumerate(prs.slides, 1):
     out.append(f"\n## Slide {i}\n")
