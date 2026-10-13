@@ -227,6 +227,21 @@ def score_approach(gt: dict, results: dict) -> dict:
     }
 
 
+def aoai_token_usage(directory: Path) -> dict | None:
+    """Total Azure OpenAI tokens recorded in a DI + AOAI result directory (aoai.usage), or None if
+    the approach recorded no token usage. Reporting only; not part of the accuracy score."""
+    totals, receipts = {"input": 0, "output": 0, "reasoning": 0}, 0
+    for p in sorted(Path(directory).glob("*.json")):
+        usage = (json.loads(p.read_text()).get("aoai") or {}).get("usage") if p.stem != "summary" else None
+        if not usage:
+            continue
+        receipts += 1
+        totals["input"] += usage.get("prompt_tokens") or 0
+        totals["output"] += usage.get("completion_tokens") or 0
+        totals["reasoning"] += (usage.get("completion_tokens_details") or {}).get("reasoning_tokens") or 0
+    return {**totals, "receipts": receipts} if receipts else None
+
+
 def _pct(n: int, d: int) -> float | None:
     return round(100 * n / d, 1) if d else None
 
@@ -239,10 +254,17 @@ def render_markdown(scores: dict[str, dict], n_receipts: int) -> str:
         ("Correct / applicable", lambda s: f"{s['correct']}/{s['applicable']}"),
         ("**Accuracy**", lambda s: f"**{s['accuracy_pct']}%**"),
         ("Invented values (field not on receipt)", lambda s: str(s["invented"])),
+        (f"Receipts processed successfully (of {n_receipts})", lambda s: str(n_receipts - s["no_result_receipts"])),
         (f"Receipts with no result (of {n_receipts})", lambda s: str(s["no_result_receipts"])),
         ("Mean processing time per receipt", lambda s: "n/a" if s["mean_ms_per_receipt"] is None
          else f"{s['mean_ms_per_receipt'] / 1000:.1f} s"),
     ]
+    if any(scores[n].get("aoai_tokens") for n in names):
+        tok = lambda k: (lambda s: "—" if not s.get("aoai_tokens") else
+                         f"{s['aoai_tokens'][k]:,} ({s['aoai_tokens'][k] / s['aoai_tokens']['receipts']:.0f}/receipt)")
+        rows += [("AOAI input tokens (total, per receipt)", tok("input")),
+                 ("AOAI output tokens incl. reasoning", tok("output")),
+                 ("of which reasoning tokens", tok("reasoning"))]
     lines += [f"| {label} | " + " | ".join(fn(scores[n]) for n in names) + " |" for label, fn in rows]
     lines += ["", "## Accuracy by field (correct / applicable)", "", head]
     for f in FIELDS:
@@ -264,10 +286,13 @@ def write_outputs(scores: dict[str, dict], out_dir: Path, n_receipts: int) -> No
     with open(out_dir / "summary.csv", "w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["approach", "correct", "applicable", "accuracy_pct", "invented", "no_result_receipts",
-                    "mean_ms_per_receipt"] + [f"{f}_accuracy_pct" for f in FIELDS])
+                    "mean_ms_per_receipt"] + [f"{f}_accuracy_pct" for f in FIELDS] +
+                   ["aoai_input_tokens", "aoai_output_tokens", "aoai_reasoning_tokens"])
         for name, s in scores.items():
+            t = s.get("aoai_tokens") or {}
             w.writerow([name, s["correct"], s["applicable"], s["accuracy_pct"], s["invented"], s["no_result_receipts"],
-                        s["mean_ms_per_receipt"]] + [s["fields"][f]["accuracy_pct"] for f in FIELDS])
+                        s["mean_ms_per_receipt"]] + [s["fields"][f]["accuracy_pct"] for f in FIELDS] +
+                       [t.get("input"), t.get("output"), t.get("reasoning")])
     with open(out_dir / "detail.csv", "w", newline="") as fh:
         w = csv.DictWriter(fh, ["approach", "receipt", "field", "ground_truth", "predicted", "result"])
         w.writeheader()
@@ -294,6 +319,7 @@ def main() -> None:
         if not sep or not Path(directory).is_dir():
             parser.error(f"--approach must be NAME=DIR with an existing directory, got {spec!r}")
         scores[name] = score_approach(gt, load_results(Path(directory)))
+        scores[name]["aoai_tokens"] = aoai_token_usage(Path(directory))
 
     report = render_markdown(scores, len(gt))
     print(report)

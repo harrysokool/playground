@@ -180,3 +180,14 @@ def test_scores_four_named_approaches(tmp_path, monkeypatch):
     assert rows["azure_di"]["no_result_receipts"] == "1"
     assert (tmp_path / "out" / "report.md").read_text().startswith("## Overall")
     assert len(list(csv.DictReader(open(tmp_path / "out" / "detail.csv")))) == 4 * len(FIELDS)
+
+
+def test_aoai_token_usage_is_reported(tmp_path):
+    usage = {"prompt_tokens": 500, "completion_tokens": 300, "completion_tokens_details": {"reasoning_tokens": 200}}
+    (tmp_path / "receipt1.json").write_text(json.dumps({"status": "ok", "aoai": {"usage": usage}}))
+    (tmp_path / "receipt2.json").write_text(json.dumps({"status": "ok", "aoai": {"usage": usage}}))
+    (tmp_path / "receipt3.json").write_text(json.dumps({"status": "error", "error": "timeout"}))
+    assert score.aoai_token_usage(tmp_path) == {"input": 1000, "output": 600, "reasoning": 400, "receipts": 2}
+    (tmp_path / "other").mkdir()
+    assert score.aoai_token_usage(tmp_path / "other") is None
+

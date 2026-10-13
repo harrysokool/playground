@@ -138,6 +138,14 @@ row expects. The originals stay untouched, and nothing is duplicated.
 | `receipt9.jpg` | `printable_images/r8.jpg` | Vet invoice (Version 1 receipt4) | Version 1 ground truth |
 | `receipt10.png` | `printable_images/r9.png` | NZ pharmacy (Version 1 receipt6) | Version 1 ground truth |
 
+**Orientation.** The seven photos store their pixels sideways, with EXIF orientation 6.
+`prepare_inputs.py` (run on Azure ML) writes the actual benchmark inputs to `results/v2/inputs/`:
+- **Photos with a rotation tag:** turned upright with an exact 90° rotation and saved as lossless
+  PNG without the tag. No crop, resize or enhancement.
+- **Images without a tag** (receipt9, receipt10): copied byte for byte.
+
+All four approaches read these same files. `manifest.csv` records what was done to each image.
+
 `benchmark_ground_truth.xlsx` has exactly these nine rows, with values copied unchanged from
 `receipts_spec.json` and `data/ground_truth/ground_truth_template.xlsx`. The test
 `tests/test_receipts_v2.py` checks it field by field against both sources, and checks that each

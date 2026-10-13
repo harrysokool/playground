@@ -271,7 +271,14 @@ Version 2 uses nine receipt images (see `data/receipts_v2/README.md`). All four 
 The only scorer change is that a Traditional Chinese date such as `2026年6月9日` is now read as
 written. Extraction is unchanged.
 
+The phone photos store their pixels sideways, with an EXIF orientation tag. A preparation step
+writes upright copies to `results/v2/inputs/`, which all four approaches read. That way they all
+get identical pixels whatever their own EXIF handling (see `data/receipts_v2/prepare_inputs.py`).
+`count DIR` prints how many receipt results a step produced. Each step should show **9/9**
+before you move on.
+
 ```bash
+# 1. setup
 cd <repo>/python/receipt_ocr_benchmark && git pull
 source ~/venvs/paddle322/bin/activate
 pip install -r requirements-dev.txt -r requirements-azure-openai.txt
@@ -280,24 +287,42 @@ export AZURE_CLIENT_ID="<managed-identity-client-id>"
 export AZURE_DI_ENDPOINT="https://<di-resource>.cognitiveservices.azure.com/"
 export AZURE_OPENAI_ENDPOINT="https://<aoai-resource>.openai.azure.com/"
 export AZURE_OPENAI_DEPLOYMENT="gpt-5-mini"
+OUT=results/v2; IN=$OUT/inputs
+count() { echo "$1: $(ls "$1"/receipt*.json 2>/dev/null | wc -l)/9"; }
+
+# 2. tests
 python -m pytest -q
 
-IN=data/receipts_v2/benchmark_inputs
-OUT=results/v2
-python -m receipt_bench.cli --config configs/paddle_light.yaml --input $IN --output $OUT/paddle_light
-python -m receipt_bench.cli --config configs/paddle_heavy.yaml --input $IN --output $OUT/paddle_heavy
-python -m receipt_bench.extract_cli --rules general --input $OUT/paddle_light --output $OUT/extracted_general_light
-python -m receipt_bench.extract_cli --rules general --input $OUT/paddle_heavy --output $OUT/extracted_general_heavy
-python -m receipt_bench.azure_di --input $IN --output $OUT/azure_di
-python -m receipt_bench.extract_cli --rules general --input $OUT/azure_di --output $OUT/extracted_general_azure_di
-python -m receipt_bench.di_aoai --input $IN --output $OUT/di_aoai
+# 3. inputs: nine upright images + manifest.csv
+python data/receipts_v2/prepare_inputs.py
+
+# 4. PaddleOCR Light and Heavy, then the general rules
+python -m receipt_bench.cli --config configs/paddle_light.yaml --input $IN --output $OUT/paddle_light && count $OUT/paddle_light
+python -m receipt_bench.cli --config configs/paddle_heavy.yaml --input $IN --output $OUT/paddle_heavy && count $OUT/paddle_heavy
+python -m receipt_bench.extract_cli --rules general --input $OUT/paddle_light --output $OUT/extracted_general_light && count $OUT/extracted_general_light
+python -m receipt_bench.extract_cli --rules general --input $OUT/paddle_heavy --output $OUT/extracted_general_heavy && count $OUT/extracted_general_heavy
+
+# 5. Azure DI (paid: 9 calls), then the general rules
+python -m receipt_bench.azure_di --input $IN --output $OUT/azure_di && count $OUT/azure_di
+python -m receipt_bench.extract_cli --rules general --input $OUT/azure_di --output $OUT/extracted_general_azure_di && count $OUT/extracted_general_azure_di
+
+# 6. Azure DI + AOAI (paid: 9 DI + 9 AOAI calls). A failed receipt is still written, so also count status "ok"
+python -m receipt_bench.di_aoai --input $IN --output $OUT/di_aoai && count $OUT/di_aoai
+echo "di_aoai ok: $(grep -l '"status": "ok"' $OUT/di_aoai/receipt*.json | wc -l)/9"
+
+# 7. score all four: report.md, summary.csv, detail.csv (accuracy, per field, time, failures, invented, AOAI tokens)
 python -m receipt_bench.score --ground-truth data/receipts_v2/benchmark_ground_truth.xlsx \
     --approach paddle_light=$OUT/extracted_general_light \
     --approach paddle_heavy=$OUT/extracted_general_heavy \
     --approach azure_di=$OUT/extracted_general_azure_di \
     --approach azure_di_aoai=$OUT/di_aoai \
     --output-dir $OUT/scores
+cat $OUT/scores/report.md | head -30
 ```
+
+A count below 9/9 after Azure DI means some receipts failed. The reasons are in
+`$OUT/azure_di/di_response/receiptN.json`. For DI + AOAI, they're in each failed receipt's own
+JSON (`status`, `error_stage`, `error`).
 
 ## Scoring all approaches (Phase 1 of the final comparison)
 

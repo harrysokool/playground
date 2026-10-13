@@ -8,6 +8,9 @@ __pycache__/
 !data/raw/.gitkeep
 # results/*
 !results/.gitkeep
+# Upright copies of the v2 input images (~70 MB); regenerate with data/receipts_v2/prepare_inputs.py
+results/v2/inputs/*.png
+results/v2/inputs/*.jpg
 
 # Local PaddleOCR model archives - large binaries, fetched/extracted per machine.
 models/*
