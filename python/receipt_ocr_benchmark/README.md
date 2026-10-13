@@ -22,7 +22,8 @@ rather than guessed.
 
 ## Setup
 
-Requires Python 3.9–3.13 (pinned `paddlepaddle==3.3.1` only ships CPU wheels for those versions).
+Requires Python 3.9–3.13 (pinned `paddlepaddle==3.2.2` only ships CPU wheels for those versions).
+3.2.2 rather than 3.3.x on purpose: 3.3.1 crashes on x86 CPUs (see the Azure notes below).
 
 ```bash
 python3 -m venv .venv
@@ -115,16 +116,19 @@ Both approaches use the same code and the general rules (Phase 3c). Each one sav
 `score.py` reads the extracted files directly. Processing time = OCR predict + extraction. It
 does not include model loading, which happens once per run.
 
-Run the benchmark on **Azure ML compute** (x86 Linux, CPU). Use the `*_azure.yaml` configs:
-they are identical to the plain ones except `enable_mkldnn: false`. paddlepaddle 3.3.1 crashes
-in the oneDNN CPU backend there (`NotImplementedError: ... ConvertPirAttribute2RuntimeAttribute
-not support`). The heavy model peaked at about 9 GB RAM on the largest receipt, so use a
-compute instance with **at least 16 GB RAM**.
+Run the benchmark on **Azure ML compute** (x86 Linux, CPU, Python 3.11). This setup produced
+the committed results in `results/`, with the plain configs (oneDNN on). The heavy model peaked
+at about 9 GB RAM on the largest receipt, so use a compute instance with **at least 16 GB RAM**.
+Copy the four `models/PP-OCRv5_*_infer` folders onto the instance first (they aren't in Git).
 
 ```bash
+python3.11 -m venv ~/venvs/paddle322 && source ~/venvs/paddle322/bin/activate
+pip install --upgrade pip && pip install -r requirements-dev.txt   # paddlepaddle==3.2.2
+python -c "import paddle, paddleocr; print(paddle.__version__, paddleocr.__version__)"   # 3.2.2 3.7.0
 export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True   # never contact model hosters
-python -m receipt_bench.cli --config configs/paddle_light_azure.yaml --input data/raw --output results/paddle_light
-python -m receipt_bench.cli --config configs/paddle_heavy_azure.yaml --input data/raw --output results/paddle_heavy
+
+python -m receipt_bench.cli --config configs/paddle_light.yaml --input data/raw --output results/paddle_light
+python -m receipt_bench.cli --config configs/paddle_heavy.yaml --input data/raw --output results/paddle_heavy
 python -m receipt_bench.extract_cli --rules general --input results/paddle_light --output results/extracted_general_light
 python -m receipt_bench.extract_cli --rules general --input results/paddle_heavy --output results/extracted_general_heavy
 python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
@@ -132,6 +136,15 @@ python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_temp
     --approach paddle_heavy=results/extracted_general_heavy \
     --output-dir results/scores_paddle
 ```
+
+Why 3.2.2: on this compute, paddlepaddle **3.3.1** fails both ways:
+- with oneDNN on, it raises `NotImplementedError: ... ConvertPirAttribute2RuntimeAttribute not support`;
+- with oneDNN off, heavy segfaults in the plain CPU convolution (`Im2ColFunctor`) on the
+  12 MP receipts.
+
+**Fallback:** `configs/paddle_{light,heavy}_azure.yaml` are the same configs plus
+`enable_mkldnn: false`. Use them only if oneDNN causes trouble again. CPU inference is slower
+without oneDNN, so run light and heavy with the same configs to keep timings comparable.
 
 ## Scoring all approaches (Phase 1 of the final comparison)
 

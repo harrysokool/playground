@@ -6,7 +6,7 @@ text_detection_model_dir: models/PP-OCRv5_mobile_det_infer
 text_recognition_model_name: PP-OCRv5_mobile_rec
 text_recognition_model_dir: models/PP-OCRv5_mobile_rec_infer
 device: cpu
-# Azure ML compute (x86 CPU): paddlepaddle 3.3.1 crashes in the oneDNN backend there
-# ("ConvertPirAttribute2RuntimeAttribute not support"), so it is turned off. Otherwise
-# identical to paddle_light.yaml.
+# Fallback for x86 CPUs (e.g. Azure ML compute): turns off the oneDNN backend, which crashed with
+# paddlepaddle 3.3.1 ("ConvertPirAttribute2RuntimeAttribute not support"). Not needed with the
+# pinned 3.2.2, where the plain paddle_light.yaml works. Otherwise identical to paddle_light.yaml.
 enable_mkldnn: false
