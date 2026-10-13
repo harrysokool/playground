@@ -7,7 +7,8 @@ additional cost and complexity compared with simpler OCR solutions?**
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 2 (current)**, 12 slides | `current/OCR_Benchmark_V2.pptx` | `scripts/generate_ppt_v2.py` | `results/v2/scores_improved/` (summary, detail), `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
+| **Version 2 (current)**, 8 slides | `current/OCR_Benchmark_V2.pptx` | `scripts/generate_ppt_v2.py` | `results/v2/scores_improved/` (summary, detail), `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
+| Version 2, first draft (archived), 12 slides | `archive/v2_12slides/OCR_Benchmark_V2.pptx` (+ PDF preview) | `scripts/generate_ppt_v2.py` at commit `6fd991c` | Same as Version 2 |
 | Version 1 (frozen), 8 slides | `archive/v1/OCR_Benchmark_Comparison.pptx` (+ PDF preview) | `scripts/generate_ppt.py` | Version 1 results, available only at Git tag `ocr-benchmark-v1` |
 
 Every number, and every value in the receipt examples, is read from the benchmark files; nothing
@@ -26,6 +27,7 @@ is typed in by hand.
 | `current/` | The current deck (Version 2) |
 | `previews/` | PDF and PNG previews of the current deck |
 | `archive/v1/` | The frozen Version 1 deck and its preview. Never written to by the generators. |
+| `archive/v2_12slides/` | The first, 12-slide Version 2 deck and its PDF preview, kept for reference |
 | `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py` |
 | `scripts/` | The generators |
 
@@ -61,7 +63,7 @@ Microsoft JhengHei (Traditional Chinese).
 ## Outstanding before distribution
 
 1. **Prices.** Compute rate, Document Intelligence page price and gpt-5-mini token prices are
-   still unconfirmed; slide 10 says so.
+   still unconfirmed; slide 7 says so.
 2. **Sensitivity label.** The deck carries the template's **[AIA – PUBLIC]** label. Apply the
    correct label in PowerPoint (Home → Sensitivity) before sharing.
 3. **Presenter name and date,** if required.

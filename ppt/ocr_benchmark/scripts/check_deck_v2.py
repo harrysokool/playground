@@ -2,8 +2,8 @@
 
     python3 ppt/ocr_benchmark/scripts/check_deck_v2.py      (run on Azure ML after generate_ppt_v2.py)
 
-Checks: 12 slides; every chart value equals summary.csv; the headline accuracy and time figures
-appear as text; every slide has speaker notes. Writes previews/deck_text.md (all slide text, chart
+Checks: 8 slides; any chart value equals summary.csv; every accuracy figure (all seven approaches,
+as "37.3%") and every time figure appear in the slide text; every slide has speaker notes. Writes previews/deck_text.md (all slide text, chart
 data and notes) so the content can be reviewed without opening PowerPoint. Exits non-zero on failure.
 """
 import csv
@@ -23,8 +23,8 @@ expected_secs = {round(int(r["mean_ms_per_receipt"]) / 1000, 1) for r in SUM.val
 
 prs = Presentation(DECK)
 problems, out = [], [f"# {DECK.name}: text, chart data and notes\n"]
-if len(prs.slides) != 12:
-    problems.append(f"expected 12 slides, found {len(prs.slides)}")
+if len(prs.slides) != 8:
+    problems.append(f"expected 8 slides, found {len(prs.slides)}")
 all_text = []
 for i, s in enumerate(prs.slides, 1):
     out.append(f"\n## Slide {i}\n")
@@ -59,11 +59,16 @@ joined = "\n".join(all_text)
 for a in ("paddle_light_general", "paddle_heavy_general", "azure_di_general", "paddle_light_improved",
           "paddle_heavy_improved", "azure_di_improved", "azure_di_aoai"):
     pct = f"{float(SUM[a]['accuracy_pct']):.1f}%"
-    if pct not in joined and a in ("paddle_light_improved", "azure_di_improved", "azure_di_aoai"):
+    if pct not in joined:
         problems.append(f"{a} accuracy {pct} not found in slide text")
+for a in ("paddle_light_improved", "paddle_heavy_improved", "azure_di_improved", "azure_di_aoai"):
+    t = f"{int(SUM[a]['mean_ms_per_receipt']) / 1000:.1f} s"
+    if t not in joined:
+        problems.append(f"{a} time {t} not found in slide text")
 
 (PROJECT / "previews").mkdir(exist_ok=True)
 (PROJECT / "previews" / "deck_text.md").write_text("\n".join(out) + "\n")
 if problems:
     sys.exit("Deck check FAILED:\n- " + "\n- ".join(problems))
-print(f"Deck check passed: {len(prs.slides)} slides, chart values match summary.csv; text in previews/deck_text.md")
+print(f"Deck check passed: {len(prs.slides)} slides; all accuracy and time figures match summary.csv; "
+      "text in previews/deck_text.md")

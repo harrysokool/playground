@@ -105,7 +105,7 @@ partial payment, this would have been wrong.
 | | Original general rules | Improved rules |
 |---|---|---|
 | Lines of code | 376 | 384 (plus 70 reused from the original) |
-| Label phrases | 70 | 218 (English + Traditional Chinese, 17 label kinds incl. 6 distractor kinds) |
+| Label phrases (unique) | 69 | 225 (English + Traditional Chinese, 17 label kinds incl. 5 distractor kinds) |
 | Extra mechanisms | — | Block classification by longest label, translation stripping, simplified→traditional label mapping, header + Name rows, card-row totals, total fallback order |
 
 The logic is still readable. The cost is the vocabulary: every new provider wording, language
