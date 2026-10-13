@@ -1,0 +1,259 @@
+{
+  "dataset": "receipts_v2",
+  "description": "Eight fully printed, fictional mock medical receipts for Hong Kong claims. To be printed and photographed with a phone; the photos (data/receipts_v2/raw/receiptN.jpg) are the benchmark input. All names, clinics, addresses, phone numbers and identifiers are fictional.",
+  "receipts": [
+    {
+      "receipt_id": "r1",
+      "file_stem": "receipt1",
+      "type": "General practitioner clinic",
+      "language": "English",
+      "layout": "A5 portrait clinic letterhead; centred clinic name, doctor block under it, two-column patient/receipt details, simple charges table, payment line at the bottom.",
+      "provider": {"name": "Harbourfront Family Clinic", "address": "Shop 12, G/F, Harbour View Court, 33 Kwun Tong Road, Kowloon", "phone": "2000 4187"},
+      "document": {"title": "RECEIPT", "number_label": "Receipt No.", "number": "HFC-260314-0087"},
+      "people": [
+        {"role": "attending doctor", "label": "Doctor", "printed_as": "Dr. Tsang Hoi Lam", "qualification": "MBBS (HK)", "registration": {"label": "Reg. No.", "value": "M17642", "format": "medical"}},
+        {"role": "patient", "label": "Patient Name", "printed_as": "Leung Wai Kei"}
+      ],
+      "dates": [
+        {"role": "service", "label": "Date", "iso": "2026-03-14", "printed_as": "14/03/2026"}
+      ],
+      "other_numbers": [{"label": "Patient No.", "value": "HF-20931"}],
+      "line_items": [
+        {"description": "Consultation", "qty": 1, "unit_price": 380.00, "amount": 380.00},
+        {"description": "Medication (3 days)", "qty": 1, "unit_price": 120.00, "amount": 120.00},
+        {"description": "Sick leave certificate", "qty": 1, "unit_price": 50.00, "amount": 50.00}
+      ],
+      "subtotal": null,
+      "adjustments": [],
+      "total": {"label": "Total", "amount": 550.00},
+      "payments": [{"label": "Paid by Octopus", "amount": 550.00}],
+      "balance": null,
+      "ground_truth": {"doctor_name": "Dr. Tsang Hoi Lam", "registration_number": "M17642", "patient_name": "Leung Wai Kei", "service_date": "2026-03-14", "receipt_number": "HFC-260314-0087", "total_amount": 550.00},
+      "notes": "Simplest receipt: one date, one doctor. Patient No. is a distractor number."
+    },
+    {
+      "receipt_id": "r2",
+      "file_stem": "receipt2",
+      "type": "Specialist clinic",
+      "language": "English",
+      "layout": "A4 portrait; left-aligned letterhead with specialty line, right-hand box for receipt number and dates, referral line above a bordered charges table, payment summary bottom right.",
+      "provider": {"name": "Kowloon Heart and Vascular Centre", "address": "Room 1608, 16/F, Grand Pacific Tower, 188 Nathan Road, Tsim Sha Tsui", "phone": "2000 7315"},
+      "document": {"title": "OFFICIAL RECEIPT", "number_label": "Receipt No.", "number": "SC2026/01593"},
+      "people": [
+        {"role": "attending doctor", "label": "Attending Doctor", "printed_as": "Dr. Ng Chun Yip", "qualification": "Specialist in Cardiology", "registration": {"label": "Reg. No.", "value": "M20581", "format": "medical"}},
+        {"role": "referring doctor (distractor)", "label": "Referred by", "printed_as": "Dr. Lam Pui Shan"},
+        {"role": "patient", "label": "Patient", "printed_as": "Ho Siu Ming"}
+      ],
+      "dates": [
+        {"role": "service", "label": "Consultation Date", "iso": "2026-04-22", "printed_as": "22 April 2026"},
+        {"role": "issue (distractor)", "label": "Receipt Date", "iso": "2026-04-24", "printed_as": "24 April 2026"}
+      ],
+      "other_numbers": [{"label": "File No.", "value": "KHV-11872"}],
+      "line_items": [
+        {"description": "Specialist consultation", "qty": 1, "unit_price": 1200.00, "amount": 1200.00},
+        {"description": "Resting electrocardiogram (ECG)", "qty": 1, "unit_price": 680.00, "amount": 680.00}
+      ],
+      "subtotal": null,
+      "adjustments": [],
+      "total": {"label": "Total", "amount": 1880.00},
+      "payments": [{"label": "Paid by Visa (card ending 4421)", "amount": 1880.00}],
+      "balance": {"label": "Balance", "amount": 0.00},
+      "ground_truth": {"doctor_name": "Dr. Ng Chun Yip", "registration_number": "M20581", "patient_name": "Ho Siu Ming", "service_date": "2026-04-22", "receipt_number": "SC2026/01593", "total_amount": 1880.00},
+      "notes": "Two doctors: the attending specialist is the answer; the referring doctor has no registration number. Receipt issued two days after the consultation."
+    },
+    {
+      "receipt_id": "r3",
+      "file_stem": "receipt3",
+      "type": "Hospital outpatient invoice",
+      "language": "Bilingual (English / Traditional Chinese labels)",
+      "layout": "A4 portrait, system-generated; hospital logo block, bilingual header grid with several reference numbers, itemised charges table with codes, insurer direct-billing section, payment and balance lines.",
+      "provider": {"name": "Lantern Bay Hospital 朗灣醫院 – Outpatient Department 門診部", "address": "8 Lantern Bay Road, Tuen Mun, New Territories", "phone": "2000 3360"},
+      "document": {"title": "OUTPATIENT INVOICE 門診發票", "number_label": "Invoice No. 發票編號", "number": "OPI-2026-0048213"},
+      "people": [
+        {"role": "attending doctor", "label": "Attending Doctor 主診醫生", "printed_as": "Dr. Chow Ka Ho"},
+        {"role": "patient", "label": "Patient 病人", "printed_as": "TAM KA YAN"}
+      ],
+      "dates": [
+        {"role": "service", "label": "Attendance Date 就診日期", "iso": "2026-05-18", "printed_as": "18 May 2026"},
+        {"role": "issue (distractor)", "label": "Invoice Date 發票日期", "iso": "2026-05-25", "printed_as": "25 May 2026"}
+      ],
+      "other_numbers": [
+        {"label": "Patient No. 病人編號", "value": "LB-0371526"},
+        {"label": "Episode No. 診症編號", "value": "E2605180412"},
+        {"label": "Policy No. 保單編號 (Evergreen Assurance)", "value": "VH-58210937"}
+      ],
+      "line_items": [
+        {"description": "Specialist outpatient consultation 專科門診診症", "qty": 1, "unit_price": 950.00, "amount": 950.00},
+        {"description": "Chest X-ray 胸部X光", "qty": 1, "unit_price": 620.00, "amount": 620.00},
+        {"description": "Blood test (CBC) 血液檢查", "qty": 1, "unit_price": 380.00, "amount": 380.00},
+        {"description": "Drugs 藥物", "qty": 1, "unit_price": 245.50, "amount": 245.50}
+      ],
+      "subtotal": null,
+      "adjustments": [],
+      "total": {"label": "Total Charges 總收費", "amount": 2195.50},
+      "payments": [
+        {"label": "Paid by insurer (direct billing) 保險公司直接付款", "amount": 1800.00},
+        {"label": "Paid by patient 病人已付", "amount": 395.50}
+      ],
+      "balance": {"label": "Balance Due 尚欠餘額", "amount": 0.00},
+      "ground_truth": {"doctor_name": "Dr. Chow Ka Ho", "registration_number": "N/A", "patient_name": "TAM KA YAN", "service_date": "2026-05-18", "receipt_number": "OPI-2026-0048213", "total_amount": 2195.50},
+      "notes": "No registration number is printed (common on hospital invoices). Three distractor reference numbers. Total charges are split between the insurer and the patient."
+    },
+    {
+      "receipt_id": "r4",
+      "file_stem": "receipt4",
+      "type": "Traditional Chinese medicine clinic",
+      "language": "Traditional Chinese",
+      "layout": "A5 portrait, vertical-feel Chinese letterhead with red clinic chop beside the practitioner line, boxed fields for patient and dates, short itemised list, handwritten-style signature line (printed font).",
+      "provider": {"name": "澄溪中醫診所", "address": "九龍旺角西洋菜南街 210 號 澄溪商業大廈 7 樓 703 室", "phone": "2000 6628"},
+      "document": {"title": "收據", "number_label": "收據編號", "number": "Y2605117"},
+      "people": [
+        {"role": "attending practitioner", "label": "主診中醫師", "printed_as": "葉卓謙", "registration": {"label": "註冊中醫編號", "value": "006821", "format": "chinese_medicine"}},
+        {"role": "patient", "label": "病人姓名", "printed_as": "麥詠琳"}
+      ],
+      "dates": [
+        {"role": "service", "label": "診症日期", "iso": "2026-06-09", "printed_as": "2026年6月9日"},
+        {"role": "next visit (distractor)", "label": "覆診日期", "iso": "2026-06-16", "printed_as": "2026年6月16日"}
+      ],
+      "other_numbers": [{"label": "病歷編號", "value": "CX-3308"}],
+      "line_items": [
+        {"description": "診金", "qty": 1, "unit_price": 180.00, "amount": 180.00},
+        {"description": "中藥（3劑）", "qty": 3, "unit_price": 120.00, "amount": 360.00},
+        {"description": "針灸", "qty": 1, "unit_price": 250.00, "amount": 250.00}
+      ],
+      "subtotal": null,
+      "adjustments": [],
+      "total": {"label": "合計", "amount": 790.00},
+      "payments": [{"label": "已付（現金）", "amount": 790.00}],
+      "balance": null,
+      "ground_truth": {"doctor_name": "葉卓謙", "registration_number": "006821", "patient_name": "麥詠琳", "service_date": "2026-06-09", "receipt_number": "Y2605117", "total_amount": 790.00},
+      "notes": "Chinese-only. The practitioner title is in the label, not after the name. Date in 年月日 format (see the known scoring gap in the README)."
+    },
+    {
+      "receipt_id": "r5",
+      "file_stem": "receipt5",
+      "type": "Dental clinic",
+      "language": "Bilingual (English / Traditional Chinese)",
+      "layout": "A4 landscape-oriented half page; logo left, clinic details right, treatment table with tooth numbers, subtotal / discount / total stack, recall reminder footer.",
+      "provider": {"name": "Silverleaf Dental 銀葉牙科診所", "address": "Unit 502, 5/F, Eastwood Centre, 95 King's Road, North Point", "phone": "2000 5194"},
+      "document": {"title": "RECEIPT 收據", "number_label": "Receipt No. 收據編號", "number": "DEN-77342"},
+      "people": [
+        {"role": "attending dentist", "label": "Dentist 牙醫", "printed_as": "Dr. Ho Ching Yee", "qualification": "BDS (HK)", "registration": {"label": "Reg. No. 註冊編號", "value": "D03158", "format": "dental"}},
+        {"role": "patient", "label": "Patient 病人", "printed_as": "馮浩霖"}
+      ],
+      "dates": [
+        {"role": "service", "label": "Treatment Date 治療日期", "iso": "2026-06-27", "printed_as": "27/06/2026"},
+        {"role": "next recall (distractor)", "label": "Next Recall 下次覆診", "iso": "2026-12-27", "printed_as": "27/12/2026"}
+      ],
+      "other_numbers": [{"label": "Patient ID 病人編號", "value": "SL-40217"}],
+      "line_items": [
+        {"description": "Scaling and polishing 洗牙及拋光", "qty": 1, "unit_price": 650.00, "amount": 650.00},
+        {"description": "Dental X-ray 牙科X光", "qty": 2, "unit_price": 150.00, "amount": 300.00},
+        {"description": "Composite filling, tooth 36 樹脂補牙", "qty": 1, "unit_price": 800.00, "amount": 800.00}
+      ],
+      "subtotal": {"label": "Subtotal 小計", "amount": 1750.00},
+      "adjustments": [{"label": "Member discount 10% 會員折扣", "amount": -175.00}],
+      "total": {"label": "Total 總額", "amount": 1575.00},
+      "payments": [{"label": "Paid by EPS 易辦事", "amount": 1575.00}],
+      "balance": null,
+      "ground_truth": {"doctor_name": "Dr. Ho Ching Yee", "registration_number": "D03158", "patient_name": "馮浩霖", "service_date": "2026-06-27", "receipt_number": "DEN-77342", "total_amount": 1575.00},
+      "notes": "Bilingual labels; dentist name in English only, patient name in Chinese only. Total is after the discount."
+    },
+    {
+      "receipt_id": "r6",
+      "file_stem": "receipt6",
+      "type": "Physiotherapy clinic",
+      "language": "English",
+      "layout": "A4 portrait, modern minimal design; header bar with logo text, two side-by-side info cards (client / practitioner), session details, charges, payment status block highlighting the outstanding balance.",
+      "provider": {"name": "Northpoint Motion Physiotherapy Centre", "address": "Flat B, 11/F, Java Commercial Centre, 128 Java Road, North Point", "phone": "2000 8452"},
+      "document": {"title": "RECEIPT", "number_label": "Receipt No.", "number": "RCP-10388"},
+      "people": [
+        {"role": "treating physiotherapist", "label": "Physiotherapist", "printed_as": "CHEUNG Hoi Ying", "qualification": "Registered Physiotherapist", "registration": {"label": "Reg. No.", "value": "PT004175", "format": "physiotherapy"}},
+        {"role": "referring doctor (distractor)", "label": "Referred by", "printed_as": "Dr. Kwok Man Hin"},
+        {"role": "patient", "label": "Client", "printed_as": "Yeung Tsz Kit"}
+      ],
+      "dates": [
+        {"role": "service", "label": "Session Date", "iso": "2026-07-16", "printed_as": "16 Jul 2026"},
+        {"role": "issue (distractor)", "label": "Date Issued", "iso": "2026-07-17", "printed_as": "17 Jul 2026"},
+        {"role": "next appointment (distractor)", "label": "Next Appointment", "iso": "2026-07-23", "printed_as": "23 Jul 2026"}
+      ],
+      "other_numbers": [{"label": "Client No.", "value": "NM-5582"}],
+      "line_items": [
+        {"description": "Initial physiotherapy assessment", "qty": 1, "unit_price": 650.00, "amount": 650.00},
+        {"description": "Treatment: manual therapy and interferential therapy", "qty": 1, "unit_price": 550.00, "amount": 550.00}
+      ],
+      "subtotal": null,
+      "adjustments": [],
+      "total": {"label": "Total", "amount": 1200.00},
+      "payments": [{"label": "Amount Paid (FPS)", "amount": 700.00}],
+      "balance": {"label": "Outstanding Balance", "amount": 500.00},
+      "ground_truth": {"doctor_name": "CHEUNG Hoi Ying", "registration_number": "PT004175", "patient_name": "Yeung Tsz Kit", "service_date": "2026-07-16", "receipt_number": "RCP-10388", "total_amount": 1200.00},
+      "notes": "The service provider is the physiotherapist (the answer), not the referring doctor. Three dates; only one is the session. Partly paid: the total is 1,200, not the 700 paid or the 500 outstanding."
+    },
+    {
+      "receipt_id": "r7",
+      "file_stem": "receipt7",
+      "type": "Pharmacy",
+      "language": "Traditional Chinese (product names partly English)",
+      "layout": "80 mm thermal till receipt; centred shop header, till/cashier line, item lines with quantities, member discount, Octopus payment with remaining card value, footer slogan.",
+      "provider": {"name": "晨曦藥房（荃灣店）", "address": "新界荃灣沙咀道 68 號地下 5 號舖", "phone": "2000 9036"},
+      "document": {"title": "收據", "number_label": "收據編號", "number": "0726-03-004519"},
+      "people": [],
+      "dates": [
+        {"role": "service", "label": "日期", "iso": "2026-08-21", "printed_as": "21/08/2026 14:37"}
+      ],
+      "other_numbers": [
+        {"label": "收銀機", "value": "03"},
+        {"label": "收銀員", "value": "1187"},
+        {"label": "會員號碼", "value": "88301274"}
+      ],
+      "line_items": [
+        {"description": "撲熱息痛 Paracetamol 500mg 20粒", "qty": 1, "unit_price": 38.90, "amount": 38.90},
+        {"description": "維他命C泡騰片 Vitamin C 20片", "qty": 1, "unit_price": 59.00, "amount": 59.00},
+        {"description": "外科口罩 50個", "qty": 1, "unit_price": 45.00, "amount": 45.00}
+      ],
+      "subtotal": {"label": "小計", "amount": 142.90},
+      "adjustments": [{"label": "會員優惠", "amount": -15.00}],
+      "total": {"label": "合計", "amount": 127.90},
+      "payments": [{"label": "八達通付款", "amount": 127.90}],
+      "balance": null,
+      "extra_amounts": [{"label": "八達通餘額 (remaining card value, distractor)", "amount": 96.50}],
+      "ground_truth": {"doctor_name": "N/A", "registration_number": "N/A", "patient_name": "N/A", "service_date": "2026-08-21", "receipt_number": "0726-03-004519", "total_amount": 127.90},
+      "notes": "Over-the-counter purchase: no practitioner and no patient name, so three fields are N/A (tests whether approaches invent values). The Octopus remaining value is a distractor amount."
+    },
+    {
+      "receipt_id": "r8",
+      "file_stem": "receipt8",
+      "type": "Medical centre",
+      "language": "Bilingual (English / Traditional Chinese)",
+      "layout": "A4 portrait; corporate-style header with centre name in both languages, patient and plan details in a two-column grid, services table naming who performed each, plan coverage and co-payment section.",
+      "provider": {"name": "Crestview Medical Centre 嶺景醫療中心", "address": "3/F, Crestview Plaza, 21 Sha Tin Centre Street, Sha Tin", "phone": "2000 2759"},
+      "document": {"title": "RECEIPT 收據", "number_label": "Receipt No. 收據編號", "number": "MC-2609-3391"},
+      "people": [
+        {"role": "attending doctor", "label": "Attending Doctor 主診醫生", "printed_as": "Dr. Siu Ka Wai", "registration": {"label": "Reg. No. 註冊編號", "value": "M19903", "format": "medical"}},
+        {"role": "nurse (distractor)", "label": "Nurse 護士 (vaccination)", "printed_as": "Wan Man Yi"},
+        {"role": "patient", "label": "Patient 病人", "printed_as": "蔡嘉穎"}
+      ],
+      "dates": [
+        {"role": "service", "label": "Visit Date 就診日期", "iso": "2026-09-03", "printed_as": "3 Sep 2026"},
+        {"role": "print (same day)", "label": "Printed 列印日期", "iso": "2026-09-03", "printed_as": "03/09/2026 16:52"}
+      ],
+      "other_numbers": [{"label": "Plan Member No. 計劃會員編號 (Lumen Health Plan)", "value": "CP-6610428"}],
+      "line_items": [
+        {"description": "General consultation 普通科診症", "qty": 1, "unit_price": 420.00, "amount": 420.00},
+        {"description": "Influenza vaccine 流感疫苗", "qty": 1, "unit_price": 280.00, "amount": 280.00},
+        {"description": "Medication (2 items) 藥物", "qty": 1, "unit_price": 95.00, "amount": 95.00}
+      ],
+      "subtotal": null,
+      "adjustments": [],
+      "total": {"label": "Total 合計", "amount": 795.00},
+      "payments": [
+        {"label": "Covered by plan 計劃承保", "amount": 695.00},
+        {"label": "Co-payment paid (cash) 病人自付", "amount": 100.00}
+      ],
+      "balance": null,
+      "ground_truth": {"doctor_name": "Dr. Siu Ka Wai", "registration_number": "M19903", "patient_name": "蔡嘉穎", "service_date": "2026-09-03", "receipt_number": "MC-2609-3391", "total_amount": 795.00},
+      "notes": "A doctor and a nurse both appear; the attending doctor is the answer. The print date is the same day as the visit, so it cannot change the answer. The plan pays most of the total; the patient pays a 100 co-payment."
+    }
+  ]
+}
