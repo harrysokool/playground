@@ -81,3 +81,18 @@ FatalError: `Segmentation fault` is detected by the operating system.
 
 Segmentation fault
 (.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark$ 
+
+
+
+export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
+export OMP_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export FLAGS_use_mkldnn=0
+
+
+
+python -m receipt_bench.cli \
+  --config configs/paddle_heavy_azure.yaml \
+  --input data/raw/receipt1.jpeg \
+  --output results/paddle_heavy_test
