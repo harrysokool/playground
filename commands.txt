@@ -1,98 +1,23 @@
-cd /mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground
+deactivate
 
-git pull
+python3.11 -m venv ~/venvs/paddle322
+source ~/venvs/paddle322/bin/activate
 
-cd python/receipt_ocr_benchmark
+python -m pip install --upgrade pip
 
-ls models
-
-
-source .venv/bin/activate
-
-
-export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
-
-python -m receipt_bench.cli \
-  --config configs/paddle_light_azure.yaml \
-  --input data/raw \
-  --output results/paddle_light
+python -m pip install \
+  paddlepaddle==3.2.2 \
+  paddleocr==3.7.0 \
+  "pyyaml>=6.0" \
+  pytest
 
 
-  python -m receipt_bench.cli \
-  --config configs/paddle_heavy_azure.yaml \
-  --input data/raw \
-  --output results/paddle_heavy
+  python -c "import paddle; print(paddle.__version__); paddle.utils.run_check()"
 
 
+  export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
 
-  python -m receipt_bench.extract_cli \
-  --rules general \
-  --input results/paddle_light \
-  --output results/extracted_general_light
-
-python -m receipt_bench.extract_cli \
-  --rules general \
-  --input results/paddle_heavy \
-  --output results/extracted_general_heavy
-
-
-
-  python -m receipt_bench.score \
-  --ground-truth data/ground_truth/ground_truth_template.xlsx \
-  --approach paddle_light=results/extracted_general_light \
-  --approach paddle_heavy=results/extracted_general_heavy \
-  --output-dir results/scores_paddle
-
-
-
-  (.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark$   python -m receipt_bench.cli \
-  --config configs/paddle_heavy_azure.yaml \
-  --input data/raw \
-  --output results/paddle_heavy
-Creating model: ('PP-OCRv5_server_det', 'models/PP-OCRv5_server_det_infer', None)
-/mnt/batch/tasks/shared/LS_root/mounts/clusters/d18-instance04/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark/.venv/lib/python3.11/site-packages/paddle/utils/cpp_extension/extension_utils.py:715: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md
-  warnings.warn(warning_message)
-Creating model: ('PP-OCRv5_server_rec', 'models/PP-OCRv5_server_rec_infer', None)
-Processing data/raw/receipt1.jpeg ...
-Resized image size (3024x4032) exceeds max_side_limit of 4000. Resizing to fit within limit.
-
-
---------------------------------------
-C++ Traceback (most recent call last):
---------------------------------------
-0   paddle::AnalysisPredictor::ZeroCopyRun(bool)
-1   paddle::framework::NaiveExecutor::RunInterpreterCore(std::vector<std::string, std::allocator<std::string > > const&, bool, bool)
-2   paddle::framework::InterpreterCore::Run(std::vector<std::string, std::allocator<std::string > > const&, bool, bool, bool, bool)
-3   paddle::framework::PirInterpreter::Run(std::vector<std::string, std::allocator<std::string > > const&, bool, bool, bool, bool)
-4   paddle::framework::PirInterpreter::TraceRunImpl()
-5   paddle::framework::PirInterpreter::TraceRunInstructionList(std::vector<std::unique_ptr<paddle::framework::InstructionBase, std::default_delete<paddle::framework::InstructionBase> >, std::allocator<std::unique_ptr<paddle::framework::InstructionBase, std::default_delete<paddle::framework::InstructionBase> > > > const&)
-6   paddle::framework::PirInterpreter::RunInstructionBase(paddle::framework::InstructionBase*)
-7   paddle::framework::PhiKernelInstruction::Run()
-8   phi::KernelImpl<void (*)(phi::CPUContext const&, phi::DenseTensor const&, phi::DenseTensor const&, std::vector<int, std::allocator<int> > const&, std::vector<int, std::allocator<int> > const&, std::string const&, std::vector<int, std::allocator<int> > const&, int, std::string const&, phi::DenseTensor*), &(void phi::ConvKernel<float, phi::CPUContext>(phi::CPUContext const&, phi::DenseTensor const&, phi::DenseTensor const&, std::vector<int, std::allocator<int> > const&, std::vector<int, std::allocator<int> > const&, std::string const&, std::vector<int, std::allocator<int> > const&, int, std::string const&, phi::DenseTensor*))>::Compute(phi::KernelContext*)
-9   void phi::ConvKernelImpl<float, phi::CPUContext>(phi::CPUContext const&, phi::DenseTensor const&, phi::DenseTensor const&, std::vector<int, std::allocator<int> > const&, std::vector<int, std::allocator<int> > const&, std::string const&, int, std::vector<int, std::allocator<int> > const&, std::string const&, phi::DenseTensor*)
-10  phi::funcs::Im2ColFunctor<(phi::funcs::ColFormat)0, phi::CPUContext, float>::operator()(phi::CPUContext const&, phi::DenseTensor const&, std::vector<int, std::allocator<int> > const&, std::vector<int, std::allocator<int> > const&, std::vector<int, std::allocator<int> > const&, phi::DenseTensor*, common::DataLayout)
-
-----------------------
-Error Message Summary:
-----------------------
-FatalError: `Segmentation fault` is detected by the operating system.
-  [TimeInfo: *** Aborted at 1791856427 (unix time) try "date -d @1791856427" if you are using GNU date ***]
-  [SignalInfo: *** SIGSEGV (@0x70ff4a6221e0) received by PID 25269 (TID 0x71065019f280) from PID 1247945184 ***]
-
-Segmentation fault
-(.venv) (azureml_py38) azureuser@d18-instance04:~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark$ 
-
-
-
-export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
-export OMP_NUM_THREADS=1
-export OPENBLAS_NUM_THREADS=1
-export MKL_NUM_THREADS=1
-export FLAGS_use_mkldnn=0
-
-
-
-python -m receipt_bench.cli \
-  --config configs/paddle_heavy_azure.yaml \
+python -X faulthandler -m receipt_bench.cli \
+  --config configs/paddle_heavy.yaml \
   --input data/raw/receipt1.jpeg \
-  --output results/paddle_heavy_test
+  --output /tmp/p322_heavy
