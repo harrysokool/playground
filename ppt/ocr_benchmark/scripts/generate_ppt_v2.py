@@ -66,7 +66,7 @@ RESULT_DIR = {"paddle_light_general": "extracted_general_light", "paddle_light_i
               "paddle_heavy_general": "extracted_general_heavy", "paddle_heavy_improved": "extracted_improved_heavy",
               "azure_di_general": "extracted_general_azure_di", "azure_di_improved": "extracted_improved_azure_di",
               "azure_di_aoai": "di_aoai"}
-FIELD_NAMES = {"doctor_name": "Doctor", "registration_number": "Registration no.", "patient_name": "Patient",
+FIELD_NAMES = {"doctor_name": "Doctor", "registration_number": "Reg. no.", "patient_name": "Patient",
                "receipt_number": "Receipt no.", "service_date": "Service date", "total_amount": "Total amount"}
 FIELDS = list(FIELD_NAMES)
 
@@ -131,10 +131,15 @@ def truth(receipt, field):
 
 TOKENS_IN = int(SUM[AOAI]["aoai_input_tokens"]) / N_RECEIPTS
 TOKENS_OUT = int(SUM[AOAI]["aoai_output_tokens"]) / N_RECEIPTS
-EXTRACT_MS = [json.loads(p.read_text())["timings"]["extract_ms"]
-              for d in ("extracted_improved_light", "extracted_improved_heavy", "extracted_improved_azure_di")
-              for p in sorted((RES / d).glob("receipt*.json"))]
-EXTRACT_MS = sum(EXTRACT_MS) / len(EXTRACT_MS)
+def _mean_extract_ms(kind):
+    ms = [json.loads(p.read_text())["timings"]["extract_ms"]
+          for d in (f"extracted_{kind}_light", f"extracted_{kind}_heavy", f"extracted_{kind}_azure_di")
+          for p in sorted((RES / d).glob("receipt*.json"))]
+    return sum(ms) / len(ms)
+
+
+EXTRACT_MS = {"original": _mean_extract_ms("general"), "improved": _mean_extract_ms("improved")}
+EXTRACT_TXT = f"{min(EXTRACT_MS.values()):.0f}–{max(EXTRACT_MS.values()):.0f} ms"
 HEAVY_BLOCKS = {r: len(json.loads((RES / "paddle_heavy" / f"{r}.json").read_text())["pages"][0]["blocks"])
                 for r in ("receipt2", "receipt5")}
 
@@ -391,6 +396,8 @@ def chart(s, x, y, w, h, categories, series, number_format, horizontal=False, le
     plot.overlap = 0 if len(series) > 1 else plot.overlap
     plot.vary_by_categories = False
     for ser, (_, values, color) in zip(plot.series, series):
+        if not isinstance(color, list):  # series colour drives the legend marker
+            ser.format.fill.solid(); ser.format.fill.fore_color.rgb = color
         colors = color if isinstance(color, list) else [color] * len(values)
         for i, c in enumerate(colors):
             if values[i] is None:
@@ -432,21 +439,21 @@ def mark(ok: bool):
     return ("✓ ", dict(bold=True, color=GOOD)) if ok else ("✗ ", dict(bold=True, color=RED))
 
 
-def example_table(s, x, y, receipt, fields, engine="light", col_w=(1.15, 1.25, 1.3, 1.3, 1.3), row_h=0.52):
+def example_table(s, x, y, receipt, fields, engine="light", col_w=(1.0, 1.15, 1.3, 1.3, 1.45), row_h=0.55):
     """Ground truth vs original rules vs improved rules vs DI + AOAI, values from detail.csv."""
     tbl = table(s, x, y, list(col_w), [0.62] + [row_h] * len(fields))
     heads = ["Field", "Correct value", f"Original rules\n({ENGINE[engine]})", f"Improved rules\n({ENGINE[engine]})",
              "Azure DI + AOAI"]
     for c, hd in enumerate(heads):
-        fill_cell(tbl.cell(0, c), [dict(t=hd, size=10.5, bold=True, color=WHITE)], fill=CHAR)
+        fill_cell(tbl.cell(0, c), [dict(t=hd, size=10, bold=True, color=WHITE)], fill=CHAR)
         cell_border(tbl.cell(0, c), sides="")
     for i, f in enumerate(fields, start=1):
-        fill_cell(tbl.cell(i, 0), [dict(t=FIELD_NAMES[f], size=11, bold=True)])
-        fill_cell(tbl.cell(i, 1), [dict(t=truth(receipt, f), size=11)])
+        fill_cell(tbl.cell(i, 0), [dict(t=FIELD_NAMES[f], size=10.5, bold=True)])
+        fill_cell(tbl.cell(i, 1), [dict(t=truth(receipt, f), size=10.5)])
         for c, a in enumerate((ORIG[engine], IMPR[engine], AOAI), start=2):
             v, ok = example(a, receipt, f)
             fill_cell(tbl.cell(i, c), [dict(runs=[mark(ok), (v, dict(color=CHAR if v != "(not found)" else GREY_TXT))],
-                                            size=11)], fill=GOOD_TINT if ok else TINT)
+                                            size=10.5)], fill=GOOD_TINT if ok else TINT)
         for c in range(5):
             cell_border(tbl.cell(i, c), sides="B", color="FFFFFF", w=19050)
     return tbl
@@ -472,16 +479,16 @@ s = content_slide(
     "Every medical claim needs the same few fields from a receipt; we tested how well that can be automated.",
     "We focus on six fields a claim needs. The question is not only accuracy but also cost, speed, reliability "
     "and how much ongoing effort each option needs.")
-text(s, 0.39, 2.0, 5.6, 3.95, [
+text(s, 0.39, 2.0, 5.6, 3.2, [
     dict(t="THE QUESTION", size=11, bold=True, color=GREY_TXT, after=10),
     dict(t="Is Azure Document Intelligence + Azure OpenAI worth its extra cost and complexity?", size=21,
          bold=True, color=RED, after=14),
     dict(t="Compared with open-source OCR plus fixed extraction rules that run on our own compute.", size=14),
 ], margin=0.28, fill=LIGHT)
 fields_txt = ["Doctor name", "Registration number", "Patient name", "Receipt number", "Service date", "Total amount"]
-text(s, 6.29, 2.0, 3.0, 3.95, [dict(t="SIX FIELDS PER RECEIPT", size=11, bold=True, color=GREY_TXT, after=10)] +
+text(s, 6.29, 2.0, 3.0, 3.2, [dict(t="SIX FIELDS PER RECEIPT", size=11, bold=True, color=GREY_TXT, after=10)] +
      [dict(t=f, size=14, bullet=True, after=6) for f in fields_txt], margin=0.28, fill=LIGHT)
-text(s, 9.59, 2.0, 3.35, 3.95, [dict(t="JUDGED ON", size=11, bold=True, color=GREY_TXT, after=10)] +
+text(s, 9.59, 2.0, 3.35, 3.2, [dict(t="JUDGED ON", size=11, bold=True, color=GREY_TXT, after=10)] +
      [dict(t=f, size=14, bullet=True, after=6) for f in
       ("Accuracy", "Speed", "Reliability", "Cost", "Maintenance effort")], margin=0.28, fill=LIGHT)
 
@@ -531,7 +538,8 @@ text(s, 9.3, 1.95, 3.64, 4.05, [
     dict(t="Bilingual: hospital, dental, medical centre", size=12.5, bullet=True, after=5),
     dict(t="Traditional Chinese: Chinese medicine", size=12.5, bullet=True, after=5),
     dict(t="From Version 1: vet invoice, NZ pharmacy", size=12.5, bullet=True, after=12),
-    dict(t="Each has distractors: referring doctors, issue dates, patient numbers, insurer payments, balances.",
+    dict(t="Several include distractors such as referring doctors, issue dates, patient numbers, insurer "
+           "payments and balances.",
          size=12, color=GREY_TXT),
 ], margin=0.25, fill=LIGHT)
 
@@ -570,13 +578,13 @@ def example_slide(title, message, notes, receipt, crop_needles, highlight, field
         extra, region2 = make_crop(receipt, crops_extra[0], f"crop_{receipt}_b", crops_extra[1])
         regions.append(region2)
     thumb = make_thumb(receipt, f"thumb_{receipt}_marked", regions)
-    picture(s, thumb, 0.39, 1.95, 1.55, 4.1)
+    picture(s, thumb, 0.39, 1.95, 1.25, 4.1)
     if extra:
-        _, _, _, h1 = picture(s, crop, 2.15, 1.95, 4.0, 1.95)
-        picture(s, extra, 2.15, 1.95 + h1 + 0.15, 4.0, 4.1 - h1 - 0.15)
+        _, _, _, h1 = picture(s, crop, 1.84, 1.95, 4.7, 1.3)
+        picture(s, extra, 1.84, 1.95 + h1 + 0.15, 4.7, 4.1 - h1 - 0.15)
     else:
-        picture(s, crop, 2.15, 1.95, 4.0, 4.1)
-    example_table(s, 6.4, 1.95, receipt, fields)
+        picture(s, crop, 1.84, 1.95, 4.7, 4.1)
+    example_table(s, 6.74, 1.95, receipt, fields)
     return s
 
 
@@ -588,7 +596,7 @@ s = example_slide(
     "rules also returned '主診醫生' as the doctor. The improved rules strip label translations; AOAI read the text "
     "correctly with its unchanged prompt. Values from detail.csv, checked against the extraction JSON. " + SOURCE,
     "receipt8",
-    ["Receipt No.", "Patient 病人", "Visit Date", "Attending Doctor", "Reg. No.", "M19903"],
+    ["Patient 病人", "蔡嘉穎", "Attending Doctor", "Dr. Siu Ka Wai"],
     ["Patient 病人", "蔡嘉穎", "Attending Doctor", "Dr. Siu Ka Wai"],
     ["patient_name", "doctor_name", "registration_number", "receipt_number", "service_date"])
 footnote(s, "Rules shown on PaddleOCR Light text; Azure DI with the original rules made the same patient error. "
@@ -653,8 +661,9 @@ s = example_slide(
     "receipt9",
     ["Invoice No", "FClinician"], ["Invoice No", "FClinician"],
     ["receipt_number", "patient_name", "doctor_name", "total_amount"],
-    crops_extra=(["Sub Total", "Total Amount", "Receipt #", "380048"],
-                 ["Sub Total", "Total Amount", "Receipt #", "380048"]))
+    crops_extra=(["Sub Total", "HKD 1361.50", "Total Amount", "HKD 1361.00", "Details of Payments Received",
+                  "Receipt #", "380048"],
+                 ["Sub Total", "HKD 1361.50", "Total Amount", "HKD 1361.00", "Receipt #", "380048"]))
 footnote(s, f"PaddleOCR Heavy also found almost no text on two photos ({HEAVY_BLOCKS['receipt2']} and "
             f"{HEAVY_BLOCKS['receipt5']} text blocks): an OCR failure no rule can fix. ✓ correct · ✗ wrong or missing.")
 
@@ -664,7 +673,8 @@ s = content_slide(
     "Speed, Reliability and Cost",
     f"Azure DI is fastest ({secs(IMPR['di']):.1f} s); every approach processed all {N_RECEIPTS} receipts.",
     f"Average seconds per receipt. PaddleOCR = CPU on Azure ML compute; Azure = API call time including network. "
-    f"Rule extraction adds about {EXTRACT_MS:.0f} ms. AOAI tokens are averages over the {N_RECEIPTS} receipts. "
+    f"Rule extraction adds {EXTRACT_TXT} (original rules {EXTRACT_MS['original']:.1f} ms, improved "
+    f"{EXTRACT_MS['improved']:.1f} ms on average). AOAI tokens are averages over the {N_RECEIPTS} receipts. "
     "Prices (compute, Document Intelligence pages, gpt-5-mini tokens) are not yet confirmed. " + SOURCE)
 chart(s, 0.39, 1.9, 7.6, 4.2, names4, [("Seconds", [round(secs(a), 1) for a in speed],
                                         [RED, MID_GREY, RED, RED])], '0.0" s"', horizontal=True,
@@ -677,7 +687,7 @@ text(s, 8.3, 1.95, 4.64, 1.55, [
 ], margin=0.22, fill=LIGHT)
 text(s, 8.3, 3.7, 4.64, 2.3, [
     dict(t="COST DRIVERS (MEASURED)", size=11, bold=True, color=GREY_TXT, after=6),
-    dict(t=f"Rules: about {EXTRACT_MS:.0f} ms of CPU per receipt", size=12, bullet=True, after=4),
+    dict(t=f"Rules: {EXTRACT_TXT} of CPU per receipt", size=12, bullet=True, after=4),
     dict(t="PaddleOCR: CPU time on our compute; no per-call fee", size=12, bullet=True, after=4),
     dict(t=f"AOAI: about {TOKENS_IN:.0f} input + {TOKENS_OUT:.0f} output tokens per receipt", size=12,
          bullet=True, after=4),
@@ -726,20 +736,20 @@ s = content_slide(
     "tuned on them. A fair comparison freezes both candidates first, then tests on unseen, representative "
     "receipts and also counts the effort to keep rules working on new layouts. " + SOURCE)
 half = (12.55 - 0.3) / 2
-text(s, 0.39, 2.0, half, 2.0, [
+text(s, 0.39, 2.0, half, 1.6, [
     dict(t="CANDIDATE 1", size=11, bold=True, color=GREY_TXT, after=6),
     dict(runs=[("PaddleOCR Light + improved rules  ", dict(bold=True, color=RED, size=15)),
                (f"{acc(IMPR['light']):.1f}% (tuned) · {secs(IMPR['light']):.1f} s", dict(bold=True, size=12.5))],
          after=6),
     dict(t="Offline, no per-request charges; needs rules maintained for each new layout.", size=12.5),
 ], margin=0.25, fill=TINT)
-text(s, 0.39 + half + 0.3, 2.0, half, 2.0, [
+text(s, 0.39 + half + 0.3, 2.0, half, 1.6, [
     dict(t="CANDIDATE 2", size=11, bold=True, color=GREY_TXT, after=6),
     dict(runs=[("Azure DI + AOAI  ", dict(bold=True, color=RED, size=15)),
                (f"{acc(AOAI):.1f}% · {secs(AOAI):.1f} s", dict(bold=True, size=12.5))], after=6),
     dict(t="Flexible on varied layouts with an unchanged prompt; API costs and run-to-run variability.", size=12.5),
 ], margin=0.25, fill=TINT)
-text(s, 0.39, 4.2, 12.55, 0.5, [dict(runs=[
+text(s, 0.39, 3.9, 12.55, 0.5, [dict(runs=[
     ("Limitation:  ", dict(bold=True, color=WHITE)),
     (f"{N_RECEIPTS} receipts, mostly mock and printed; the improved rules were tuned on them.", dict(color=WHITE))],
     size=13.5)], anchor=MSO_ANCHOR.MIDDLE, margin=0.2, fill=CHAR)
@@ -748,7 +758,7 @@ steps = [("Freeze both", "Lock the improved rules and the AOAI prompt before any
          ("Confirm prices", "Compute rate, Document Intelligence pages, gpt-5-mini tokens")]
 sw = (12.55 - 2 * 0.3) / 3
 for i, (head, desc) in enumerate(steps):
-    text(s, 0.39 + i * (sw + 0.3), 4.95, sw, 1.2, [
+    text(s, 0.39 + i * (sw + 0.3), 4.65, sw, 1.2, [
         dict(t=f"NEXT STEP {i + 1}", size=10, bold=True, color=GREY_TXT, after=4),
         dict(t=head, size=14, bold=True, after=3), dict(t=desc, size=12, color=GREY_TXT)], margin=0.2, fill=LIGHT)
 

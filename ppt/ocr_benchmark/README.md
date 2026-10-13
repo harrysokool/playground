@@ -29,34 +29,34 @@ is typed in by hand.
 | `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py` |
 | `scripts/` | The generators |
 
-## Generate the Version 2 deck (Azure ML compute)
+## Generate the Version 2 deck
 
-Run from the repository root. This needs python-pptx and Pillow; Pillow is already in the
-benchmark environment.
+This reads committed results only: no OCR, scoring or Azure calls. Run it anywhere that has
+python-pptx and Pillow; the committed deck was built on a Mac. From the repository root:
 
 ```bash
-source ~/venvs/paddle322/bin/activate && git pull && pip install python-pptx==1.0.2
-python3 ppt/ocr_benchmark/scripts/generate_ppt_v2.py --force
+python3 ppt/ocr_benchmark/scripts/generate_ppt_v2.py --force   # deck + receipt crops in assets_v2/
+python3 ppt/ocr_benchmark/scripts/check_deck_v2.py              # verifies figures; writes previews/deck_text.md
 ```
 
 Without `--force`, the script won't overwrite an existing deck. It always refuses to write
 into `archive/` or `template/`.
 
-## Previews (Azure ML compute)
+`scripts/build_v2_on_azure.sh` does the same on Azure ML compute, then commits and pushes.
 
-These need LibreOffice, Poppler, and a CJK font so Chinese text renders in the preview:
+## Previews
+
+These need LibreOffice and Poppler:
 
 ```bash
-sudo apt-get update && sudo apt-get install -y libreoffice-impress poppler-utils fonts-noto-cjk
 cd ppt/ocr_benchmark
 soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V2.pptx
 mv previews/OCR_Benchmark_V2.pdf previews/OCR_Benchmark_V2_preview.pdf
-pdftoppm -png -r 60 previews/OCR_Benchmark_V2_preview.pdf previews/slide
+pdftoppm -png -r 80 previews/OCR_Benchmark_V2_preview.pdf previews/slide
 ```
 
-LibreOffice substitutes fonts (Arial → Liberation Sans, Microsoft JhengHei → Noto CJK), so the
-preview is for review only. PowerPoint renders the real fonts. Commit `current/`, `previews/` and
-`assets_v2/` afterwards.
+LibreOffice may substitute fonts, so the preview is for review. PowerPoint renders Arial and
+Microsoft JhengHei (Traditional Chinese).
 
 ## Outstanding before distribution
 
