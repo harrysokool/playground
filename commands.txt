@@ -4,9 +4,9 @@ pip install -r requirements-azure-openai.txt
 
 
 
-export AZURE_CLIENT_ID="YOUR_MANAGED_IDENTITY_CLIENT_ID"
-export AZURE_DI_ENDPOINT="https://YOUR_DI_RESOURCE.cognitiveservices.azure.com/"
-export AZURE_OPENAI_ENDPOINT="https://YOUR_AOAI_RESOURCE.openai.azure.com/"
+export AZURE_CLIENT_ID="6e2d23c9-d60e-4e28-87a3-7735eb7a8c15"
+export AZURE_DI_ENDPOINT="https://aifr-hk01-eas-d-dslab-ia01.cognitiveservices.azure.com/"
+export AZURE_OPENAI_ENDPOINT="https://oai-hk01-swc-d-ia01.openai.azure.com/"
 export AZURE_OPENAI_DEPLOYMENT="gpt-5-mini"
 
 
