@@ -324,6 +324,53 @@ A count below 9/9 after Azure DI means some receipts failed. The reasons are in
 `$OUT/azure_di/di_response/receiptN.json`. For DI + AOAI, they're in each failed receipt's own
 JSON (`status`, `error_stage`, `error`).
 
+## Improved rules experiment (Phase 10, tuned on Version 2)
+
+`receipt_bench/extraction_improved.py` (`extract_cli --rules improved`) is a separate,
+LLM-free rule set. It adds:
+- Traditional Chinese and bilingual labels;
+- tolerance for OCR'd labels (glued words, full-width punctuation, simplified characters);
+- distractor labels that never supply an answer;
+- card layouts, and registration numbers inside a line;
+- service vs issue dates, and totals vs subtotals, payments and balances.
+
+The original general rules are unchanged. **The nine Version 2 receipts were used to develop
+these rules, so their Version 2 scores are not an independent test.**
+
+Run on Azure ML from this folder. Only extraction is re-run, on the existing raw OCR, so there
+are no paid calls:
+
+```bash
+source ~/venvs/paddle322/bin/activate && git pull
+python -m pytest -q tests/test_extraction_improved.py && python -m pytest -q
+OUT=results/v2
+for e in light heavy; do python -m receipt_bench.extract_cli --rules improved --input $OUT/paddle_$e --output $OUT/extracted_improved_$e; done
+python -m receipt_bench.extract_cli --rules improved --input $OUT/azure_di --output $OUT/extracted_improved_azure_di
+python -m receipt_bench.score --ground-truth data/receipts_v2/benchmark_ground_truth.xlsx \
+    --approach paddle_light_general=$OUT/extracted_general_light --approach paddle_light_improved=$OUT/extracted_improved_light \
+    --approach paddle_heavy_general=$OUT/extracted_general_heavy --approach paddle_heavy_improved=$OUT/extracted_improved_heavy \
+    --approach azure_di_general=$OUT/extracted_general_azure_di --approach azure_di_improved=$OUT/extracted_improved_azure_di \
+    --approach azure_di_aoai=$OUT/di_aoai --output-dir $OUT/scores_improved
+for d in $OUT/extracted_general_* $OUT/extracted_improved_*; do echo "$d: mean extraction $(grep -h '"extract_ms"' $d/*.json | awk -F': ' '{s+=$2; n++} END {printf "%.1f", s/n}') ms"; done
+```
+
+**Version 1 check.** This re-runs only extraction, on the Version 1 OCR outputs frozen in the
+tag `ocr-benchmark-v1`. Version 1 receipts 4 and 6 are the same images as Version 2 receipts 9
+and 10, so only Version 1 receipts 1, 2, 3 and 5 were unseen during development:
+
+```bash
+V1=results/v1_rerun && mkdir -p $V1
+git archive ocr-benchmark-v1:python/receipt_ocr_benchmark/results paddle_light paddle_heavy azure_di \
+    extracted_general_light extracted_general_heavy extracted_general_azure_di | tar -x -C $V1
+for e in light heavy; do python -m receipt_bench.extract_cli --rules improved --input $V1/paddle_$e --output $V1/extracted_improved_$e; done
+python -m receipt_bench.extract_cli --rules improved --input $V1/azure_di --output $V1/extracted_improved_azure_di
+python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
+    --approach paddle_light_general=$V1/extracted_general_light --approach paddle_light_improved=$V1/extracted_improved_light \
+    --approach paddle_heavy_general=$V1/extracted_general_heavy --approach paddle_heavy_improved=$V1/extracted_improved_heavy \
+    --approach azure_di_general=$V1/extracted_general_azure_di --approach azure_di_improved=$V1/extracted_improved_azure_di \
+    --output-dir $V1/scores
+```
+
 ## Scoring all approaches (Phase 1 of the final comparison)
 
 `receipt_bench/score.py` scores any number of named approaches against the same ground truth
