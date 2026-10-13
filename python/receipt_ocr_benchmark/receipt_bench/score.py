@@ -1,34 +1,56 @@
-"""Score extracted JSON (light + heavy) against the manually entered ground-truth workbook.
+"""Score benchmark results from any number of approaches against the hand-checked ground truth.
 
 Usage:
     python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
-        --light results/extracted_tuned_light --heavy results/extracted_tuned_heavy \
-        --output results/score_tuned.md
+        --approach paddle_light=results/extracted_general_light \
+        --approach paddle_heavy=results/extracted_general_heavy \
+        --approach azure_di=results/di/20260929T073615Z \
+        --approach azure_di_aoai=results/di_aoai/20260929T081700Z \
+        --output-dir results/scores
 
-The workbook is read with the standard library (xlsx is zipped XML) to avoid a new dependency.
+Each of the six fields of each receipt is marked:
+- Correct: the field is on the receipt and the approach returned the same value.
+- Wrong:   the field is on the receipt and the approach returned a different value or nothing.
+           A receipt with no result file, a failed run, or a result with no extracted fields
+           counts as nothing, so failures can only lower accuracy.
+- N/A:     the field is not on the receipt (ground truth "na"); excluded from accuracy. If the
+           approach returned a value anyway it is counted separately as "invented".
 
-Comparison rules:
-- GT "na" / empty means the field is absent: correct only if the extraction is null.
-- Names: case, punctuation, whitespace and titles (Dr / 醫生 / 医生) are ignored.
-- Dates: Excel auto-converted the typed numeric dates as MM/DD, while the extractor reads them
-  day-first. A numeric date whose day and month are both <= 12 is therefore counted correct
-  when it matches with day and month swapped - i.e. it matches the date as printed - and is
-  marked "(d/m)" so the ambiguity stays visible.
-- Amounts: equal within 0.005. Receipt numbers: exact string match.
+Accuracy = Correct / applicable (non-N/A) fields x 100, overall and per field.
+
+Normalization: names ignore case, punctuation, spacing and titles (Dr / 醫生 / 医生). Dates are
+compared as calendar dates: ground truth must be ISO YYYY-MM-DD text; a non-ISO predicted date
+is read day-first (Hong Kong convention). Amounts are equal within 0.005. Other fields are an
+exact string match.
+
+Result files: one JSON per receipt named like receipt1.json (a run's summary.json is skipped).
+- Paddle extraction output (extract_cli): the six fields at the top level.
+- Azure DI + AOAI runner output: the fields under "benchmark_fields".
+- Anything else (e.g. raw Azure DI OCR with no extracted fields) counts as no result.
+Field-name aliases (FIELD_ALIASES, e.g. visit_date -> service_date) fill a standard field that
+is empty; for DI + AOAI they are also looked up in the full "aoai_output".
+
+Outputs in --output-dir: report.md, summary.csv (one row per approach) and detail.csv (one row
+per receipt x field x approach).
 """
 
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import re
 import zipfile
-from collections import Counter
-from datetime import date, timedelta
+from datetime import date
 from pathlib import Path
 from xml.etree import ElementTree
 
-from receipt_bench.extraction_tuned import FIELDS, parse_date
+from receipt_bench.extraction_tuned import parse_amount, parse_date
+
+FIELDS = ["doctor_name", "registration_number", "patient_name", "receipt_number", "service_date", "total_amount"]
+
+# Other names an approach may use for a standard field.
+FIELD_ALIASES = {"visit_date": "service_date"}
 
 NS = {"m": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
 REL_NS = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id"
@@ -70,20 +92,31 @@ def _col_index(letters: str) -> int:
 
 
 def load_ground_truth(path: Path) -> dict[str, dict[str, str | None]]:
+    """Returns {"receipt1": {field: value or None}}. Dates must be ISO text, so an Excel
+    auto-converted date (a serial number like 46205) fails loudly instead of being guessed."""
     rows = read_sheet(path, "Ground Truth")
     header = [h.strip() if h else "" for h in rows[0]]
+    missing = [f for f in FIELDS if f not in header]
+    if missing:
+        raise ValueError(f"ground truth is missing columns: {missing}")
     gt = {}
     for row in rows[1:]:
         rec = {h: (row[i] if i < len(row) else None) for i, h in enumerate(header)}
         rid = (rec.get("receipt_id") or "").strip()
         if not rid:
             continue
-        gt[re.sub(r"^r(\d+)$", r"receipt\1", rid)] = rec
+        values = {f: None if _is_na(rec.get(f)) else str(rec[f]).strip() for f in FIELDS}
+        if values["service_date"] is not None:
+            try:
+                date.fromisoformat(values["service_date"])
+            except ValueError:
+                raise ValueError(f"{rid}: service_date must be ISO YYYY-MM-DD text, got {values['service_date']!r}")
+        gt[re.sub(r"^r(\d+)$", r"receipt\1", rid)] = values
     return gt
 
 
 def _is_na(v) -> bool:
-    return v is None or str(v).strip().lower() in {"", "na", "n/a", "none"}
+    return v is None or str(v).strip().lower() in {"", "na", "n/a", "none", "null", "-"}
 
 
 def _norm_name(v: str) -> str:
@@ -93,114 +126,167 @@ def _norm_name(v: str) -> str:
     return re.sub(r"\s+", " ", t).strip()
 
 
-def _gt_date(v) -> date | None:
+def _to_date(v) -> date | None:
     s = str(v).strip()
-    if re.fullmatch(r"\d+(\.0+)?", s):  # Excel serial
-        return date(1899, 12, 30) + timedelta(days=int(float(s)))
-    parsed = parse_date(s)
-    return date.fromisoformat(parsed[0]) if parsed else None
+    try:
+        return date.fromisoformat(s)
+    except ValueError:
+        parsed = parse_date(s)  # day-first
+        return date.fromisoformat(parsed[0]) if parsed else None
 
 
-def _gt_display(field: str, v) -> str:
-    if _is_na(v):
-        return "na"
-    if field == "service_date":
-        d = _gt_date(v)
-        return d.isoformat() if d else str(v)
-    s = str(v)
-    return s[:-2] if re.fullmatch(r"\d+\.0", s) else s
+def _to_amount(v) -> float | None:
+    if isinstance(v, (int, float)):
+        return float(v)
+    parsed = parse_amount(str(v))
+    return parsed[0] if parsed else None
 
 
-def compare(field: str, gt, pred) -> tuple[bool, str]:
-    """Returns (correct, marker)."""
-    if _is_na(gt):
-        return pred is None, ""
-    if pred is None:
-        return False, ""
+def matches(field: str, gt: str, pred) -> bool:
     if field in ("doctor_name", "patient_name"):
-        return _norm_name(gt) == _norm_name(pred), ""
-    if field == "total_amount":
-        return abs(float(gt) - float(pred)) < 0.005, ""
+        return _norm_name(gt) == _norm_name(pred)
     if field == "service_date":
-        g, p = _gt_date(gt), date.fromisoformat(pred)
-        if g == p:
-            return True, ""
-        if g and g.day <= 12 and g.month <= 12:
-            try:
-                if date(g.year, g.day, g.month) == p:
-                    return True, " (d/m)"
-            except ValueError:
-                pass
-        return False, ""
-    return _gt_display(field, gt) == str(pred).strip(), ""
+        return date.fromisoformat(gt) == _to_date(pred)
+    if field == "total_amount":
+        p = _to_amount(pred)
+        return p is not None and abs(float(gt) - p) < 0.005
+    return str(gt).strip() == str(pred).strip()
 
 
-CATEGORIES = ["Correct", "Correctly null", "Wrong", "Missing"]
+def read_result(raw: dict) -> tuple[dict | None, float | None]:
+    """Returns (fields, processing_ms) for one result JSON. fields is None when the file holds no
+    usable result; otherwise it has exactly FIELDS, with None for anything not found."""
+    if "benchmark_fields" in raw:  # Azure DI + AOAI runner
+        secs = raw.get("timings_seconds") or {}
+        ms = secs["total"] * 1000 if "total" in secs else None
+        if raw.get("status") != "ok" or not raw["benchmark_fields"]:
+            return None, ms
+        fields, extra = dict(raw["benchmark_fields"]), raw.get("aoai_output") or {}
+    elif any(f in raw for f in FIELDS):  # Paddle extraction output
+        t = raw.get("timings") or {}
+        ms = t["ocr_predict_ms"] + t.get("extract_ms", 0) if "ocr_predict_ms" in t else None
+        fields, extra = {f: raw.get(f) for f in FIELDS}, raw
+    else:  # e.g. raw Azure DI OCR: text only, no fields
+        secs = raw.get("timings_seconds") or {}
+        return None, (sum(secs.values()) * 1000 if secs else None)
+    for alias, f in FIELD_ALIASES.items():
+        for source in (fields, extra):
+            if _is_na(fields.get(f)) and not _is_na(source.get(alias)):
+                fields[f] = source[alias]
+    return {f: None if _is_na(fields.get(f)) else fields[f] for f in FIELDS}, ms
 
 
-def category(gt, pred, ok: bool) -> str:
-    """Correct / Correctly null / Wrong (a value that does not match, incl. a value where GT is
-    na) / Missing (GT has a value, extraction returned null)."""
-    if ok:
-        return "Correctly null" if pred is None else "Correct"
-    return "Missing" if pred is None else "Wrong"
+def load_results(directory: Path) -> dict[str, tuple[dict | None, float | None]]:
+    return {p.stem: read_result(json.loads(p.read_text())) for p in sorted(Path(directory).glob("*.json"))
+            if p.stem != "summary"}
 
 
-def _load_dir(d: Path | None) -> dict[str, dict]:
-    if d is None:
-        return {}
-    return {p.stem: json.loads(p.read_text()) for p in sorted(d.glob("*.json"))}
+def score_approach(gt: dict, results: dict) -> dict:
+    """Marks every receipt x field and totals them for one approach."""
+    per_field = {f: {"correct": 0, "applicable": 0, "invented": 0} for f in FIELDS}
+    detail, times, no_result = [], [], 0
+    for doc_id in gt:
+        fields, ms = results.get(doc_id, (None, None))
+        no_result += fields is None
+        if ms is not None:
+            times.append(ms)
+        for f in FIELDS:
+            g, pred = gt[doc_id][f], (fields or {}).get(f)
+            if g is None:
+                mark = "N/A" if pred is None else "N/A (invented)"
+                per_field[f]["invented"] += pred is not None
+            else:
+                mark = "Correct" if pred is not None and matches(f, g, pred) else "Wrong"
+                per_field[f]["applicable"] += 1
+                per_field[f]["correct"] += mark == "Correct"
+            detail.append({"receipt": doc_id, "field": f, "ground_truth": "na" if g is None else g,
+                           "predicted": "" if pred is None else pred, "result": mark})
+    correct = sum(v["correct"] for v in per_field.values())
+    applicable = sum(v["applicable"] for v in per_field.values())
+    return {
+        "correct": correct,
+        "applicable": applicable,
+        "accuracy_pct": _pct(correct, applicable),
+        "invented": sum(v["invented"] for v in per_field.values()),
+        "no_result_receipts": no_result,
+        "mean_ms_per_receipt": round(sum(times) / len(times)) if times else None,
+        "fields": {f: {**v, "accuracy_pct": _pct(v["correct"], v["applicable"])} for f, v in per_field.items()},
+        "detail": detail,
+    }
+
+
+def _pct(n: int, d: int) -> float | None:
+    return round(100 * n / d, 1) if d else None
+
+
+def render_markdown(scores: dict[str, dict], n_receipts: int) -> str:
+    names = list(scores)
+    head = "| | " + " | ".join(names) + " |\n|---|" + "---|" * len(names)
+    lines = ["## Overall", "", head]
+    rows = [
+        ("Correct / applicable", lambda s: f"{s['correct']}/{s['applicable']}"),
+        ("**Accuracy**", lambda s: f"**{s['accuracy_pct']}%**"),
+        ("Invented values (field not on receipt)", lambda s: str(s["invented"])),
+        (f"Receipts with no result (of {n_receipts})", lambda s: str(s["no_result_receipts"])),
+        ("Mean processing time per receipt", lambda s: "n/a" if s["mean_ms_per_receipt"] is None
+         else f"{s['mean_ms_per_receipt'] / 1000:.1f} s"),
+    ]
+    lines += [f"| {label} | " + " | ".join(fn(scores[n]) for n in names) + " |" for label, fn in rows]
+    lines += ["", "## Accuracy by field (correct / applicable)", "", head]
+    for f in FIELDS:
+        cells = [f"{scores[n]['fields'][f]['correct']}/{scores[n]['fields'][f]['applicable']}"
+                 + (f" ({scores[n]['fields'][f]['accuracy_pct']}%)" if scores[n]['fields'][f]['applicable'] else " (all N/A)")
+                 for n in names]
+        lines.append(f"| {f} | " + " | ".join(cells) + " |")
+    lines += ["", "## Detail", "", "| receipt | field | ground truth | " + " | ".join(names) + " |",
+              "|---|---|---|" + "---|" * len(names)]
+    for i, row in enumerate(scores[names[0]]["detail"]):
+        cells = [f"{scores[n]['detail'][i]['predicted'] or 'null'} → {scores[n]['detail'][i]['result']}" for n in names]
+        lines.append(f"| {row['receipt']} | {row['field']} | {row['ground_truth']} | " + " | ".join(cells) + " |")
+    return "\n".join(lines) + "\n"
+
+
+def write_outputs(scores: dict[str, dict], out_dir: Path, n_receipts: int) -> None:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "report.md").write_text(render_markdown(scores, n_receipts))
+    with open(out_dir / "summary.csv", "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["approach", "correct", "applicable", "accuracy_pct", "invented", "no_result_receipts",
+                    "mean_ms_per_receipt"] + [f"{f}_accuracy_pct" for f in FIELDS])
+        for name, s in scores.items():
+            w.writerow([name, s["correct"], s["applicable"], s["accuracy_pct"], s["invented"], s["no_result_receipts"],
+                        s["mean_ms_per_receipt"]] + [s["fields"][f]["accuracy_pct"] for f in FIELDS])
+    with open(out_dir / "detail.csv", "w", newline="") as fh:
+        w = csv.DictWriter(fh, ["approach", "receipt", "field", "ground_truth", "predicted", "result"])
+        w.writeheader()
+        for name, s in scores.items():
+            w.writerows({"approach": name, **row} for row in s["detail"])
+
+
+def _sort_key(doc_id: str) -> int:
+    return int(re.sub(r"\D", "", doc_id) or 0)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--ground-truth", required=True, type=Path)
-    parser.add_argument("--light", required=True, type=Path)
-    parser.add_argument("--heavy", required=True, type=Path)
-    parser.add_argument("--output", type=Path, help="Optional path to also write the markdown report to.")
+    parser.add_argument("--approach", required=True, action="append", metavar="NAME=DIR",
+                        help="An approach name and its directory of per-receipt result JSON. Repeat per approach.")
+    parser.add_argument("--output-dir", type=Path, help="Optional directory for report.md, summary.csv, detail.csv.")
     args = parser.parse_args()
 
-    gt = load_ground_truth(args.ground_truth)
-    runs = {"light": _load_dir(args.light), "heavy": _load_dir(args.heavy)}
+    gt = dict(sorted(load_ground_truth(args.ground_truth).items(), key=lambda kv: _sort_key(kv[0])))
+    scores = {}
+    for spec in args.approach:
+        name, sep, directory = spec.partition("=")
+        if not sep or not Path(directory).is_dir():
+            parser.error(f"--approach must be NAME=DIR with an existing directory, got {spec!r}")
+        scores[name] = score_approach(gt, load_results(Path(directory)))
 
-    lines = ["| receipt | field | ground truth | light | light result | heavy | heavy result |", "|---|---|---|---|---|---|---|"]
-    tally = {eng: {f: 0 for f in FIELDS} for eng in runs}
-    cats = {eng: Counter() for eng in runs}
-    for doc_id in sorted(gt, key=lambda k: int(re.sub(r"\D", "", k) or 0)):
-        for f in FIELDS:
-            g = gt[doc_id].get(f)
-            cells = [doc_id, f, _gt_display(f, g)]
-            for eng, results in runs.items():
-                pred = results.get(doc_id, {}).get(f)
-                ok, marker = compare(f, g, pred)
-                cat = category(g, pred, ok)
-                tally[eng][f] += ok
-                cats[eng][cat] += 1
-                cells += ["null" if pred is None else str(pred), cat + marker]
-            lines.append("| " + " | ".join(cells) + " |")
-
-    n = len(gt)
-    lines += ["", "| field | light | heavy |", "|---|---|---|"]
-    for f in FIELDS:
-        lines.append(f"| {f} | {tally['light'][f]}/{n} | {tally['heavy'][f]}/{n} |")
-    tot = {eng: sum(t.values()) for eng, t in tally.items()}
-    lines.append(f"| **all fields** | **{tot['light']}/{n * len(FIELDS)}** | **{tot['heavy']}/{n * len(FIELDS)}** |")
-    for c in CATEGORIES:
-        lines.append(f"| {c} | {cats['light'][c]} | {cats['heavy'][c]} |")
-
-    timing_rows = []
-    for eng, results in runs.items():
-        ocr = [r.get("timings", {}).get("ocr_predict_ms") for r in results.values()]
-        ext = [r.get("timings", {}).get("extract_ms") for r in results.values()]
-        if all(v is not None for v in ocr + ext) and ocr:
-            timing_rows.append(f"| {eng} | {sum(ocr) / len(ocr):.0f} | {sum(ext) / len(ext):.2f} |")
-    if timing_rows:
-        lines += ["", "| engine | mean OCR predict ms | mean extraction ms |", "|---|---|---|"] + timing_rows
-
-    report = "\n".join(lines)
+    report = render_markdown(scores, len(gt))
     print(report)
-    if args.output:
-        args.output.write_text(report + "\n")
+    if args.output_dir:
+        write_outputs(scores, args.output_dir, len(gt))
 
 
 if __name__ == "__main__":

@@ -89,7 +89,7 @@ layouts fall back to the Phase 3 baseline rules.
 python -m receipt_bench.extract_cli --rules tuned --input results/paddle_light --output results/extracted_tuned_light
 python -m receipt_bench.extract_cli --rules tuned --input results/paddle_heavy --output results/extracted_tuned_heavy
 python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
-    --light results/extracted_tuned_light --heavy results/extracted_tuned_heavy --output results/score_tuned.md
+    --approach tuned_light=results/extracted_tuned_light --approach tuned_heavy=results/extracted_tuned_heavy
 ```
 
 ## General rules baseline (Phase 3c)
@@ -103,12 +103,59 @@ records `timings.ocr_predict_ms` (from the raw OCR JSON) and `timings.extract_ms
 ```bash
 python -m receipt_bench.extract_cli --rules general --input results/paddle_light --output results/extracted_general_light
 python -m receipt_bench.extract_cli --rules general --input results/paddle_heavy --output results/extracted_general_heavy
-python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
-    --light results/extracted_general_light --heavy results/extracted_general_heavy --output results/score_general.md
 ```
 
-`score.py` compares against the hand-entered ground truth (see its docstring for the matching
-rules, including the day/month caveat for Excel-converted dates).
+## Scoring all approaches (Phase 1 of the final comparison)
+
+`receipt_bench/score.py` scores any number of named approaches against the same ground truth
+and the same six fields: `doctor_name`, `registration_number`, `patient_name`,
+`receipt_number`, `service_date`, `total_amount`.
+
+```bash
+python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
+    --approach paddle_light=results/extracted_general_light \
+    --approach paddle_heavy=results/extracted_general_heavy \
+    --approach azure_di=results/<azure_di_run_dir> \
+    --approach azure_di_aoai=results/<azure_di_aoai_run_dir> \
+    --output-dir results/scores
+```
+
+Each receipt × field is marked:
+
+- **Correct**: the field is on the receipt and the approach returned the same value.
+- **Wrong**: the field is on the receipt and the approach returned a different value or
+  nothing. A missing result file, a failed run (e.g. a timeout) or a result with no extracted
+  fields counts as nothing, so failures can only lower accuracy.
+- **N/A**: the field is not on the receipt (ground truth `na`). These are excluded from
+  accuracy. A value returned anyway is counted separately as **invented**.
+
+`Accuracy = Correct / applicable fields × 100`, overall and for each field.
+
+Normalization is kept simple:
+- Names ignore case, punctuation, spacing and titles (Dr / 醫生 / 医生).
+- Dates are compared as calendar dates with no day/month swapping. The ground truth must be
+  ISO text, and a non-ISO predicted date is read day-first.
+- Amounts are equal within 0.005.
+- Receipt and registration numbers are an exact match.
+
+`--output-dir` writes:
+- `report.md`: overall table, per-field accuracy and a per-receipt detail table.
+- `summary.csv`: one row per approach (correct, applicable, accuracy %, invented, receipts
+  with no result, mean processing ms, per-field accuracy %). Use this for the deck.
+- `detail.csv`: one row per approach × receipt × field.
+
+**Adding an approach:** write one JSON per receipt (`receipt1.json`, …) into a directory and
+pass it as `--approach NAME=DIR`. The scorer reads two formats today (see `read_result`):
+- the six fields at the top level, as `extract_cli` writes them, with optional
+  `timings.ocr_predict_ms` / `timings.extract_ms`;
+- the Azure DI + AOAI runner format, with fields under `benchmark_fields`, plus `status`,
+  `timings_seconds.total` and `aoai_output`.
+
+Use the six standard field names and `null` for anything not found. Write dates as ISO
+`YYYY-MM-DD` if possible. Other names for a field are mapped in `FIELD_ALIASES` (currently
+`visit_date` → `service_date`); an alias only fills a standard field that is empty.
+
+Ground-truth corrections and open questions are in `data/ground_truth/GROUND_TRUTH_REVIEW.md`.
 
 ## Data
 
