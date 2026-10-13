@@ -1,25 +1,23 @@
-git pull
-
-cd python/receipt_ocr_benchmark
-
 source ~/venvs/paddle322/bin/activate
+pip install -r requirements-azure-openai.txt
 
-pip install -r requirements-azure-di.txt
+
 
 
 export AZURE_CLIENT_ID="YOUR_MANAGED_IDENTITY_CLIENT_ID"
+export AZURE_DI_ENDPOINT="https://YOUR_DI_RESOURCE.cognitiveservices.azure.com/"
+export AZURE_OPENAI_ENDPOINT="https://YOUR_AOAI_RESOURCE.openai.azure.com/"
+export AZURE_OPENAI_DEPLOYMENT="gpt-5-mini"
 
-export AZURE_DI_ENDPOINT="https://YOUR_RESOURCE.cognitiveservices.azure.com/"
+
+python -m receipt_bench.di_aoai \
+  --input data/raw/receipt1.jpeg \
+  --output results/di_aoai_test
 
 
-python -m receipt_bench.azure_di \
+  python -m receipt_bench.di_aoai \
   --input data/raw \
-  --output results/azure_di
-
-  python -m receipt_bench.extract_cli \
-  --rules general \
-  --input results/azure_di \
-  --output results/extracted_general_azure_di
+  --output results/di_aoai
 
 
   python -m receipt_bench.score \
@@ -27,4 +25,5 @@ python -m receipt_bench.azure_di \
   --approach paddle_light=results/extracted_general_light \
   --approach paddle_heavy=results/extracted_general_heavy \
   --approach azure_di=results/extracted_general_azure_di \
-  --output-dir results/scores_paddle_di
+  --approach azure_di_aoai=results/di_aoai \
+  --output-dir results/scores_all
