@@ -21,7 +21,7 @@ python -m receipt_bench.di_aoai \
 
 
   python -m receipt_bench.score \
-  --ground-truth data/ground_truth/ground_truth_template.xlsx \
+
   --approach paddle_light=results/extracted_general_light \
   --approach paddle_heavy=results/extracted_general_heavy \
   --approach azure_di=results/extracted_general_azure_di \
