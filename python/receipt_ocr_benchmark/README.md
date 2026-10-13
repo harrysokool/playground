@@ -165,13 +165,23 @@ Azure OpenAI.
   A failed receipt gets no raw OCR file, so the scorer counts all its fields as Wrong.
 
 Run on **Azure ML compute**. Every receipt is a paid DI call, so don't run it from a laptop.
-Credentials come only from environment variables. If `AZURE_DI_KEY` is unset, the script uses
-Entra ID through `DefaultAzureCredential` (the compute's managed identity or `az login`).
+Authentication uses **only** the compute's user-assigned managed identity
+(`ManagedIdentityCredential`); there are no API keys and no fallback to other credentials. Set:
+
+| variable | value |
+|---|---|
+| `AZURE_CLIENT_ID` | client ID of the user-assigned managed identity attached to the compute |
+| `AZURE_DI_ENDPOINT` | the DI resource's custom-domain endpoint, `https://<resource>.cognitiveservices.azure.com/` |
+
+The identity needs the **Cognitive Services User** role on the DI resource. The script stops
+with a clear message if a variable is missing, if no token can be obtained for the identity,
+if DI refuses it (401/403) or if the endpoint can't be reached. Any other per-receipt error is
+recorded and the run continues.
 
 ```bash
 source ~/venvs/paddle322/bin/activate && pip install -r requirements-azure-di.txt
+export AZURE_CLIENT_ID="<managed-identity-client-id>"
 export AZURE_DI_ENDPOINT="https://<your-resource>.cognitiveservices.azure.com/"
-read -s AZURE_DI_KEY && export AZURE_DI_KEY        # paste the key; keeps it out of shell history
 
 python -m receipt_bench.azure_di --input data/raw --output results/azure_di
 python -m receipt_bench.extract_cli --rules general --input results/azure_di --output results/extracted_general_azure_di

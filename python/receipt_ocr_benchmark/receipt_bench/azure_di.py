@@ -4,9 +4,10 @@ DI only does the OCR. Its result is converted into the same raw OCR format Paddl
 (`raw_ocr.RawOCRResult`), so the general rules (`extract_cli --rules general`) and `score.py`
 work on it unchanged. There are no DI-specific extraction rules.
 
-Usage (on Azure ML compute - every receipt is a paid DI call):
+Usage (on Azure ML compute - every receipt is a paid DI call). Authentication is only the
+user-assigned managed identity attached to the compute; there are no API keys:
+    export AZURE_CLIENT_ID=<client id of the user-assigned managed identity>
     export AZURE_DI_ENDPOINT=https://<resource>.cognitiveservices.azure.com/
-    export AZURE_DI_KEY=<key>        # optional: without it, Entra ID (DefaultAzureCredential) is used
     python -m receipt_bench.azure_di --input data/raw --output results/azure_di
 
 Offline (no Azure calls): re-convert DI responses saved by an earlier run.
@@ -77,18 +78,41 @@ def di_to_raw_ocr(document_id: str, di_result: dict, di_ms: float) -> RawOCRResu
 
 def _client():
     """Built only when actually calling Azure, so tests and offline runs need no Azure SDK."""
-    from azure.ai.documentintelligence import DocumentIntelligenceClient
+    missing = [v for v in ("AZURE_CLIENT_ID", "AZURE_DI_ENDPOINT") if not os.environ.get(v)]
+    if missing:
+        sys.exit(f"Missing environment variable(s): {', '.join(missing)}. Set AZURE_CLIENT_ID to the client ID "
+                 "of the user-assigned managed identity on this compute, and AZURE_DI_ENDPOINT to the Document "
+                 "Intelligence endpoint (https://<resource>.cognitiveservices.azure.com/).")
+    endpoint = os.environ["AZURE_DI_ENDPOINT"]
+    if not endpoint.startswith("https://"):
+        sys.exit(f"AZURE_DI_ENDPOINT must start with https://, got {endpoint!r}.")
 
-    endpoint = os.environ.get("AZURE_DI_ENDPOINT")
-    if not endpoint:
-        sys.exit("Set AZURE_DI_ENDPOINT (and AZURE_DI_KEY, or sign in for Entra ID auth).")
-    if os.environ.get("AZURE_DI_KEY"):
-        from azure.core.credentials import AzureKeyCredential
-        credential = AzureKeyCredential(os.environ["AZURE_DI_KEY"])
-    else:
-        from azure.identity import DefaultAzureCredential
-        credential = DefaultAzureCredential()
+    from azure.ai.documentintelligence import DocumentIntelligenceClient
+    from azure.identity import ManagedIdentityCredential
+
+    credential = ManagedIdentityCredential(client_id=os.environ["AZURE_CLIENT_ID"])
     return DocumentIntelligenceClient(endpoint=endpoint, credential=credential)
+
+
+def explain_error(exc: Exception) -> tuple[str, bool]:
+    """Returns (message, fatal). Fatal errors (identity, permission, endpoint) would fail every
+    receipt the same way, so the run stops at the first one. Matched by class name / status code
+    so this module does not need the Azure SDK installed to load."""
+    names = {c.__name__ for c in type(exc).__mro__}
+    status = getattr(exc, "status_code", None)
+    if "ClientAuthenticationError" in names and status is None:
+        return (f"Could not get a token for managed identity AZURE_CLIENT_ID={os.environ.get('AZURE_CLIENT_ID')!r}. "
+                "Check that this user-assigned identity is assigned to the compute and the client ID is correct. "
+                f"({type(exc).__name__}: {exc})"), True
+    if status in (401, 403):
+        return (f"Document Intelligence refused the managed identity (HTTP {status}). Grant it the "
+                "'Cognitive Services User' role on the DI resource, and use the resource's custom-domain "
+                "endpoint (https://<resource>.cognitiveservices.azure.com/), which Entra ID auth requires. "
+                f"({type(exc).__name__}: {exc})"), True
+    if status == 404 or "ServiceRequestError" in names:
+        return (f"Could not reach Document Intelligence at AZURE_DI_ENDPOINT={os.environ.get('AZURE_DI_ENDPOINT')!r}. "
+                f"Check the endpoint and the compute's network access. ({type(exc).__name__}: {exc})"), True
+    return f"{type(exc).__name__}: {exc}", False
 
 
 def analyze(client, path: Path) -> tuple[dict, float]:
@@ -130,10 +154,13 @@ def main() -> None:
             print(f"Processing {path} ...")
             try:
                 di_result, di_ms = analyze(client, path)
-            except Exception as exc:  # record and continue; the scorer counts it as no result
+            except Exception as exc:  # record it; the scorer counts the receipt as no result
                 failed += 1
-                (response_dir / f"{path.stem}.json").write_text(json.dumps({"error": f"{type(exc).__name__}: {exc}"}, indent=2))
-                print(f"  FAILED: {type(exc).__name__}: {exc}", file=sys.stderr)
+                message, fatal = explain_error(exc)
+                (response_dir / f"{path.stem}.json").write_text(json.dumps({"error": message}, indent=2))
+                print(f"  FAILED: {message}", file=sys.stderr)
+                if fatal:
+                    sys.exit(f"Stopped: this error would affect every receipt. {message}")
                 continue
             (response_dir / f"{path.stem}.json").write_text(
                 json.dumps({"di_ms": di_ms, "result": di_result}, indent=2, ensure_ascii=False))

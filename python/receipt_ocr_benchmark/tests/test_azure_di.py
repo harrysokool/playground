@@ -2,6 +2,9 @@
 
 import json
 import sys
+import types
+
+import pytest
 
 from receipt_bench import azure_di
 from receipt_bench.azure_di import analyze, di_to_raw_ocr
@@ -114,3 +117,101 @@ def test_offline_mode_reuses_saved_responses_and_skips_failures(tmp_path, monkey
     assert RawOCRResult.load(out / "receipt1.json").timings == {"total_ms": 2500.0}
     assert RawOCRResult.load(out / "receipt2.json").timings == {"total_ms": 3000.0}
     assert "reused_from" in json.loads((out / "di_response" / "receipt1.json").read_text())
+
+
+# --- managed identity authentication (mocked: no Azure SDK, no network) ---------------------
+
+
+@pytest.fixture
+def fake_azure(monkeypatch):
+    """Installs fake azure.identity / azure.ai.documentintelligence modules and records calls."""
+    calls = {}
+
+    class ManagedIdentityCredential:
+        def __init__(self, *, client_id):
+            calls["client_id"] = client_id
+
+    class DocumentIntelligenceClient:
+        def __init__(self, *, endpoint, credential):
+            calls["endpoint"], calls["credential"] = endpoint, credential
+
+    for name in ("azure", "azure.ai"):
+        monkeypatch.setitem(sys.modules, name, types.ModuleType(name))
+    monkeypatch.setitem(sys.modules, "azure.identity",
+                        types.SimpleNamespace(ManagedIdentityCredential=ManagedIdentityCredential))
+    monkeypatch.setitem(sys.modules, "azure.ai.documentintelligence",
+                        types.SimpleNamespace(DocumentIntelligenceClient=DocumentIntelligenceClient))
+    monkeypatch.setenv("AZURE_CLIENT_ID", "00000000-1111-2222-3333-444444444444")
+    monkeypatch.setenv("AZURE_DI_ENDPOINT", "https://my-di.cognitiveservices.azure.com/")
+    return calls
+
+
+def test_client_uses_user_assigned_managed_identity(fake_azure):
+    azure_di._client()
+    assert fake_azure["client_id"] == "00000000-1111-2222-3333-444444444444"
+    assert fake_azure["endpoint"] == "https://my-di.cognitiveservices.azure.com/"
+    assert type(fake_azure["credential"]).__name__ == "ManagedIdentityCredential"
+
+
+@pytest.mark.parametrize("var", ["AZURE_CLIENT_ID", "AZURE_DI_ENDPOINT"])
+def test_missing_environment_variable_gives_clear_error(fake_azure, monkeypatch, var):
+    monkeypatch.delenv(var)
+    with pytest.raises(SystemExit, match=var):
+        azure_di._client()
+    assert "client_id" not in fake_azure  # failed before any credential was built
+
+
+def test_no_api_key_or_default_credential_auth():
+    source = open(azure_di.__file__).read()
+    assert "AZURE_DI_KEY" not in source and "AzureKeyCredential" not in source
+    assert "DefaultAzureCredential" not in source
+
+
+class ClientAuthenticationError(Exception):  # same name as azure.core's; matched by name
+    status_code = None
+
+
+class HttpResponseError(Exception):
+    def __init__(self, status_code):
+        super().__init__(f"HTTP {status_code}")
+        self.status_code = status_code
+
+
+@pytest.mark.parametrize("exc, expected", [
+    (ClientAuthenticationError("ManagedIdentityCredential authentication unavailable"), "AZURE_CLIENT_ID"),
+    (HttpResponseError(403), "Cognitive Services User"),
+    (HttpResponseError(404), "AZURE_DI_ENDPOINT"),
+])
+def test_identity_permission_and_endpoint_errors_stop_the_run(fake_azure, tmp_path, monkeypatch, exc, expected):
+    def failing_analyze(client, path):
+        raise exc
+
+    monkeypatch.setattr(azure_di, "analyze", failing_analyze)
+    (tmp_path / "receipt1.png").write_bytes(b"img")
+    (tmp_path / "receipt2.png").write_bytes(b"img")
+    out = tmp_path / "out"
+    monkeypatch.setattr(sys, "argv", ["azure_di", "--input", str(tmp_path), "--output", str(out)])
+
+    with pytest.raises(SystemExit, match=expected):
+        azure_di.main()
+    assert expected in json.loads((out / "di_response" / "receipt1.json").read_text())["error"]
+    assert not (out / "di_response" / "receipt2.json").exists()  # stopped after the first receipt
+
+
+def test_other_errors_are_recorded_and_the_run_continues(fake_azure, tmp_path, monkeypatch):
+    def analyze_one_failure(client, path):
+        if path.stem == "receipt1":
+            raise HttpResponseError(500)
+        return _di_result(GENERIC_RECEIPT), 1200.0
+
+    monkeypatch.setattr(azure_di, "analyze", analyze_one_failure)
+    (tmp_path / "receipt1.png").write_bytes(b"img")
+    (tmp_path / "receipt2.png").write_bytes(b"img")
+    out = tmp_path / "out"
+    monkeypatch.setattr(sys, "argv", ["azure_di", "--input", str(tmp_path), "--output", str(out)])
+
+    azure_di.main()
+
+    assert sorted(p.name for p in out.glob("*.json")) == ["receipt2.json"]  # receipt1 -> scored as no result
+    assert "HTTP 500" in json.loads((out / "di_response" / "receipt1.json").read_text())["error"]
+    assert RawOCRResult.load(out / "receipt2.json").timings == {"total_ms": 1200.0}
