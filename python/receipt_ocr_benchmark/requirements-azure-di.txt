@@ -1,0 +1,4 @@
+# Only needed to call Azure Document Intelligence (receipt_bench.azure_di --input ...).
+# Converting saved DI responses, extraction, scoring and tests do not need these.
+azure-ai-documentintelligence==1.0.2
+azure-identity==1.26.0

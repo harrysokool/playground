@@ -146,6 +146,49 @@ Why 3.2.2: on this compute, paddlepaddle **3.3.1** fails both ways:
 `enable_mkldnn: false`. Use them only if oneDNN causes trouble again. CPU inference is slower
 without oneDNN, so run light and heavy with the same configs to keep timings comparable.
 
+## Azure Document Intelligence (Phase 3 of the final comparison)
+
+`receipt_bench/azure_di.py` uses DI `prebuilt-read` **for OCR only**. It converts each DI
+response into the same raw OCR format as PaddleOCR, so the unchanged general rules and
+`score.py` run on it exactly as they do for Paddle. There are no DI-specific rules and no
+Azure OpenAI.
+
+- One OCR block per DI line. Each block keeps the text, the 4-point polygon and DI's line
+  order as `reading_order`.
+- A block's confidence is the mean of its words' confidences. DI has no line-level
+  confidence, and the general rules drop blocks that have none.
+- `timings.total_ms` is the DI call: upload, analysis and result polling. After extraction it
+  appears as `timings.ocr_predict_ms`, next to `timings.extract_ms`. The scorer's processing
+  time is the sum of the two.
+- Each run writes `results/azure_di/receiptN.json` (raw OCR) and
+  `results/azure_di/di_response/receiptN.json` (the full DI response, or `{"error": ...}`).
+  A failed receipt gets no raw OCR file, so the scorer counts all its fields as Wrong.
+
+Run on **Azure ML compute**. Every receipt is a paid DI call, so don't run it from a laptop.
+Credentials come only from environment variables. If `AZURE_DI_KEY` is unset, the script uses
+Entra ID through `DefaultAzureCredential` (the compute's managed identity or `az login`).
+
+```bash
+source ~/venvs/paddle322/bin/activate && pip install -r requirements-azure-di.txt
+export AZURE_DI_ENDPOINT="https://<your-resource>.cognitiveservices.azure.com/"
+read -s AZURE_DI_KEY && export AZURE_DI_KEY        # paste the key; keeps it out of shell history
+
+python -m receipt_bench.azure_di --input data/raw --output results/azure_di
+python -m receipt_bench.extract_cli --rules general --input results/azure_di --output results/extracted_general_azure_di
+python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
+    --approach paddle_light=results/extracted_general_light \
+    --approach paddle_heavy=results/extracted_general_heavy \
+    --approach azure_di=results/extracted_general_azure_di \
+    --output-dir results/scores_paddle_di
+```
+
+**Offline, with no Azure calls:** re-convert saved DI responses, e.g. after changing the
+converter. This also reads the older DI runner format (`raw_di_result`).
+
+```bash
+python -m receipt_bench.azure_di --from-responses results/azure_di/di_response --output results/azure_di
+```
+
 ## Scoring all approaches (Phase 1 of the final comparison)
 
 `receipt_bench/score.py` scores any number of named approaches against the same ground truth
