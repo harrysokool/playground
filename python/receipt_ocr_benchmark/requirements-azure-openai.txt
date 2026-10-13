@@ -1,0 +1,3 @@
+# Only needed to run DI + Azure OpenAI (receipt_bench.di_aoai). Tests do not need these.
+-r requirements-azure-di.txt
+openai==3.20.0

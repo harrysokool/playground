@@ -199,6 +199,70 @@ converter. This also reads the older DI runner format (`raw_di_result`).
 python -m receipt_bench.azure_di --from-responses results/azure_di/di_response --output results/azure_di
 ```
 
+## Azure DI + Azure OpenAI (Phase 4 of the final comparison)
+
+`receipt_bench/di_aoai.py` runs DI `prebuilt-read` with the same call and conversion as
+Phase 3. It then sends the OCR text (DI lines in reading order, no image) to the Azure OpenAI
+deployment with one fixed prompt for every receipt.
+- A strict JSON schema makes the reply exactly the six benchmark fields, so there's no
+  `visit_date`-style mapping step.
+- The model is told to copy values from the text, return `null` for anything missing, and
+  never correct OCR errors. A year DI misread (e.g. "2020" for a handwritten "2026") is
+  therefore *not* fixed; that's deliberate.
+- Dates are normalized to ISO (day-first, as in the general rules) and amounts to numbers.
+  Values that can't be normalized are kept as written.
+
+Each `results/di_aoai/receiptN.json` has:
+- the six fields, the model's raw values and warnings;
+- the OCR text that was sent;
+- token usage (`aoai.usage`, for cost estimates) and the reasoning effort;
+- `timings.di_ms`, `timings.aoai_ms` and `timings.total_ms`.
+
+A failed receipt is still written, with `status: "error"`, `error_stage` (`di` or `aoai`),
+the error and timings, but no fields, so the scorer counts it as having no result. The full DI
+responses are saved in `results/di_aoai/di_response/`.
+
+**Configuration.** Authentication uses only the compute's user-assigned managed identity
+(`ManagedIdentityCredential`); there are no API keys and no fallback. The identity needs
+**Cognitive Services User** on the DI resource and **Cognitive Services OpenAI User** on the
+Azure OpenAI resource.
+
+| variable | required | value |
+|---|---|---|
+| `AZURE_CLIENT_ID` | yes | client ID of the user-assigned managed identity |
+| `AZURE_DI_ENDPOINT` | yes | `https://<di-resource>.cognitiveservices.azure.com/` |
+| `AZURE_OPENAI_ENDPOINT` | yes | `https://<aoai-resource>.openai.azure.com/` |
+| `AZURE_OPENAI_DEPLOYMENT` | yes | the deployment name, e.g. `gpt-5-mini` |
+| `AZURE_OPENAI_API_VERSION` | no | default `2025-04-01-preview` |
+| `AZURE_OPENAI_REASONING_EFFORT` | no | default `low` |
+| `AZURE_OPENAI_TIMEOUT_SECONDS` | no | default `60` per request |
+| `AZURE_OPENAI_MAX_RETRIES` | no | default `2` (the SDK retries timeouts, 429 and 5xx) |
+
+The run stops at the first receipt on errors that would hit every receipt: missing
+configuration, no token for the identity, 401/403, an unknown deployment (404), a rejected
+request (400) or an unreachable endpoint. Timeouts and other per-receipt errors are recorded
+and the run continues.
+
+```bash
+source ~/venvs/paddle322/bin/activate && pip install -r requirements-azure-openai.txt
+export AZURE_CLIENT_ID="<managed-identity-client-id>"
+export AZURE_DI_ENDPOINT="https://<di-resource>.cognitiveservices.azure.com/"
+export AZURE_OPENAI_ENDPOINT="https://<aoai-resource>.openai.azure.com/"
+export AZURE_OPENAI_DEPLOYMENT="gpt-5-mini"
+
+python -m receipt_bench.di_aoai --input data/raw --output results/di_aoai
+python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
+    --approach paddle_light=results/extracted_general_light \
+    --approach paddle_heavy=results/extracted_general_heavy \
+    --approach azure_di=results/extracted_general_azure_di \
+    --approach azure_di_aoai=results/di_aoai \
+    --output-dir results/scores_all
+```
+
+To try the prompt without paying for DI again, add `--reuse-di results/azure_di/di_response`.
+That still calls AOAI, and its DI timings come from the earlier run, so use it for development
+only, not the final numbers.
+
 ## Scoring all approaches (Phase 1 of the final comparison)
 
 `receipt_bench/score.py` scores any number of named approaches against the same ground truth
