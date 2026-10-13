@@ -1,0 +1,33 @@
+{
+  "document_id": "receipt6",
+  "doctor_name": "CHEUNG Hoi Ying",
+  "registration_number": "PT004175",
+  "patient_name": "Yeung Tsz Kit",
+  "receipt_number": "RCP-10388",
+  "service_date": "2026-07-16",
+  "total_amount": 1200.0,
+  "sources": {
+    "doctor_name": "PHYSIOTHERAPIST | CHEUNG Hoi Ying",
+    "registration_number": "Reg. No. | PT004175",
+    "patient_name": "Name | Name | Yeung Tsz Kit",
+    "receipt_number": "Receipt No.RCP-10388",
+    "service_date": "Session Date 16 Jul 2026",
+    "total_amount": "Total | HK$1,200.00"
+  },
+  "rules": {
+    "doctor_name": "label 'physiotherapist' (below)",
+    "registration_number": "label 'reg no' (right)",
+    "patient_name": "label 'client' (header + Name row)",
+    "receipt_number": "label 'receipt no' (same block)",
+    "service_date": "label 'session date' (same block)",
+    "total_amount": "total: label 'total' (card, below)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'total': 1200.0, 'paid': 700.0, 'x_balance': 500.0}"
+  ],
+  "warnings": [],
+  "timings": {
+    "ocr_predict_ms": 13561.125174001063,
+    "extract_ms": 3.2987510021484923
+  }
+}

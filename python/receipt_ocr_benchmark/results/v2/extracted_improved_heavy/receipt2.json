@@ -1,0 +1,24 @@
+{
+  "document_id": "receipt2",
+  "doctor_name": null,
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": null,
+  "service_date": null,
+  "total_amount": null,
+  "sources": {},
+  "rules": {},
+  "validations": [],
+  "warnings": [
+    "doctor_name: no label or reusable pattern produced a confident value",
+    "registration_number: no label or reusable pattern produced a confident value",
+    "patient_name: no label or reusable pattern produced a confident value",
+    "receipt_number: no label or reusable pattern produced a confident value",
+    "service_date: no label or reusable pattern produced a confident value",
+    "total_amount: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 55278.56276499733,
+    "extract_ms": 0.6731100002070889
+  }
+}

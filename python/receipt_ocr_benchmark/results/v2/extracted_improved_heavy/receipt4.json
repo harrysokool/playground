@@ -1,0 +1,33 @@
+{
+  "document_id": "receipt4",
+  "doctor_name": "葉卓謙",
+  "registration_number": "006821",
+  "patient_name": "麥詠琳",
+  "receipt_number": "Y2605117",
+  "service_date": "2026-06-09",
+  "total_amount": 790.0,
+  "sources": {
+    "doctor_name": "主診中醫師 | 葉卓謙",
+    "registration_number": "註冊中醫編號 | 006821",
+    "patient_name": "病人姓名 | 麥詠琳",
+    "receipt_number": "收據編號：Y2605117",
+    "service_date": "診症日期 | 2026年6月9日",
+    "total_amount": "合計 | 港幣$790.00"
+  },
+  "rules": {
+    "doctor_name": "label '主診中醫師' (right)",
+    "registration_number": "label '註冊中醫編號' (right)",
+    "patient_name": "label '病人姓名' (right)",
+    "receipt_number": "label '收據編號' (same block)",
+    "service_date": "label '診症日期' (right)",
+    "total_amount": "total: label '合計' (right)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'total': 790.0, 'paid': 790.0}"
+  ],
+  "warnings": [],
+  "timings": {
+    "ocr_predict_ms": 61233.82821099949,
+    "extract_ms": 2.5951399984478485
+  }
+}

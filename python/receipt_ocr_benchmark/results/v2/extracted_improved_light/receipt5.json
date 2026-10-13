@@ -1,0 +1,33 @@
+{
+  "document_id": "receipt5",
+  "doctor_name": "Dr. Ho Ching Yee",
+  "registration_number": "D03158",
+  "patient_name": "馮浩霖",
+  "receipt_number": "DEN-77342",
+  "service_date": "2026-06-27",
+  "total_amount": 1575.0,
+  "sources": {
+    "doctor_name": "Dentist牙醫： | Dr. Ho Ching Yee, BDS (HK)",
+    "registration_number": "Reg.No.註冊編號： | D03158",
+    "patient_name": "Patient病人： | 馮浩霖",
+    "receipt_number": "Receipt No.收據编號:DEN-77342",
+    "service_date": "TreatmentDate治療日期： | 27/06/2026",
+    "total_amount": "Paid by EPS 易辦事 | HK$1,575.00"
+  },
+  "rules": {
+    "doctor_name": "label 'dentist' (right)",
+    "registration_number": "label 'reg no' (right)",
+    "patient_name": "label 'patient' (right)",
+    "receipt_number": "label 'receipt no' (same block)",
+    "service_date": "label 'treatment date' (right)",
+    "total_amount": "paid in full (no total label): label 'paid by' (above_right)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'discount': -175.0, 'paid': 1575.0}"
+  ],
+  "warnings": [],
+  "timings": {
+    "ocr_predict_ms": 14852.465452000615,
+    "extract_ms": 3.4983539990207646
+  }
+}

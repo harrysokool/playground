@@ -1,0 +1,33 @@
+{
+  "document_id": "receipt3",
+  "doctor_name": "Dr. Chow Ka Ho",
+  "registration_number": null,
+  "patient_name": "TAM KA YAN",
+  "receipt_number": "OPI-2026-0048213",
+  "service_date": "2026-05-18",
+  "total_amount": 2195.5,
+  "sources": {
+    "doctor_name": "Attending Doctor 主診醫生 | Dr. Chow Ka Ho",
+    "patient_name": "Patient 病人 | TAM KA YAN",
+    "receipt_number": "InvoiceNo.發票编號 | OPI-2026-0048213",
+    "service_date": "Attendance Date 就診日期 | 18May 2026",
+    "total_amount": "Total Charges 總收費 | 2,195.50"
+  },
+  "rules": {
+    "doctor_name": "label 'attending doctor' (right)",
+    "patient_name": "label 'patient' (right)",
+    "receipt_number": "label 'invoice no' (right)",
+    "service_date": "label 'attendance date' (right)",
+    "total_amount": "total: label 'total charges' (right)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'total': 2195.5}"
+  ],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 18953.615587000968,
+    "extract_ms": 5.54068600104074
+  }
+}

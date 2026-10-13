@@ -1,0 +1,33 @@
+{
+  "document_id": "receipt8",
+  "doctor_name": "Dr. Siu Ka Wai",
+  "registration_number": "M19903",
+  "patient_name": "蔡嘉穎",
+  "receipt_number": "MC-2609-3391",
+  "service_date": "2026-09-03",
+  "total_amount": 795.0,
+  "sources": {
+    "doctor_name": "Attending Doctor 主診醫生 | Dr. Siu Ka Wai",
+    "registration_number": "Reg. No. 註冊編號 | M19903",
+    "patient_name": "Patient 病人 | 蔡嘉穎",
+    "receipt_number": "Receipt No. 收據編號:MC-2609-3391",
+    "service_date": "Visit Date 就診日期 | 3 Sep 2026",
+    "total_amount": "HK$795.00"
+  },
+  "rules": {
+    "doctor_name": "label 'attending doctor' (below)",
+    "registration_number": "label 'reg no' (below)",
+    "patient_name": "label 'patient' (below)",
+    "receipt_number": "label 'receipt no' (same block)",
+    "service_date": "label 'visit date' (below)",
+    "total_amount": "unlabelled column sum of 3 amounts above"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'x_part_paid': 695.0}"
+  ],
+  "warnings": [],
+  "timings": {
+    "ocr_predict_ms": 5490.163112001028,
+    "extract_ms": 4.247066000971245
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "document_id": "receipt2",
+  "doctor_name": "Dr. Ng Chun Yip",
+  "registration_number": "M20581",
+  "patient_name": "Ho Siu Ming",
+  "receipt_number": "SC2026/01593",
+  "service_date": "2026-04-22",
+  "total_amount": 1880.0,
+  "sources": {
+    "doctor_name": "ATTENDING DOCTOR | Dr. Ng Chun Yip",
+    "registration_number": "Specialist in Cardiology | Reg. No. M20581",
+    "patient_name": "Patient: | Ho Siu Ming",
+    "receipt_number": "Receipt No. | SC2026/01593",
+    "service_date": "Consultation Date | 22 April 2026",
+    "total_amount": "Paid by Visa (card ending 4421) | HK$1,880.00"
+  },
+  "rules": {
+    "doctor_name": "label 'attending doctor' (below)",
+    "registration_number": "registration label inside a line",
+    "patient_name": "label 'patient' (right)",
+    "receipt_number": "label 'receipt no' (right)",
+    "service_date": "label 'consultation date' (right)",
+    "total_amount": "paid in full (no total label): label 'paid by' (right)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'paid': 1880.0}"
+  ],
+  "warnings": [],
+  "timings": {
+    "ocr_predict_ms": 16483.99482899913,
+    "extract_ms": 3.3438520003983285
+  }
+}
