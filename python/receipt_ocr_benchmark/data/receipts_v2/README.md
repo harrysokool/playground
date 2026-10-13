@@ -11,11 +11,43 @@ benchmark input,** not the source PDFs.
 | `build_ground_truth.py` | Validates the spec, then writes the two files below. Run it after any edit to the JSON. |
 | `ground_truth.xlsx` | The six fields in the same "Ground Truth" sheet layout as `data/ground_truth/`, so `score.py` reads it unchanged. |
 | `GROUND_TRUTH.md` | A readable table for review. |
+| `generate_receipts.py` | Builds the printable PDFs from the spec: eight separate HTML/CSS templates, printed to PDF by headless Google Chrome. It then checks every PDF against the spec and writes the previews. |
+| `printable/` | `receipt1.pdf` … `receipt8.pdf`: **print these** |
+| `preview/` | A PNG of each PDF and `contact_sheet.png` showing all eight designs |
 | `raw/` | Where the phone photos go, named `receipt1.jpg` … `receipt8.jpg` to match `receipt_id` r1…r8. |
 
 ```bash
 python data/receipts_v2/build_ground_truth.py   # from python/receipt_ocr_benchmark/
+python data/receipts_v2/generate_receipts.py    # needs Google Chrome, Poppler (pdftotext/pdftoppm) and Pillow
 ```
+
+Every printed value comes from the spec. The templates only add decoration: logos, slogans,
+hospital item codes, "Page 1 of 1", a decorative barcode, and the total written in formal
+Chinese numerals on receipt 4 (柒佰玖拾圓正 = 790). None of these adds a candidate answer for
+the six fields. The generator uses macOS fonts (PingFang HK, LiSong Pro, Kaiti TC, Avenir
+Next, Georgia, Menlo). The committed PDFs embed them, so they print the same on any machine.
+
+## Printing and photographing
+
+1. **Print** each PDF on plain white A4 paper, single-sided, **in colour** if possible.
+   Choose **"Actual size" / 100%** and turn off "Fit to page", so each receipt keeps its real size.
+2. **Cut out the small receipts.** A4 receipts (2, 3, 6, 8) need no cutting.
+
+   | Receipt | Size | Cut along |
+   |---|---|---|
+   | 1, 4 | A5 | the corner trim marks |
+   | 5 | A5 landscape | the two faint horizontal lines |
+   | 7 | 80 mm till slip | the dashed outline |
+3. **Photograph** one photo per receipt with your phone:
+   - normal indoor light, no flash;
+   - lay the receipt flat on a plain desk, with all edges in frame;
+   - hold the phone roughly above it (a little natural tilt is fine);
+   - don't crop, edit or filter.
+
+   Use the same phone for all eight. Save as JPEG: on iPhone, set Settings → Camera → Formats →
+   "Most Compatible", or export as JPEG.
+4. **Save** the photos as `raw/receipt1.jpg` … `raw/receipt8.jpg`. Don't write on the receipts,
+   and leave the small `SAMPLE / 測試樣本` label visible.
 
 ## How each field is defined
 
