@@ -1,73 +1,41 @@
-export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
+cd ~/cloudfiles/code/Users/Harry-CC.Wang/playground/python/receipt_ocr_benchmark
 
-export AZURE_CLIENT_ID="YOUR_MANAGED_IDENTITY_CLIENT_ID"
+git pull
 
-export AZURE_DI_ENDPOINT="https://YOUR_DI_RESOURCE.cognitiveservices.azure.com/"
-
-export AZURE_OPENAI_ENDPOINT="https://YOUR_AOAI_RESOURCE.openai.azure.com/"
-
-export AZURE_OPENAI_DEPLOYMENT="gpt-5-mini"
+source ~/venvs/paddle322/bin/activate
 
 
-
-python -m pytest -q
-
-python data/receipts_v2/prepare_inputs.py
-
-
-IN=results/v2/inputs
 OUT=results/v2
 
-ls "$IN"
-
-python -m receipt_bench.cli \
-  --config configs/paddle_light.yaml \
-  --input "$IN" \
-  --output "$OUT/paddle_light"
 
 
-  python -m receipt_bench.extract_cli \
-  --rules general \
+python -m receipt_bench.extract_cli \
+  --rules improved \
   --input "$OUT/paddle_light" \
-  --output "$OUT/extracted_general_light"
-
-
-  python -m receipt_bench.cli \
-  --config configs/paddle_heavy.yaml \
-  --input "$IN" \
-  --output "$OUT/paddle_heavy"
+  --output "$OUT/extracted_improved_light"
 
 
   python -m receipt_bench.extract_cli \
-  --rules general \
+  --rules improved \
   --input "$OUT/paddle_heavy" \
-  --output "$OUT/extracted_general_heavy"
+  --output "$OUT/extracted_improved_heavy"
 
-
-  python -m receipt_bench.azure_di \
-  --input "$IN" \
-  --output "$OUT/azure_di"
 
 
   python -m receipt_bench.extract_cli \
-  --rules general \
+  --rules improved \
   --input "$OUT/azure_di" \
-  --output "$OUT/extracted_general_azure_di"
+  --output "$OUT/extracted_improved_azure_di"
 
-
-  python -m receipt_bench.di_aoai \
-  --input "$IN" \
-  --output "$OUT/di_aoai"
-
-
-
-  grep -l '"status": "ok"' "$OUT"/di_aoai/receipt*.json | wc -l
 
 
   python -m receipt_bench.score \
   --ground-truth data/receipts_v2/benchmark_ground_truth.xlsx \
-  --approach paddle_light="$OUT/extracted_general_light" \
-  --approach paddle_heavy="$OUT/extracted_general_heavy" \
-  --approach azure_di="$OUT/extracted_general_azure_di" \
+  --approach paddle_light_general="$OUT/extracted_general_light" \
+  --approach paddle_light_improved="$OUT/extracted_improved_light" \
+  --approach paddle_heavy_general="$OUT/extracted_general_heavy" \
+  --approach paddle_heavy_improved="$OUT/extracted_improved_heavy" \
+  --approach azure_di_general="$OUT/extracted_general_azure_di" \
+  --approach azure_di_improved="$OUT/extracted_improved_azure_di" \
   --approach azure_di_aoai="$OUT/di_aoai" \
-  --output-dir "$OUT/scores"
+  --output-dir "$OUT/scores_improved"
