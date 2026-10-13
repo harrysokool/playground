@@ -1,58 +1,67 @@
-# Receipt OCR Benchmark – Comparison Deck
+# Receipt OCR Benchmark – Decks
 
-An 8-slide deck answering one question: **is Azure Document Intelligence + Azure OpenAI worth its
+The decks answer one question: **is Azure Document Intelligence + Azure OpenAI worth its
 additional cost and complexity compared with simpler OCR solutions?**
 
-- **Audience:** business and technical stakeholders.
-- **Source of truth:** the benchmark in `python/receipt_ocr_benchmark/`, in particular
-  `results/scores_all/FINAL_COMPARISON.md`, `summary.csv`, `detail.csv` and `results/di_aoai/*.json`.
-  The generator reads every number from those files, so nothing is typed in by hand.
+**Audience:** business and technical stakeholders.
+
+| Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
+|---|---|---|---|
+| **Version 2 (current)**, 12 slides | `current/OCR_Benchmark_V2.pptx` | `scripts/generate_ppt_v2.py` | `results/v2/scores_improved/` (summary, detail), `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
+| Version 1 (frozen), 8 slides | `archive/v1/OCR_Benchmark_Comparison.pptx` (+ PDF preview) | `scripts/generate_ppt.py` | Version 1 results, available only at Git tag `ocr-benchmark-v1` |
+
+Every number, and every value in the receipt examples, is read from the benchmark files; nothing
+is typed in by hand.
+- **Example values** are taken from `detail.csv` and cross-checked against the extraction JSON.
+  The build stops on any mismatch.
+- **Receipt crops** are placed using Azure DI's text positions. The build stops if an anchor
+  text isn't found.
+- **Crops and thumbnails** are written to `assets_v2/`.
 
 ## Folder structure
 
 | Folder | Contents |
 |---|---|
-| `template/` | Official AIA PowerPoint template (`aia_ppt_template.pptx`, same as `../contingent_worker`). Do not edit. |
-| `current/` | Latest deck: `OCR_Benchmark_Comparison.pptx` |
-| `previews/` | PDF preview of the current deck |
-| `archive/` | Earlier versions, one subfolder per version (empty so far) |
-| `scripts/generate_ppt.py` | Generates the current deck from the template and the benchmark results |
+| `template/` | Official AIA PowerPoint template (`aia_ppt_template.pptx`). Do not edit. |
+| `current/` | The current deck (Version 2) |
+| `previews/` | PDF and PNG previews of the current deck |
+| `archive/v1/` | The frozen Version 1 deck and its preview. Never written to by the generators. |
+| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py` |
+| `scripts/` | The generators |
 
-## Regenerate the deck
+## Generate the Version 2 deck (Azure ML compute)
 
-Requires Python 3.9+ and `python-pptx`. Run from this folder:
-
-```bash
-python3 scripts/generate_ppt.py --force
-```
-
-Without `--force`, the script won't overwrite an existing deck. It refuses to write into
-`archive/` or `template/`. To check reproduction without touching the current file, write it
-somewhere else:
+Run from the repository root. This needs python-pptx and Pillow; Pillow is already in the
+benchmark environment.
 
 ```bash
-python3 scripts/generate_ppt.py --output /tmp/check.pptx
+source ~/venvs/paddle322/bin/activate && git pull && pip install python-pptx==1.0.2
+python3 ppt/ocr_benchmark/scripts/generate_ppt_v2.py --force
 ```
 
-**For a new version:** move the current deck into `archive/v1/` (then `v2/` and so on) first,
-then regenerate.
+Without `--force`, the script won't overwrite an existing deck. It always refuses to write
+into `archive/` or `template/`.
 
-## Generate the PDF preview
+## Previews (Azure ML compute)
+
+These need LibreOffice, Poppler, and a CJK font so Chinese text renders in the preview:
 
 ```bash
-soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_Comparison.pptx
-mv previews/OCR_Benchmark_Comparison.pdf previews/OCR_Benchmark_Comparison_preview.pdf
+sudo apt-get update && sudo apt-get install -y libreoffice-impress poppler-utils fonts-noto-cjk
+cd ppt/ocr_benchmark
+soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V2.pptx
+mv previews/OCR_Benchmark_V2.pdf previews/OCR_Benchmark_V2_preview.pdf
+pdftoppm -png -r 60 previews/OCR_Benchmark_V2_preview.pdf previews/slide
 ```
 
-LibreOffice substitutes some fonts, so the preview is for review only.
+LibreOffice substitutes fonts (Arial → Liberation Sans, Microsoft JhengHei → Noto CJK), so the
+preview is for review only. PowerPoint renders the real fonts. Commit `current/`, `previews/` and
+`assets_v2/` afterwards.
 
 ## Outstanding before distribution
 
-1. **Prices for slide 7.** Usage per 1,000 receipts is measured, but the prices are marked
-   *Pending*. We need:
-   - the Azure ML VM hourly rate;
-   - the Document Intelligence Read price per 1,000 pages;
-   - the gpt-5-mini price per 1M input and output tokens.
+1. **Prices.** Compute rate, Document Intelligence page price and gpt-5-mini token prices are
+   still unconfirmed; slide 10 says so.
 2. **Sensitivity label.** The deck carries the template's **[AIA – PUBLIC]** label. Apply the
    correct label in PowerPoint (Home → Sensitivity) before sharing.
-3. **Presenter name and date,** if required (the title slide says October 2026).
+3. **Presenter name and date,** if required.
