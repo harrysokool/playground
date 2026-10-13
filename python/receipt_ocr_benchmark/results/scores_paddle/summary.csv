@@ -1,0 +1,3 @@
+approach,correct,applicable,accuracy_pct,invented,no_result_receipts,mean_ms_per_receipt,doctor_name_accuracy_pct,registration_number_accuracy_pct,patient_name_accuracy_pct,receipt_number_accuracy_pct,service_date_accuracy_pct,total_amount_accuracy_pct
+paddle_light,18,25,72.0,0,0,8716,50.0,,50.0,66.7,83.3,100.0
+paddle_heavy,18,25,72.0,0,0,35750,50.0,,50.0,66.7,83.3,100.0

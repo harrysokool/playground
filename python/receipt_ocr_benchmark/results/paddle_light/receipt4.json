@@ -6,8 +6,7 @@
     "text_detection_model_dir": "models/PP-OCRv5_mobile_det_infer",
     "text_recognition_model_name": "PP-OCRv5_mobile_rec",
     "text_recognition_model_dir": "models/PP-OCRv5_mobile_rec_infer",
-    "device": "cpu",
-    "enable_mkldnn": false
+    "device": "cpu"
   },
   "pages": [
     {
@@ -17,7 +16,7 @@
       "blocks": [
         {
           "text": "Member of PBT NPACE Group",
-          "confidence": 0.8668273091316223,
+          "confidence": 0.8668254613876343,
           "polygon": [
             [
               464,
@@ -40,7 +39,7 @@
         },
         {
           "text": "Tung Chung Animal Clinic",
-          "confidence": 0.9684967994689941,
+          "confidence": 0.9684963226318359,
           "polygon": [
             [
               465,
@@ -63,7 +62,7 @@
         },
         {
           "text": "东涌動物診所",
-          "confidence": 0.8249726295471191,
+          "confidence": 0.824969470500946,
           "polygon": [
             [
               462,
@@ -86,7 +85,7 @@
         },
         {
           "text": "Shop No.7, Ma Wan Village",
-          "confidence": 0.9710006713867188,
+          "confidence": 0.9710004329681396,
           "polygon": [
             [
               488,
@@ -109,7 +108,7 @@
         },
         {
           "text": "東涌馬湾新村7號地下，Tung Chung, Lantau Island,Hong Kong22 2988 1534",
-          "confidence": 0.9203343391418457,
+          "confidence": 0.920332670211792,
           "polygon": [
             [
               296,
@@ -155,7 +154,7 @@
         },
         {
           "text": "Total Due: HKD 0.00",
-          "confidence": 0.9165923595428467,
+          "confidence": 0.9165917634963989,
           "polygon": [
             [
               884,
@@ -178,7 +177,7 @@
         },
         {
           "text": "Invoice No: 369303 FClinician: Angel Tseng FPatient: Fuk Jai",
-          "confidence": 0.9614151120185852,
+          "confidence": 0.9614149928092957,
           "polygon": [
             [
               38,
@@ -201,7 +200,7 @@
         },
         {
           "text": "Feb 09, 2023",
-          "confidence": 0.9818575978279114,
+          "confidence": 0.9818577766418457,
           "polygon": [
             [
               1020,
@@ -224,7 +223,7 @@
         },
         {
           "text": "Fuk Jai",
-          "confidence": 0.9817161560058594,
+          "confidence": 0.9817157983779907,
           "polygon": [
             [
               51,
@@ -247,7 +246,7 @@
         },
         {
           "text": "10m 2d 4.000 kgs",
-          "confidence": 0.9451044201850891,
+          "confidence": 0.9451038837432861,
           "polygon": [
             [
               167,
@@ -270,7 +269,7 @@
         },
         {
           "text": "Sep 10,2023-FV-FVRCP Vaccine FELOCELL 3:Adult Cat[",
-          "confidence": 0.9534378051757812,
+          "confidence": 0.9534366726875305,
           "polygon": [
             [
               469,
@@ -293,7 +292,7 @@
         },
         {
           "text": "110335]",
-          "confidence": 0.9556935429573059,
+          "confidence": 0.9556938409805298,
           "polygon": [
             [
               470,
@@ -316,7 +315,7 @@
         },
         {
           "text": "Feline, ASHMale, SILV TABBY",
-          "confidence": 0.9619921445846558,
+          "confidence": 0.961991548538208,
           "polygon": [
             [
               171,
@@ -339,7 +338,7 @@
         },
         {
           "text": "Date",
-          "confidence": 0.9977596998214722,
+          "confidence": 0.9977595806121826,
           "polygon": [
             [
               27,
@@ -362,7 +361,7 @@
         },
         {
           "text": "Description",
-          "confidence": 0.9987030029296875,
+          "confidence": 0.9987029433250427,
           "polygon": [
             [
               181,
@@ -385,7 +384,7 @@
         },
         {
           "text": "Qty",
-          "confidence": 0.9984325766563416,
+          "confidence": 0.9984323978424072,
           "polygon": [
             [
               887,
@@ -408,7 +407,7 @@
         },
         {
           "text": "Fees",
-          "confidence": 0.9975149631500244,
+          "confidence": 0.9975147247314453,
           "polygon": [
             [
               1123,
@@ -431,7 +430,7 @@
         },
         {
           "text": "Encounter: Vomiting Acute ddx",
-          "confidence": 0.9773871302604675,
+          "confidence": 0.9773868322372437,
           "polygon": [
             [
               30,
@@ -454,7 +453,7 @@
         },
         {
           "text": "Feb 09, 2023 Consultation (A) - Comprehensive Medical Exam and Consult [220015]",
-          "confidence": 0.9622690677642822,
+          "confidence": 0.9622687697410583,
           "polygon": [
             [
               29,
@@ -477,7 +476,7 @@
         },
         {
           "text": "1.00",
-          "confidence": 0.9959498643875122,
+          "confidence": 0.9959495663642883,
           "polygon": [
             [
               890,
@@ -500,7 +499,7 @@
         },
         {
           "text": "360.00",
-          "confidence": 0.9977015852928162,
+          "confidence": 0.9977012276649475,
           "polygon": [
             [
               1117,
@@ -523,7 +522,7 @@
         },
         {
           "text": "Feb 09, 2023",
-          "confidence": 0.955151379108429,
+          "confidence": 0.9551511406898499,
           "polygon": [
             [
               28,
@@ -546,7 +545,7 @@
         },
         {
           "text": "Metronidazole 50mg Tablet [110466 ]- per tab",
-          "confidence": 0.9637571573257446,
+          "confidence": 0.9637566208839417,
           "polygon": [
             [
               156,
@@ -569,7 +568,7 @@
         },
         {
           "text": "10.00",
-          "confidence": 0.9973324537277222,
+          "confidence": 0.9973322153091431,
           "polygon": [
             [
               882,
@@ -592,7 +591,7 @@
         },
         {
           "text": "146.00",
-          "confidence": 0.9973223209381104,
+          "confidence": 0.997322142124176,
           "polygon": [
             [
               1117,
@@ -615,7 +614,7 @@
         },
         {
           "text": "Feb 09, 2023",
-          "confidence": 0.9920356273651123,
+          "confidence": 0.992035448551178,
           "polygon": [
             [
               30,
@@ -638,7 +637,7 @@
         },
         {
           "text": "Cobalaplex Capsule [110165 ]- per cap",
-          "confidence": 0.9493223428726196,
+          "confidence": 0.949321448802948,
           "polygon": [
             [
               159,
@@ -661,7 +660,7 @@
         },
         {
           "text": "15.00",
-          "confidence": 0.9951939582824707,
+          "confidence": 0.9951934814453125,
           "polygon": [
             [
               882,
@@ -684,7 +683,7 @@
         },
         {
           "text": "162.50",
-          "confidence": 0.9964484572410583,
+          "confidence": 0.9964480400085449,
           "polygon": [
             [
               1117,
@@ -707,7 +706,7 @@
         },
         {
           "text": "Feb 09, 2023",
-          "confidence": 0.9821891188621521,
+          "confidence": 0.9821889996528625,
           "polygon": [
             [
               30,
@@ -730,7 +729,7 @@
         },
         {
           "text": "PRO-KOLINAdvanced Cat [110617]-per box[15ml]",
-          "confidence": 0.9488030076026917,
+          "confidence": 0.9488019943237305,
           "polygon": [
             [
               158,
@@ -753,7 +752,7 @@
         },
         {
           "text": "1.00",
-          "confidence": 0.9950251579284668,
+          "confidence": 0.995025098323822,
           "polygon": [
             [
               891,
@@ -776,7 +775,7 @@
         },
         {
           "text": "256.00",
-          "confidence": 0.9980106949806213,
+          "confidence": 0.9980104565620422,
           "polygon": [
             [
               1118,
@@ -799,7 +798,7 @@
         },
         {
           "text": "Feb 09, 2023",
-          "confidence": 0.9650559425354004,
+          "confidence": 0.9650556445121765,
           "polygon": [
             [
               31,
@@ -822,7 +821,7 @@
         },
         {
           "text": "MILBEMAX Tablet for Cats [2-8kg] [110479 ]- per tab",
-          "confidence": 0.9424914717674255,
+          "confidence": 0.9424911737442017,
           "polygon": [
             [
               157,
@@ -845,7 +844,7 @@
         },
         {
           "text": "1.00",
-          "confidence": 0.9953656792640686,
+          "confidence": 0.9953653812408447,
           "polygon": [
             [
               892,
@@ -868,7 +867,7 @@
         },
         {
           "text": "176.00",
-          "confidence": 0.9973990321159363,
+          "confidence": 0.9973987936973572,
           "polygon": [
             [
               1120,
@@ -891,7 +890,7 @@
         },
         {
           "text": "Feb 09, 2023",
-          "confidence": 0.9674575924873352,
+          "confidence": 0.967457115650177,
           "polygon": [
             [
               31,
@@ -914,7 +913,7 @@
         },
         {
           "text": "Tablet Pill Introducer [440339 ]- per pc",
-          "confidence": 0.9678260684013367,
+          "confidence": 0.9678255319595337,
           "polygon": [
             [
               158,
@@ -937,7 +936,7 @@
         },
         {
           "text": "1.00",
-          "confidence": 0.9940841197967529,
+          "confidence": 0.994083821773529,
           "polygon": [
             [
               892,
@@ -960,7 +959,7 @@
         },
         {
           "text": "33.00",
-          "confidence": 0.9911389350891113,
+          "confidence": 0.9911382794380188,
           "polygon": [
             [
               1128,
@@ -983,7 +982,7 @@
         },
         {
           "text": "Feb09,2023",
-          "confidence": 0.9893227815628052,
+          "confidence": 0.9893225431442261,
           "polygon": [
             [
               30,
@@ -1006,7 +1005,7 @@
         },
         {
           "text": "RC F9 VHN Gastro Intestinal [330351 ]- per pouch[85g]",
-          "confidence": 0.9548482298851013,
+          "confidence": 0.9548474550247192,
           "polygon": [
             [
               154,
@@ -1029,7 +1028,7 @@
         },
         {
           "text": "12.00",
-          "confidence": 0.9979971051216125,
+          "confidence": 0.9979968070983887,
           "polygon": [
             [
               885,
@@ -1052,7 +1051,7 @@
         },
         {
           "text": "228.00",
-          "confidence": 0.9718728065490723,
+          "confidence": 0.9718723893165588,
           "polygon": [
             [
               1120,
@@ -1075,7 +1074,7 @@
         },
         {
           "text": "Sub Total",
-          "confidence": 0.9884816408157349,
+          "confidence": 0.9884814023971558,
           "polygon": [
             [
               785,
@@ -1121,7 +1120,7 @@
         },
         {
           "text": "Round Down",
-          "confidence": 0.9711663126945496,
+          "confidence": 0.9711660146713257,
           "polygon": [
             [
               776,
@@ -1144,7 +1143,7 @@
         },
         {
           "text": "(+)-0.50",
-          "confidence": 0.9680265784263611,
+          "confidence": 0.968025803565979,
           "polygon": [
             [
               1101,
@@ -1167,7 +1166,7 @@
         },
         {
           "text": "Total Amount",
-          "confidence": 0.9882660508155823,
+          "confidence": 0.9882658123970032,
           "polygon": [
             [
               744,
@@ -1190,7 +1189,7 @@
         },
         {
           "text": "HKD 1361.00",
-          "confidence": 0.9567179083824158,
+          "confidence": 0.956717848777771,
           "polygon": [
             [
               1033,
@@ -1213,7 +1212,7 @@
         },
         {
           "text": "Details of Payments Received",
-          "confidence": 0.9869394302368164,
+          "confidence": 0.986939013004303,
           "polygon": [
             [
               437,
@@ -1236,7 +1235,7 @@
         },
         {
           "text": "Payment Date",
-          "confidence": 0.9652280211448669,
+          "confidence": 0.9652278423309326,
           "polygon": [
             [
               156,
@@ -1259,7 +1258,7 @@
         },
         {
           "text": "Payment Type",
-          "confidence": 0.991400420665741,
+          "confidence": 0.9913999438285828,
           "polygon": [
             [
               389,
@@ -1282,7 +1281,7 @@
         },
         {
           "text": "Receipt#",
-          "confidence": 0.9940194487571716,
+          "confidence": 0.9940190315246582,
           "polygon": [
             [
               663,
@@ -1305,7 +1304,7 @@
         },
         {
           "text": "Payment received",
-          "confidence": 0.9938433170318604,
+          "confidence": 0.9938430190086365,
           "polygon": [
             [
               882,
@@ -1328,7 +1327,7 @@
         },
         {
           "text": "Feb 09,2023",
-          "confidence": 0.9629804491996765,
+          "confidence": 0.9629825949668884,
           "polygon": [
             [
               156,
@@ -1351,7 +1350,7 @@
         },
         {
           "text": "MasterCard",
-          "confidence": 0.9972820281982422,
+          "confidence": 0.9972818493843079,
           "polygon": [
             [
               390,
@@ -1374,7 +1373,7 @@
         },
         {
           "text": "380048",
-          "confidence": 0.9995310306549072,
+          "confidence": 0.9995308518409729,
           "polygon": [
             [
               664,
@@ -1397,7 +1396,7 @@
         },
         {
           "text": "1361.00",
-          "confidence": 0.9973239898681641,
+          "confidence": 0.9973236322402954,
           "polygon": [
             [
               984,
@@ -1420,7 +1419,7 @@
         },
         {
           "text": "dlavrhoea.",
-          "confidence": 0.9130865335464478,
+          "confidence": 0.9130944013595581,
           "polygon": [
             [
               269,
@@ -1443,7 +1442,7 @@
         },
         {
           "text": "Symptoms:",
-          "confidence": 0.9975367784500122,
+          "confidence": 0.9975365400314331,
           "polygon": [
             [
               37,
@@ -1466,7 +1465,7 @@
         },
         {
           "text": "Total payment received 1361.00",
-          "confidence": 0.9864572882652283,
+          "confidence": 0.9864570498466492,
           "polygon": [
             [
               739,
@@ -1489,7 +1488,7 @@
         },
         {
           "text": "First Appeared Date:",
-          "confidence": 0.955926775932312,
+          "confidence": 0.9559264183044434,
           "polygon": [
             [
               35,
@@ -1512,7 +1511,7 @@
         },
         {
           "text": ":07102/2023",
-          "confidence": 0.9256125092506409,
+          "confidence": 0.9256120324134827,
           "polygon": [
             [
               270,
@@ -1535,7 +1534,7 @@
         },
         {
           "text": "Total Due HKD 0.00",
-          "confidence": 0.9554225206375122,
+          "confidence": 0.9554222822189331,
           "polygon": [
             [
               822,
@@ -1558,7 +1557,7 @@
         },
         {
           "text": "Diagnosis:",
-          "confidence": 0.998334527015686,
+          "confidence": 0.9983342885971069,
           "polygon": [
             [
               33,
@@ -1581,7 +1580,7 @@
         },
         {
           "text": "Colitis.",
-          "confidence": 0.8854475021362305,
+          "confidence": 0.8854469060897827,
           "polygon": [
             [
               237,
@@ -1604,7 +1603,7 @@
         },
         {
           "text": "Vet's Signature & Stamp:",
-          "confidence": 0.9456999897956848,
+          "confidence": 0.9456990361213684,
           "polygon": [
             [
               35,
@@ -1627,7 +1626,7 @@
         },
         {
           "text": "Br.LokYi ehoi",
-          "confidence": 0.7942574620246887,
+          "confidence": 0.7942561507225037,
           "polygon": [
             [
               406,
@@ -1650,7 +1649,7 @@
         },
         {
           "text": "BVSc (Hons) CVA",
-          "confidence": 0.9222869277000427,
+          "confidence": 0.9222857356071472,
           "polygon": [
             [
               406,
@@ -1676,6 +1675,6 @@
     }
   ],
   "timings": {
-    "total_ms": 16740.3765009999
+    "total_ms": 7000.755072000175
   }
 }

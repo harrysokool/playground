@@ -6,8 +6,7 @@
     "text_detection_model_dir": "models/PP-OCRv5_mobile_det_infer",
     "text_recognition_model_name": "PP-OCRv5_mobile_rec",
     "text_recognition_model_dir": "models/PP-OCRv5_mobile_rec_infer",
-    "device": "cpu",
-    "enable_mkldnn": false
+    "device": "cpu"
   },
   "pages": [
     {
@@ -17,7 +16,7 @@
       "blocks": [
         {
           "text": "Prescription Receipt/lnformation",
-          "confidence": 0.95130455493927,
+          "confidence": 0.9513041973114014,
           "polygon": [
             [
               391,
@@ -40,7 +39,7 @@
         },
         {
           "text": "Medical Centre Pharmacy",
-          "confidence": 0.9821515083312988,
+          "confidence": 0.982151210308075,
           "polygon": [
             [
               442,
@@ -63,7 +62,7 @@
         },
         {
           "text": "114 High St",
-          "confidence": 0.9262264370918274,
+          "confidence": 0.9262252449989319,
           "polygon": [
             [
               539,
@@ -109,7 +108,7 @@
         },
         {
           "text": "GST:112-691-456",
-          "confidence": 0.9944784641265869,
+          "confidence": 0.9944783449172974,
           "polygon": [
             [
               500,
@@ -132,7 +131,7 @@
         },
         {
           "text": "9990000505906",
-          "confidence": 0.9967383146286011,
+          "confidence": 0.9967378973960876,
           "polygon": [
             [
               132,
@@ -155,7 +154,7 @@
         },
         {
           "text": "Ph:039284265",
-          "confidence": 0.9876726269721985,
+          "confidence": 0.9876725077629089,
           "polygon": [
             [
               511,
@@ -178,7 +177,7 @@
         },
         {
           "text": "Nikita Hubber",
-          "confidence": 0.9335734844207764,
+          "confidence": 0.9335728287696838,
           "polygon": [
             [
               84,
@@ -201,7 +200,7 @@
         },
         {
           "text": "Ph.0226493948",
-          "confidence": 0.9978128671646118,
+          "confidence": 0.9978126883506775,
           "polygon": [
             [
               80,
@@ -224,7 +223,7 @@
         },
         {
           "text": "Printed on 24 March 17",
-          "confidence": 0.9444072246551514,
+          "confidence": 0.9444066882133484,
           "polygon": [
             [
               865,
@@ -247,7 +246,7 @@
         },
         {
           "text": "NHI:LQD5240",
-          "confidence": 0.9819106459617615,
+          "confidence": 0.9819102883338928,
           "polygon": [
             [
               79,
@@ -270,7 +269,7 @@
         },
         {
           "text": "Patient Price",
-          "confidence": 0.9661703705787659,
+          "confidence": 0.9661705493927002,
           "polygon": [
             [
               1002,
@@ -293,7 +292,7 @@
         },
         {
           "text": "Dr Jessica Sterenborg Picton Medical Centre",
-          "confidence": 0.9650295972824097,
+          "confidence": 0.965029239654541,
           "polygon": [
             [
               75,
@@ -316,7 +315,7 @@
         },
         {
           "text": "1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra",
-          "confidence": 0.958409309387207,
+          "confidence": 0.9584087133407593,
           "polygon": [
             [
               75,
@@ -362,7 +361,7 @@
         },
         {
           "text": "$36.20",
-          "confidence": 0.9977726936340332,
+          "confidence": 0.9977723956108093,
           "polygon": [
             [
               1078,
@@ -385,7 +384,7 @@
         },
         {
           "text": "1Mar1746023/0 MVITE Tablets",
-          "confidence": 0.965524435043335,
+          "confidence": 0.965523898601532,
           "polygon": [
             [
               76,
@@ -408,7 +407,7 @@
         },
         {
           "text": "$5.00",
-          "confidence": 0.9953547716140747,
+          "confidence": 0.9953540563583374,
           "polygon": [
             [
               1095,
@@ -431,7 +430,7 @@
         },
         {
           "text": "1Mar17 46024/0 Ascorbic acid 100mg Tablets",
-          "confidence": 0.961479902267456,
+          "confidence": 0.9614794850349426,
           "polygon": [
             [
               74,
@@ -454,7 +453,7 @@
         },
         {
           "text": "$5.00",
-          "confidence": 0.9956662058830261,
+          "confidence": 0.9956656694412231,
           "polygon": [
             [
               1093,
@@ -477,7 +476,7 @@
         },
         {
           "text": "1Mar17 46025/0 Omeprazole 20mg Capsules",
-          "confidence": 0.971867024898529,
+          "confidence": 0.9718666076660156,
           "polygon": [
             [
               74,
@@ -500,7 +499,7 @@
         },
         {
           "text": "$5.00",
-          "confidence": 0.9959945678710938,
+          "confidence": 0.9959939122200012,
           "polygon": [
             [
               1092,
@@ -523,7 +522,7 @@
         },
         {
           "text": "$51.20",
-          "confidence": 0.9969368577003479,
+          "confidence": 0.996936559677124,
           "polygon": [
             [
               1075,
@@ -546,7 +545,7 @@
         },
         {
           "text": "Check recipient is patient named above",
-          "confidence": 0.9845080971717834,
+          "confidence": 0.9845077991485596,
           "polygon": [
             [
               347,
@@ -569,7 +568,7 @@
         },
         {
           "text": "Nikita Hubber",
-          "confidence": 0.9879996180534363,
+          "confidence": 0.9879993796348572,
           "polygon": [
             [
               72,
@@ -592,7 +591,7 @@
         },
         {
           "text": "Medical Centre Pharmacy 24/03/17",
-          "confidence": 0.9664872288703918,
+          "confidence": 0.9664868116378784,
           "polygon": [
             [
               661,
@@ -615,7 +614,7 @@
         },
         {
           "text": "Prescription count, for exemption card",
-          "confidence": 0.9721640348434448,
+          "confidence": 0.9721639752388,
           "polygon": [
             [
               72,
@@ -638,7 +637,7 @@
         },
         {
           "text": "Personal: 4",
-          "confidence": 0.9663140773773193,
+          "confidence": 0.9663137197494507,
           "polygon": [
             [
               73,
@@ -661,7 +660,7 @@
         },
         {
           "text": "Repeats:available",
-          "confidence": 0.9907594323158264,
+          "confidence": 0.9907593727111816,
           "polygon": [
             [
               73,
@@ -684,7 +683,7 @@
         },
         {
           "text": "Available On/After Number",
-          "confidence": 0.9766021966934204,
+          "confidence": 0.9766017198562622,
           "polygon": [
             [
               636,
@@ -707,7 +706,7 @@
         },
         {
           "text": "Expiry",
-          "confidence": 0.9963896870613098,
+          "confidence": 0.9963893890380859,
           "polygon": [
             [
               1074,
@@ -730,7 +729,7 @@
         },
         {
           "text": "46022 ENSURE PLUS Fruit/Forest Tetra Liquid",
-          "confidence": 0.9601320624351501,
+          "confidence": 0.9601313471794128,
           "polygon": [
             [
               70,
@@ -753,7 +752,7 @@
         },
         {
           "text": "21Mar17",
-          "confidence": 0.9978874921798706,
+          "confidence": 0.9978871941566467,
           "polygon": [
             [
               768,
@@ -776,7 +775,7 @@
         },
         {
           "text": "2 30May17",
-          "confidence": 0.9565138220787048,
+          "confidence": 0.9565134048461914,
           "polygon": [
             [
               989,
@@ -799,7 +798,7 @@
         },
         {
           "text": "Please Note. We are open from 8.00am till 5.30pm Monday to Friday.",
-          "confidence": 0.9576956629753113,
+          "confidence": 0.9576948881149292,
           "polygon": [
             [
               169,
@@ -822,7 +821,7 @@
         },
         {
           "text": "NB We are closed weekends and Public Holidays.",
-          "confidence": 0.9658442139625549,
+          "confidence": 0.9658434391021729,
           "polygon": [
             [
               292,
@@ -848,6 +847,6 @@
     }
   ],
   "timings": {
-    "total_ms": 10752.292416000273
+    "total_ms": 5104.99313299988
   }
 }

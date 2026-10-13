@@ -6,8 +6,7 @@
     "text_detection_model_dir": "models/PP-OCRv5_mobile_det_infer",
     "text_recognition_model_name": "PP-OCRv5_mobile_rec",
     "text_recognition_model_dir": "models/PP-OCRv5_mobile_rec_infer",
-    "device": "cpu",
-    "enable_mkldnn": false
+    "device": "cpu"
   },
   "pages": [
     {
@@ -17,7 +16,7 @@
       "blocks": [
         {
           "text": "MEDICAL RECEIPT TEMPLATE",
-          "confidence": 0.9723541140556335,
+          "confidence": 0.9723536372184753,
           "polygon": [
             [
               884,
@@ -40,7 +39,7 @@
         },
         {
           "text": "MEDICALINVOICE",
-          "confidence": 0.9951809644699097,
+          "confidence": 0.9951806664466858,
           "polygon": [
             [
               1676,
@@ -63,7 +62,7 @@
         },
         {
           "text": "Hospital Name, slogan Dr. Fung Ka Kit Paul",
-          "confidence": 0.9079236388206482,
+          "confidence": 0.9079220294952393,
           "polygon": [
             [
               437,
@@ -86,7 +85,7 @@
         },
         {
           "text": "Bayriew Ave. Suite 35586",
-          "confidence": 0.9310002326965332,
+          "confidence": 0.9310000538825989,
           "polygon": [
             [
               939,
@@ -109,7 +108,7 @@
         },
         {
           "text": "Street Address :2528",
-          "confidence": 0.9461786150932312,
+          "confidence": 0.9461779594421387,
           "polygon": [
             [
               454,
@@ -132,7 +131,7 @@
         },
         {
           "text": "h York,ontario, Ca m2l2N4",
-          "confidence": 0.8309183716773987,
+          "confidence": 0.8309166431427002,
           "polygon": [
             [
               901,
@@ -155,7 +154,7 @@
         },
         {
           "text": "North",
-          "confidence": 0.9517250061035156,
+          "confidence": 0.9517226219177246,
           "polygon": [
             [
               767,
@@ -178,7 +177,7 @@
         },
         {
           "text": "City/State, Zip",
-          "confidence": 0.9900087714195251,
+          "confidence": 0.9900084137916565,
           "polygon": [
             [
               451,
@@ -201,7 +200,7 @@
         },
         {
           "text": "Phone Number, Web Address Etc",
-          "confidence": 0.9686765074729919,
+          "confidence": 0.9686758518218994,
           "polygon": [
             [
               454,
@@ -224,7 +223,7 @@
         },
         {
           "text": "订10Y0",
-          "confidence": 0.36464399099349976,
+          "confidence": 0.3646441102027893,
           "polygon": [
             [
               2098,
@@ -247,7 +246,7 @@
         },
         {
           "text": "Happy Lam",
-          "confidence": 0.9259307384490967,
+          "confidence": 0.9259303212165833,
           "polygon": [
             [
               550,
@@ -270,7 +269,7 @@
         },
         {
           "text": "Age 24",
-          "confidence": 0.9674156308174133,
+          "confidence": 0.9674147963523865,
           "polygon": [
             [
               1675,
@@ -293,7 +292,7 @@
         },
         {
           "text": "Patient",
-          "confidence": 0.9953250288963318,
+          "confidence": 0.995324969291687,
           "polygon": [
             [
               392,
@@ -339,7 +338,7 @@
         },
         {
           "text": "2E",
-          "confidence": 0.2080545276403427,
+          "confidence": 0.20805616676807404,
           "polygon": [
             [
               2074,
@@ -362,7 +361,7 @@
         },
         {
           "text": "Consultant",
-          "confidence": 0.998638927936554,
+          "confidence": 0.9986387491226196,
           "polygon": [
             [
               1685,
@@ -385,7 +384,7 @@
         },
         {
           "text": "Hospital No 12J45678",
-          "confidence": 0.9094182848930359,
+          "confidence": 0.9094171524047852,
           "polygon": [
             [
               384,
@@ -408,7 +407,7 @@
         },
         {
           "text": "Happy Lam",
-          "confidence": 0.9334664940834045,
+          "confidence": 0.9334660768508911,
           "polygon": [
             [
               528,
@@ -431,7 +430,7 @@
         },
         {
           "text": "Payment Mode",
-          "confidence": 0.9829617142677307,
+          "confidence": 0.9829615950584412,
           "polygon": [
             [
               1686,
@@ -454,7 +453,7 @@
         },
         {
           "text": "Name",
-          "confidence": 0.9985482692718506,
+          "confidence": 0.9985480308532715,
           "polygon": [
             [
               389,
@@ -477,7 +476,7 @@
         },
         {
           "text": "Address ong Kono",
-          "confidence": 0.9376751184463501,
+          "confidence": 0.9376749992370605,
           "polygon": [
             [
               372,
@@ -500,7 +499,7 @@
         },
         {
           "text": "Bed No.",
-          "confidence": 0.9647775292396545,
+          "confidence": 0.9647769927978516,
           "polygon": [
             [
               1690,
@@ -546,7 +545,7 @@
         },
         {
           "text": "Admission Date 09/01/2026",
-          "confidence": 0.9458078145980835,
+          "confidence": 0.9458075761795044,
           "polygon": [
             [
               1684,
@@ -569,7 +568,7 @@
         },
         {
           "text": "Email",
-          "confidence": 0.9959198832511902,
+          "confidence": 0.9959195852279663,
           "polygon": [
             [
               378,
@@ -592,7 +591,7 @@
         },
         {
           "text": "Discharge Date",
-          "confidence": 0.9762835502624512,
+          "confidence": 0.9762831330299377,
           "polygon": [
             [
               1696,
@@ -638,7 +637,7 @@
         },
         {
           "text": "RATE",
-          "confidence": 0.9948018193244934,
+          "confidence": 0.9948012232780457,
           "polygon": [
             [
               1970,
@@ -661,7 +660,7 @@
         },
         {
           "text": "AMOUNT",
-          "confidence": 0.992695152759552,
+          "confidence": 0.9926946759223938,
           "polygon": [
             [
               2301,
@@ -684,7 +683,7 @@
         },
         {
           "text": "#",
-          "confidence": 0.7848620414733887,
+          "confidence": 0.7848585247993469,
           "polygon": [
             [
               502,
@@ -707,7 +706,7 @@
         },
         {
           "text": "PARTICULARS",
-          "confidence": 0.9970517754554749,
+          "confidence": 0.9970516562461853,
           "polygon": [
             [
               1000,
@@ -730,7 +729,7 @@
         },
         {
           "text": "10.00",
-          "confidence": 0.9805243611335754,
+          "confidence": 0.9805237650871277,
           "polygon": [
             [
               1986,
@@ -753,7 +752,7 @@
         },
         {
           "text": "20.00",
-          "confidence": 0.9979010820388794,
+          "confidence": 0.9979007840156555,
           "polygon": [
             [
               2301,
@@ -776,7 +775,7 @@
         },
         {
           "text": "water",
-          "confidence": 0.900992214679718,
+          "confidence": 0.9009935259819031,
           "polygon": [
             [
               758,
@@ -799,7 +798,7 @@
         },
         {
           "text": "bottle",
-          "confidence": 0.9360314011573792,
+          "confidence": 0.9360291957855225,
           "polygon": [
             [
               1045,
@@ -822,7 +821,7 @@
         },
         {
           "text": "20.00",
-          "confidence": 0.9945822954177856,
+          "confidence": 0.9945819973945618,
           "polygon": [
             [
               2058,
@@ -845,7 +844,7 @@
         },
         {
           "text": "SUBTOTAL",
-          "confidence": 0.9977968335151672,
+          "confidence": 0.9977967143058777,
           "polygon": [
             [
               1711,
@@ -868,7 +867,7 @@
         },
         {
           "text": "TAX 8.000%",
-          "confidence": 0.950269877910614,
+          "confidence": 0.9502698183059692,
           "polygon": [
             [
               1715,
@@ -891,7 +890,7 @@
         },
         {
           "text": "NOTES:",
-          "confidence": 0.9937288165092468,
+          "confidence": 0.9937284588813782,
           "polygon": [
             [
               499,
@@ -914,7 +913,7 @@
         },
         {
           "text": "MED CLAIM",
-          "confidence": 0.9422059655189514,
+          "confidence": 0.942205011844635,
           "polygon": [
             [
               1716,
@@ -937,7 +936,7 @@
         },
         {
           "text": "TOTALZO.00",
-          "confidence": 0.8452422022819519,
+          "confidence": 0.8452411890029907,
           "polygon": [
             [
               1705,
@@ -960,7 +959,7 @@
         },
         {
           "text": "020.00",
-          "confidence": 0.859886646270752,
+          "confidence": 0.8598859906196594,
           "polygon": [
             [
               1809,
@@ -983,7 +982,7 @@
         },
         {
           "text": "PAID",
-          "confidence": 0.9905985593795776,
+          "confidence": 0.9905980825424194,
           "polygon": [
             [
               1719,
@@ -1006,7 +1005,7 @@
         },
         {
           "text": "TOTAL DUE",
-          "confidence": 0.9732358455657959,
+          "confidence": 0.9732351303100586,
           "polygon": [
             [
               1721,
@@ -1032,6 +1031,6 @@
     }
   ],
   "timings": {
-    "total_ms": 24841.755047999868
+    "total_ms": 10610.491313999773
   }
 }

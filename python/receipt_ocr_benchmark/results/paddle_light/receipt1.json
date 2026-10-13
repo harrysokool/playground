@@ -6,8 +6,7 @@
     "text_detection_model_dir": "models/PP-OCRv5_mobile_det_infer",
     "text_recognition_model_name": "PP-OCRv5_mobile_rec",
     "text_recognition_model_dir": "models/PP-OCRv5_mobile_rec_infer",
-    "device": "cpu",
-    "enable_mkldnn": false
+    "device": "cpu"
   },
   "pages": [
     {
@@ -17,7 +16,7 @@
       "blocks": [
         {
           "text": "MEDICAL RECEIPT TEMPLATE",
-          "confidence": 0.9782190322875977,
+          "confidence": 0.9782185554504395,
           "polygon": [
             [
               856,
@@ -63,7 +62,7 @@
         },
         {
           "text": "MEDICAL INVOICE",
-          "confidence": 0.9688156843185425,
+          "confidence": 0.9688154458999634,
           "polygon": [
             [
               1642,
@@ -86,7 +85,7 @@
         },
         {
           "text": "Hospital Name a",
-          "confidence": 0.6060099005699158,
+          "confidence": 0.6060066223144531,
           "polygon": [
             [
               387,
@@ -109,7 +108,7 @@
         },
         {
           "text": "Phone Number, Web Address Etc",
-          "confidence": 0.9633079767227173,
+          "confidence": 0.9633076190948486,
           "polygon": [
             [
               416,
@@ -155,7 +154,7 @@
         },
         {
           "text": "27",
-          "confidence": 0.9974501729011536,
+          "confidence": 0.9974499940872192,
           "polygon": [
             [
               1826,
@@ -178,7 +177,7 @@
         },
         {
           "text": "Patient",
-          "confidence": 0.997818648815155,
+          "confidence": 0.9978184103965759,
           "polygon": [
             [
               351,
@@ -201,7 +200,7 @@
         },
         {
           "text": "Age",
-          "confidence": 0.9848425984382629,
+          "confidence": 0.98484206199646,
           "polygon": [
             [
               1648,
@@ -224,7 +223,7 @@
         },
         {
           "text": "HospitalNo 12JS678910",
-          "confidence": 0.8708802461624146,
+          "confidence": 0.870879590511322,
           "polygon": [
             [
               331,
@@ -247,7 +246,7 @@
         },
         {
           "text": "Consultant",
-          "confidence": 0.9988387823104858,
+          "confidence": 0.9988387227058411,
           "polygon": [
             [
               1652,
@@ -270,7 +269,7 @@
         },
         {
           "text": "Name",
-          "confidence": 0.998869001865387,
+          "confidence": 0.9988687634468079,
           "polygon": [
             [
               344,
@@ -293,7 +292,7 @@
         },
         {
           "text": "Payment Mode VD",
-          "confidence": 0.9329312443733215,
+          "confidence": 0.9329302906990051,
           "polygon": [
             [
               1644,
@@ -316,7 +315,7 @@
         },
         {
           "text": "Addressh Mmn",
-          "confidence": 0.7346410751342773,
+          "confidence": 0.7346412539482117,
           "polygon": [
             [
               326,
@@ -339,7 +338,7 @@
         },
         {
           "text": "BedNo. 4C17",
-          "confidence": 0.8861588835716248,
+          "confidence": 0.8861576318740845,
           "polygon": [
             [
               1644,
@@ -362,7 +361,7 @@
         },
         {
           "text": "Phone [2]95078",
-          "confidence": 0.8685835599899292,
+          "confidence": 0.8685823082923889,
           "polygon": [
             [
               321,
@@ -385,7 +384,7 @@
         },
         {
           "text": "Emal pafienf@ gmall.com",
-          "confidence": 0.8455554842948914,
+          "confidence": 0.845554530620575,
           "polygon": [
             [
               306,
@@ -408,7 +407,7 @@
         },
         {
           "text": "Admission Date 07/0212026",
-          "confidence": 0.9697646498680115,
+          "confidence": 0.9697644114494324,
           "polygon": [
             [
               1641,
@@ -431,7 +430,7 @@
         },
         {
           "text": "Discharge Date",
-          "confidence": 0.9807848334312439,
+          "confidence": 0.9807847142219543,
           "polygon": [
             [
               1658,
@@ -454,7 +453,7 @@
         },
         {
           "text": "PARTICULARS",
-          "confidence": 0.9973936080932617,
+          "confidence": 0.9973935484886169,
           "polygon": [
             [
               961,
@@ -477,7 +476,7 @@
         },
         {
           "text": "QTY",
-          "confidence": 0.9956128597259521,
+          "confidence": 0.995612621307373,
           "polygon": [
             [
               1706,
@@ -500,7 +499,7 @@
         },
         {
           "text": "RATE",
-          "confidence": 0.9922716617584229,
+          "confidence": 0.9922710657119751,
           "polygon": [
             [
               1931,
@@ -523,7 +522,7 @@
         },
         {
           "text": "AMOUNT",
-          "confidence": 0.9924158453941345,
+          "confidence": 0.9924154877662659,
           "polygon": [
             [
               2257,
@@ -546,7 +545,7 @@
         },
         {
           "text": "拌",
-          "confidence": 0.18887591361999512,
+          "confidence": 0.1888774186372757,
           "polygon": [
             [
               458,
@@ -569,7 +568,7 @@
         },
         {
           "text": "bruen",
-          "confidence": 0.8896533250808716,
+          "confidence": 0.8896511197090149,
           "polygon": [
             [
               731,
@@ -592,7 +591,7 @@
         },
         {
           "text": "ribs.",
-          "confidence": 0.966833770275116,
+          "confidence": 0.9668331146240234,
           "polygon": [
             [
               1069,
@@ -615,7 +614,7 @@
         },
         {
           "text": "450.00",
-          "confidence": 0.945040762424469,
+          "confidence": 0.9450392723083496,
           "polygon": [
             [
               1957,
@@ -638,7 +637,7 @@
         },
         {
           "text": "1500.00",
-          "confidence": 0.9969356656074524,
+          "confidence": 0.996935248374939,
           "polygon": [
             [
               2240,
@@ -661,7 +660,7 @@
         },
         {
           "text": "20.00",
-          "confidence": 0.9952455759048462,
+          "confidence": 0.9952451586723328,
           "polygon": [
             [
               1955,
@@ -684,7 +683,7 @@
         },
         {
           "text": "4000",
-          "confidence": 0.7389205694198608,
+          "confidence": 0.7389209866523743,
           "polygon": [
             [
               2251,
@@ -707,7 +706,7 @@
         },
         {
           "text": "water",
-          "confidence": 0.8221904635429382,
+          "confidence": 0.8221902847290039,
           "polygon": [
             [
               752,
@@ -730,7 +729,7 @@
         },
         {
           "text": "1540.00",
-          "confidence": 0.9881780743598938,
+          "confidence": 0.9881778359413147,
           "polygon": [
             [
               1975,
@@ -753,7 +752,7 @@
         },
         {
           "text": "SUBTOTAL",
-          "confidence": 0.9960260391235352,
+          "confidence": 0.996025800704956,
           "polygon": [
             [
               1669,
@@ -776,7 +775,7 @@
         },
         {
           "text": "TAX8.000%",
-          "confidence": 0.9982197880744934,
+          "confidence": 0.9982194900512695,
           "polygon": [
             [
               1671,
@@ -799,7 +798,7 @@
         },
         {
           "text": "NOTES:",
-          "confidence": 0.9958420395851135,
+          "confidence": 0.9958418011665344,
           "polygon": [
             [
               447,
@@ -822,7 +821,7 @@
         },
         {
           "text": "MED CLAIM",
-          "confidence": 0.9780657887458801,
+          "confidence": 0.9780651926994324,
           "polygon": [
             [
               1673,
@@ -845,7 +844,7 @@
         },
         {
           "text": "patient B cverely injurel",
-          "confidence": 0.8843492269515991,
+          "confidence": 0.8843478560447693,
           "polygon": [
             [
               466,
@@ -868,7 +867,7 @@
         },
         {
           "text": "154000",
-          "confidence": 0.9917097687721252,
+          "confidence": 0.9917095303535461,
           "polygon": [
             [
               1896,
@@ -891,7 +890,7 @@
         },
         {
           "text": "TOTAL",
-          "confidence": 0.9936663508415222,
+          "confidence": 0.9936661720275879,
           "polygon": [
             [
               1672,
@@ -914,7 +913,7 @@
         },
         {
           "text": "and he necd more rest",
-          "confidence": 0.9367647767066956,
+          "confidence": 0.9367644190788269,
           "polygon": [
             [
               457,
@@ -937,7 +936,7 @@
         },
         {
           "text": "1540.00",
-          "confidence": 0.9443820118904114,
+          "confidence": 0.9443802833557129,
           "polygon": [
             [
               1917,
@@ -960,7 +959,7 @@
         },
         {
           "text": "PAID",
-          "confidence": 0.99421226978302,
+          "confidence": 0.9942120313644409,
           "polygon": [
             [
               1671,
@@ -983,7 +982,7 @@
         },
         {
           "text": "before gcttmg",
-          "confidence": 0.7554851174354553,
+          "confidence": 0.7554835677146912,
           "polygon": [
             [
               481,
@@ -1006,7 +1005,7 @@
         },
         {
           "text": "tu work.",
-          "confidence": 0.8100697994232178,
+          "confidence": 0.8100682497024536,
           "polygon": [
             [
               1067,
@@ -1029,7 +1028,7 @@
         },
         {
           "text": "TOTAL DUE",
-          "confidence": 0.970740020275116,
+          "confidence": 0.9707397818565369,
           "polygon": [
             [
               1675,
@@ -1055,6 +1054,6 @@
     }
   ],
   "timings": {
-    "total_ms": 25857.013152000036
+    "total_ms": 11745.295424000687
   }
 }
