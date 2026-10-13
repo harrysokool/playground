@@ -14,11 +14,14 @@ benchmark input,** not the source PDFs.
 | `generate_receipts.py` | Builds the printable PDFs from the spec: eight separate HTML/CSS templates, printed to PDF by headless Google Chrome. It then checks every PDF against the spec and writes the previews. |
 | `printable/` | `receipt1.pdf` … `receipt8.pdf`: **print these** |
 | `preview/` | A PNG of each PDF and `contact_sheet.png` showing all eight designs |
+| `export_images.py` | Rasterises the validated PDFs to 300 dpi PNGs, cropped to each receipt's real size, then checks them |
+| `printable_images/` | `receipt1.png` … `receipt8.png` (300 dpi master images) and `contact_sheet.png` (all eight at the same physical scale) |
 | `raw/` | Where the phone photos go, named `receipt1.jpg` … `receipt8.jpg` to match `receipt_id` r1…r8. |
 
 ```bash
 python data/receipts_v2/build_ground_truth.py   # from python/receipt_ocr_benchmark/
 python data/receipts_v2/generate_receipts.py    # needs Google Chrome, Poppler (pdftotext/pdftoppm) and Pillow
+python data/receipts_v2/export_images.py        # PNGs from the PDFs (Poppler + Pillow)
 ```
 
 Every printed value comes from the spec. The templates only add decoration: logos, slogans,
@@ -90,3 +93,26 @@ the rule gives exactly one answer.
    That is a scoring change, so it's left for the scoring phase. All other printed formats
    (`14/03/2026`, `22 April 2026`, `18 May 2026`, `21/08/2026 14:37`, `3 Sep 2026`) are read
    correctly today.
+
+
+## Printing the PNG images
+
+The PNGs are 300 dpi lossless masters, identical to the PDFs. Each is cropped to its real size,
+without trim marks:
+
+| Receipt | Size |
+|---|---|
+| 1, 4 | A5, 148 × 210 mm |
+| 5 | A5 landscape, 210 × 148 mm |
+| 2, 3, 6, 8 | A4 |
+| 7 | 80 × 154 mm till slip, including its dashed cutting outline |
+
+They print at that size only at **100% scale**. In macOS Preview: File → Print, then set
+**Scale: 100%**. Many photo-printing dialogs default to "Fill" or "Fit", which enlarges the image.
+
+The A4 images fill the whole page. Most office printers can't print the outer ~4 mm, but no text
+is that close to the edge. For an exact-size cut-out, print each small receipt on A4 at 100% and
+cut around it.
+
+**If exact physical size matters, print the PDFs instead:** they carry the size themselves, and
+include trim marks.
