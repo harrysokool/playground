@@ -1,4 +1,4 @@
-"""Generate the Version 2 Receipt OCR Benchmark deck (9 slides) from the AIA template.
+"""Generate the Version 2 Receipt OCR Benchmark deck (10 slides) from the AIA template.
 
     python3 ppt/ocr_benchmark/scripts/generate_ppt_v2.py --force     (from the repository root)
 
@@ -614,7 +614,60 @@ for i, row in enumerate(comp, start=1):
 note(s, "The main question is not API price but who maintains the extraction logic. Lower maintenance for AOAI "
         "is implied by this benchmark, not yet proven.", y=5.95)
 
-# ===================================================================== 9. conclusion
+# ===================================================================== 9. pros and cons
+ocr_read("receipt9", "1361.00", engines=("azure_di",))  # AOAI's wrong total came from correct OCR text
+tot_a, ok_tot_a = example(AOAI, "receipt9", "total_amount")
+assert not ok_tot_a, "expected the AOAI total error on the vet invoice"
+s = content_slide(
+    "Pure OCR + Rules vs. Azure DI + AOAI: Pros and Cons",
+    f"Both reached {LIGHT_ACC}. Points marked \"Measured\" come from this benchmark; the rest are expected, "
+    "not yet tested.",
+    f"Measured (summary.csv, detail.csv): PaddleOCR Light + rules {acc(ORIG['light'])} with the original rules and "
+    f"{LIGHT_ACC} after tuning on these {N_RECEIPTS} receipts; label phrases {VOCAB_ORIG} to {VOCAB_IMPR}; vet "
+    f"invoice receipt number {reg_o} correct before tuning, {reg_i} after. Azure DI + AOAI {AOAI_ACC} with the "
+    f"prompt unchanged; bilingual receipt {a8[0]}/{a8[1]} and Chinese medicine receipt {a4[0]}/{a4[1]}; "
+    f"{secs(AOAI)} vs {secs(IMPR['light'])} per receipt; vet invoice total {tot_a} although the Azure DI text "
+    "contains the correct 1361.00. Expected, not measured: control, predictability, API fees, run-to-run "
+    "variation and behaviour on unseen receipts. Prices are not yet confirmed. " + SOURCE)
+
+
+def pros_cons(x, w, heading, pros, cons):
+    text(s, x, 1.95, w, 0.45, [dict(t=heading, size=16, bold=True, color=WHITE)], anchor=MSO_ANCHOR.MIDDLE,
+         margin=0.18, fill=CHAR)
+    for k, (label, items, colour, tint) in enumerate((("Pros", pros, GOOD, GOOD_TINT), ("Cons", cons, RED, BAD_TINT))):
+        paras = [dict(t=label, size=15, bold=True, color=colour, after=4)]
+        for i, (measured, t) in enumerate(items):
+            runs = ([("Measured: ", dict(bold=True))] if measured else []) + [(t, {})]
+            paras.append(dict(runs=runs, size=13, bullet=True, after=0 if i == len(items) - 1 else 3))
+        text(s, x, 2.5 + k * 1.75, w, 1.67, paras, margin=0.18, fill=tint)
+
+
+COL_W = (12.55 - 0.3) / 2
+assert a8 == a4, "the AOAI pros bullet states one score for both examples"
+pros_cons(0.39, COL_W, "Pure OCR + Rules (PaddleOCR Light)",
+          [(False, "Full control over the extraction logic."),
+           (False, "No API fees: open-source OCR on our own compute."),
+           (False, "Predictable on receipt formats the rules already know."),
+           (True, f"{LIGHT_ACC} after careful tuning (from {acc(ORIG['light'])}).")],
+          [(True, f"rules expanded by hand ({VOCAB_ORIG} → {VOCAB_IMPR} label phrases)."),
+           (False, "New languages, labels and layouts need more rule changes."),
+           (True, "a rule update broke a receipt that was already correct."),
+           (False, "Accuracy on unseen receipt formats is unknown.")])
+pros_cons(0.39 + COL_W + 0.3, COL_W, "Azure DI + AOAI",
+          [(True, f"{AOAI_ACC} with the prompt unchanged."),
+           (False, "Reduces the need to write detailed extraction rules."),
+           (True, f"{a8[0]}/{a8[1]} fields on both the bilingual and Chinese examples."),
+           (True, f"faster, {secs(AOAI)} vs {secs(IMPR['light'])} per receipt.")],
+          [(False, "Needs Azure services and per-request API fees."),
+           (True, "wrong value even though the OCR text was correct."),
+           (False, "Results may vary, so validation and error handling are needed."),
+           (False, "Accuracy and maintenance effort on unseen receipts not yet proven.")])
+text(s, 0.39, 6.0, 11.6, 0.45, [dict(runs=[
+    ("The decision is not only accuracy or API cost: ", dict(bold=True)),
+    ("it is how much development and ongoing maintenance we want to own.", {})], size=14)],
+    anchor=MSO_ANCHOR.MIDDLE, margin=0.18, fill=LIGHT)
+
+# ===================================================================== 10. conclusion
 s = content_slide(
     "Conclusion and Next Steps",
     "The real trade-off: maintain extraction rules ourselves, or let AI replace that layer.",

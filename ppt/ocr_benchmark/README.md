@@ -7,7 +7,8 @@ additional cost and complexity compared with simpler OCR solutions?**
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 2 (current)**, 9 slides | `current/OCR_Benchmark_V2.pptx` | `scripts/generate_ppt_v2.py` | `results/v2/scores_improved/` (summary, detail), `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
+| **Version 2 (current)**, 10 slides | `current/OCR_Benchmark_V2.pptx` | `scripts/generate_ppt_v2.py` | `results/v2/scores_improved/` (summary, detail), `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
+| Version 2, 9-slide revision (archived) | `archive/v2_9slides/OCR_Benchmark_V2.pptx` (+ PDF preview) | `scripts/generate_ppt_v2.py` at commit `5e11b39` | Same as Version 2 |
 | Version 2, 8-slide revision (archived) | `archive/v2_8slides/OCR_Benchmark_V2.pptx` (+ PDF preview) | `scripts/generate_ppt_v2.py` at commit `772e109` | Same as Version 2 |
 | Version 2, first draft (archived), 12 slides | `archive/v2_12slides/OCR_Benchmark_V2.pptx` (+ PDF preview) | `scripts/generate_ppt_v2.py` at commit `6fd991c` | Same as Version 2 |
 | Version 1 (frozen), 8 slides | `archive/v1/OCR_Benchmark_Comparison.pptx` (+ PDF preview) | `scripts/generate_ppt.py` | Version 1 results, available only at Git tag `ocr-benchmark-v1` |
@@ -30,6 +31,7 @@ is typed in by hand.
 | `archive/v1/` | The frozen Version 1 deck and its preview. Never written to by the generators. |
 | `archive/v2_12slides/` | The first, 12-slide Version 2 deck and its PDF preview, kept for reference |
 | `archive/v2_8slides/` | The 8-slide revision of Version 2 and its PDF preview, kept for reference |
+| `archive/v2_9slides/` | The 9-slide revision of Version 2 and its PDF preview, kept for reference |
 | `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py` |
 | `scripts/` | The generators |
 
@@ -65,7 +67,7 @@ Microsoft JhengHei (Traditional Chinese).
 ## Outstanding before distribution
 
 1. **Prices.** Compute rate, Document Intelligence page price and gpt-5-mini token prices are
-   still unconfirmed; slide 8 says so.
+   still unconfirmed; slides 8 and 9 say so.
 2. **Sensitivity label.** The deck carries the template's **[AIA – PUBLIC]** label. Apply the
    correct label in PowerPoint (Home → Sensitivity) before sharing.
 3. **Presenter name and date,** if required.

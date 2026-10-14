@@ -114,6 +114,21 @@
 
 ## Slide 9
 
+- Pure OCR + Rules vs. Azure DI + AOAI: Pros and Cons
+- ‹#›
+- Both reached 88.2%. Points marked "Measured" come from this benchmark; the rest are expected, not yet tested.
+- Pure OCR + Rules (PaddleOCR Light)
+- Pros / Full control over the extraction logic. / No API fees: open-source OCR on our own compute. / Predictable on receipt formats the rules already know. / Measured: 88.2% after careful tuning (from 37.3%).
+- Cons / Measured: rules expanded by hand (69 → 225 label phrases). / New languages, labels and layouts need more rule changes. / Measured: a rule update broke a receipt that was already correct. / Accuracy on unseen receipt formats is unknown.
+- Azure DI + AOAI
+- Pros / Measured: 88.2% with the prompt unchanged. / Reduces the need to write detailed extraction rules. / Measured: 6/6 fields on both the bilingual and Chinese examples. / Measured: faster, 6.2 s vs 13.9 s per receipt.
+- Cons / Needs Azure services and per-request API fees. / Measured: wrong value even though the OCR text was correct. / Results may vary, so validation and error handling are needed. / Accuracy and maintenance effort on unseen receipts not yet proven.
+- The decision is not only accuracy or API cost: it is how much development and ongoing maintenance we want to own.
+
+  Notes: Measured (summary.csv, detail.csv): PaddleOCR Light + rules 37.3% with the original rules and 88.2% after tuning on these 9 receipts; label phrases 69 to 225; vet invoice receipt number 369303 correct before tuning, 380048 after. Azure DI + AOAI 88.2% with the prompt unchanged; bilingual receipt 6/6 and Chinese medicine receipt 6/6; 6.2 s vs 13.9 s per receipt; vet invoice total 1361.5 although the Azure DI text contains the correct 1361.00. Expected, not measured: control, predictability, API fees, run-to-run variation and behaviour on unseen receipts. Prices are not yet confirmed. Source: python/receipt_ocr_benchmark/results/v2/scores_improved (summary.csv, detail.csv) and extraction JSON.
+
+## Slide 10
+
 - Conclusion and Next Steps
 - ‹#›
 - The real trade-off: maintain extraction rules ourselves, or let AI replace that layer.
