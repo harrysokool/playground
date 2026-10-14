@@ -360,7 +360,7 @@ and 10, so only Version 1 receipts 1, 2, 3 and 5 were unseen during development:
 
 ```bash
 V1=results/v1_rerun && mkdir -p $V1
-git archive ocr-benchmark-v1:python/receipt_ocr_benchmark/results paddle_light paddle_heavy azure_di \
+git -C "$(git rev-parse --show-toplevel)" archive ocr-benchmark-v1:python/receipt_ocr_benchmark/results paddle_light paddle_heavy azure_di \
     extracted_general_light extracted_general_heavy extracted_general_azure_di | tar -x -C $V1
 for e in light heavy; do python -m receipt_bench.extract_cli --rules improved --input $V1/paddle_$e --output $V1/extracted_improved_$e; done
 python -m receipt_bench.extract_cli --rules improved --input $V1/azure_di --output $V1/extracted_improved_azure_di
@@ -391,16 +391,27 @@ enforces this).
 returned, in any order, separated by `,` `;` `/` `&` or "and", with no extra names. A single
 name is matched as before.
 
-Run on Azure ML (33 AOAI calls, no DI calls, never overwrites existing results):
+Run on Azure ML (no DI calls; at most 33 AOAI calls). Pull first, so the script never changes
+while it runs:
 
 ```bash
-bash python/receipt_ocr_benchmark/scripts/aoai_improved_on_azure.sh
+git pull --ff-only && bash python/receipt_ocr_benchmark/scripts/aoai_improved_on_azure.sh
 ```
 
-It runs the improved pipeline, two ablations (`v2_plain`, `v2_rows_image`) and the held-out
-Version 1 receipts, rescores the original seven results to confirm the scorer change left them
-unchanged, then commits and pushes `results/v2/di_aoai_v2_*`, `results/v2/scores_aoai_improved/`
-and `results/v1_heldout/`.
+- **Resumable.** A run whose folder already holds every receipt with status "ok" is skipped, so
+  running the script again repeats no AOAI call. A folder that exists but is incomplete stops the
+  script; results are never overwritten or deleted (move the folder aside yourself).
+- **Stops before running anything** if the original results differ from the committed version,
+  or if rescoring them with the current scorer changes any of the seven original scores.
+- **Commits in two steps:** the Version 2 results first (`results/v2/di_aoai_v2_*`,
+  `results/v2/scores_aoai_improved/`), then the held-out Version 1 results (`results/v1_heldout/`).
+  `--no-v1` stops after the Version 2 commit; `--no-push` commits without pushing.
+- **Version 1 is optional.** Its photos, saved DI responses and original AOAI results are read
+  from the tag `ocr-benchmark-v1` into a temporary folder. If they are not available, the step is
+  skipped with a message.
+- **Git lock files are never deleted by the script.** If one is present it stops: with a running
+  git process it asks you to wait; without one it names the file to remove once you have checked
+  nothing else (another terminal, VS Code, a Jupyter git extension) is using the repository.
 
 ## Scoring all approaches (Phase 1 of the final comparison)
 
