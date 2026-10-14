@@ -1,0 +1,70 @@
+{
+  "document_id": "receipt3",
+  "status": "ok",
+  "doctor_name": "Dr. Chow Ka Ho",
+  "registration_number": null,
+  "patient_name": "TAM KA YAN",
+  "receipt_number": "OPI-2026-0048213",
+  "service_date": "2026-05-18",
+  "total_amount": 2195.5,
+  "raw_fields": {
+    "doctor_name": "Dr. Chow Ka Ho",
+    "registration_number": null,
+    "patient_name": "TAM KA YAN",
+    "receipt_number": "OPI-2026-0048213",
+    "service_date": "18 May 2026",
+    "total_amount": "2,195.50"
+  },
+  "warnings": [],
+  "review_fields": [],
+  "uncertain_fields": [],
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": true
+  },
+  "input_text": "LB | Lantern Bay Hospital 朗灣醫院 | 8 Lantern Bay Road,\nTuen Mun, New Territories\nOutpatient Department 門診部\nTel: 2000 3360\nOUTPATIENT INVOICE 門診發票\nInvoice No. 發票編號 | OPI-2026-0048213 | Invoice Date 發票日期 | 25 May 2026\nPatient 病人 | TAM KA YAN | Patient No. 病人編號 | LB-0371526\nAttendance Date 就診日期 | 18 May 2026 | Episode No. 診症編號 | E2605180412\nAttending Doctor 主診醫生 | Dr. Chow Ka Ho | Policy No. 保單編號 | VH-58210937\nInsurer 保險公司 | Evergreen Assurance\nItem Code | Description | Unit Price (HK$) | Amount (HK$)\nQty\n項目編號 | 項目 | 數量 | 單價 | 金額\nOPC-0120 | Specialist outpatient consultation 專科門診診症 | 1 | 950.00 | 950.00\nRAD-1140 | Chest X-ray 胸部X光 | 1 | 620.00 | 620.00\nLAB-2071 | Blood test (CBC) 血液檢查 | 1 | 380.00 | 380.00\nPHM-9003 | Drugs 藥物 | 1 | 245.50 | 245.50\nTotal Charges 總收費 | 2,195.50\nLess: Paid by insurer (direct billing)保險公司直接付款 | (1,800.00)\nLess: Paid by patient 病人已付 | (395.50)\nBalance Due 尚欠餘額 | 0.00\nDirect billing arranged with Evergreen Assurance under the policy shown above. 直接付款安排由上述保單之保險公司處理。\nPage 1 of 1\nThis is a computer-generated invoice.此乃電腦發出之發票。\nSAMPLE / 測試樣本",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 201,
+      "prompt_tokens": 2081,
+      "total_tokens": 2282,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 128,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 9,
+        "engine_ttft_ms": 160,
+        "engine_ttlt_ms": 2107,
+        "pre_inference_ms": 300,
+        "service_tbt_ms": 9,
+        "service_ttft_ms": 492,
+        "service_ttlt_ms": 2434,
+        "user_visible_ttft_ms": 191
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2559.7681530016416,
+    "aoai_ms": 4496.814809999933,
+    "total_ms": 7056.582963001574,
+    "ocr_predict_ms": 2559.7681530016416,
+    "extract_ms": 4496.814809999933
+  }
+}

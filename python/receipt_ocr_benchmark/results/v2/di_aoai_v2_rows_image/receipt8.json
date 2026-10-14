@@ -1,0 +1,70 @@
+{
+  "document_id": "receipt8",
+  "status": "ok",
+  "doctor_name": "Dr. Siu Ka Wai",
+  "registration_number": "M19903",
+  "patient_name": "蔡嘉穎",
+  "receipt_number": "MC-2609-3391",
+  "service_date": "2026-09-03",
+  "total_amount": 795.0,
+  "raw_fields": {
+    "doctor_name": "Dr. Siu Ka Wai",
+    "registration_number": "M19903",
+    "patient_name": "蔡嘉穎",
+    "receipt_number": "MC-2609-3391",
+    "service_date": "3 Sep 2026",
+    "total_amount": "HK$795.00"
+  },
+  "warnings": [],
+  "review_fields": [],
+  "uncertain_fields": [],
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": true
+  },
+  "input_text": "Crestview Medical Centre | 3/F, Crestview Plaza,\nC | 21 Sha Tin Centre Street, Sha Tin\n嶺景醫療中心 | Tel 電話:2000 2759\nRECEIPT 收據 | Receipt No. 收據編號:MC-2609-3391\nPatient 病人 | Visit Date 就診日期\n蔡嘉穎 | 3 Sep 2026\nAttending Doctor 主診醫生 | Reg. No. 註冊編號\nDr. Siu Ka Wai | M19903\nPlan Member No. 計劃會員編號 | Nurse 護士(vaccination)\nCP-6610428 (Lumen Health Plan) | Wan Man Yi\nService 服務 | Performed by 負責人員 | Amount 金額(HK$)\nGeneral consultation 普通科診症 | Dr. Siu Ka Wai | 420.00\nInfluenza vaccine 流感疫苗 | Nurse 護士: Wan Man Yi | 280.00\nMedication (2 items) 藥物 | Dispensary 配藥處 | 95.00\nTotal 合計 | HK$795.00\nCharges covered under Lumen Health Plan are\nsettled directly with the plan. The patient pays the\nCovered by plan 計劃承保 | HK$695.00\nco-payment shown. 計劃承保之費用由計劃直接支\n付,病人只需繳付自付額。 | Co-payment paid (cash) 病人自付 | HK$100.00\nPrinted 列印日期:03/09/2026 16:52 | Thank you for choosing Crestview Medical Centre.\nSAMPLE / 測試樣本",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 201,
+      "prompt_tokens": 2004,
+      "total_tokens": 2205,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 128,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 9,
+        "engine_ttft_ms": 148,
+        "engine_ttlt_ms": 2359,
+        "pre_inference_ms": 593,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 853,
+        "service_ttlt_ms": 3013,
+        "user_visible_ttft_ms": 260
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2573.067199999059,
+    "aoai_ms": 5322.1640260001095,
+    "total_ms": 7895.231225999169,
+    "ocr_predict_ms": 2573.067199999059,
+    "extract_ms": 5322.1640260001095
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "document_id": "receipt4",
+  "status": "ok",
+  "doctor_name": "葉卓謙",
+  "registration_number": "006821",
+  "patient_name": "麥詠琳",
+  "receipt_number": "Y2605117",
+  "service_date": "2026年6月9日",
+  "total_amount": 790.0,
+  "raw_fields": {
+    "doctor_name": "葉卓謙",
+    "registration_number": "006821",
+    "patient_name": "麥詠琳",
+    "receipt_number": "Y2605117",
+    "service_date": "2026年6月9日",
+    "total_amount": "港幣 $790.00"
+  },
+  "warnings": [
+    "service_date: could not parse '2026年6月9日', kept as written"
+  ],
+  "review_fields": [],
+  "uncertain_fields": [],
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": true
+  },
+  "input_text": "澄溪中醫診所\n九龍旺角西洋菜南街 210號 澄溪商業大廈 7 樓 703 室\n電話:2000 6628\n收據\n收據編號:Y2605117\n病人姓名 | 麥詠琳\n病歷編號 | CX-3308\n診症日期 | 2026年6月9日\n主診中醫師 | 葉卓謙\n註冊中醫編號 | 006821\n項目 | 數量 | 單價(港幣) | 金額(港幣)\n診金 | 1 | 180.00 | 180.00\n中藥(3劑) | 3 | 120.00 | 360.00\n針灸 | 1 | 250.00 | 250.00\n合計 | 港幣 $790.00\n大寫 | 柒佰玖拾圓正\n已付(現金) | $790.00\n覆診日期:2026年6月16日\n澄中 | 溪醫\n中醫師簽署\nSAMPLE / 測試樣本",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 264,
+      "prompt_tokens": 1893,
+      "total_tokens": 2157,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 192,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 168,
+        "engine_ttlt_ms": 2347,
+        "pre_inference_ms": 243,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 447,
+        "service_ttlt_ms": 2630,
+        "user_visible_ttft_ms": 204
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 6664.65091200007,
+    "aoai_ms": 4445.734191999918,
+    "total_ms": 11110.385103999988,
+    "ocr_predict_ms": 6664.65091200007,
+    "extract_ms": 4445.734191999918
+  }
+}

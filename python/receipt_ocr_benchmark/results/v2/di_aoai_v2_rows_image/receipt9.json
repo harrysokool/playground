@@ -1,0 +1,70 @@
+{
+  "document_id": "receipt9",
+  "status": "ok",
+  "doctor_name": "Dr. Lok Vichol",
+  "registration_number": null,
+  "patient_name": "Fuk Jai",
+  "receipt_number": "369303",
+  "service_date": "2023-02-09",
+  "total_amount": 1361.0,
+  "raw_fields": {
+    "doctor_name": "Dr. Lok Vichol",
+    "registration_number": null,
+    "patient_name": "Fuk Jai",
+    "receipt_number": "369303",
+    "service_date": "Feb 09, 2023",
+    "total_amount": "HKD 1361.00"
+  },
+  "warnings": [],
+  "review_fields": [],
+  "uncertain_fields": [],
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": true
+  },
+  "input_text": "Member of PET SPACE Group\nTung Chung Animal Clinic\n東涌動物診所\nShop No.7, Ma Wan Village\n東涌馬灣新村7號地下,Tung Chung, Lantau Island, Hong Kong 22 2988 1534\nInvoice\nTotal Due: HKD 0.00\nInvoice No: 369303 | FClinician: Angel Tseng FPatient: Fuk Jai | Feb 09, 2023\nFuk Jai | 10m 2d 4.000 kgs | Sep 10, 2023 - FV - FVRCP Vaccine FELOCELL 3: Adult Cat [\n110335 ]\nFeline, ASHMale, SILV TABBY\nDate | Description | Qty | Fees\nEncounter: Vomiting Acute ddx\nFeb 09, 2023 | Consultation (A) - Comprehensive Medical Exam and Consult [ 220015 ] | 1.00 | 360.00\nFeb 09, 2023 | Metronidazole 50mg Tablet [ 110466 ]- per tab | 10.00 | 146.00\nFeb 09, 2023 | Cobalaplex Capsule [ 110165 ]- per cap | 15.00 | 162.50\nFeb 09, 2023 | PRO-KOLIN Advanced Cat [ 110617 ] - per box[15ml] | 1.00 | 256.00\nFeb 09, 2023 | MILBEMAX Tablet for Cats [2-8kg] [ 110479 ]- per tab | 1.00 | 176.00\nFeb 09, 2023 | Tablet Pill Introducer [ 440339 ]- per pc | 1.00 | 33.00\nFeb 09, 2023 | RC F9 VHN Gastro Intestinal [ 330351 ]- per pouch[85g] | 12.00 | 228.00\nSub Total | HKD 1361.50\nRound Down | (+) -0.50\nTotal Amount | HKD 1361.00\nDetails of Payments Received\nPayment Date | Payment Type | Receipt # | Payment received\nFeb 09, 2023 | MasterCard | 380048 | 1361.00\nSymptoms: | diarrhoea. | Total payment received | 1361.00\nFirst Appeared Date: | 07/02/2023 | Total Due\nHKD 0.00\nDiagnosis: | Colitis\nVet's Signature & Stamp: | Dr. Lok Vichol\nBVSc (Hons) CVA | LINIC LTD.\nNIMAL | TUNG CA",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 261,
+      "prompt_tokens": 2197,
+      "total_tokens": 2458,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 192,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 8,
+        "engine_ttft_ms": 161,
+        "engine_ttlt_ms": 2402,
+        "pre_inference_ms": 214,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 405,
+        "service_ttlt_ms": 2639,
+        "user_visible_ttft_ms": 191
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2274.9886800011154,
+    "aoai_ms": 4571.309680000013,
+    "total_ms": 6846.2983600011285,
+    "ocr_predict_ms": 2274.9886800011154,
+    "extract_ms": 4571.309680000013
+  }
+}

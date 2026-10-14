@@ -1,0 +1,325 @@
+approach,receipt,field,ground_truth,predicted,result
+paddle_light_improved,receipt1,doctor_name,Dr. Tsang Hoi Lam,Dr. Tsang Hoi Lam,Correct
+paddle_light_improved,receipt1,registration_number,M17642,M17642,Correct
+paddle_light_improved,receipt1,patient_name,Leung Wai Kei,Leung Wai Kei,Correct
+paddle_light_improved,receipt1,receipt_number,HFC-260314-0087,HFC-260314-0087,Correct
+paddle_light_improved,receipt1,service_date,2026-03-14,2026-03-14,Correct
+paddle_light_improved,receipt1,total_amount,550,550.0,Correct
+paddle_light_improved,receipt2,doctor_name,Dr. Ng Chun Yip,Dr. Ng Chun Yip,Correct
+paddle_light_improved,receipt2,registration_number,M20581,M20581,Correct
+paddle_light_improved,receipt2,patient_name,Ho Siu Ming,Ho Siu Ming,Correct
+paddle_light_improved,receipt2,receipt_number,SC2026/01593,SC2026/01593,Correct
+paddle_light_improved,receipt2,service_date,2026-04-22,2026-04-22,Correct
+paddle_light_improved,receipt2,total_amount,1880,1880.0,Correct
+paddle_light_improved,receipt3,doctor_name,Dr. Chow Ka Ho,Dr. Chow Ka Ho,Correct
+paddle_light_improved,receipt3,registration_number,na,,N/A
+paddle_light_improved,receipt3,patient_name,TAM KA YAN,TAM KA YAN,Correct
+paddle_light_improved,receipt3,receipt_number,OPI-2026-0048213,OPI-2026-0048213,Correct
+paddle_light_improved,receipt3,service_date,2026-05-18,2026-05-18,Correct
+paddle_light_improved,receipt3,total_amount,2195.5,2195.5,Correct
+paddle_light_improved,receipt4,doctor_name,葉卓謙,葉卓謙,Correct
+paddle_light_improved,receipt4,registration_number,006821,006821,Correct
+paddle_light_improved,receipt4,patient_name,麥詠琳,麥詠琳,Correct
+paddle_light_improved,receipt4,receipt_number,Y2605117,Y2605117,Correct
+paddle_light_improved,receipt4,service_date,2026-06-09,2026-06-09,Correct
+paddle_light_improved,receipt4,total_amount,790,790.0,Correct
+paddle_light_improved,receipt5,doctor_name,Dr. Ho Ching Yee,Dr. Ho Ching Yee,Correct
+paddle_light_improved,receipt5,registration_number,D03158,D03158,Correct
+paddle_light_improved,receipt5,patient_name,馮浩霖,馮浩霖,Correct
+paddle_light_improved,receipt5,receipt_number,DEN-77342,DEN-77342,Correct
+paddle_light_improved,receipt5,service_date,2026-06-27,2026-06-27,Correct
+paddle_light_improved,receipt5,total_amount,1575,1575.0,Correct
+paddle_light_improved,receipt6,doctor_name,CHEUNG Hoi Ying,CHEUNG Hoi Ying,Correct
+paddle_light_improved,receipt6,registration_number,PT004175,PT004175,Correct
+paddle_light_improved,receipt6,patient_name,Yeung Tsz Kit,Yeung Tsz Kit,Correct
+paddle_light_improved,receipt6,receipt_number,RCP-10388,RCP-10388,Correct
+paddle_light_improved,receipt6,service_date,2026-07-16,2026-07-16,Correct
+paddle_light_improved,receipt6,total_amount,1200,1200.0,Correct
+paddle_light_improved,receipt8,doctor_name,Dr. Siu Ka Wai,Dr. Siu Ka Wai,Correct
+paddle_light_improved,receipt8,registration_number,M19903,M19903,Correct
+paddle_light_improved,receipt8,patient_name,蔡嘉穎,蔡嘉穎,Correct
+paddle_light_improved,receipt8,receipt_number,MC-2609-3391,MC-2609-3391,Correct
+paddle_light_improved,receipt8,service_date,2026-09-03,2026-09-03,Correct
+paddle_light_improved,receipt8,total_amount,795,795.0,Correct
+paddle_light_improved,receipt9,doctor_name,"Angel Tseng, Lok Yi Choi",,Wrong
+paddle_light_improved,receipt9,registration_number,na,,N/A
+paddle_light_improved,receipt9,patient_name,Fuk Jai,,Wrong
+paddle_light_improved,receipt9,receipt_number,369303,380048,Wrong
+paddle_light_improved,receipt9,service_date,2023-02-09,2023-02-09,Correct
+paddle_light_improved,receipt9,total_amount,1361,1361.0,Correct
+paddle_light_improved,receipt10,doctor_name,Dr Jessica Sterenborg,Dr. Jessica Sterenborg,Correct
+paddle_light_improved,receipt10,registration_number,na,,N/A
+paddle_light_improved,receipt10,patient_name,Nikita Hubber,,Wrong
+paddle_light_improved,receipt10,receipt_number,9990000505906,,Wrong
+paddle_light_improved,receipt10,service_date,2017-03-24,2017-03-01,Wrong
+paddle_light_improved,receipt10,total_amount,51.2,51.2,Correct
+azure_di_improved,receipt1,doctor_name,Dr. Tsang Hoi Lam,Dr. Tsang Hoi Lam,Correct
+azure_di_improved,receipt1,registration_number,M17642,M17642,Correct
+azure_di_improved,receipt1,patient_name,Leung Wai Kei,Leung Wai Kei,Correct
+azure_di_improved,receipt1,receipt_number,HFC-260314-0087,HFC-260314-0087,Correct
+azure_di_improved,receipt1,service_date,2026-03-14,2026-03-14,Correct
+azure_di_improved,receipt1,total_amount,550,550.0,Correct
+azure_di_improved,receipt2,doctor_name,Dr. Ng Chun Yip,Dr. Ng Chun Yip,Correct
+azure_di_improved,receipt2,registration_number,M20581,M20581,Correct
+azure_di_improved,receipt2,patient_name,Ho Siu Ming,Ho Siu Ming,Correct
+azure_di_improved,receipt2,receipt_number,SC2026/01593,SC2026/01593,Correct
+azure_di_improved,receipt2,service_date,2026-04-22,2026-04-22,Correct
+azure_di_improved,receipt2,total_amount,1880,1880.0,Correct
+azure_di_improved,receipt3,doctor_name,Dr. Chow Ka Ho,Dr. Chow Ka Ho,Correct
+azure_di_improved,receipt3,registration_number,na,,N/A
+azure_di_improved,receipt3,patient_name,TAM KA YAN,TAM KA YAN,Correct
+azure_di_improved,receipt3,receipt_number,OPI-2026-0048213,OPI-2026-0048213,Correct
+azure_di_improved,receipt3,service_date,2026-05-18,2026-05-18,Correct
+azure_di_improved,receipt3,total_amount,2195.5,2195.5,Correct
+azure_di_improved,receipt4,doctor_name,葉卓謙,葉卓謙,Correct
+azure_di_improved,receipt4,registration_number,006821,006821,Correct
+azure_di_improved,receipt4,patient_name,麥詠琳,麥詠琳,Correct
+azure_di_improved,receipt4,receipt_number,Y2605117,Y2605117,Correct
+azure_di_improved,receipt4,service_date,2026-06-09,2026-06-09,Correct
+azure_di_improved,receipt4,total_amount,790,790.0,Correct
+azure_di_improved,receipt5,doctor_name,Dr. Ho Ching Yee,Dr. Ho Ching Yee,Correct
+azure_di_improved,receipt5,registration_number,D03158,D03158,Correct
+azure_di_improved,receipt5,patient_name,馮浩霖,馮浩霖,Correct
+azure_di_improved,receipt5,receipt_number,DEN-77342,DEN-77342,Correct
+azure_di_improved,receipt5,service_date,2026-06-27,2026-06-27,Correct
+azure_di_improved,receipt5,total_amount,1575,1750.0,Wrong
+azure_di_improved,receipt6,doctor_name,CHEUNG Hoi Ying,CHEUNG Hoi Ying,Correct
+azure_di_improved,receipt6,registration_number,PT004175,PT004175,Correct
+azure_di_improved,receipt6,patient_name,Yeung Tsz Kit,Yeung Tsz Kit,Correct
+azure_di_improved,receipt6,receipt_number,RCP-10388,RCP-10388,Correct
+azure_di_improved,receipt6,service_date,2026-07-16,2026-07-16,Correct
+azure_di_improved,receipt6,total_amount,1200,1200.0,Correct
+azure_di_improved,receipt8,doctor_name,Dr. Siu Ka Wai,Dr. Siu Ka Wai,Correct
+azure_di_improved,receipt8,registration_number,M19903,M19903,Correct
+azure_di_improved,receipt8,patient_name,蔡嘉穎,蔡嘉穎,Correct
+azure_di_improved,receipt8,receipt_number,MC-2609-3391,MC-2609-3391,Correct
+azure_di_improved,receipt8,service_date,2026-09-03,2026-09-03,Correct
+azure_di_improved,receipt8,total_amount,795,795.0,Correct
+azure_di_improved,receipt9,doctor_name,"Angel Tseng, Lok Yi Choi",Dr. Lok Vichol,Wrong
+azure_di_improved,receipt9,registration_number,na,,N/A
+azure_di_improved,receipt9,patient_name,Fuk Jai,,Wrong
+azure_di_improved,receipt9,receipt_number,369303,380048,Wrong
+azure_di_improved,receipt9,service_date,2023-02-09,2023-02-09,Correct
+azure_di_improved,receipt9,total_amount,1361,1361.0,Correct
+azure_di_improved,receipt10,doctor_name,Dr Jessica Sterenborg,Dr. Jessica Sterenborg,Correct
+azure_di_improved,receipt10,registration_number,na,,N/A
+azure_di_improved,receipt10,patient_name,Nikita Hubber,,Wrong
+azure_di_improved,receipt10,receipt_number,9990000505906,,Wrong
+azure_di_improved,receipt10,service_date,2017-03-24,2017-03-01,Wrong
+azure_di_improved,receipt10,total_amount,51.2,51.2,Correct
+aoai_original,receipt1,doctor_name,Dr. Tsang Hoi Lam,Dr. Tsang Hoi Lam,Correct
+aoai_original,receipt1,registration_number,M17642,MBBS (HK) · Reg. No. M17642,Wrong
+aoai_original,receipt1,patient_name,Leung Wai Kei,Leung Wai Kei,Correct
+aoai_original,receipt1,receipt_number,HFC-260314-0087,HFC-260314-0087,Correct
+aoai_original,receipt1,service_date,2026-03-14,2026-03-14,Correct
+aoai_original,receipt1,total_amount,550,550.0,Correct
+aoai_original,receipt2,doctor_name,Dr. Ng Chun Yip,Dr. Ng Chun Yip,Correct
+aoai_original,receipt2,registration_number,M20581,M20581,Correct
+aoai_original,receipt2,patient_name,Ho Siu Ming,Ho Siu Ming,Correct
+aoai_original,receipt2,receipt_number,SC2026/01593,SC2026/01593,Correct
+aoai_original,receipt2,service_date,2026-04-22,2026-04-22,Correct
+aoai_original,receipt2,total_amount,1880,1880.0,Correct
+aoai_original,receipt3,doctor_name,Dr. Chow Ka Ho,Dr. Chow Ka Ho,Correct
+aoai_original,receipt3,registration_number,na,,N/A
+aoai_original,receipt3,patient_name,TAM KA YAN,TAM KA YAN,Correct
+aoai_original,receipt3,receipt_number,OPI-2026-0048213,OPI-2026-0048213,Correct
+aoai_original,receipt3,service_date,2026-05-18,2026-05-18,Correct
+aoai_original,receipt3,total_amount,2195.5,2195.5,Correct
+aoai_original,receipt4,doctor_name,葉卓謙,葉卓謙,Correct
+aoai_original,receipt4,registration_number,006821,006821,Correct
+aoai_original,receipt4,patient_name,麥詠琳,麥詠琳,Correct
+aoai_original,receipt4,receipt_number,Y2605117,Y2605117,Correct
+aoai_original,receipt4,service_date,2026-06-09,2026年6月9日,Correct
+aoai_original,receipt4,total_amount,790,790.0,Correct
+aoai_original,receipt5,doctor_name,Dr. Ho Ching Yee,"Dr. Ho Ching Yee, BDS (HK)",Wrong
+aoai_original,receipt5,registration_number,D03158,D03158,Correct
+aoai_original,receipt5,patient_name,馮浩霖,馮浩霖,Correct
+aoai_original,receipt5,receipt_number,DEN-77342,DEN-77342,Correct
+aoai_original,receipt5,service_date,2026-06-27,2026-06-27,Correct
+aoai_original,receipt5,total_amount,1575,1575.0,Correct
+aoai_original,receipt6,doctor_name,CHEUNG Hoi Ying,CHEUNG Hoi Ying,Correct
+aoai_original,receipt6,registration_number,PT004175,PT004175,Correct
+aoai_original,receipt6,patient_name,Yeung Tsz Kit,Yeung Tsz Kit,Correct
+aoai_original,receipt6,receipt_number,RCP-10388,RCP-10388,Correct
+aoai_original,receipt6,service_date,2026-07-16,2026-07-16,Correct
+aoai_original,receipt6,total_amount,1200,1200.0,Correct
+aoai_original,receipt8,doctor_name,Dr. Siu Ka Wai,Dr. Siu Ka Wai,Correct
+aoai_original,receipt8,registration_number,M19903,M19903,Correct
+aoai_original,receipt8,patient_name,蔡嘉穎,蔡嘉穎,Correct
+aoai_original,receipt8,receipt_number,MC-2609-3391,MC-2609-3391,Correct
+aoai_original,receipt8,service_date,2026-09-03,2026-09-03,Correct
+aoai_original,receipt8,total_amount,795,795.0,Correct
+aoai_original,receipt9,doctor_name,"Angel Tseng, Lok Yi Choi",Angel Tseng,Wrong
+aoai_original,receipt9,registration_number,na,,N/A
+aoai_original,receipt9,patient_name,Fuk Jai,Fuk Jai,Correct
+aoai_original,receipt9,receipt_number,369303,369303,Correct
+aoai_original,receipt9,service_date,2023-02-09,2023-02-09,Correct
+aoai_original,receipt9,total_amount,1361,1361.5,Wrong
+aoai_original,receipt10,doctor_name,Dr Jessica Sterenborg,Dr Jessica Sterenborg Picton Medical Centre,Wrong
+aoai_original,receipt10,registration_number,na,,N/A
+aoai_original,receipt10,patient_name,Nikita Hubber,Nikita Hubber,Correct
+aoai_original,receipt10,receipt_number,9990000505906,9990000505906,Correct
+aoai_original,receipt10,service_date,2017-03-24,2017-03-01,Wrong
+aoai_original,receipt10,total_amount,51.2,51.2,Correct
+aoai_v2_rows,receipt1,doctor_name,Dr. Tsang Hoi Lam,Dr. Tsang Hoi Lam,Correct
+aoai_v2_rows,receipt1,registration_number,M17642,M17642,Correct
+aoai_v2_rows,receipt1,patient_name,Leung Wai Kei,Leung Wai Kei,Correct
+aoai_v2_rows,receipt1,receipt_number,HFC-260314-0087,HFC-260314-0087,Correct
+aoai_v2_rows,receipt1,service_date,2026-03-14,2026-03-14,Correct
+aoai_v2_rows,receipt1,total_amount,550,550.0,Correct
+aoai_v2_rows,receipt2,doctor_name,Dr. Ng Chun Yip,Dr. Ng Chun Yip,Correct
+aoai_v2_rows,receipt2,registration_number,M20581,M20581,Correct
+aoai_v2_rows,receipt2,patient_name,Ho Siu Ming,Ho Siu Ming,Correct
+aoai_v2_rows,receipt2,receipt_number,SC2026/01593,SC2026/01593,Correct
+aoai_v2_rows,receipt2,service_date,2026-04-22,2026-04-22,Correct
+aoai_v2_rows,receipt2,total_amount,1880,1880.0,Correct
+aoai_v2_rows,receipt3,doctor_name,Dr. Chow Ka Ho,Dr. Chow Ka Ho,Correct
+aoai_v2_rows,receipt3,registration_number,na,,N/A
+aoai_v2_rows,receipt3,patient_name,TAM KA YAN,TAM KA YAN,Correct
+aoai_v2_rows,receipt3,receipt_number,OPI-2026-0048213,OPI-2026-0048213,Correct
+aoai_v2_rows,receipt3,service_date,2026-05-18,2026-05-18,Correct
+aoai_v2_rows,receipt3,total_amount,2195.5,2195.5,Correct
+aoai_v2_rows,receipt4,doctor_name,葉卓謙,葉卓謙,Correct
+aoai_v2_rows,receipt4,registration_number,006821,006821,Correct
+aoai_v2_rows,receipt4,patient_name,麥詠琳,麥詠琳,Correct
+aoai_v2_rows,receipt4,receipt_number,Y2605117,Y2605117,Correct
+aoai_v2_rows,receipt4,service_date,2026-06-09,2026年6月9日,Correct
+aoai_v2_rows,receipt4,total_amount,790,790.0,Correct
+aoai_v2_rows,receipt5,doctor_name,Dr. Ho Ching Yee,Dr. Ho Ching Yee,Correct
+aoai_v2_rows,receipt5,registration_number,D03158,D03158,Correct
+aoai_v2_rows,receipt5,patient_name,馮浩霖,馮浩霖,Correct
+aoai_v2_rows,receipt5,receipt_number,DEN-77342,DEN-77342,Correct
+aoai_v2_rows,receipt5,service_date,2026-06-27,2026-06-27,Correct
+aoai_v2_rows,receipt5,total_amount,1575,1575.0,Correct
+aoai_v2_rows,receipt6,doctor_name,CHEUNG Hoi Ying,CHEUNG Hoi Ying,Correct
+aoai_v2_rows,receipt6,registration_number,PT004175,PT004175,Correct
+aoai_v2_rows,receipt6,patient_name,Yeung Tsz Kit,Yeung Tsz Kit,Correct
+aoai_v2_rows,receipt6,receipt_number,RCP-10388,RCP-10388,Correct
+aoai_v2_rows,receipt6,service_date,2026-07-16,2026-07-16,Correct
+aoai_v2_rows,receipt6,total_amount,1200,1200.0,Correct
+aoai_v2_rows,receipt8,doctor_name,Dr. Siu Ka Wai,Dr. Siu Ka Wai,Correct
+aoai_v2_rows,receipt8,registration_number,M19903,M19903,Correct
+aoai_v2_rows,receipt8,patient_name,蔡嘉穎,蔡嘉穎,Correct
+aoai_v2_rows,receipt8,receipt_number,MC-2609-3391,MC-2609-3391,Correct
+aoai_v2_rows,receipt8,service_date,2026-09-03,2026-09-03,Correct
+aoai_v2_rows,receipt8,total_amount,795,795.0,Correct
+aoai_v2_rows,receipt9,doctor_name,"Angel Tseng, Lok Yi Choi",Dr. Lok Vichol,Wrong
+aoai_v2_rows,receipt9,registration_number,na,,N/A
+aoai_v2_rows,receipt9,patient_name,Fuk Jai,Fuk Jai,Correct
+aoai_v2_rows,receipt9,receipt_number,369303,369303,Correct
+aoai_v2_rows,receipt9,service_date,2023-02-09,2023-02-09,Correct
+aoai_v2_rows,receipt9,total_amount,1361,1361.0,Correct
+aoai_v2_rows,receipt10,doctor_name,Dr Jessica Sterenborg,Dr Jessica Sterenborg,Correct
+aoai_v2_rows,receipt10,registration_number,na,,N/A
+aoai_v2_rows,receipt10,patient_name,Nikita Hubber,Nikita Hubber,Correct
+aoai_v2_rows,receipt10,receipt_number,9990000505906,9990000505906,Correct
+aoai_v2_rows,receipt10,service_date,2017-03-24,2017-03-01,Wrong
+aoai_v2_rows,receipt10,total_amount,51.2,51.2,Correct
+aoai_v2_plain,receipt1,doctor_name,Dr. Tsang Hoi Lam,Dr. Tsang Hoi Lam,Correct
+aoai_v2_plain,receipt1,registration_number,M17642,M17642,Correct
+aoai_v2_plain,receipt1,patient_name,Leung Wai Kei,Leung Wai Kei,Correct
+aoai_v2_plain,receipt1,receipt_number,HFC-260314-0087,HFC-260314-0087,Correct
+aoai_v2_plain,receipt1,service_date,2026-03-14,2026-03-14,Correct
+aoai_v2_plain,receipt1,total_amount,550,550.0,Correct
+aoai_v2_plain,receipt2,doctor_name,Dr. Ng Chun Yip,Dr. Ng Chun Yip,Correct
+aoai_v2_plain,receipt2,registration_number,M20581,M20581,Correct
+aoai_v2_plain,receipt2,patient_name,Ho Siu Ming,Ho Siu Ming,Correct
+aoai_v2_plain,receipt2,receipt_number,SC2026/01593,SC2026/01593,Correct
+aoai_v2_plain,receipt2,service_date,2026-04-22,2026-04-22,Correct
+aoai_v2_plain,receipt2,total_amount,1880,1880.0,Correct
+aoai_v2_plain,receipt3,doctor_name,Dr. Chow Ka Ho,Dr. Chow Ka Ho,Correct
+aoai_v2_plain,receipt3,registration_number,na,,N/A
+aoai_v2_plain,receipt3,patient_name,TAM KA YAN,TAM KA YAN,Correct
+aoai_v2_plain,receipt3,receipt_number,OPI-2026-0048213,OPI-2026-0048213,Correct
+aoai_v2_plain,receipt3,service_date,2026-05-18,2026-05-18,Correct
+aoai_v2_plain,receipt3,total_amount,2195.5,2195.5,Correct
+aoai_v2_plain,receipt4,doctor_name,葉卓謙,葉卓謙,Correct
+aoai_v2_plain,receipt4,registration_number,006821,006821,Correct
+aoai_v2_plain,receipt4,patient_name,麥詠琳,麥詠琳,Correct
+aoai_v2_plain,receipt4,receipt_number,Y2605117,Y2605117,Correct
+aoai_v2_plain,receipt4,service_date,2026-06-09,2026年6月9日,Correct
+aoai_v2_plain,receipt4,total_amount,790,790.0,Correct
+aoai_v2_plain,receipt5,doctor_name,Dr. Ho Ching Yee,Dr. Ho Ching Yee,Correct
+aoai_v2_plain,receipt5,registration_number,D03158,D03158,Correct
+aoai_v2_plain,receipt5,patient_name,馮浩霖,馮浩霖,Correct
+aoai_v2_plain,receipt5,receipt_number,DEN-77342,DEN-77342,Correct
+aoai_v2_plain,receipt5,service_date,2026-06-27,2026-06-27,Correct
+aoai_v2_plain,receipt5,total_amount,1575,1575.0,Correct
+aoai_v2_plain,receipt6,doctor_name,CHEUNG Hoi Ying,CHEUNG Hoi Ying,Correct
+aoai_v2_plain,receipt6,registration_number,PT004175,PT004175,Correct
+aoai_v2_plain,receipt6,patient_name,Yeung Tsz Kit,Yeung Tsz Kit,Correct
+aoai_v2_plain,receipt6,receipt_number,RCP-10388,RCP-10388,Correct
+aoai_v2_plain,receipt6,service_date,2026-07-16,2026-07-16,Correct
+aoai_v2_plain,receipt6,total_amount,1200,1200.0,Correct
+aoai_v2_plain,receipt8,doctor_name,Dr. Siu Ka Wai,Dr. Siu Ka Wai,Correct
+aoai_v2_plain,receipt8,registration_number,M19903,M19903,Correct
+aoai_v2_plain,receipt8,patient_name,蔡嘉穎,蔡嘉穎,Correct
+aoai_v2_plain,receipt8,receipt_number,MC-2609-3391,MC-2609-3391,Correct
+aoai_v2_plain,receipt8,service_date,2026-09-03,2026-09-03,Correct
+aoai_v2_plain,receipt8,total_amount,795,795.0,Correct
+aoai_v2_plain,receipt9,doctor_name,"Angel Tseng, Lok Yi Choi",Angel Tseng; Dr. Lok Vichol,Wrong
+aoai_v2_plain,receipt9,registration_number,na,,N/A
+aoai_v2_plain,receipt9,patient_name,Fuk Jai,Fuk Jai,Correct
+aoai_v2_plain,receipt9,receipt_number,369303,369303,Correct
+aoai_v2_plain,receipt9,service_date,2023-02-09,2023-02-09,Correct
+aoai_v2_plain,receipt9,total_amount,1361,1361.0,Correct
+aoai_v2_plain,receipt10,doctor_name,Dr Jessica Sterenborg,Dr Jessica Sterenborg,Correct
+aoai_v2_plain,receipt10,registration_number,na,,N/A
+aoai_v2_plain,receipt10,patient_name,Nikita Hubber,Nikita Hubber,Correct
+aoai_v2_plain,receipt10,receipt_number,9990000505906,9990000505906,Correct
+aoai_v2_plain,receipt10,service_date,2017-03-24,2017-03-01,Wrong
+aoai_v2_plain,receipt10,total_amount,51.2,51.2,Correct
+aoai_v2_rows_image,receipt1,doctor_name,Dr. Tsang Hoi Lam,Dr. Tsang Hoi Lam,Correct
+aoai_v2_rows_image,receipt1,registration_number,M17642,M17642,Correct
+aoai_v2_rows_image,receipt1,patient_name,Leung Wai Kei,Leung Wai Kei,Correct
+aoai_v2_rows_image,receipt1,receipt_number,HFC-260314-0087,HFC-260314-0087,Correct
+aoai_v2_rows_image,receipt1,service_date,2026-03-14,2026-03-14,Correct
+aoai_v2_rows_image,receipt1,total_amount,550,550.0,Correct
+aoai_v2_rows_image,receipt2,doctor_name,Dr. Ng Chun Yip,Dr. Ng Chun Yip,Correct
+aoai_v2_rows_image,receipt2,registration_number,M20581,M20581,Correct
+aoai_v2_rows_image,receipt2,patient_name,Ho Siu Ming,Ho Siu Ming,Correct
+aoai_v2_rows_image,receipt2,receipt_number,SC2026/01593,SC2026/01593,Correct
+aoai_v2_rows_image,receipt2,service_date,2026-04-22,2026-04-22,Correct
+aoai_v2_rows_image,receipt2,total_amount,1880,1880.0,Correct
+aoai_v2_rows_image,receipt3,doctor_name,Dr. Chow Ka Ho,Dr. Chow Ka Ho,Correct
+aoai_v2_rows_image,receipt3,registration_number,na,,N/A
+aoai_v2_rows_image,receipt3,patient_name,TAM KA YAN,TAM KA YAN,Correct
+aoai_v2_rows_image,receipt3,receipt_number,OPI-2026-0048213,OPI-2026-0048213,Correct
+aoai_v2_rows_image,receipt3,service_date,2026-05-18,2026-05-18,Correct
+aoai_v2_rows_image,receipt3,total_amount,2195.5,2195.5,Correct
+aoai_v2_rows_image,receipt4,doctor_name,葉卓謙,葉卓謙,Correct
+aoai_v2_rows_image,receipt4,registration_number,006821,006821,Correct
+aoai_v2_rows_image,receipt4,patient_name,麥詠琳,麥詠琳,Correct
+aoai_v2_rows_image,receipt4,receipt_number,Y2605117,Y2605117,Correct
+aoai_v2_rows_image,receipt4,service_date,2026-06-09,2026年6月9日,Correct
+aoai_v2_rows_image,receipt4,total_amount,790,790.0,Correct
+aoai_v2_rows_image,receipt5,doctor_name,Dr. Ho Ching Yee,Dr. Ho Ching Yee,Correct
+aoai_v2_rows_image,receipt5,registration_number,D03158,D03158,Correct
+aoai_v2_rows_image,receipt5,patient_name,馮浩霖,馮浩霖,Correct
+aoai_v2_rows_image,receipt5,receipt_number,DEN-77342,DEN-77342,Correct
+aoai_v2_rows_image,receipt5,service_date,2026-06-27,2026-06-27,Correct
+aoai_v2_rows_image,receipt5,total_amount,1575,1575.0,Correct
+aoai_v2_rows_image,receipt6,doctor_name,CHEUNG Hoi Ying,CHEUNG Hoi Ying,Correct
+aoai_v2_rows_image,receipt6,registration_number,PT004175,PT004175,Correct
+aoai_v2_rows_image,receipt6,patient_name,Yeung Tsz Kit,Yeung Tsz Kit,Correct
+aoai_v2_rows_image,receipt6,receipt_number,RCP-10388,RCP-10388,Correct
+aoai_v2_rows_image,receipt6,service_date,2026-07-16,2026-07-16,Correct
+aoai_v2_rows_image,receipt6,total_amount,1200,1200.0,Correct
+aoai_v2_rows_image,receipt8,doctor_name,Dr. Siu Ka Wai,Dr. Siu Ka Wai,Correct
+aoai_v2_rows_image,receipt8,registration_number,M19903,M19903,Correct
+aoai_v2_rows_image,receipt8,patient_name,蔡嘉穎,蔡嘉穎,Correct
+aoai_v2_rows_image,receipt8,receipt_number,MC-2609-3391,MC-2609-3391,Correct
+aoai_v2_rows_image,receipt8,service_date,2026-09-03,2026-09-03,Correct
+aoai_v2_rows_image,receipt8,total_amount,795,795.0,Correct
+aoai_v2_rows_image,receipt9,doctor_name,"Angel Tseng, Lok Yi Choi",Dr. Lok Vichol,Wrong
+aoai_v2_rows_image,receipt9,registration_number,na,,N/A
+aoai_v2_rows_image,receipt9,patient_name,Fuk Jai,Fuk Jai,Correct
+aoai_v2_rows_image,receipt9,receipt_number,369303,369303,Correct
+aoai_v2_rows_image,receipt9,service_date,2023-02-09,2023-02-09,Correct
+aoai_v2_rows_image,receipt9,total_amount,1361,1361.0,Correct
+aoai_v2_rows_image,receipt10,doctor_name,Dr Jessica Sterenborg,Dr Jessica Sterenborg,Correct
+aoai_v2_rows_image,receipt10,registration_number,na,,N/A
+aoai_v2_rows_image,receipt10,patient_name,Nikita Hubber,Nikita Hubber,Correct
+aoai_v2_rows_image,receipt10,receipt_number,9990000505906,9990000505906,Correct
+aoai_v2_rows_image,receipt10,service_date,2017-03-24,2017-03-01,Wrong
+aoai_v2_rows_image,receipt10,total_amount,51.2,51.2,Correct

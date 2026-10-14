@@ -1,0 +1,7 @@
+approach,correct,applicable,accuracy_pct,invented,no_result_receipts,mean_ms_per_receipt,doctor_name_accuracy_pct,registration_number_accuracy_pct,patient_name_accuracy_pct,receipt_number_accuracy_pct,service_date_accuracy_pct,total_amount_accuracy_pct,aoai_input_tokens,aoai_output_tokens,aoai_reasoning_tokens
+paddle_light_improved,45,51,88.2,0,0,13908,88.9,100.0,77.8,77.8,88.9,100.0,,,
+azure_di_improved,44,51,86.3,0,0,3772,88.9,100.0,77.8,77.8,88.9,88.9,,,
+aoai_original,45,51,88.2,0,0,6185,66.7,83.3,100.0,100.0,88.9,88.9,5421,2368,1728
+aoai_v2_rows,49,51,96.1,0,0,6399,88.9,100.0,100.0,100.0,88.9,100.0,8659,2188,1536
+aoai_v2_plain,49,51,96.1,0,0,6494,88.9,100.0,100.0,100.0,88.9,100.0,8544,2455,1728
+aoai_v2_rows_image,49,51,96.1,0,0,8356,88.9,100.0,100.0,100.0,88.9,100.0,17634,2209,1536

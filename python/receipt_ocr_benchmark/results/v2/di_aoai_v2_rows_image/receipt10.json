@@ -1,0 +1,76 @@
+{
+  "document_id": "receipt10",
+  "status": "ok",
+  "doctor_name": "Dr Jessica Sterenborg",
+  "registration_number": null,
+  "patient_name": "Nikita Hubber",
+  "receipt_number": "9990000505906",
+  "service_date": "2017-03-01",
+  "total_amount": 51.2,
+  "raw_fields": {
+    "doctor_name": "Dr Jessica Sterenborg",
+    "registration_number": null,
+    "patient_name": "Nikita Hubber",
+    "receipt_number": "9990000505906",
+    "service_date": "1Mar17",
+    "total_amount": "$51.20"
+  },
+  "warnings": [
+    "service_date: model marked the value as uncertain"
+  ],
+  "review_fields": [
+    "service_date"
+  ],
+  "uncertain_fields": [
+    "service_date"
+  ],
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": true
+  },
+  "input_text": "Prescription Receipt/Information\nMedical Centre Pharmacy\n114 High St\nPicton\nGST: 112-691-456\n9990000505906 | Ph: 03 928 4265\nNikita Hubber\nPICLON IZZO\nPh. 022 649 3948 | Printed on 24 March 17\nNHI: LQD5240\nPatient Price\nDr Jessica Sterenborg Picton Medical Centre\n1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra | $36.20\n1 Mar17 46023/0 MVITE Tablets | $5.00\n1Mar17 46024/0 Ascorbic acid 100mg Tablets | $5.00 | Wad Limited and We ..\n1Mar17 46025/0 Omeprazole 20mg Capsules | $5.00\n$51.20\nCheck recipient is patient named above\nNikita Hubber | Medical Centre Pharmacy 24/03/17\nPrescription count, for exemption card\nPersonal: 4\nRepeats : available | Available On/After Number | Expiry\n46022 ENSURE PLUS Fruit/Forest Tetra Liquid | 21Mar17 | 2 | 30May17\nPlease Note. We are open from 8.00am till 5.30pm Monday to Friday.\nNB We are closed weekends and Public Holidays.",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 388,
+      "prompt_tokens": 1946,
+      "total_tokens": 2334,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 320,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 8,
+        "engine_ttft_ms": 187,
+        "engine_ttlt_ms": 3580,
+        "pre_inference_ms": 521,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 981,
+        "service_ttlt_ms": 4328,
+        "user_visible_ttft_ms": 461
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 4446.684507998725,
+    "aoai_ms": 7131.565384000169,
+    "total_ms": 11578.249891998894,
+    "ocr_predict_ms": 4446.684507998725,
+    "extract_ms": 7131.565384000169
+  }
+}

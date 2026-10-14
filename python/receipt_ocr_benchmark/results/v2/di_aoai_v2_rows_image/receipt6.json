@@ -1,0 +1,70 @@
+{
+  "document_id": "receipt6",
+  "status": "ok",
+  "doctor_name": "CHEUNG Hoi Ying",
+  "registration_number": "PT004175",
+  "patient_name": "Yeung Tsz Kit",
+  "receipt_number": "RCP-10388",
+  "service_date": "2026-07-16",
+  "total_amount": 1200.0,
+  "raw_fields": {
+    "doctor_name": "CHEUNG Hoi Ying",
+    "registration_number": "PT004175",
+    "patient_name": "Yeung Tsz Kit",
+    "receipt_number": "RCP-10388",
+    "service_date": "16 Jul 2026",
+    "total_amount": "HK$1,200.00"
+  },
+  "warnings": [],
+  "review_fields": [],
+  "uncertain_fields": [],
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": true
+  },
+  "input_text": "NORTHPOINT MOTION | Flat B, 11/F, Java Commercial Centre,\n128 Java Road, North Point\nPHYSIOTHERAPY CENTRE\nTel: 2000 8452\nRECEIPT\nReceipt No. RCP-10388\nDate Issued 17 Jul 2026\nCLIENT\nPHYSIOTHERAPIST\nName | Yeung Tsz Kit\nName | CHEUNG Hoi Ying\nClient No. | NM-5582 | Title\nRegistered Physiotherapist\nReferred by | Dr. Kwok Man Hin | Reg. No. | PT004175\nSession Date 16 Jul 2026 | Next Appointment 23 Jul 2026\nSERVICE | FEE\nInitial physiotherapy assessment | HK$650.00\nTreatment: manual therapy and interferential therapy | HK$550.00\nTotal | Amount Paid (FPS) | Outstanding Balance\nHK$1,200.00 | HK$700.00 | HK$500.00\nPlease settle the outstanding balance at your next appointment. Thank you.\n003738\nNorthpoint Motion Physiotherapy Centre\nSAMPLE / 測試樣本",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 286,
+      "prompt_tokens": 1865,
+      "total_tokens": 2151,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 192,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 8,
+        "engine_ttft_ms": 166,
+        "engine_ttlt_ms": 2620,
+        "pre_inference_ms": 358,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 562,
+        "service_ttlt_ms": 3013,
+        "user_visible_ttft_ms": 204
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2676.7332700001134,
+    "aoai_ms": 5116.017093999972,
+    "total_ms": 7792.750364000085,
+    "ocr_predict_ms": 2676.7332700001134,
+    "extract_ms": 5116.017093999972
+  }
+}
