@@ -1,0 +1,77 @@
+{
+  "document_id": "receipt5",
+  "status": "ok",
+  "doctor_name": "Dr. Fung Ka Kit Paul",
+  "registration_number": null,
+  "patient_name": "Happy Lam",
+  "receipt_number": null,
+  "service_date": "2020-01-09",
+  "total_amount": 20.0,
+  "raw_fields": {
+    "doctor_name": "Dr. Fung Ka Kit Paul",
+    "registration_number": null,
+    "patient_name": "Happy Lam",
+    "receipt_number": null,
+    "service_date": "09/01/2020",
+    "total_amount": "20.00"
+  },
+  "warnings": [
+    "service_date: '09/01/2020' read day-first as 2020-01-09",
+    "service_date: model marked the value as uncertain"
+  ],
+  "review_fields": [
+    "service_date"
+  ],
+  "uncertain_fields": [
+    "service_date"
+  ],
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": false
+  },
+  "input_text": "MEDICAL RECEIPT TEMPLATE\nMEDICAL INVOICE\nHospital Name, Slogan | Dr. Fung Ka Kit Paul\nStreet Address : 2528 Bayview Ave. Suite 35586\nNorth York, ontario, Ca m2c 214 | com\nCity/State, Zip\nPhone Number, Web Address Etc\nHappy Lam | Age 24 | Joyas\nPatient\nHospital No 12345678 | Consultant\nName | Happy Lam | Payment Mode\nAddress | Hong Kong | Bed No.\nPhone +852 6202 0528\nAdmission Date | 09/01/2020\nEmail | - | emp\nDischarge Date | -\n# | PARTICULARS | QTY | RATE | AMOUNT\n1 | Water bottle | 2 | 10.00 | 20.00\nCop\nSUBTOTAL | 20.00\nTAX 8.000% | -\nNOTES: | MED CLAIM | -\nTOTAL | 20.00\nPAID | 20.00\nTOTAL DUE | -",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 257,
+      "prompt_tokens": 849,
+      "total_tokens": 1106,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 192,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 33,
+        "engine_ttlt_ms": 2089,
+        "pre_inference_ms": 175,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 316,
+        "service_ttlt_ms": 2404,
+        "user_visible_ttft_ms": 141
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2255.990016999931,
+    "aoai_ms": 3090.0635670000156,
+    "total_ms": 5346.053583999947,
+    "ocr_predict_ms": 2255.990016999931,
+    "extract_ms": 3090.0635670000156
+  }
+}

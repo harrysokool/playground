@@ -1,0 +1,73 @@
+approach,receipt,field,ground_truth,predicted,result
+aoai_original,receipt1,doctor_name,"Dr. Lau Sai Kit, Lawrence","Dr. Lau Sai Kit, Lawrence",Correct
+aoai_original,receipt1,registration_number,na,,N/A
+aoai_original,receipt1,patient_name,na,,N/A
+aoai_original,receipt1,receipt_number,na,,N/A
+aoai_original,receipt1,service_date,2026-02-07,2020-02-07,Wrong
+aoai_original,receipt1,total_amount,1540,1540.0,Correct
+aoai_original,receipt2,doctor_name,李俊年,李俊年醫生,Correct
+aoai_original,receipt2,registration_number,na,,N/A
+aoai_original,receipt2,patient_name,Carol Tse,Carol Tse,Correct
+aoai_original,receipt2,receipt_number,na,18228,N/A (invented)
+aoai_original,receipt2,service_date,2026-07-11,2020-07-11,Wrong
+aoai_original,receipt2,total_amount,998,998.0,Correct
+aoai_original,receipt3,doctor_name,"Lee Tin Tin, Becky","Lee Tin Tin, Becky",Correct
+aoai_original,receipt3,registration_number,na,,N/A
+aoai_original,receipt3,patient_name,na,,N/A
+aoai_original,receipt3,receipt_number,967157032,967157032,Correct
+aoai_original,receipt3,service_date,2026-01-07,2020-01-07,Wrong
+aoai_original,receipt3,total_amount,10,10.0,Correct
+aoai_original,receipt4,doctor_name,"Angel Tseng, Lok Yi Choi",Angel Tseng,Wrong
+aoai_original,receipt4,registration_number,na,,N/A
+aoai_original,receipt4,patient_name,Fuk Jai,Fuk Jai,Correct
+aoai_original,receipt4,receipt_number,369303,369303,Correct
+aoai_original,receipt4,service_date,2023-02-09,2023-02-09,Correct
+aoai_original,receipt4,total_amount,1361,1361.0,Correct
+aoai_original,receipt5,doctor_name,Dr. Fung Ka Kit Paul,Dr. Fung Ka Kit Paul,Correct
+aoai_original,receipt5,registration_number,na,,N/A
+aoai_original,receipt5,patient_name,Happy Lam,Happy Lam,Correct
+aoai_original,receipt5,receipt_number,na,,N/A
+aoai_original,receipt5,service_date,2026-01-09,2020-01-09,Wrong
+aoai_original,receipt5,total_amount,20,20.0,Correct
+aoai_original,receipt6,doctor_name,Dr Jessica Sterenborg,Dr Jessica Sterenborg Picton Medical Centre,Wrong
+aoai_original,receipt6,registration_number,na,,N/A
+aoai_original,receipt6,patient_name,Nikita Hubber,Nikita Hubber,Correct
+aoai_original,receipt6,receipt_number,9990000505906,9990000505906,Correct
+aoai_original,receipt6,service_date,2017-03-24,2017-03-01,Wrong
+aoai_original,receipt6,total_amount,51.2,51.2,Correct
+aoai_v2_rows,receipt1,doctor_name,"Dr. Lau Sai Kit, Lawrence","Dr. Lau Sai Kit, Lawrence",Correct
+aoai_v2_rows,receipt1,registration_number,na,,N/A
+aoai_v2_rows,receipt1,patient_name,na,,N/A
+aoai_v2_rows,receipt1,receipt_number,na,,N/A
+aoai_v2_rows,receipt1,service_date,2026-02-07,2020-02-07,Wrong
+aoai_v2_rows,receipt1,total_amount,1540,1540.0,Correct
+aoai_v2_rows,receipt2,doctor_name,李俊年,李俊年醫生,Correct
+aoai_v2_rows,receipt2,registration_number,na,18228,N/A (invented)
+aoai_v2_rows,receipt2,patient_name,Carol Tse,Carol Tse,Correct
+aoai_v2_rows,receipt2,receipt_number,na,,N/A
+aoai_v2_rows,receipt2,service_date,2026-07-11,2020-07-11,Wrong
+aoai_v2_rows,receipt2,total_amount,998,998.0,Correct
+aoai_v2_rows,receipt3,doctor_name,"Lee Tin Tin, Becky","Lee Tin Tin, Becky",Correct
+aoai_v2_rows,receipt3,registration_number,na,,N/A
+aoai_v2_rows,receipt3,patient_name,na,,N/A
+aoai_v2_rows,receipt3,receipt_number,967157032,967157032,Correct
+aoai_v2_rows,receipt3,service_date,2026-01-07,2020-01-07,Wrong
+aoai_v2_rows,receipt3,total_amount,10,10.0,Correct
+aoai_v2_rows,receipt4,doctor_name,"Angel Tseng, Lok Yi Choi",Dr. Lok Vichol,Wrong
+aoai_v2_rows,receipt4,registration_number,na,,N/A
+aoai_v2_rows,receipt4,patient_name,Fuk Jai,Fuk Jai,Correct
+aoai_v2_rows,receipt4,receipt_number,369303,369303,Correct
+aoai_v2_rows,receipt4,service_date,2023-02-09,2023-02-09,Correct
+aoai_v2_rows,receipt4,total_amount,1361,1361.0,Correct
+aoai_v2_rows,receipt5,doctor_name,Dr. Fung Ka Kit Paul,Dr. Fung Ka Kit Paul,Correct
+aoai_v2_rows,receipt5,registration_number,na,,N/A
+aoai_v2_rows,receipt5,patient_name,Happy Lam,Happy Lam,Correct
+aoai_v2_rows,receipt5,receipt_number,na,,N/A
+aoai_v2_rows,receipt5,service_date,2026-01-09,2020-01-09,Wrong
+aoai_v2_rows,receipt5,total_amount,20,20.0,Correct
+aoai_v2_rows,receipt6,doctor_name,Dr Jessica Sterenborg,Dr Jessica Sterenborg,Correct
+aoai_v2_rows,receipt6,registration_number,na,,N/A
+aoai_v2_rows,receipt6,patient_name,Nikita Hubber,Nikita Hubber,Correct
+aoai_v2_rows,receipt6,receipt_number,9990000505906,,Wrong
+aoai_v2_rows,receipt6,service_date,2017-03-24,2017-03-01,Wrong
+aoai_v2_rows,receipt6,total_amount,51.2,51.2,Correct

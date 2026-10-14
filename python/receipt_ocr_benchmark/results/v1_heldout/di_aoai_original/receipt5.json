@@ -1,0 +1,65 @@
+{
+  "document_id": "receipt5",
+  "status": "ok",
+  "doctor_name": "Dr. Fung Ka Kit Paul",
+  "registration_number": null,
+  "patient_name": "Happy Lam",
+  "receipt_number": null,
+  "service_date": "2020-01-09",
+  "total_amount": 20.0,
+  "raw_fields": {
+    "doctor_name": "Dr. Fung Ka Kit Paul",
+    "registration_number": null,
+    "patient_name": "Happy Lam",
+    "receipt_number": null,
+    "service_date": "09/01/2020",
+    "total_amount": "20.00"
+  },
+  "warnings": [
+    "service_date: '09/01/2020' read day-first as 2020-01-09"
+  ],
+  "input_text": "MEDICAL RECEIPT TEMPLATE\nMEDICAL INVOICE\nHospital Name, Slogan\nDr. Fung Ka Kit Paul\nStreet Address : 2528 Bayview Ave. Suite 35586\nCity/State, Zip\nNorth York, ontario, Ca m2c 214\nPhone Number, Web Address Etc\nPatient\nHappy Lam\nAge 24\nConsultant\nName\nHappy Lam\nAddress\nHong Kong\nPhone +852 6202 0528\nEmail\n-\nAdmission Date\n09/01/2020\nDischarge Date\n-\n#\nPARTICULARS\nQTY\nRATE\nAMOUNT\n1\nWater bottle\n2\n10.00\n20.00\nCop\nSUBTOTAL\n20.00\nTAX 8.000%\n-\nMED CLAIM\n-\nTOTAL\n20.00\nPAID\n20.00\nTOTAL DUE\n-\ncom\nJoyas\nHospital No 12345678\nPayment Mode\nBed No.\nemp\nNOTES:",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 249,
+      "prompt_tokens": 494,
+      "total_tokens": 743,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 192,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 35,
+        "engine_ttlt_ms": 2077,
+        "pre_inference_ms": 128,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 284,
+        "service_ttlt_ms": 2277,
+        "user_visible_ttft_ms": 156
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2255.990016999931,
+    "aoai_ms": 2743.6915100006445,
+    "total_ms": 4999.681527000575,
+    "ocr_predict_ms": 2255.990016999931,
+    "extract_ms": 2743.6915100006445
+  }
+}

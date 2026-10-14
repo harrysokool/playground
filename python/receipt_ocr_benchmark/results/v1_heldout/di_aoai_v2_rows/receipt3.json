@@ -1,0 +1,77 @@
+{
+  "document_id": "receipt3",
+  "status": "ok",
+  "doctor_name": "Lee Tin Tin, Becky",
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": "967157032",
+  "service_date": "2020-01-07",
+  "total_amount": 10.0,
+  "raw_fields": {
+    "doctor_name": "Lee Tin Tin, Becky",
+    "registration_number": null,
+    "patient_name": null,
+    "receipt_number": "967157032",
+    "service_date": "07/01/2020",
+    "total_amount": "10.00"
+  },
+  "warnings": [
+    "service_date: '07/01/2020' read day-first as 2020-01-07",
+    "doctor_name: model marked the value as uncertain"
+  ],
+  "review_fields": [
+    "doctor_name"
+  ],
+  "uncertain_fields": [
+    "doctor_name"
+  ],
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": false
+  },
+  "input_text": "FLEXCARE HEALTH\nClinic Name: | Lee Tin Tin, Becky | Invoice Number: | 967157032\nAddress: | 九龍 MTR | Date: | 07/01/2020\nPhone: | +852 6202 05 28 | Due Date: | -\nEmail: | -\nDESCRIPTION | DATE | SESSIONS | UNIT COST | TOTAL\nwater | \" 1\" | 10.00 | 10.00\nSubtotal: | 10.00\nTax: | -\nTotal Amount Due:\nNotes: | Back pain need water.",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 385,
+      "prompt_tokens": 753,
+      "total_tokens": 1138,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 320,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 32,
+        "engine_ttlt_ms": 2923,
+        "pre_inference_ms": 113,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 241,
+        "service_ttlt_ms": 3128,
+        "user_visible_ttft_ms": 128
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2317.4251439995714,
+    "aoai_ms": 3622.4002210001345,
+    "total_ms": 5939.825364999706,
+    "ocr_predict_ms": 2317.4251439995714,
+    "extract_ms": 3622.4002210001345
+  }
+}

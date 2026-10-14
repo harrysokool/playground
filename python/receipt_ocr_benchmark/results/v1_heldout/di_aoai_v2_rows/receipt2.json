@@ -1,0 +1,77 @@
+{
+  "document_id": "receipt2",
+  "status": "ok",
+  "doctor_name": "李俊年醫生",
+  "registration_number": "18228",
+  "patient_name": "Carol Tse",
+  "receipt_number": null,
+  "service_date": "2020-07-11",
+  "total_amount": 998.0,
+  "raw_fields": {
+    "doctor_name": "李俊年醫生",
+    "registration_number": "18228",
+    "patient_name": "Carol Tse",
+    "receipt_number": null,
+    "service_date": "11/7/2020",
+    "total_amount": "998.00"
+  },
+  "warnings": [
+    "service_date: '11/7/2020' read day-first as 2020-07-11",
+    "service_date: model marked the value as uncertain"
+  ],
+  "review_fields": [
+    "service_date"
+  ],
+  "uncertain_fields": [
+    "service_date"
+  ],
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": false
+  },
+  "input_text": "MEDICAL RECEIPT TEMPLATE\nMEDICAL INVOICE\nHospital Name, Slogan | 李俊年醫生\n18228 | SVI\nStreet Address | Hong Kong | com\nHYS JIM\nCity/State, Zip\nPhone Number, Web Address Etc\nCarol Tse | Age | 47 | H\nPatient\nHospital No 123456 | Consultant | -\nCarol Tse | Payment Mode | cash\nName\n九龍塘 | 124\nAddress\nPhone +852 6202 0528\nTempted | Admission Date | 11/7/2020\nEmail\nDischarge Date\nPARTICULARS | QTY | RATE | AMOUNT\n#\nbedroom | 2 | 499.00 | 998.00\n1\nCopy | 998.00\nSUBTOTAL\nTAX 8.000% | -\nNOTES: | MED CLAIM\nTOTAL\nPAID\nTOTAL DUE",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 449,
+      "prompt_tokens": 827,
+      "total_tokens": 1276,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 384,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 8,
+        "engine_ttft_ms": 39,
+        "engine_ttlt_ms": 3792,
+        "pre_inference_ms": 145,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 318,
+        "service_ttlt_ms": 4067,
+        "user_visible_ttft_ms": 173
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2276.9435299996985,
+    "aoai_ms": 4603.5910770001465,
+    "total_ms": 6880.534606999845,
+    "ocr_predict_ms": 2276.9435299996985,
+    "extract_ms": 4603.5910770001465
+  }
+}

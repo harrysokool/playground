@@ -1,0 +1,3 @@
+approach,correct,applicable,accuracy_pct,invented,no_result_receipts,mean_ms_per_receipt,doctor_name_accuracy_pct,registration_number_accuracy_pct,patient_name_accuracy_pct,receipt_number_accuracy_pct,service_date_accuracy_pct,total_amount_accuracy_pct,aoai_input_tokens,aoai_output_tokens,aoai_reasoning_tokens
+aoai_original,18,25,72.0,1,0,5397,66.7,,100.0,100.0,16.7,100.0,3279,1698,1344
+aoai_v2_rows,18,25,72.0,1,0,6216,83.3,,100.0,66.7,16.7,100.0,5435,2134,1728
