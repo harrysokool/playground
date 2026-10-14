@@ -620,51 +620,50 @@ tot_a, ok_tot_a = example(AOAI, "receipt9", "total_amount")
 assert not ok_tot_a, "expected the AOAI total error on the vet invoice"
 s = content_slide(
     "Pure OCR + Rules vs. Azure DI + AOAI: Pros and Cons",
-    f"Both reached {LIGHT_ACC}. Points marked \"Measured\" come from this benchmark; the rest are expected, "
-    "not yet tested.",
+    f"Both reached {LIGHT_ACC}, AOAI with no prompt changes. \"Measured\" = this benchmark; the rest is expected.",
     f"Measured (summary.csv, detail.csv): PaddleOCR Light + rules {acc(ORIG['light'])} with the original rules and "
     f"{LIGHT_ACC} after tuning on these {N_RECEIPTS} receipts; label phrases {VOCAB_ORIG} to {VOCAB_IMPR}; vet "
     f"invoice receipt number {reg_o} correct before tuning, {reg_i} after. Azure DI + AOAI {AOAI_ACC} with the "
-    f"prompt unchanged; bilingual receipt {a8[0]}/{a8[1]} and Chinese medicine receipt {a4[0]}/{a4[1]}; "
-    f"{secs(AOAI)} vs {secs(IMPR['light'])} per receipt; vet invoice total {tot_a} although the Azure DI text "
-    "contains the correct 1361.00. Expected, not measured: control, predictability, API fees, run-to-run "
-    "variation and behaviour on unseen receipts. Prices are not yet confirmed. " + SOURCE)
+    f"prompt unchanged; {AOAI_WRONG} of {APPLICABLE} fields wrong, e.g. vet invoice total {tot_a} although the "
+    f"Azure DI text contains the correct 1361.00; {secs(AOAI)} vs {secs(IMPR['light'])} per receipt. "
+    "Expected, not measured: that new formats may need rule updates, that AOAI needs less rule maintenance, "
+    "control, API fees and the upkeep AOAI still needs (validation, monitoring, prompt). AOAI is not maintenance "
+    "free, and not every new layout will necessarily need a rule update. Prices are not yet confirmed. " + SOURCE)
 
 
-def pros_cons(x, w, heading, pros, cons):
+def pros_cons(x, w, heading, summary, pros, cons):
     text(s, x, 1.95, w, 0.45, [dict(t=heading, size=16, bold=True, color=WHITE)], anchor=MSO_ANCHOR.MIDDLE,
          margin=0.18, fill=CHAR)
+    text(s, x, 2.48, w, 0.62, [dict(t=summary, size=13, bold=True)], anchor=MSO_ANCHOR.MIDDLE)
     for k, (label, items, colour, tint) in enumerate((("Pros", pros, GOOD, GOOD_TINT), ("Cons", cons, RED, BAD_TINT))):
         paras = [dict(t=label, size=15, bold=True, color=colour, after=4)]
         for i, (measured, t) in enumerate(items):
             runs = ([("Measured: ", dict(bold=True))] if measured else []) + [(t, {})]
             paras.append(dict(runs=runs, size=13, bullet=True, after=0 if i == len(items) - 1 else 3))
-        text(s, x, 2.5 + k * 1.75, w, 1.67, paras, margin=0.18, fill=tint)
+        text(s, x, 3.18 + k * 1.42, w, 1.34, paras, margin=0.18, fill=tint)
 
 
 COL_W = (12.55 - 0.3) / 2
-assert a8 == a4, "the AOAI pros bullet states one score for both examples"
 pros_cons(0.39, COL_W, "Pure OCR + Rules (PaddleOCR Light)",
-          [(False, "Full control over the extraction logic."),
-           (False, "No API fees: open-source OCR on our own compute."),
-           (False, "Predictable on receipt formats the rules already know."),
-           (True, f"{LIGHT_ACC} after careful tuning (from {acc(ORIG['light'])}).")],
-          [(True, f"rules expanded by hand ({VOCAB_ORIG} → {VOCAB_IMPR} label phrases)."),
-           (False, "New languages, labels and layouts need more rule changes."),
-           (True, "a rule update broke a receipt that was already correct."),
-           (False, "Accuracy on unseen receipt formats is unknown.")])
+          "New formats may need manual rule updates, which can break working cases and add maintenance and "
+          "testing.",
+          [(True, f"{LIGHT_ACC} after manual rule tuning (from {acc(ORIG['light'])})."),
+           (False, "Full control; predictable on formats the rules know."),
+           (False, "No API fees: open-source OCR on our own compute.")],
+          [(False, "New formats and layouts may need rule updates by hand."),
+           (True, "a rule change broke a receipt that was already correct."),
+           (True, f"rules grew from {VOCAB_ORIG} to {VOCAB_IMPR} label phrases.")])
 pros_cons(0.39 + COL_W + 0.3, COL_W, "Azure DI + AOAI",
-          [(True, f"{AOAI_ACC} with the prompt unchanged."),
-           (False, "Reduces the need to write detailed extraction rules."),
-           (True, f"{a8[0]}/{a8[1]} fields on both the bilingual and Chinese examples."),
+          "Less rule maintenance expected: accuracy depends mainly on the AI model, OCR output and prompt.",
+          [(True, f"{AOAI_ACC} with no prompt changes."),
+           (False, "Reads varied formats using existing model capabilities."),
            (True, f"faster, {secs(AOAI)} vs {secs(IMPR['light'])} per receipt.")],
-          [(False, "Needs Azure services and per-request API fees."),
-           (True, "wrong value even though the OCR text was correct."),
-           (False, "Results may vary, so validation and error handling are needed."),
-           (False, "Accuracy and maintenance effort on unseen receipts not yet proven.")])
+          [(True, f"still wrong on {AOAI_WRONG} of {APPLICABLE} fields, e.g. a total."),
+           (False, "Less direct control: results depend on model, OCR, prompt."),
+           (False, "API fees; needs validation, monitoring and prompt upkeep.")])
 text(s, 0.39, 6.0, 11.6, 0.45, [dict(runs=[
-    ("The decision is not only accuracy or API cost: ", dict(bold=True)),
-    ("it is how much development and ongoing maintenance we want to own.", {})], size=14)],
+    (f"Both reach {LIGHT_ACC} here. ", dict(bold=True)),
+    ("The difference is where the maintenance effort sits, and how much of it we own.", {})], size=14)],
     anchor=MSO_ANCHOR.MIDDLE, margin=0.18, fill=LIGHT)
 
 # ===================================================================== 10. conclusion
