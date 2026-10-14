@@ -18,7 +18,9 @@ Each of the six fields of each receipt is marked:
 
 Accuracy = Correct / applicable (non-N/A) fields x 100, overall and per field.
 
-Normalization: names ignore case, punctuation, spacing and titles (Dr / 醫生 / 医生). Dates are
+Normalization: names ignore case, punctuation, spacing and titles (Dr / 醫生 / 医生). A ground truth
+listing several people ("A, B") needs all of them, in any order, separated by , ; / & or "and",
+and no extra names. Dates are
 compared as calendar dates: ground truth must be ISO YYYY-MM-DD text; a Chinese date (2026年6月9日) is
 read as written; any other non-ISO predicted date
 is read day-first (Hong Kong convention). Amounts are equal within 0.005. Other fields are an
@@ -154,9 +156,25 @@ def _to_amount(v) -> float | None:
     return parsed[0] if parsed else None
 
 
+# Separators between several people in one name field: "A, B", "A; B", "A & B", "A / B", "A and B".
+_NAME_SEPARATORS = re.compile(r"\s*(?:[,;/&、]|\band\b)\s*", re.I)
+
+
+def _name_parts(v) -> list[str]:
+    return sorted(p for p in (_norm_name(x) for x in _NAME_SEPARATORS.split(str(v))) if p)
+
+
+def names_match(gt: str, pred) -> bool:
+    """The same name, or - when the ground truth lists several people - the same people in any
+    order with any of the usual separators. Every listed person must be there (one of two is
+    wrong) and no one else (an extra name is wrong). The whole-string comparison is kept, so a
+    single name written with a comma ("Lee Tin Tin, Becky") still matches as before."""
+    return _norm_name(gt) == _norm_name(pred) or _name_parts(gt) == _name_parts(pred)
+
+
 def matches(field: str, gt: str, pred) -> bool:
     if field in ("doctor_name", "patient_name"):
-        return _norm_name(gt) == _norm_name(pred)
+        return names_match(gt, pred)
     if field == "service_date":
         return date.fromisoformat(gt) == _to_date(pred)
     if field == "total_amount":

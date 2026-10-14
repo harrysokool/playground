@@ -83,6 +83,23 @@ def test_names_and_amounts_use_simple_normalization():
     assert not matches("total_amount", "10", "-")
 
 
+def test_several_people_must_all_be_named_in_any_order():
+    gt = "Amy Lo, Ben Ho"
+    for pred in ("Amy Lo, Ben Ho", "Ben Ho, Amy Lo", "Amy Lo; Dr. Ben Ho", "Dr Ben Ho and Amy Lo", "Amy Lo & Ben Ho",
+                 "Amy Lo / Ben Ho"):
+        assert matches("doctor_name", gt, pred), pred
+    for pred in ("Amy Lo", "Ben Ho", "Amy Lo, Ben Ho, Carl Yu", "Amy Lo, Carl Yu", "Amy Lo, Dr. Ben Hon"):
+        assert not matches("doctor_name", gt, pred), pred
+
+
+def test_single_names_score_as_before():
+    assert matches("doctor_name", "Lee Ka Yan, Becky", "Lee Ka Yan, Becky")  # one person with an English name
+    assert matches("doctor_name", "Lee Ka Yan, Becky", "Lee Ka Yan Becky")  # whole-string match still counts
+    assert not matches("doctor_name", "Lee Ka Yan, Becky", "Lee Ka Yan")
+    assert not matches("doctor_name", "Dr. Wong Mei Ling", "Dr. Wong Mei Ling, BDS (HK)")  # extra text is wrong
+    assert not matches("doctor_name", "Dr. Wong Mei Ling", "Dr. Wong Mei Ling; Dr. Carl Yu")
+
+
 # --- marking --------------------------------------------------------------------------------
 
 

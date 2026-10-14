@@ -371,6 +371,37 @@ python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_temp
     --output-dir $V1/scores
 ```
 
+## Improved DI + AOAI pipeline (Phase 12)
+
+`receipt_bench/di_aoai.py` now has two pipelines. The **original benchmark pipeline is kept
+unchanged** (`--prompt v1 --text plain`; a test pins the v1 prompt) and its result,
+`results/v2/di_aoai` (45/51), stays the baseline. The **improved pipeline** is the default:
+
+| Change | What it does | Targets |
+|---|---|---|
+| Row layout (`--text rows`) | Regroups DI lines into the rows of the page using DI's line positions (skew-corrected), so a label and the value beside it stay together: `Reg. No. 註冊編號: \| D03158` | Two-column layouts where plain reading order separates labels from values |
+| Prompt v2 | Explicit, general field definitions: value only, no labels; doctor = person's name without qualifications or clinic names; several practitioners separated by `; `; final total after rounding/discounts, not subtotal; service date vs print/issue dates; an `uncertain_fields` list in the reply | Values copied with surrounding text; subtotal chosen; unclear dates |
+| `receipt_bench/aoai_validation.py` | A few general checks: keep only the identifier in a registration number; strip trailing post-nominals (MBBS, BDS (HK), FHKAM …) from doctor names. Flags (value unchanged, listed in `review_fields`): clinic words in a doctor name, a value not found in the OCR text, a total equal to a subtotal line, fields the model was unsure of | The same, as a safety net for any model |
+| `--attach-image` (experiment, off by default) | Also sends the receipt photo, downscaled to 2000 px | OCR misreads (stamps, signatures) |
+
+No ground-truth value of any benchmark receipt appears in the prompt or the checks (a test
+enforces this).
+
+**Scoring change.** When the ground truth lists several people ("A, B"), all of them must be
+returned, in any order, separated by `,` `;` `/` `&` or "and", with no extra names. A single
+name is matched as before.
+
+Run on Azure ML (33 AOAI calls, no DI calls, never overwrites existing results):
+
+```bash
+bash python/receipt_ocr_benchmark/scripts/aoai_improved_on_azure.sh
+```
+
+It runs the improved pipeline, two ablations (`v2_plain`, `v2_rows_image`) and the held-out
+Version 1 receipts, rescores the original seven results to confirm the scorer change left them
+unchanged, then commits and pushes `results/v2/di_aoai_v2_*`, `results/v2/scores_aoai_improved/`
+and `results/v1_heldout/`.
+
 ## Scoring all approaches (Phase 1 of the final comparison)
 
 `receipt_bench/score.py` scores any number of named approaches against the same ground truth

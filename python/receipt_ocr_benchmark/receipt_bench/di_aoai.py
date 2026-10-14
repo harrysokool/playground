@@ -2,14 +2,25 @@
 
 For each receipt:
   1. DI prebuilt-read reads the text, reusing `azure_di` (the same call and conversion as Phase 3).
-  2. The OCR text (DI lines in reading order, nothing else - no image) goes to the Azure OpenAI
-     deployment with one fixed prompt. A strict JSON schema makes the reply exactly the six fields.
+  2. The OCR text goes to the Azure OpenAI deployment with one fixed prompt. A strict JSON schema
+     makes the reply exactly the six fields (plus, with prompt v2, the fields it is unsure of).
   3. The reply is parsed and normalized (dates to ISO day-first, amounts to numbers), then saved
      in the same per-receipt shape as the other approaches, so `score.py` reads it unchanged.
 
+Two pipelines (chosen with --prompt / --text / --attach-image):
+- baseline (`--prompt v1 --text plain`): the original Version 2 benchmark setup. DI lines in
+  reading order, the original prompt, no validation. Kept unchanged so its result can be reproduced.
+- improved (the default, `--prompt v2 --text rows`): DI lines regrouped into the rows of the page
+  using DI's line positions, so a label and the value printed beside it stay together; a prompt
+  with explicit field definitions (value only, no labels, qualifications or clinic names; final
+  total, not subtotal; several practitioners; service vs print dates; an uncertain_fields list);
+  and the light, general checks in `aoai_validation` (warnings and review_fields in the output).
+- `--attach-image` (experiment, off by default) also sends the receipt photo, so the model can
+  read text the OCR misread, e.g. a stamp or signature. More input tokens per receipt.
+
 The model is told to copy values from the text and to return null for anything not there. It is
-NOT told to fix OCR errors, so a year DI misread (e.g. "2020" for a handwritten "2026") stays
-as read: this measures extraction from the available evidence.
+NOT told to fix OCR errors (unless the image is attached), so a year DI misread (e.g. "2020" for
+a handwritten "2026") stays as read: this measures extraction from the available evidence.
 
 Authentication is only the compute's user-assigned managed identity (no API keys, no fallback):
     AZURE_CLIENT_ID          client ID of the user-assigned managed identity
@@ -26,10 +37,13 @@ Usage (on Azure ML compute - paid DI and AOAI calls):
     python -m receipt_bench.di_aoai --input data/raw --output results/di_aoai
 Development only (skips the paid DI calls by reusing saved DI responses; AOAI is still called):
     python -m receipt_bench.di_aoai --input data/raw --reuse-di results/azure_di/di_response --output results/di_aoai_dev
+Original baseline pipeline:
+    python -m receipt_bench.di_aoai --prompt v1 --text plain --input ... --output ...
 
 Output per receipt in --output:
-- receiptN.json: status "ok", the six fields, the model's raw values, warnings, the OCR text
-  sent, token usage, and timings (di_ms, aoai_ms, total_ms).
+- receiptN.json: status "ok", the six fields, the model's raw values, warnings, review_fields
+  (improved pipeline), the pipeline options, the OCR text sent, token usage, and timings
+  (di_ms, aoai_ms, total_ms).
   On failure it is written with status "error", the stage ("di" / "aoai"), the error and
   timings, and no fields, so the scorer counts the receipt as having no result.
 - di_response/receiptN.json: the full DI response (same format as `azure_di`).
@@ -38,17 +52,21 @@ Output per receipt in --output:
 from __future__ import annotations
 
 import argparse
+import base64
+import io
 import json
+import math
 import os
 import sys
 import time
 from pathlib import Path
 
-from receipt_bench import azure_di
+from receipt_bench import aoai_validation, azure_di
 from receipt_bench.extraction_tuned import parse_amount, parse_date
 
 FIELDS = ["doctor_name", "registration_number", "patient_name", "receipt_number", "service_date", "total_amount"]
 
+# Prompt v1: the original Version 2 benchmark prompt. Do not edit - it reproduces the baseline result.
 SYSTEM_PROMPT = """You extract fields from the OCR text of one medical receipt or invoice.
 Rules:
 - Use only the OCR text you are given. Copy each value exactly as it appears in the text.
@@ -65,6 +83,51 @@ Fields:
 - total_amount: the total amount charged. If the total line is blank, use the amount paid,
   else the subtotal. Do not use an outstanding balance or amount due of zero."""
 
+# Prompt v2: the same task with explicit, general field definitions (no examples from the
+# benchmark receipts).
+SYSTEM_PROMPT_V2 = """You extract fields from the OCR text of one medical receipt or invoice.
+The text is laid out in rows: each line is one row of the page, read left to right, and " | "
+separates blocks of text that sit side by side on that row (often a label and its value).
+
+Rules:
+- Use only the text you are given. Copy the characters of each value exactly as they appear. Do
+  not correct, complete or guess values, even if they look like OCR errors.
+- Return only the value itself, without its label (for example without "Reg. No.", "Receipt No."
+  or "Date:") and without other text from the same line.
+- If a field is not in the text, return null. Never invent a value.
+- List in uncertain_fields every field you are not confident about, for example when the receipt
+  shows several candidates and none is clearly labelled for that field.
+
+Fields:
+- doctor_name: the person who provided the service (doctor, dentist, clinician, therapist,
+  practitioner or vet): the person's name only, keeping a title such as "Dr." if written.
+  Leave out qualifications and post-nominals (degrees, fellowships, licences), job titles and
+  specialties, and clinic, hospital or practice names, even when they are on the same line. If
+  the receipt names more than one person as providing or signing for the service, return all of
+  them separated by "; ". Do not include referring doctors, nurses or other staff.
+- registration_number: that practitioner's professional registration or licence number: the
+  identifier only, without its label (not a patient, hospital, bed, tax or invoice number).
+- patient_name: the patient's name only.
+- receipt_number: the number of this receipt or invoice document (not a payment, transaction,
+  patient or policy number).
+- service_date: the date the consultation, treatment, visit or supply took place, exactly as
+  written. Not a print, issue, invoice or next-appointment date. If the receipt does not clearly
+  show which date is the service date, return the most likely one and add service_date to
+  uncertain_fields.
+- total_amount: the final amount charged for this receipt, after any discounts, rounding or other
+  adjustments. Not a subtotal, a single item, or an outstanding balance or amount due of zero.
+  If no total is shown, use the amount paid, else the subtotal."""
+
+IMAGE_NOTE = """
+A photo of the receipt is attached. Use it to check the OCR text: where a value is misread,
+missing or unclear in the OCR text (for example handwriting, a stamp or a signature), read it
+from the photo. Return only text that is clearly visible, and add the field to uncertain_fields
+if it is hard to read."""
+
+PROMPTS = {"v1": SYSTEM_PROMPT, "v2": SYSTEM_PROMPT_V2}
+BASELINE = {"prompt": "v1", "text": "plain", "image": False}
+IMPROVED = {"prompt": "v2", "text": "rows", "image": False}
+
 RESPONSE_SCHEMA = {
     "type": "json_schema",
     "json_schema": {
@@ -78,7 +141,12 @@ RESPONSE_SCHEMA = {
         },
     },
 }
+RESPONSE_SCHEMA_V2 = json.loads(json.dumps(RESPONSE_SCHEMA))
+RESPONSE_SCHEMA_V2["json_schema"]["schema"]["properties"]["uncertain_fields"] = {
+    "type": "array", "items": {"type": "string", "enum": FIELDS}}
+RESPONSE_SCHEMA_V2["json_schema"]["schema"]["required"] = FIELDS + ["uncertain_fields"]
 MAX_COMPLETION_TOKENS = 4000  # includes reasoning tokens; too low a cap returns empty content
+IMAGE_MAX_PX = 2000  # longest side of the attached photo
 
 
 class ExtractionError(Exception):
@@ -117,16 +185,65 @@ def aoai_client(cfg: dict):
                        api_version=cfg["api_version"], timeout=cfg["timeout"], max_retries=cfg["max_retries"])
 
 
-def build_messages(ocr_text: str) -> list[dict]:
-    return [{"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": f"OCR text:\n{ocr_text}"}]
+def rows_text(page: dict) -> str:
+    """DI lines regrouped into the rows of the page: lines whose vertical centres are within half a
+    line height of each other (after undoing the page's skew angle) form one row, left to right,
+    joined with " | ". Reading order is otherwise kept: rows run top to bottom."""
+    a = -math.radians(page.get("angle") or 0)
+    items = []
+    for ln in page.get("lines", []):
+        flat = ln.get("polygon") or []
+        xs, ys = flat[0::2], flat[1::2]
+        if not xs:
+            continue
+        cx, cy = sum(xs) / len(xs), sum(ys) / len(ys)
+        y = cx * math.sin(a) + cy * math.cos(a)
+        x = min(xs) * math.cos(a) - cy * math.sin(a)
+        items.append((y, x, max(ys) - min(ys), ln["content"]))
+    rows = []
+    for y, x, h, text in sorted(items):
+        if rows and abs(y - rows[-1]["y"]) < 0.5 * min(h, rows[-1]["h"]):
+            rows[-1]["items"].append((x, text))
+        else:
+            rows.append({"y": y, "h": h, "items": [(x, text)]})
+    return "\n".join(" | ".join(t for _, t in sorted(r["items"])) for r in rows)
 
 
-def call_aoai(client, cfg: dict, ocr_text: str) -> tuple[dict, dict, float]:
+def ocr_text_for(di_result: dict, doc: str, di_ms: float, text_format: str) -> str:
+    if not di_result.get("pages"):
+        return ""
+    if text_format == "rows":
+        return rows_text(di_result["pages"][0])
+    return azure_di.di_to_raw_ocr(doc, di_result, di_ms).pages[0].plain_text
+
+
+def image_data_url(path: Path) -> str:
+    """The receipt photo, turned upright (EXIF) and downscaled, as a JPEG data URL."""
+    from PIL import Image, ImageOps
+
+    with Image.open(path) as im:
+        img = ImageOps.exif_transpose(im).convert("RGB")
+    img.thumbnail((IMAGE_MAX_PX, IMAGE_MAX_PX))
+    buf = io.BytesIO()
+    img.save(buf, format="JPEG", quality=85)
+    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
+
+
+def build_messages(ocr_text: str, prompt: str = "v1", image_url: str | None = None) -> list[dict]:
+    system = PROMPTS[prompt] + (IMAGE_NOTE if image_url else "")
+    user = f"OCR text:\n{ocr_text}"
+    content = user if not image_url else [{"type": "text", "text": user},
+                                          {"type": "image_url", "image_url": {"url": image_url, "detail": "high"}}]
+    return [{"role": "system", "content": system}, {"role": "user", "content": content}]
+
+
+def call_aoai(client, cfg: dict, ocr_text: str, prompt: str = "v1", image_url: str | None = None
+              ) -> tuple[dict, dict, float]:
     """Returns (raw model fields, metadata incl. token usage, aoai_ms)."""
     start = time.perf_counter()
-    resp = client.chat.completions.create(model=cfg["deployment"], messages=build_messages(ocr_text),
-                                          response_format=RESPONSE_SCHEMA, reasoning_effort=cfg["reasoning_effort"],
+    resp = client.chat.completions.create(model=cfg["deployment"], messages=build_messages(ocr_text, prompt, image_url),
+                                          response_format=RESPONSE_SCHEMA if prompt == "v1" else RESPONSE_SCHEMA_V2,
+                                          reasoning_effort=cfg["reasoning_effort"],
                                           max_completion_tokens=MAX_COMPLETION_TOKENS)
     aoai_ms = (time.perf_counter() - start) * 1000
     choice = resp.choices[0]
@@ -210,8 +327,9 @@ def explain_aoai_error(exc: Exception, cfg: dict) -> tuple[str, bool]:
     return detail.strip("()"), False
 
 
-def process_receipt(path: Path, di_client, aoai, cfg: dict, response_dir: Path, reuse_di: Path | None) -> tuple[dict, bool]:
-    """Returns (result record, fatal)."""
+def process_receipt(path: Path, di_client, aoai, cfg: dict, response_dir: Path, reuse_di: Path | None,
+                    pipeline: dict = IMPROVED) -> tuple[dict, bool]:
+    """Returns (result record, fatal). `pipeline` is BASELINE, IMPROVED or a variant of them."""
     doc = path.stem
     timings = {}
     try:
@@ -228,11 +346,12 @@ def process_receipt(path: Path, di_client, aoai, cfg: dict, response_dir: Path, 
         message, fatal = azure_di.explain_error(exc)
         return {"document_id": doc, "status": "error", "error_stage": "di", "error": message, "timings": timings}, fatal
     timings["di_ms"] = di_ms
-    ocr_text = azure_di.di_to_raw_ocr(doc, di_result, di_ms).pages[0].plain_text if di_result.get("pages") else ""
+    ocr_text = ocr_text_for(di_result, doc, di_ms, pipeline["text"])
 
     start = time.perf_counter()
     try:
-        raw, meta, aoai_ms = call_aoai(aoai, cfg, ocr_text)
+        image_url = image_data_url(path) if pipeline["image"] else None
+        raw, meta, aoai_ms = call_aoai(aoai, cfg, ocr_text, pipeline["prompt"], image_url)
     except Exception as exc:
         timings["aoai_ms"] = (time.perf_counter() - start) * 1000
         timings["total_ms"] = di_ms + timings["aoai_ms"]
@@ -240,12 +359,19 @@ def process_receipt(path: Path, di_client, aoai, cfg: dict, response_dir: Path, 
         return {"document_id": doc, "status": "error", "error_stage": "aoai", "error": message,
                 "input_text": ocr_text, "timings": timings}, fatal
 
+    raw = dict(raw)
+    uncertain = raw.pop("uncertain_fields", None) if pipeline["prompt"] != "v1" else None
     fields, warnings = normalize_fields(raw)
+    review = None
+    if pipeline["prompt"] != "v1":
+        fields, checks, review = aoai_validation.validate(fields, ocr_text, uncertain)
+        warnings += checks
     timings.update({"aoai_ms": aoai_ms, "total_ms": di_ms + aoai_ms,
                     # generic names score.py reads: OCR step + extraction step
                     "ocr_predict_ms": di_ms, "extract_ms": aoai_ms})
     return {"document_id": doc, "status": "ok", **fields, "raw_fields": raw, "warnings": warnings,
-            "input_text": ocr_text,
+            **({"review_fields": review, "uncertain_fields": uncertain or []} if review is not None else {}),
+            "pipeline": dict(pipeline), "input_text": ocr_text,
             "aoai": {"deployment": cfg["deployment"], "api_version": cfg["api_version"],
                      "reasoning_effort": cfg["reasoning_effort"], **meta},
             "timings": timings}, False
@@ -257,7 +383,14 @@ def main() -> None:
     parser.add_argument("--output", required=True, type=Path, help="Directory for per-receipt JSON results.")
     parser.add_argument("--reuse-di", type=Path,
                         help="Development only: directory of saved DI responses to use instead of calling DI.")
+    parser.add_argument("--prompt", choices=sorted(PROMPTS), default=IMPROVED["prompt"],
+                        help="v2 (default): improved prompt + validation. v1: the original benchmark prompt.")
+    parser.add_argument("--text", choices=["rows", "plain"], default=IMPROVED["text"],
+                        help="rows (default): DI lines grouped into page rows. plain: DI lines in reading order.")
+    parser.add_argument("--attach-image", action="store_true",
+                        help="Experiment: also send the receipt photo to the model (more input tokens).")
     args = parser.parse_args()
+    pipeline = {"prompt": args.prompt, "text": args.text, "image": args.attach_image}
 
     cfg = settings()
     files = (sorted(p for p in args.input.iterdir() if p.suffix.lower() in azure_di.SUPPORTED_SUFFIXES)
@@ -268,9 +401,10 @@ def main() -> None:
     response_dir.mkdir(parents=True, exist_ok=True)
 
     failed, tokens = 0, 0
+    print(f"Pipeline: prompt {pipeline['prompt']}, text {pipeline['text']}, image {pipeline['image']}")
     for path in files:
         print(f"Processing {path} ...")
-        record, fatal = process_receipt(path, di_client, aoai, cfg, response_dir, args.reuse_di)
+        record, fatal = process_receipt(path, di_client, aoai, cfg, response_dir, args.reuse_di, pipeline)
         (args.output / f"{path.stem}.json").write_text(json.dumps(record, indent=2, ensure_ascii=False))
         t = record["timings"]
         if record["status"] == "ok":

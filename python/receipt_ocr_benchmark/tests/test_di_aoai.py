@@ -1,8 +1,10 @@
 """DI + Azure OpenAI tests with fake clients - no Azure SDK, no openai package, no network, no cost."""
 
+import hashlib
 import json
 import sys
 import types
+from pathlib import Path
 
 import pytest
 
@@ -124,7 +126,7 @@ def test_no_api_key_or_default_credential_auth():
 
 def test_ocr_text_is_sent_in_reading_order_without_corrections(di, tmp_path):
     aoai, completions = _aoai(reply=_reply())
-    process_receipt(di_aoai.Path("receipt1.png"), None, aoai, CFG, tmp_path, None)
+    process_receipt(di_aoai.Path("receipt1.png"), None, aoai, CFG, tmp_path, None, di_aoai.BASELINE)
 
     call = completions.calls[0]
     user = call["messages"][1]["content"]
@@ -138,6 +140,81 @@ def test_prompt_is_fixed_and_forbids_invention():
     msgs_a, msgs_b = build_messages("A"), build_messages("B")
     assert msgs_a[0] == msgs_b[0]  # same system prompt for every receipt
     assert "Never invent" in msgs_a[0]["content"] and "Do not correct" in msgs_a[0]["content"]
+
+
+def test_baseline_prompt_is_the_original_benchmark_prompt():
+    # The v1 prompt reproduces the original 45/51 result; any edit would break that comparison.
+    digest = hashlib.sha256(di_aoai.SYSTEM_PROMPT.encode()).hexdigest()
+    assert digest == "721a4199cdbc48eb097177a6647085253ddf4cdbec03d9fb25c1ed0949b13f9e"
+    assert build_messages("A")[0]["content"] == di_aoai.SYSTEM_PROMPT
+    assert di_aoai.RESPONSE_SCHEMA["json_schema"]["schema"]["required"] == di_aoai.FIELDS
+
+
+def test_rows_text_keeps_labels_next_to_their_values():
+    def line(text, x0, y0, x1, h=30):
+        return {"content": text, "polygon": [x0, y0, x1, y0, x1, y0 + h, x0, y0 + h]}
+    page = {"angle": 0, "lines": [line("Patient:", 50, 100, 200), line("Reg. No.:", 600, 160, 760),
+                                  line("Chan Tai Man", 260, 102, 450), line("A12345", 800, 158, 900),
+                                  line("Total", 50, 400, 150), line("$100.00", 600, 405, 720)]}
+    assert di_aoai.rows_text(page) == "Patient: | Chan Tai Man\nReg. No.: | A12345\nTotal | $100.00"
+
+
+def test_rows_text_undoes_page_skew():
+    # A page photographed at 3 degrees: the value sits ~30 px lower than its label 600 px away.
+    page = {"angle": 3, "lines": [{"content": "Total", "polygon": [50, 400, 150, 405, 150, 435, 50, 430]},
+                                  {"content": "$100.00", "polygon": [600, 429, 720, 435, 720, 465, 600, 459]}]}
+    assert di_aoai.rows_text(page) == "Total | $100.00"
+
+
+def test_improved_pipeline_sends_rows_v2_prompt_and_checks_values(tmp_path, monkeypatch):
+    lines = ["Dentist: Dr. Wong Mei Ling, BDS (HK)", "Reg. No. D01234", "Total", "500.00"]
+    monkeypatch.setattr(di_aoai.azure_di, "analyze", lambda client, path: (_di_result(lines), 1000.0))
+    reply = json.dumps({"doctor_name": "Dr. Wong Mei Ling, BDS (HK)", "registration_number": "Reg. No. D01234",
+                        "patient_name": None, "receipt_number": None, "service_date": "02/01/2026",
+                        "total_amount": "500.00", "uncertain_fields": ["service_date"]})
+    aoai, completions = _aoai(reply=reply)
+    record, _ = process_receipt(di_aoai.Path("receipt1.png"), None, aoai, CFG, tmp_path, None)
+
+    call = completions.calls[0]
+    assert call["messages"][0]["content"] == di_aoai.SYSTEM_PROMPT_V2
+    assert call["response_format"]["json_schema"]["schema"]["required"] == di_aoai.FIELDS + ["uncertain_fields"]
+    assert record["pipeline"] == di_aoai.IMPROVED
+    assert record["doctor_name"] == "Dr. Wong Mei Ling" and record["registration_number"] == "D01234"
+    assert record["uncertain_fields"] == ["service_date"] and record["review_fields"] == ["service_date"]
+    assert not any("unexpected field" in w for w in record["warnings"])
+    fields, _ = read_result(json.loads(json.dumps(record)))
+    assert fields["doctor_name"] == "Dr. Wong Mei Ling" and fields["service_date"] == "2026-01-02"
+
+
+def test_baseline_pipeline_applies_no_checks(di, tmp_path):
+    aoai, _ = _aoai(reply=_reply(registration_number="Reg. No. D01234"))
+    record, _ = process_receipt(di_aoai.Path("receipt1.png"), None, aoai, CFG, tmp_path, None, di_aoai.BASELINE)
+    assert record["registration_number"] == "Reg. No. D01234" and "review_fields" not in record
+
+
+def test_image_is_attached_only_when_asked(tmp_path):
+    pil = pytest.importorskip("PIL.Image")
+    photo = tmp_path / "receipt1.png"
+    pil.new("RGB", (3000, 1000), "white").save(photo)
+    url = di_aoai.image_data_url(photo)
+    assert url.startswith("data:image/jpeg;base64,")
+    msgs = build_messages("text", "v2", url)
+    assert msgs[0]["content"].endswith(di_aoai.IMAGE_NOTE)
+    assert msgs[1]["content"][1] == {"type": "image_url", "image_url": {"url": url, "detail": "high"}}
+    assert isinstance(build_messages("text", "v2")[1]["content"], str)
+
+
+def test_prompt_and_checks_contain_no_benchmark_answers():
+    # The improvements must be general: no ground-truth value of any benchmark receipt may appear in
+    # the v2 prompt or in the validation code.
+    from receipt_bench import aoai_validation
+    from receipt_bench.score import load_ground_truth
+    data = Path(__file__).resolve().parents[1] / "data"
+    sources = di_aoai.SYSTEM_PROMPT_V2 + di_aoai.IMAGE_NOTE + Path(aoai_validation.__file__).read_text()
+    values = {v for gt_file in (data / "receipts_v2" / "benchmark_ground_truth.xlsx",
+                                data / "ground_truth" / "ground_truth_template.xlsx")
+              for rec in load_ground_truth(gt_file).values() for v in rec.values() if v and len(v) >= 4}
+    assert values and not [v for v in values if v in sources]
 
 
 # --- reply parsing and field normalization --------------------------------------------------
