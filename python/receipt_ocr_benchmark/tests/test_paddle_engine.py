@@ -1,6 +1,6 @@
-"""Real smoke test: confirms the light and heavy configs share one implementation
-and both produce the same normalized raw OCR shape. Downloads PaddleOCR models on
-first run (cached under ~/.paddlex afterwards).
+"""Real smoke test: confirms the light config produces the normalized raw OCR shape. Needs the
+local models (see models/README.md). The discontinued heavy configs are kept in configs/archive/
+for historical reproduction only and are not run here.
 """
 
 from pathlib import Path
@@ -12,7 +12,7 @@ from receipt_bench.paddle_engine import PaddleEngine
 
 FIXTURE = Path(__file__).parent / "fixtures" / "receipt.png"
 CONFIG_DIR = Path(__file__).parent.parent / "configs"
-CONFIGS = [CONFIG_DIR / "paddle_light.yaml", CONFIG_DIR / "paddle_heavy.yaml"]
+CONFIGS = [CONFIG_DIR / "paddle_light.yaml"]  # the only active PaddleOCR configuration
 
 
 @pytest.mark.parametrize("config_path", CONFIGS, ids=lambda p: p.stem)
@@ -52,9 +52,18 @@ def test_enable_mkldnn_is_passed_only_when_configured(monkeypatch):
     assert calls[1]["enable_mkldnn"] is False
 
 
-@pytest.mark.parametrize("name", ["paddle_light", "paddle_heavy"])
-def test_azure_config_differs_only_by_onednn_flag(name):
-    base = yaml.safe_load((CONFIG_DIR / f"{name}.yaml").read_text())
-    azure = yaml.safe_load((CONFIG_DIR / f"{name}_azure.yaml").read_text())
+@pytest.mark.parametrize("folder, name", [("", "paddle_light"), ("archive", "paddle_heavy")])
+def test_azure_config_differs_only_by_onednn_flag(folder, name):
+    base = yaml.safe_load((CONFIG_DIR / folder / f"{name}.yaml").read_text())
+    azure = yaml.safe_load((CONFIG_DIR / folder / f"{name}_azure.yaml").read_text())
     assert azure == {**base, "enable_mkldnn": False}
     assert base["device"] == "cpu" and base["text_detection_model_dir"].startswith("models/")
+
+
+def test_heavy_is_archived_not_active():
+    active = sorted(p.name for p in CONFIG_DIR.glob("*.yaml"))
+    assert active == ["paddle_light.yaml", "paddle_light_azure.yaml"]
+    for name in ("paddle_heavy.yaml", "paddle_heavy_azure.yaml"):
+        archived = yaml.safe_load((CONFIG_DIR / "archive" / name).read_text())
+        assert archived["text_detection_model_name"] == "PP-OCRv5_server_det"  # unchanged for reproduction
+        assert archived["text_detection_model_dir"].startswith("models/")  # still relative to the project root

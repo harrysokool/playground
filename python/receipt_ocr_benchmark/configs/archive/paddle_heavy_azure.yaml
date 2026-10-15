@@ -1,5 +1,8 @@
+# DISCONTINUED (October 2026): PaddleOCR Heavy is no longer part of the active benchmark. Kept only to
+# reproduce the historical Version 1 and Version 2 Heavy runs (see README, "PaddleOCR Heavy (discontinued)").
+# Run from the project root: python -m receipt_bench.cli --config configs/archive/paddle_heavy.yaml ...
 # Heavier PaddleOCR configuration: PP-OCRv5 server detection + recognition.
-# Model dirs point at local extracted archives so this runs fully offline (see ../models/README.md).
+# Model dirs point at local extracted archives so this runs fully offline (see ../../models/README.md).
 engine_config_name: paddle_heavy
 text_detection_model_name: PP-OCRv5_server_det
 text_detection_model_dir: models/PP-OCRv5_server_det_infer

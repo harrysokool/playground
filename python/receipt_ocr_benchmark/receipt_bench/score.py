@@ -3,7 +3,6 @@
 Usage:
     python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
         --approach paddle_light=results/extracted_general_light \
-        --approach paddle_heavy=results/extracted_general_heavy \
         --approach azure_di=results/di/20260929T073615Z \
         --approach azure_di_aoai=results/di_aoai/20260929T081700Z \
         --output-dir results/scores

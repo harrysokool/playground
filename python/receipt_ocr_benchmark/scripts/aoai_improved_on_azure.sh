@@ -96,6 +96,8 @@ git pull --ff-only
 source ~/venvs/paddle322/bin/activate
 python -m pytest -q --deselect tests/test_paddle_engine.py::test_paddle_engine_processes_receipt
 
+# The historical results (including the discontinued PaddleOCR Heavy outputs) are only read and
+# rescored here, to prove they are unchanged. No OCR is run.
 ORIGINALS=($OUT/di_aoai $OUT/scores_improved $OUT/extracted_general_light $OUT/extracted_improved_light
            $OUT/extracted_general_heavy $OUT/extracted_improved_heavy $OUT/extracted_general_azure_di
            $OUT/extracted_improved_azure_di)

@@ -11,9 +11,11 @@ Expected structure — each is an extracted PaddleOCR/PaddleX inference model ar
 models/
 ├── PP-OCRv5_mobile_det_infer/   # used by configs/paddle_light.yaml
 ├── PP-OCRv5_mobile_rec_infer/   # used by configs/paddle_light.yaml
-├── PP-OCRv5_server_det_infer/   # used by configs/paddle_heavy.yaml
-└── PP-OCRv5_server_rec_infer/   # used by configs/paddle_heavy.yaml
+├── PP-OCRv5_server_det_infer/   # optional: only for the discontinued configs/archive/paddle_heavy*.yaml
+└── PP-OCRv5_server_rec_infer/   # optional: only for the discontinued configs/archive/paddle_heavy*.yaml
 ```
+
+The active benchmark needs only the two mobile models.
 
 These are large binary archives and are not committed to Git (see `.gitignore`) — each
 machine running the benchmark needs its own copy under `models/`.

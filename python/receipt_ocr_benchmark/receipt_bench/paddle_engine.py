@@ -1,7 +1,6 @@
-"""PaddleOCR provider shared by both the light and heavy benchmark configurations.
-
-Light vs. heavy is just a difference in which model names a config YAML supplies
-(configs/paddle_light.yaml vs configs/paddle_heavy.yaml) - the code path is identical.
+"""PaddleOCR provider for the benchmark. The models come from a config YAML: the active one is
+configs/paddle_light.yaml. The discontinued heavy configuration (configs/archive/paddle_heavy.yaml)
+uses this same code path with different model names, so historical runs stay reproducible.
 """
 
 from __future__ import annotations
@@ -24,7 +23,7 @@ class PaddleEngine:
             text_recognition_model_dir=config.get("text_recognition_model_dir"),
             device=config.get("device", "cpu"),
             # These are separate models layered on top of detection/recognition.
-            # Disabled so light vs. heavy only differs in the det/rec models being compared.
+            # Disabled so configurations differ only in their det/rec models.
             use_doc_orientation_classify=False,
             use_doc_unwarping=False,
             use_textline_orientation=False,

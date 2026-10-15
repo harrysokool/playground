@@ -175,7 +175,7 @@ def test_scores_four_named_approaches(tmp_path, monkeypatch):
     gt_path = _write_xlsx(tmp_path / "gt.xlsx", [HEADER, ["r1", "Dr A", "na", "Pat B", "na", "2026-02-07", "10"]])
     runs = {
         "paddle_light": {"doctor_name": "Dr A", "patient_name": "Pat B", "service_date": "2026-02-07", "total_amount": 10.0},
-        "paddle_heavy": {"doctor_name": "Dr A", "patient_name": None, "service_date": "2026-07-02", "total_amount": 10.0},
+        "azure_di_improved": {"doctor_name": "Dr A", "patient_name": None, "service_date": "2026-07-02", "total_amount": 10.0},
         "azure_di": {"ocr_text": "Dr A", "timings_seconds": {"di": 2.0}},
         "azure_di_aoai": {"status": "ok", "benchmark_fields": {"doctor_name": "Dr A", "receipt_number": "X1"},
                           "aoai_output": {"visit_date": "07/02/2026"}, "timings_seconds": {"total": 30.0}},
@@ -192,7 +192,7 @@ def test_scores_four_named_approaches(tmp_path, monkeypatch):
     rows = {r["approach"]: r for r in csv.DictReader(open(tmp_path / "out" / "summary.csv"))}
     assert list(rows) == list(runs)
     assert {n: (r["correct"], r["applicable"]) for n, r in rows.items()} == {
-        "paddle_light": ("4", "4"), "paddle_heavy": ("2", "4"), "azure_di": ("0", "4"), "azure_di_aoai": ("2", "4")}
+        "paddle_light": ("4", "4"), "azure_di_improved": ("2", "4"), "azure_di": ("0", "4"), "azure_di_aoai": ("2", "4")}
     assert rows["azure_di_aoai"]["invented"] == "1"
     assert rows["azure_di"]["no_result_receipts"] == "1"
     assert (tmp_path / "out" / "report.md").read_text().startswith("## Overall")

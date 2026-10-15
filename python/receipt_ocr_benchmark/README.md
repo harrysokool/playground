@@ -4,14 +4,30 @@ A disposable benchmark, **not production code**, comparing approaches for turnin
 receipts into structured data. It exists to answer one question: is the extra cost and
 complexity of Azure Document Intelligence + Azure OpenAI justified over simpler alternatives?
 
-Approaches compared (see project notes for the full plan):
+**Active benchmark: three approaches**
 
-1. Pure OCR — light PaddleOCR (PP-OCRv5 mobile)
-2. Pure OCR — heavier PaddleOCR (PP-OCRv5 server)
-3. Azure Document Intelligence + deterministic rules
-4. Existing Azure DI + Azure OpenAI solution (not rebuilt here — compared against separately)
+1. PaddleOCR Light (PP-OCRv5 mobile) + manually written extraction rules
+2. Azure Document Intelligence + manually written extraction rules
+3. Azure Document Intelligence + Azure OpenAI. Two results are kept: the original prompt
+   (Version 2: 45/51, 88.2%) and the improved prompt v2 (49/51, 96.1%). The prompt v2 result
+   is from the development receipts it was written against, not an independent or production
+   accuracy figure.
 
-**Phase 1**: raw OCR only. Run a receipt image/PDF through the light or heavy PaddleOCR
+### PaddleOCR Heavy (discontinued)
+
+PaddleOCR Heavy (PP-OCRv5 server models) was dropped from the active benchmark in October 2026.
+In the tested configuration it was less accurate than Light (Version 2, improved rules: 33/51
+vs 45/51) and about four times slower (53.3 s vs 13.9 s per receipt). Its whole accuracy gap
+came from two receipts where it returned almost no OCR text (3 and 0 text blocks, against 42
+and 45 for Light), and it extracted no field that Light missed. The cause of the missing text
+was not confirmed, so this is a result for this benchmark, not a general verdict on the model.
+
+Its historical outputs and scores are kept unchanged (`results/v2/paddle_heavy/`,
+`results/v2/extracted_*_heavy/`, `results/v2/scores/`, `results/v2/scores_improved/`, and the
+Version 1 results at tag `ocr-benchmark-v1`). The configs are in `configs/archive/` to reproduce
+those runs; they are not used by any active command.
+
+**Phase 1**: raw OCR only. Run a receipt image/PDF through the PaddleOCR Light
 configuration and get back a normalized JSON of text, confidence, coordinates, and timing.
 
 **Phase 3** (current): deterministic rule-based extraction of 6 fields (doctor/provider name,
@@ -41,8 +57,8 @@ model archives under `models/` (not committed to Git — see `models/README.md`)
 models/
 ├── PP-OCRv5_mobile_det_infer/   # configs/paddle_light.yaml
 ├── PP-OCRv5_mobile_rec_infer/   # configs/paddle_light.yaml
-├── PP-OCRv5_server_det_infer/   # configs/paddle_heavy.yaml
-└── PP-OCRv5_server_rec_infer/   # configs/paddle_heavy.yaml
+├── PP-OCRv5_server_det_infer/   # optional: discontinued configs/archive/paddle_heavy*.yaml
+└── PP-OCRv5_server_rec_infer/   # optional: discontinued configs/archive/paddle_heavy*.yaml
 ```
 
 Commands must be run from the project root (`configs/*.yaml` reference `models/...` as a
@@ -53,9 +69,6 @@ relative path).
 ```bash
 # Light OCR (PP-OCRv5 mobile)
 python -m receipt_bench.cli --config configs/paddle_light.yaml --input data/raw --output results/paddle_light
-
-# Heavy OCR (PP-OCRv5 server)
-python -m receipt_bench.cli --config configs/paddle_heavy.yaml --input data/raw --output results/paddle_heavy
 ```
 
 `--input` may be a single image/PDF file or a directory of them. One JSON file per input document
@@ -68,7 +81,6 @@ over the receipt files directly:
 
 ```bash
 python -m receipt_bench.extract_cli --input results/paddle_light --output results/paddle_light_extracted
-python -m receipt_bench.extract_cli --input results/paddle_heavy --output results/paddle_heavy_extracted
 ```
 
 Rules live in `receipt_bench/extraction.py` — see `FIELD_RULES` for the exact labels matched
@@ -88,9 +100,8 @@ layouts fall back to the Phase 3 baseline rules.
 
 ```bash
 python -m receipt_bench.extract_cli --rules tuned --input results/paddle_light --output results/extracted_tuned_light
-python -m receipt_bench.extract_cli --rules tuned --input results/paddle_heavy --output results/extracted_tuned_heavy
 python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
-    --approach tuned_light=results/extracted_tuned_light --approach tuned_heavy=results/extracted_tuned_heavy
+    --approach tuned_light=results/extracted_tuned_light
 ```
 
 ## General rules baseline (Phase 3c)
@@ -103,23 +114,25 @@ records `timings.ocr_predict_ms` (from the raw OCR JSON) and `timings.extract_ms
 
 ```bash
 python -m receipt_bench.extract_cli --rules general --input results/paddle_light --output results/extracted_general_light
-python -m receipt_bench.extract_cli --rules general --input results/paddle_heavy --output results/extracted_general_heavy
 ```
 
-## PaddleOCR Light and Heavy end to end (Phase 2 of the final comparison)
+## PaddleOCR Light end to end (Phase 2 of the final comparison)
 
-Both approaches use the same code and the general rules (Phase 3c). Each one saves:
-- raw OCR, with text, confidence, polygons and `timings.total_ms`, to `results/paddle_<light|heavy>/`;
+PaddleOCR uses the general rules (Phase 3c) and saves:
+- raw OCR, with text, confidence, polygons and `timings.total_ms`, to `results/paddle_light/`;
 - the six extracted fields, plus `sources`, `rules`, `warnings` and
-  `timings.ocr_predict_ms` / `timings.extract_ms`, to `results/extracted_general_<light|heavy>/`.
+  `timings.ocr_predict_ms` / `timings.extract_ms`, to `results/extracted_general_light/`.
+
+Phase 2 originally ran Heavy as well (now discontinued; see the top of this README).
 
 `score.py` reads the extracted files directly. Processing time = OCR predict + extraction. It
 does not include model loading, which happens once per run.
 
 Run the benchmark on **Azure ML compute** (x86 Linux, CPU, Python 3.11). This setup produced
-the committed results in `results/`, with the plain configs (oneDNN on). The heavy model peaked
-at about 9 GB RAM on the largest receipt, so use a compute instance with **at least 16 GB RAM**.
-Copy the four `models/PP-OCRv5_*_infer` folders onto the instance first (they aren't in Git).
+the committed results in `results/`, with the plain configs (oneDNN on). The discontinued Heavy
+model peaked at about 9 GB RAM on the largest receipt, and the **16 GB RAM** compute instance was
+sized for it. Copy the `models/PP-OCRv5_mobile_*_infer` folders onto the instance first (they
+aren't in Git).
 
 ```bash
 python3.11 -m venv ~/venvs/paddle322 && source ~/venvs/paddle322/bin/activate
@@ -128,23 +141,20 @@ python -c "import paddle, paddleocr; print(paddle.__version__, paddleocr.__versi
 export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True   # never contact model hosters
 
 python -m receipt_bench.cli --config configs/paddle_light.yaml --input data/raw --output results/paddle_light
-python -m receipt_bench.cli --config configs/paddle_heavy.yaml --input data/raw --output results/paddle_heavy
 python -m receipt_bench.extract_cli --rules general --input results/paddle_light --output results/extracted_general_light
-python -m receipt_bench.extract_cli --rules general --input results/paddle_heavy --output results/extracted_general_heavy
 python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
     --approach paddle_light=results/extracted_general_light \
-    --approach paddle_heavy=results/extracted_general_heavy \
     --output-dir results/scores_paddle
 ```
 
 Why 3.2.2: on this compute, paddlepaddle **3.3.1** fails both ways:
 - with oneDNN on, it raises `NotImplementedError: ... ConvertPirAttribute2RuntimeAttribute not support`;
-- with oneDNN off, heavy segfaults in the plain CPU convolution (`Im2ColFunctor`) on the
-  12 MP receipts.
+- with oneDNN off, the (now discontinued) heavy model segfaults in the plain CPU convolution
+  (`Im2ColFunctor`) on the 12 MP receipts.
 
-**Fallback:** `configs/paddle_{light,heavy}_azure.yaml` are the same configs plus
-`enable_mkldnn: false`. Use them only if oneDNN causes trouble again. CPU inference is slower
-without oneDNN, so run light and heavy with the same configs to keep timings comparable.
+**Fallback:** `configs/paddle_light_azure.yaml` is the same config plus `enable_mkldnn: false`.
+Use it only if oneDNN causes trouble again. CPU inference is slower without oneDNN, so keep the
+same config across runs you compare.
 
 ## Azure Document Intelligence (Phase 3 of the final comparison)
 
@@ -187,7 +197,6 @@ python -m receipt_bench.azure_di --input data/raw --output results/azure_di
 python -m receipt_bench.extract_cli --rules general --input results/azure_di --output results/extracted_general_azure_di
 python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
     --approach paddle_light=results/extracted_general_light \
-    --approach paddle_heavy=results/extracted_general_heavy \
     --approach azure_di=results/extracted_general_azure_di \
     --output-dir results/scores_paddle_di
 ```
@@ -253,7 +262,6 @@ export AZURE_OPENAI_DEPLOYMENT="gpt-5-mini"
 python -m receipt_bench.di_aoai --input data/raw --output results/di_aoai
 python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
     --approach paddle_light=results/extracted_general_light \
-    --approach paddle_heavy=results/extracted_general_heavy \
     --approach azure_di=results/extracted_general_azure_di \
     --approach azure_di_aoai=results/di_aoai \
     --output-dir results/scores_all
@@ -266,13 +274,13 @@ only, not the final numbers.
 ## Version 2 benchmark (Azure ML only)
 
 Version 1 (six receipts) is frozen at the Git tag `ocr-benchmark-v1`, results included.
-Version 2 uses nine receipt images (see `data/receipts_v2/README.md`). All four approaches run
+Version 2 uses nine receipt images (see `data/receipts_v2/README.md`). The approaches run
 **on Azure ML compute only**, with the unchanged code, rules and prompt; outputs go to `results/v2/`.
 The only scorer change is that a Traditional Chinese date such as `2026年6月9日` is now read as
 written. Extraction is unchanged.
 
 The phone photos store their pixels sideways, with an EXIF orientation tag. A preparation step
-writes upright copies to `results/v2/inputs/`, which all four approaches read. That way they all
+writes upright copies to `results/v2/inputs/`, which all approaches read. That way they all
 get identical pixels whatever their own EXIF handling (see `data/receipts_v2/prepare_inputs.py`).
 `count DIR` prints how many receipt results a step produced. Each step should show **9/9**
 before you move on.
@@ -296,11 +304,9 @@ python -m pytest -q
 # 3. inputs: nine upright images + manifest.csv
 python data/receipts_v2/prepare_inputs.py
 
-# 4. PaddleOCR Light and Heavy, then the general rules
+# 4. PaddleOCR Light, then the general rules
 python -m receipt_bench.cli --config configs/paddle_light.yaml --input $IN --output $OUT/paddle_light && count $OUT/paddle_light
-python -m receipt_bench.cli --config configs/paddle_heavy.yaml --input $IN --output $OUT/paddle_heavy && count $OUT/paddle_heavy
 python -m receipt_bench.extract_cli --rules general --input $OUT/paddle_light --output $OUT/extracted_general_light && count $OUT/extracted_general_light
-python -m receipt_bench.extract_cli --rules general --input $OUT/paddle_heavy --output $OUT/extracted_general_heavy && count $OUT/extracted_general_heavy
 
 # 5. Azure DI (paid: 9 calls), then the general rules
 python -m receipt_bench.azure_di --input $IN --output $OUT/azure_di && count $OUT/azure_di
@@ -310,15 +316,17 @@ python -m receipt_bench.extract_cli --rules general --input $OUT/azure_di --outp
 python -m receipt_bench.di_aoai --input $IN --output $OUT/di_aoai && count $OUT/di_aoai
 echo "di_aoai ok: $(grep -l '"status": "ok"' $OUT/di_aoai/receipt*.json | wc -l)/9"
 
-# 7. score all four: report.md, summary.csv, detail.csv (accuracy, per field, time, failures, invented, AOAI tokens)
+# 7. score: report.md, summary.csv, detail.csv (accuracy, per field, time, failures, invented, AOAI tokens)
 python -m receipt_bench.score --ground-truth data/receipts_v2/benchmark_ground_truth.xlsx \
     --approach paddle_light=$OUT/extracted_general_light \
-    --approach paddle_heavy=$OUT/extracted_general_heavy \
     --approach azure_di=$OUT/extracted_general_azure_di \
     --approach azure_di_aoai=$OUT/di_aoai \
-    --output-dir $OUT/scores
-cat $OUT/scores/report.md | head -30
+    --output-dir $OUT/scores_rerun   # a new folder: the committed results/v2/scores/ stays as it is
+cat $OUT/scores_rerun/report.md | head -30
 ```
+
+The committed Version 2 results in `results/v2/scores/` were produced when Heavy was still run,
+so they include it.
 
 A count below 9/9 after Azure DI means some receipts failed. The reasons are in
 `$OUT/azure_di/di_response/receiptN.json`. For DI + AOAI, they're in each failed receipt's own
@@ -344,15 +352,18 @@ are no paid calls:
 source ~/venvs/paddle322/bin/activate && git pull
 python -m pytest -q tests/test_extraction_improved.py && python -m pytest -q
 OUT=results/v2
-for e in light heavy; do python -m receipt_bench.extract_cli --rules improved --input $OUT/paddle_$e --output $OUT/extracted_improved_$e; done
+python -m receipt_bench.extract_cli --rules improved --input $OUT/paddle_light --output $OUT/extracted_improved_light
 python -m receipt_bench.extract_cli --rules improved --input $OUT/azure_di --output $OUT/extracted_improved_azure_di
 python -m receipt_bench.score --ground-truth data/receipts_v2/benchmark_ground_truth.xlsx \
     --approach paddle_light_general=$OUT/extracted_general_light --approach paddle_light_improved=$OUT/extracted_improved_light \
-    --approach paddle_heavy_general=$OUT/extracted_general_heavy --approach paddle_heavy_improved=$OUT/extracted_improved_heavy \
     --approach azure_di_general=$OUT/extracted_general_azure_di --approach azure_di_improved=$OUT/extracted_improved_azure_di \
-    --approach azure_di_aoai=$OUT/di_aoai --output-dir $OUT/scores_improved
-for d in $OUT/extracted_general_* $OUT/extracted_improved_*; do echo "$d: mean extraction $(grep -h '"extract_ms"' $d/*.json | awk -F': ' '{s+=$2; n++} END {printf "%.1f", s/n}') ms"; done
+    --approach azure_di_aoai=$OUT/di_aoai --output-dir $OUT/scores_improved_rerun
+for d in $OUT/extracted_general_light $OUT/extracted_improved_light $OUT/extracted_*_azure_di; do echo "$d: mean extraction $(grep -h '"extract_ms"' $d/*.json | awk -F': ' '{s+=$2; n++} END {printf "%.1f", s/n}') ms"; done
 ```
+
+The committed `results/v2/scores_improved/` (written when Heavy was still run) also contains the
+historical `paddle_heavy_general` and `paddle_heavy_improved` rows; they are kept unchanged, which
+is why the command above writes to `scores_improved_rerun/`.
 
 **Version 1 check.** This re-runs only extraction, on the Version 1 OCR outputs frozen in the
 tag `ocr-benchmark-v1`. Version 1 receipts 4 and 6 are the same images as Version 2 receipts 9
@@ -360,13 +371,12 @@ and 10, so only Version 1 receipts 1, 2, 3 and 5 were unseen during development:
 
 ```bash
 V1=results/v1_rerun && mkdir -p $V1
-git -C "$(git rev-parse --show-toplevel)" archive ocr-benchmark-v1:python/receipt_ocr_benchmark/results paddle_light paddle_heavy azure_di \
-    extracted_general_light extracted_general_heavy extracted_general_azure_di | tar -x -C $V1
-for e in light heavy; do python -m receipt_bench.extract_cli --rules improved --input $V1/paddle_$e --output $V1/extracted_improved_$e; done
+git -C "$(git rev-parse --show-toplevel)" archive ocr-benchmark-v1:python/receipt_ocr_benchmark/results paddle_light azure_di \
+    extracted_general_light extracted_general_azure_di | tar -x -C $V1
+python -m receipt_bench.extract_cli --rules improved --input $V1/paddle_light --output $V1/extracted_improved_light
 python -m receipt_bench.extract_cli --rules improved --input $V1/azure_di --output $V1/extracted_improved_azure_di
 python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
     --approach paddle_light_general=$V1/extracted_general_light --approach paddle_light_improved=$V1/extracted_improved_light \
-    --approach paddle_heavy_general=$V1/extracted_general_heavy --approach paddle_heavy_improved=$V1/extracted_improved_heavy \
     --approach azure_di_general=$V1/extracted_general_azure_di --approach azure_di_improved=$V1/extracted_improved_azure_di \
     --output-dir $V1/scores
 ```
@@ -422,7 +432,6 @@ and the same six fields: `doctor_name`, `registration_number`, `patient_name`,
 ```bash
 python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_template.xlsx \
     --approach paddle_light=results/extracted_general_light \
-    --approach paddle_heavy=results/extracted_general_heavy \
     --approach azure_di=results/<azure_di_run_dir> \
     --approach azure_di_aoai=results/<azure_di_aoai_run_dir> \
     --output-dir results/scores
