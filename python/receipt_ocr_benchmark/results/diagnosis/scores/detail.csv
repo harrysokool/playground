@@ -1,0 +1,27 @@
+approach,set,receipt,truth,predicted,outcome,evidence
+rules_paddle_light,v2,receipt1,missing,missing,correct,
+rules_paddle_light,v2,receipt2,missing,missing,correct,
+rules_paddle_light,v2,receipt3,missing,missing,correct,
+rules_paddle_light,v2,receipt4,missing,missing,correct,
+rules_paddle_light,v2,receipt5,missing,missing,correct,
+rules_paddle_light,v2,receipt6,missing,missing,correct,
+rules_paddle_light,v2,receipt8,missing,missing,correct,
+rules_paddle_light,v2,receipt9,present,present,correct,Symptoms: -> 'dlavrhoea.' (present); Diagnosis: -> 'Colitis.' (present)
+rules_paddle_light,v2,receipt10,missing,missing,correct,
+rules_paddle_light,v1,receipt1,present,present,correct,NOTES: -> 'patient B cverely injurel' (present)
+rules_paddle_light,v1,receipt2,missing,missing,correct,NOTES: -> '' (missing)
+rules_paddle_light,v1,receipt3,present,present,correct,Notes: -> '1Back pain. need water.' (present)
+rules_paddle_light,v1,receipt5,missing,missing,correct,NOTES: -> '' (missing)
+rules_azure_di,v2,receipt1,missing,missing,correct,
+rules_azure_di,v2,receipt2,missing,missing,correct,
+rules_azure_di,v2,receipt3,missing,missing,correct,
+rules_azure_di,v2,receipt4,missing,missing,correct,
+rules_azure_di,v2,receipt5,missing,missing,correct,
+rules_azure_di,v2,receipt6,missing,missing,correct,
+rules_azure_di,v2,receipt8,missing,missing,correct,
+rules_azure_di,v2,receipt9,present,present,correct,Symptoms: -> 'diarrhoea.' (present); Diagnosis: -> 'Colitis' (present)
+rules_azure_di,v2,receipt10,missing,missing,correct,
+rules_azure_di,v1,receipt1,present,present,correct,NOTES: -> 'patient is severely injured' (present)
+rules_azure_di,v1,receipt2,missing,missing,correct,NOTES: -> '' (missing)
+rules_azure_di,v1,receipt3,present,present,correct,Notes: -> 'Back pain need water.' (present)
+rules_azure_di,v1,receipt5,missing,missing,correct,NOTES: -> '' (missing)

@@ -1,0 +1,20 @@
+{
+  "document_id": "receipt5",
+  "diagnosis": {
+    "status": "missing",
+    "reason": "only empty or administrative labels",
+    "evidence": [
+      {
+        "label": "notes",
+        "kind": "weak",
+        "value": "",
+        "status": "missing",
+        "reason": "label with no comment",
+        "source": "NOTES:"
+      }
+    ]
+  },
+  "timings": {
+    "detect_ms": 0.76374999480322
+  }
+}

@@ -17,6 +17,10 @@ Two pipelines (chosen with --prompt / --text / --attach-image):
   and the light, general checks in `aoai_validation` (warnings and review_fields in the output).
 - `--attach-image` (experiment, off by default) also sends the receipt photo, so the model can
   read text the OCR misread, e.g. a stamp or signature. More input tokens per receipt.
+- `--diagnosis` (prompt v2 only) adds DIAGNOSIS_NOTE: the model also says whether a diagnosis
+  comment is present / missing / needs_review and quotes it. Saved under "diagnosis", checked by
+  `aoai_validation.check_diagnosis` and scored by `diagnosis_cli`, never by `score.py`. Without the
+  flag the prompt and schema are exactly as before.
 
 The model is told to copy values from the text and to return null for anything not there. It is
 NOT told to fix OCR errors (unless the image is attached), so a year DI misread (e.g. "2020" for
@@ -124,6 +128,21 @@ missing or unclear in the OCR text (for example handwriting, a stamp or a signat
 from the photo. Return only text that is clearly visible, and add the field to uncertain_fields
 if it is hard to read."""
 
+# Added to prompt v2 with --diagnosis. Separate from the six fields and scored separately.
+DIAGNOSIS_NOTE = """
+
+Also report whether the receipt has a diagnosis comment: any written information about the
+patient's condition, symptoms or diagnosis, with or without a label (for example under Diagnosis,
+Symptoms, Condition, Chief complaint, 診斷, 症狀, 病情, or a medical comment under Notes, Remarks or
+備註). Do not judge whether it is medically correct.
+- diagnosis_comment: "present" if there is such a comment; "missing" if there is none, including a
+  label printed with nothing after it or only "-", "N/A" or similar; "needs_review" if you cannot
+  tell, for example unreadable text or a remark that may or may not be about the patient's condition.
+  Names of services, treatments, tests or medicines on their own are not a diagnosis comment, and
+  neither are administrative remarks (payment, insurance, appointments, opening hours).
+- diagnosis_evidence: the comment copied exactly from the text, with its label if it has one; null
+  if diagnosis_comment is "missing"."""
+
 PROMPTS = {"v1": SYSTEM_PROMPT, "v2": SYSTEM_PROMPT_V2}
 BASELINE = {"prompt": "v1", "text": "plain", "image": False}
 IMPROVED = {"prompt": "v2", "text": "rows", "image": False}
@@ -145,6 +164,12 @@ RESPONSE_SCHEMA_V2 = json.loads(json.dumps(RESPONSE_SCHEMA))
 RESPONSE_SCHEMA_V2["json_schema"]["schema"]["properties"]["uncertain_fields"] = {
     "type": "array", "items": {"type": "string", "enum": FIELDS}}
 RESPONSE_SCHEMA_V2["json_schema"]["schema"]["required"] = FIELDS + ["uncertain_fields"]
+DIAGNOSIS_KEYS = ["diagnosis_comment", "diagnosis_evidence"]
+RESPONSE_SCHEMA_V2_DIAGNOSIS = json.loads(json.dumps(RESPONSE_SCHEMA_V2))
+RESPONSE_SCHEMA_V2_DIAGNOSIS["json_schema"]["schema"]["properties"].update({
+    "diagnosis_comment": {"type": "string", "enum": list(aoai_validation.DIAGNOSIS_STATUSES)},
+    "diagnosis_evidence": {"type": ["string", "null"]}})
+RESPONSE_SCHEMA_V2_DIAGNOSIS["json_schema"]["schema"]["required"] = FIELDS + ["uncertain_fields"] + DIAGNOSIS_KEYS
 MAX_COMPLETION_TOKENS = 4000  # includes reasoning tokens; too low a cap returns empty content
 IMAGE_MAX_PX = 2000  # longest side of the attached photo
 
@@ -229,20 +254,23 @@ def image_data_url(path: Path) -> str:
     return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
-def build_messages(ocr_text: str, prompt: str = "v1", image_url: str | None = None) -> list[dict]:
-    system = PROMPTS[prompt] + (IMAGE_NOTE if image_url else "")
+def build_messages(ocr_text: str, prompt: str = "v1", image_url: str | None = None,
+                   diagnosis: bool = False) -> list[dict]:
+    system = PROMPTS[prompt] + (DIAGNOSIS_NOTE if diagnosis else "") + (IMAGE_NOTE if image_url else "")
     user = f"OCR text:\n{ocr_text}"
     content = user if not image_url else [{"type": "text", "text": user},
                                           {"type": "image_url", "image_url": {"url": image_url, "detail": "high"}}]
     return [{"role": "system", "content": system}, {"role": "user", "content": content}]
 
 
-def call_aoai(client, cfg: dict, ocr_text: str, prompt: str = "v1", image_url: str | None = None
-              ) -> tuple[dict, dict, float]:
+def call_aoai(client, cfg: dict, ocr_text: str, prompt: str = "v1", image_url: str | None = None,
+              diagnosis: bool = False) -> tuple[dict, dict, float]:
     """Returns (raw model fields, metadata incl. token usage, aoai_ms)."""
+    schema = RESPONSE_SCHEMA if prompt == "v1" else RESPONSE_SCHEMA_V2_DIAGNOSIS if diagnosis else RESPONSE_SCHEMA_V2
     start = time.perf_counter()
-    resp = client.chat.completions.create(model=cfg["deployment"], messages=build_messages(ocr_text, prompt, image_url),
-                                          response_format=RESPONSE_SCHEMA if prompt == "v1" else RESPONSE_SCHEMA_V2,
+    resp = client.chat.completions.create(model=cfg["deployment"],
+                                          messages=build_messages(ocr_text, prompt, image_url, diagnosis),
+                                          response_format=schema,
                                           reasoning_effort=cfg["reasoning_effort"],
                                           max_completion_tokens=MAX_COMPLETION_TOKENS)
     aoai_ms = (time.perf_counter() - start) * 1000
@@ -351,7 +379,8 @@ def process_receipt(path: Path, di_client, aoai, cfg: dict, response_dir: Path, 
     start = time.perf_counter()
     try:
         image_url = image_data_url(path) if pipeline["image"] else None
-        raw, meta, aoai_ms = call_aoai(aoai, cfg, ocr_text, pipeline["prompt"], image_url)
+        raw, meta, aoai_ms = call_aoai(aoai, cfg, ocr_text, pipeline["prompt"], image_url,
+                                       pipeline.get("diagnosis", False))
     except Exception as exc:
         timings["aoai_ms"] = (time.perf_counter() - start) * 1000
         timings["total_ms"] = di_ms + timings["aoai_ms"]
@@ -361,6 +390,13 @@ def process_receipt(path: Path, di_client, aoai, cfg: dict, response_dir: Path, 
 
     raw = dict(raw)
     uncertain = raw.pop("uncertain_fields", None) if pipeline["prompt"] != "v1" else None
+    diagnosis = None
+    if pipeline.get("diagnosis"):
+        reply = {k: raw.pop(k, None) for k in DIAGNOSIS_KEYS}
+        status, checks = aoai_validation.check_diagnosis(reply["diagnosis_comment"], reply["diagnosis_evidence"],
+                                                         ocr_text, pipeline["image"])
+        diagnosis = {"status": status, "evidence": reply["diagnosis_evidence"], "model_status":
+                     reply["diagnosis_comment"], "warnings": checks}
     fields, warnings = normalize_fields(raw)
     review = None
     if pipeline["prompt"] != "v1":
@@ -371,6 +407,7 @@ def process_receipt(path: Path, di_client, aoai, cfg: dict, response_dir: Path, 
                     "ocr_predict_ms": di_ms, "extract_ms": aoai_ms})
     return {"document_id": doc, "status": "ok", **fields, "raw_fields": raw, "warnings": warnings,
             **({"review_fields": review, "uncertain_fields": uncertain or []} if review is not None else {}),
+            **({"diagnosis": diagnosis} if diagnosis is not None else {}),
             "pipeline": dict(pipeline), "input_text": ocr_text,
             "aoai": {"deployment": cfg["deployment"], "api_version": cfg["api_version"],
                      "reasoning_effort": cfg["reasoning_effort"], **meta},
@@ -389,8 +426,15 @@ def main() -> None:
                         help="rows (default): DI lines grouped into page rows. plain: DI lines in reading order.")
     parser.add_argument("--attach-image", action="store_true",
                         help="Experiment: also send the receipt photo to the model (more input tokens).")
+    parser.add_argument("--diagnosis", action="store_true",
+                        help="Prompt v2 only: also report whether a diagnosis comment is present, with evidence "
+                             "(saved under 'diagnosis'; scored by diagnosis_cli, not by score.py).")
     args = parser.parse_args()
+    if args.diagnosis and args.prompt == "v1":
+        parser.error("--diagnosis needs prompt v2 (prompt v1 is the frozen baseline)")
     pipeline = {"prompt": args.prompt, "text": args.text, "image": args.attach_image}
+    if args.diagnosis:
+        pipeline["diagnosis"] = True
 
     cfg = settings()
     files = (sorted(p for p in args.input.iterdir() if p.suffix.lower() in azure_di.SUPPORTED_SUFFIXES)

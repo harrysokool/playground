@@ -1,0 +1,20 @@
+{
+  "document_id": "receipt1",
+  "diagnosis": {
+    "status": "present",
+    "reason": "note about symptoms or illness",
+    "evidence": [
+      {
+        "label": "notes",
+        "kind": "weak",
+        "value": "patient is severely injured",
+        "status": "present",
+        "reason": "note about symptoms or illness",
+        "source": "NOTES:"
+      }
+    ]
+  },
+  "timings": {
+    "detect_ms": 4.230583959724754
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "document_id": "receipt9",
+  "diagnosis": {
+    "status": "present",
+    "reason": "diagnosis label with a value",
+    "evidence": [
+      {
+        "label": "symptoms",
+        "kind": "strong",
+        "value": "diarrhoea.",
+        "status": "present",
+        "reason": "diagnosis label with a value",
+        "source": "Symptoms:"
+      },
+      {
+        "label": "diagnosis",
+        "kind": "strong",
+        "value": "Colitis",
+        "status": "present",
+        "reason": "diagnosis label with a value",
+        "source": "Diagnosis:"
+      }
+    ]
+  },
+  "timings": {
+    "detect_ms": 5.064375000074506
+  }
+}

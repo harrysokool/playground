@@ -1,0 +1,26 @@
+{
+  "_about": "Synthetic OCR layouts for diagnosis-comment detection (no real receipts or patients). Each case is a list of rows; each row is a list of text blocks printed side by side. Tests place them between the same neutral header rows (clinic, receipt no., patient, doctor) and item rows (description and amount, then total), unless 'bare' is true. 'expected' follows the definition: a diagnosis comment is written information about the patient's condition, symptoms or diagnosis.",
+  "cases": [
+    {"id": "en_label_same_block", "rows": [["Diagnosis: Acute bronchitis"]], "expected": "present"},
+    {"id": "en_label_value_beside", "rows": [["Diagnosis:", "Upper respiratory tract infection"]], "expected": "present"},
+    {"id": "en_symptoms", "rows": [["Symptoms:", "fever and sore throat for 2 days"]], "expected": "present"},
+    {"id": "en_value_below", "rows": [["Clinical notes:"], ["Patient reports dizziness and nausea"]], "expected": "present"},
+    {"id": "en_label_mid_line", "rows": [["Patient: Chan Tai Man   Dx: Sprained ankle"]], "expected": "present"},
+    {"id": "zh_label_same_block", "rows": [["診斷:上呼吸道感染"]], "expected": "present"},
+    {"id": "zh_simplified_bilingual", "rows": [["Diagnosis 诊断:", "急性肠胃炎"]], "expected": "present"},
+    {"id": "zh_symptoms", "rows": [["症狀", "咳嗽、發燒"]], "expected": "present"},
+    {"id": "medical_note_en", "rows": [["Notes:", "Lower back pain after a fall"]], "expected": "present"},
+    {"id": "medical_note_zh", "rows": [["備註:", "喉嚨痛及咳嗽三天"]], "expected": "present"},
+    {"id": "empty_label", "rows": [["Diagnosis:"]], "expected": "missing"},
+    {"id": "empty_label_then_total", "rows": [["Diagnosis:"], ["Total", "HK$500.00"]], "expected": "missing"},
+    {"id": "placeholder_na", "rows": [["Diagnosis:", "N/A"]], "expected": "missing"},
+    {"id": "zh_empty_dash", "rows": [["診斷:", "-"]], "expected": "missing"},
+    {"id": "admin_remark_en", "rows": [["Remarks:", "Please settle the balance within 30 days."]], "expected": "missing"},
+    {"id": "admin_remark_zh", "rows": [["備註:", "請保留此收據作保險索償之用"]], "expected": "missing"},
+    {"id": "unclear_remark", "rows": [["Remarks:", "Follow the doctor's advice"]], "expected": "missing", "rules_expected": "needs_review"},
+    {"id": "treatment_only", "rows": [["Treatment:", "Physiotherapy session"]], "expected": "missing"},
+    {"id": "zh_consultation_not_diagnosis", "rows": [["診症日期:", "2026年6月9日"], ["覆診日期:", "2026年6月16日"]], "expected": "missing"},
+    {"id": "ordinary_note_text", "rows": [["Please Note. We are open 9am to 6pm."]], "expected": "missing"},
+    {"id": "unreadable_page", "bare": true, "rows": [["RECE"], ["Tot"], ["H 5"]], "expected": "needs_review"}
+  ]
+}

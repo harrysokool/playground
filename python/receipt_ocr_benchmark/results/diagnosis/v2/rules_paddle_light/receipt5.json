@@ -1,0 +1,11 @@
+{
+  "document_id": "receipt5",
+  "diagnosis": {
+    "status": "missing",
+    "reason": "no diagnosis or notes label",
+    "evidence": []
+  },
+  "timings": {
+    "detect_ms": 0.9780000546015799
+  }
+}

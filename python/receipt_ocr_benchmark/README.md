@@ -492,8 +492,14 @@ Ground-truth corrections and open questions are in `data/ground_truth/GROUND_TRU
   is a business decision.
 - It will not be built or benchmarked unless the business asks for it.
 
-**Diagnosis comment present or missing:** investigation only, not implemented. See
-`docs/DIAGNOSIS_COMMENT.md`.
+**Diagnosis comment: present, missing or needs_review.** This is separate from the six fields.
+- **Rules:** `receipt_bench/diagnosis.py`, run with `diagnosis_cli detect`. The same logic is used
+  for PaddleOCR Light and Azure DI.
+- **AOAI:** prompt v2 with `di_aoai --diagnosis`.
+- **Scoring:** `diagnosis_cli score` against `data/diagnosis/ground_truth.csv`.
+- **Results:** `results/diagnosis/`.
+
+Method, results, commands and limitations are in `docs/DIAGNOSIS_COMMENT.md`.
 
 ## Data
 

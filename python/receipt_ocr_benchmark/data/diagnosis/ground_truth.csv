@@ -1,0 +1,14 @@
+set,receipt,diagnosis_comment,evidence,note
+v2,receipt1,missing,,"Consultation, medication and sick leave certificate are services"
+v2,receipt2,missing,,ECG is a service; the referring doctor is not a comment
+v2,receipt3,missing,,X-ray and blood test are services; 診症編號 is an episode number
+v2,receipt4,missing,,診金/中藥/針灸 are services; 診症日期 and 覆診日期 are dates
+v2,receipt5,missing,,A filling is a treatment
+v2,receipt6,missing,,"""Treatment:"" names the therapy, not the condition"
+v2,receipt8,missing,,
+v2,receipt9,present,Diagnosis: Colitis; Symptoms: diarrhoea.,"Vet invoice; also ""Encounter: Vomiting Acute ddx"""
+v2,receipt10,missing,,Prescription items only; Please Note. is opening hours
+v1,receipt1,present,NOTES: patient is severely injured and he need more rest before getting to work,"Handwritten; also the line item ""broken ribs."""
+v1,receipt2,missing,,NOTES label printed with nothing written after it
+v1,receipt3,present,Notes: Back pain need water.,Handwritten
+v1,receipt5,missing,,NOTES label followed only by a dash

@@ -210,11 +210,66 @@ def test_prompt_and_checks_contain_no_benchmark_answers():
     from receipt_bench import aoai_validation
     from receipt_bench.score import load_ground_truth
     data = Path(__file__).resolve().parents[1] / "data"
-    sources = di_aoai.SYSTEM_PROMPT_V2 + di_aoai.IMAGE_NOTE + Path(aoai_validation.__file__).read_text()
+    sources = (di_aoai.SYSTEM_PROMPT_V2 + di_aoai.IMAGE_NOTE + di_aoai.DIAGNOSIS_NOTE
+               + Path(aoai_validation.__file__).read_text())
     values = {v for gt_file in (data / "receipts_v2" / "benchmark_ground_truth.xlsx",
                                 data / "ground_truth" / "ground_truth_template.xlsx")
               for rec in load_ground_truth(gt_file).values() for v in rec.values() if v and len(v) >= 4}
+    from receipt_bench.diagnosis_cli import load_ground_truth as load_diagnosis_gt
+    values |= {p.split(":", 1)[-1].strip() for r in load_diagnosis_gt(data / "diagnosis" / "ground_truth.csv").values()
+               for p in r["evidence"].split(";") if len(p.split(":", 1)[-1].strip()) >= 4}
     assert values and not [v for v in values if v in sources]
+
+
+# --- diagnosis comment (prompt v2 + --diagnosis) --------------------------------------------
+
+DIAGNOSIS_LINES = ["Clinic", "Diagnosis:", "Acute sinusitis", "Total", "500.00"]
+
+
+def _diagnosis_run(tmp_path, monkeypatch, status, evidence, image=False):
+    monkeypatch.setattr(di_aoai.azure_di, "analyze", lambda client, path: (_di_result(DIAGNOSIS_LINES), 1000.0))
+    reply = json.dumps({**{f: None for f in di_aoai.FIELDS}, "total_amount": "500.00", "uncertain_fields": [],
+                        "diagnosis_comment": status, "diagnosis_evidence": evidence})
+    aoai, completions = _aoai(reply=reply)
+    pipeline = {**di_aoai.IMPROVED, "image": image, "diagnosis": True}
+    if image:
+        monkeypatch.setattr(di_aoai, "image_data_url", lambda path: "data:image/jpeg;base64,AA")
+    record, _ = process_receipt(di_aoai.Path("receipt1.png"), None, aoai, CFG, tmp_path, None, pipeline)
+    return record, completions.calls[0]
+
+
+def test_diagnosis_flag_extends_prompt_v2_and_keeps_the_six_fields_apart(tmp_path, monkeypatch):
+    record, call = _diagnosis_run(tmp_path, monkeypatch, "present", "Diagnosis: Acute sinusitis")
+    assert call["messages"][0]["content"] == di_aoai.SYSTEM_PROMPT_V2 + di_aoai.DIAGNOSIS_NOTE
+    schema = call["response_format"]["json_schema"]["schema"]
+    assert schema["required"] == di_aoai.FIELDS + ["uncertain_fields", "diagnosis_comment", "diagnosis_evidence"]
+    assert schema["properties"]["diagnosis_comment"]["enum"] == ["present", "missing", "needs_review"]
+    assert record["diagnosis"] == {"status": "present", "evidence": "Diagnosis: Acute sinusitis",
+                                   "model_status": "present", "warnings": []}
+    assert "diagnosis_comment" not in record["raw_fields"] and not record["warnings"]
+    fields, _ = read_result(json.loads(json.dumps(record)))
+    assert set(fields) == set(di_aoai.FIELDS) and fields["total_amount"] == 500.0
+
+
+def test_without_diagnosis_flag_prompt_and_schema_are_unchanged(tmp_path, monkeypatch):
+    monkeypatch.setattr(di_aoai.azure_di, "analyze", lambda client, path: (_di_result(DIAGNOSIS_LINES), 1000.0))
+    aoai, completions = _aoai(reply=json.dumps({**{f: None for f in di_aoai.FIELDS}, "uncertain_fields": []}))
+    record, _ = process_receipt(di_aoai.Path("receipt1.png"), None, aoai, CFG, tmp_path, None)
+    assert completions.calls[0]["messages"][0]["content"] == di_aoai.SYSTEM_PROMPT_V2
+    assert completions.calls[0]["response_format"] is di_aoai.RESPONSE_SCHEMA_V2 and "diagnosis" not in record
+
+
+def test_diagnosis_evidence_not_in_the_text_needs_review(tmp_path, monkeypatch):
+    record, _ = _diagnosis_run(tmp_path, monkeypatch, "present", "Diagnosis: Migraine")
+    assert record["diagnosis"]["status"] == "needs_review" and record["diagnosis"]["model_status"] == "present"
+    record, _ = _diagnosis_run(tmp_path, monkeypatch, "present", "Diagnosis: Migraine", image=True)
+    assert record["diagnosis"]["status"] == "present" and record["diagnosis"]["warnings"]  # may be read from the photo
+
+
+def test_diagnosis_needs_prompt_v2(monkeypatch, fake_sdk):
+    monkeypatch.setattr(sys, "argv", ["di_aoai", "--input", "x", "--output", "y", "--prompt", "v1", "--diagnosis"])
+    with pytest.raises(SystemExit):
+        di_aoai.main()
 
 
 # --- reply parsing and field normalization --------------------------------------------------

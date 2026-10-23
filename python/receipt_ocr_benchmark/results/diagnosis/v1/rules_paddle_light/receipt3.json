@@ -1,0 +1,20 @@
+{
+  "document_id": "receipt3",
+  "diagnosis": {
+    "status": "present",
+    "reason": "note about symptoms or illness",
+    "evidence": [
+      {
+        "label": "notes",
+        "kind": "weak",
+        "value": "1Back pain. need water.",
+        "status": "present",
+        "reason": "note about symptoms or illness",
+        "source": "Notes:"
+      }
+    ]
+  },
+  "timings": {
+    "detect_ms": 0.573707977309823
+  }
+}

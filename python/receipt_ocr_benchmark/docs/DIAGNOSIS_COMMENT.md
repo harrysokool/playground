@@ -1,123 +1,129 @@
-# Diagnosis comment: present or missing (investigation, Oct 2026)
+# Diagnosis comment: present, missing or needs_review
 
-**Requirement:** flag receipts that have no diagnosis comment. We only need to know whether a
-comment exists. What it says, and whether it is medically right, does not matter.
+**Requirement:** flag receipts that have no diagnosis comment.
 
-**Scope:** investigation only. Nothing is implemented, and no new OCR or API calls were made.
-This is kept separate from the six-field benchmark and its accuracy scores.
+**Definition:** a diagnosis comment is written information about the patient's condition,
+symptoms or diagnosis. What it says, and whether it is medically right, is not checked.
 
-**Sources:**
-- Azure DI text: `results/v2/di_aoai_v2_rows/*.json` (`input_text`) and
-  `results/v1_heldout/di_aoai_v2_rows/*.json`.
-- PaddleOCR text: `results/v2/paddle_light/`, `results/v2/paddle_heavy/`, and the Version 1
-  outputs at tag `ocr-benchmark-v1`.
+**Kept separate** from the six-field benchmark: own ground truth, own scorer
+(`receipt_bench/diagnosis_cli.py`), own results (`results/diagnosis/`). `score.py` ignores it.
 
-## 1. Which receipts have a diagnosis comment
+## Data
 
-Version 2 (the nine benchmark receipts) has **one** receipt with a diagnosis comment. Version 1
-adds four handwritten template receipts (V1 4 and 6 are the same images as V2 9 and 10).
+- `data/diagnosis/ground_truth.csv`: `present` or `missing` for the 13 distinct receipts, with
+  evidence and notes.
+  - Version 2: receipts 1–6, 8, 9, 10.
+  - Version 1: receipts 1, 2, 3, 5. V1 4 and 6 are the same images as V2 9 and 10.
+  - Only 3 have a comment:
+    - V2 9: "Diagnosis: Colitis", "Symptoms: diarrhoea" (a vet invoice);
+    - V1 1: a handwritten note about an injury;
+    - V1 3: "Notes: Back pain need water."
+  - V1 2 and V1 5 have an empty NOTES label.
+- `data/diagnosis/mock_cases.json`: 21 synthetic OCR layouts. They cover English and Chinese
+  labels (traditional and simplified, bilingual), a value beside, below or mid-line, empty and
+  placeholder fields, medical notes, administrative remarks, an unclear remark, treatment-only and
+  診症日期 near-misses, "Please Note." text, and an unreadable page.
 
-| Receipt | Comment? | Evidence in the OCR text | Note |
-|---|---|---|---|
-| V2 1 GP | No | none | Items are consultation, medication and a sick leave certificate |
-| V2 2 Cardiology | No | none | "Resting electrocardiogram (ECG)" is a service, not a diagnosis |
-| V2 3 Hospital | No | none | X-ray and blood test are services. 診症編號 means "episode no." |
-| V2 4 Chinese medicine | No | none | 診金, 中藥 and 針灸 are services. 診症日期 is the visit date, 覆診日期 the follow-up date |
-| V2 5 Dental | No | none | "Composite filling, tooth 36" is a treatment |
-| V2 6 Physiotherapy | No | none | "Treatment: manual therapy…" is a treatment label |
-| V2 8 Medical centre | No | none | |
-| V2 9 Vet invoice | **Yes, labelled** | `Diagnosis: \| Colitis`, `Symptoms: \| diarrhoea.`, `Encounter: Vomiting Acute ddx` | The only labelled example, and it is not a human medical receipt |
-| V2 10 NZ pharmacy | No | none | Prescription items only |
-| V1 1 | **Yes, under NOTES** | `NOTES:` then "patient is severely injured and he need more rest…"; item "broken ribs." | Handwritten. PaddleOCR Light reads "patient B cverely injurel" |
-| V1 2 | No, **empty label** | `NOTES: \| MED CLAIM`, then nothing | "MED CLAIM" is the next column header, not a comment |
-| V1 3 | **Yes, under Notes** | `Notes: \| Back pain need water.` | Handwritten. Light splits it into "1Back" and "pain. need water." |
-| V1 5 | No, **empty label** | `NOTES: \| MED CLAIM \| -` | A dash, not a comment |
+## Method 1: rules (`receipt_bench/diagnosis.py`)
 
-These labels are my reading of the receipts. **The business still has to confirm the
-definition** (section 5).
+The same code runs on PaddleOCR Light and Azure DI. It reads the saved raw OCR, so nothing is
+called.
 
-## 2. What makes this hard
+1. **Unreadable page:** fewer than 10 OCR text blocks → `needs_review`, never `missing`.
+2. **Find a label.**
+   - **Strong labels:** Diagnosis, Dx, Impression, Symptoms, Condition, Chief complaint,
+     Clinical notes; 診斷/诊断, 症狀/症状, 病情, 病況, 病症, 主訴 …
+   - **Weak labels:** Notes, Remarks, Comments; 備註/备注, 附註, 醫生意見.
+   - **Position:** a label must start a block and be followed by `:`, the end of the block, or
+     (Chinese) a space. A strong label with `:` may also appear mid-line.
+   - **Not labels:** Treatment, 診症 and 覆診 are not in the vocabulary.
+3. **Read the value:**
+   - first the rest of the block;
+   - else the nearby blocks on the same row, up to 6 line heights away (a distant column is not a
+     value);
+   - else the line below, unless it is another label or a charge line (text with an amount).
+4. **Judge the value:**
 
-- **Treatment vs diagnosis:** "Treatment:", "Composite filling" and "ECG" describe what was done,
-  not what is wrong. A rule must not count them.
-- **Chinese near-misses:** 診斷 (diagnosis) and 診症 (consultation) differ by one character,
-  and 診症 appears on three receipts (診症日期, 診症編號, 普通科診症). 覆診 means follow-up.
-  Both simplified and traditional forms occur (診斷/诊断, 備註/备注).
-- **Generic labels:** "Notes" holds a medical comment on V1 1 and V1 3, but on other receipts
-  it could hold something like "Please pay within 30 days." The word also turns up in ordinary
-  text ("Please Note. We are open…" on V2 10).
-- **Empty labels:** on V1 2 and V1 5 the label is printed with nothing after it. In the row
-  text, the next column header ("MED CLAIM") sits beside the label and must not be read as a
-  value.
-- **Comments without a label:** "broken ribs." is written as a line item on V1 1, and
-  "Encounter: Vomiting Acute ddx" on V2 9. Here both receipts also have a labelled comment, so
-  they don't change the result.
-- **Unreadable OCR:** PaddleOCR Heavy returned 0 text blocks on V2 5 and 3 on V2 2. With no text,
-  "no comment found" is **not** the same as "comment missing". Handwriting reads badly
-  ("injurel"), but for presence it only matters that some text is there.
+   | Value | Status |
+   |---|---|
+   | Blank or a placeholder (-, N/A, nil, 無) | `missing` |
+   | Fewer than 2 letters | `needs_review` |
+   | Strong label with any text | `present` |
+   | Weak label with general words about symptoms or illness (pain, fever, injur*, *itis, 痛, 咳, 炎 …) | `present` |
+   | Weak label with administrative words only (payment, receipt, insurance, appointment, 收據 …) | `missing` |
+   | Weak label with anything else | `needs_review` |
 
-## 3. Rules vs AOAI
+5. **Combine:** any label `present` → `present`; else any `needs_review` → `needs_review`;
+   else `missing`.
 
-**Simple OCR-text rules are enough for every case in our data.** All three comments sit under a
-label (Diagnosis or Notes). Applied by hand to the OCR text, the rules in section 4 classify all
-13 receipts correctly with both Azure DI and PaddleOCR Light. Nothing was run in code.
+## Method 2: AOAI (prompt v2 + `--diagnosis`)
 
-AOAI would add real value in three situations:
-1. comments with no label (for example "URTI" handwritten next to the items);
-2. deciding whether a "Notes"/"Remarks"/"備註" comment is medical;
-3. heavily garbled handwriting.
+`di_aoai.DIAGNOSIS_NOTE` is appended to prompt v2. The reply gains two keys:
+- `diagnosis_comment`: present / missing / needs_review;
+- `diagnosis_evidence`: the comment quoted from the text.
 
-None of the nine benchmark receipts needs it. If Azure DI + AOAI is chosen for the six fields
-anyway, a `diagnosis_comment_present` flag plus a quoted evidence string could be added to the
-same call at little extra cost. It would still be scored separately.
+A `present` answer is downgraded to `needs_review` if:
+- it quotes no evidence; or
+- the quote's words are not all in the OCR text.
 
-## 4. Recommended approach: label rules with three outcomes
+With the photo attached, a quote that isn't in the OCR text is flagged instead of downgraded.
 
-Use the same OCR text and the same label and nearby-block lookup as the existing rules.
+Without the flag, the prompt and schema are exactly as before, so the six-field results are
+reproducible.
 
-1. **Unreadable → `needs_review`.** Use this when the OCR returned almost no text (for example
-   fewer than about 10 blocks), so the page is never reported as "missing".
-2. **Look for a label:**
-   - **Strong labels:** Diagnosis, Diagnoses, Dx, DDx, Impression, Clinical findings, Condition,
-     Symptoms, Chief/Presenting complaint; 診斷 / 诊断, 臨床診斷, 病症, 病情, 病況, 症狀 / 症状,
-     主訴 / 主诉.
-   - **Weak labels:** Notes, Remarks, Comments; 備註 / 备注, 附註, 醫生意見.
-   - **Never labels:** Treatment, Treatment Date, 治療, 診症, 診金, 覆診.
-   - **Position:** a label must start a line or block and be followed by `:` or a column break,
-     or stand alone. Otherwise "Please Note. We are open from 8.00am…" (V2 10) would count as
-     a Notes label.
-3. **Read the value:** take the rest of the same line, otherwise the nearest block to the right
-   or below. Stop at another known label (TOTAL, PAID, MED CLAIM, Signature, table headers).
-4. **Empty:** the value is blank or only `-`, `—`, `_`, `.`, `N/A`, `nil`, `none`, `無` or `无`.
-5. **Outcome:**
+## Results
 
-| What the rules find | Outcome | Examples |
+### Rules (offline, saved OCR, no API calls)
+
+`results/diagnosis/scores/` (report.md, summary.csv, detail.csv):
+
+| | PaddleOCR Light + rules | Azure DI + rules |
 |---|---|---|
-| Strong label with a value | `present` | V2 9 "Diagnosis: Colitis"; "診斷:上呼吸道感染" |
-| Weak label with medical-looking text | `present` (shown as weak) | V1 3 "Notes: Back pain need water." |
-| Weak label with other text | `needs_review` | "Remarks: Please settle within 30 days" |
-| Label printed but empty | `missing` | V1 2 "NOTES:" (blank); V1 5 "NOTES: -"; "Diagnosis: N/A" |
-| No label anywhere | `missing` | V2 1–8, V2 10 |
-| OCR text unusable | `needs_review` | Heavy on V2 5 (0 blocks) |
+| Correct (13 receipts) | 13/13 | 13/13 |
+| Needs review / false missing / false present | 0 / 0 / 0 | 0 / 0 / 0 |
 
-Each result keeps the evidence text it found, the same way the six fields keep `sources`.
+Other checks:
+- **Mock cases:** all 21 give the expected status. The unclear remark gives `needs_review` by
+  design.
+- **Unreadable pages:** PaddleOCR Heavy's two blank pages give `needs_review`.
 
-## 5. Gaps before building anything
+### AOAI
 
-- **Too few examples to judge accuracy.** There are 3 positives out of 13 receipts:
-  - one is a vet invoice;
-  - two are handwritten templates;
-  - there are no printed human-medical receipts with a diagnosis, and no Chinese examples.
-- **Make a small labelled set.** Add mock receipts covering each case:
-  - a printed English diagnosis;
-  - a printed Chinese diagnosis (診斷);
-  - an empty diagnosis box;
-  - a "Remarks" field with non-medical text;
-  - a handwritten comment with no label.
+Not run yet: it needs Azure. Run this on Azure ML; it makes 13 AOAI calls and no DI calls, and
+commits the results:
 
-  Then add real anonymised receipts, with a present/missing column kept apart from the
-  six-field ground truth.
-- **Business definition still open:**
-  - Do symptoms count?
-  - Does a medical comment under "Notes" count?
-  - Does a diagnosis written as a line item count?
+```bash
+git pull --ff-only && bash python/receipt_ocr_benchmark/scripts/aoai_diagnosis_on_azure.sh
+```
+
+## Commands (rules, offline)
+
+```bash
+python -m receipt_bench.diagnosis_cli detect --input results/v2/paddle_light --output results/diagnosis/v2/rules_paddle_light
+python -m receipt_bench.diagnosis_cli detect --input results/v2/azure_di --output results/diagnosis/v2/rules_azure_di
+# Version 1 receipts 1, 2, 3, 5: OCR from tag ocr-benchmark-v1 (paddle_light/, azure_di/), same command
+python -m receipt_bench.diagnosis_cli score --ground-truth data/diagnosis/ground_truth.csv \
+    --approach rules_paddle_light=v2:results/diagnosis/v2/rules_paddle_light \
+    --approach rules_paddle_light=v1:results/diagnosis/v1/rules_paddle_light \
+    --approach rules_azure_di=v2:results/diagnosis/v2/rules_azure_di \
+    --approach rules_azure_di=v1:results/diagnosis/v1/rules_azure_di --output-dir results/diagnosis/scores
+```
+
+## Limitations
+
+- **The 13/13 is a development score, not an accuracy estimate.**
+  - The rules and mock cases were written after reading these 13 receipts.
+  - Only 3 receipts have a comment: one is a vet invoice and two are handwritten templates.
+  - No real printed human-medical receipt has a diagnosis, and there is no real Chinese example.
+- **Unlabelled comments are not looked for by the rules.** Examples: a condition written as a line
+  item ("broken ribs."), or free handwriting with no label. The rules will say `missing`. This is
+  the main case where AOAI may add value.
+- **Weak labels depend on short word lists.** A medical note that uses none of the listed symptom
+  words gives `needs_review`, never a wrong `present`. A remark that mixes administrative and
+  medical words counts as medical.
+- **Layout assumptions:**
+  - values sit to the right (within 6 line heights) or on the next line;
+  - the "unreadable" threshold is a fixed 10 OCR text blocks;
+  - multi-page receipts: only page 1 is read, as with the six fields.
+- **Next:** build a labelled test set of real, anonymised receipts with a present/missing column,
+  and run the AOAI script before choosing between the two methods.

@@ -59,3 +59,13 @@ def test_validate_handles_several_practitioners_and_flags_clinic_names():
     out, warnings, review = validate({"doctor_name": "Dr Carl Yu Harbour Medical Centre"}, text)
     assert out["doctor_name"] == "Dr Carl Yu Harbour Medical Centre"  # flagged, not rewritten
     assert review == ["doctor_name"] and any("clinic or hospital" in w for w in warnings)
+
+
+def test_check_diagnosis():
+    from receipt_bench.aoai_validation import check_diagnosis
+    text = "NOTES: | MED CLAIM\npatient has a | TOTAL | 20.00\nmild fever"
+    assert check_diagnosis("present", "NOTES: patient has a mild fever", text) == ("present", [])  # over two rows
+    assert check_diagnosis("present", "Diagnosis: gout", text)[0] == "needs_review"  # not in the text
+    assert check_diagnosis("present", None, text)[0] == "needs_review"
+    assert check_diagnosis("missing", None, text) == ("missing", [])
+    assert check_diagnosis("unsure", None, text)[0] == "needs_review"

@@ -132,3 +132,25 @@ def validate(fields: dict, ocr_text: str, uncertain: list[str] | None = None) ->
         warnings.append(w)
         review.add("total_amount")
     return fields, warnings, sorted(review)
+
+
+DIAGNOSIS_STATUSES = ("present", "missing", "needs_review")
+
+
+def check_diagnosis(status, evidence, ocr_text: str, image: bool = False) -> tuple[str, list[str]]:
+    """Diagnosis comment (separate from the six fields): "present" needs evidence whose words are all
+    in the OCR text (the comment may run over several rows), else it becomes needs_review. With the
+    photo attached the evidence may come from the photo, so it is only flagged."""
+    if status not in DIAGNOSIS_STATUSES:
+        return "needs_review", [f"diagnosis: unexpected status {status!r}"]
+    if status != "present":
+        return status, []
+    words = re.findall(r"[a-z0-9]+|[㐀-鿿]", str(evidence or "").lower())
+    if not words:
+        return "needs_review", ["diagnosis: present but no evidence quoted"]
+    text = _squash(ocr_text)
+    missing = [w for w in words if w not in text]
+    if not missing:
+        return status, []
+    warning = f"diagnosis: evidence words not in the OCR text: {missing[:5]}"
+    return (status, [warning]) if image else ("needs_review", [warning])
