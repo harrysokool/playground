@@ -1,4 +1,4 @@
-"""Generate the Version 3 Receipt OCR Benchmark deck (10 slides) from the AIA template.
+"""Generate the Version 3 Receipt OCR Benchmark deck (12 slides) from the AIA template.
 
     python3 ppt/ocr_benchmark/scripts/generate_ppt_v3.py --force     (from the repository root)
 
@@ -7,7 +7,10 @@ the story in two steps:
 - slide 3, initial results: every approach before any tuning on these receipts (the original rules
   had no Chinese labels, so this compares initial implementations, not maximum capability);
 - slide 4, how accuracy was improved: what was changed in each approach and the resulting
-  development scores (rules tuned, prompt v2), with the effort each change took.
+  development scores (rules tuned, prompt v2), with the effort each change took;
+- slide 5, accuracy by field: the three tuned approaches per field (development results);
+- slide 6, what changed in prompt v2: the four fields it fixed, the prompt wording behind each
+  (checked against SYSTEM_PROMPT_V2), and that the Python checks, row layout and photo changed none.
 The later slides do not repeat these figures. PaddleOCR Heavy (discontinued) is removed everywhere.
 The small held-out Version 1 check is mentioned only in the notes, and is not used to say that
 either approach generalises better.
@@ -516,8 +519,9 @@ s = content_slide(
     f"results, not independent validation. Rules: rewritten by hand (label phrases {VOCAB_ORIG} to {VOCAB_IMPR}: "
     f"Chinese and bilingual labels, distractor labels, layout handling); on PaddleOCR Light text this fixed "
     f"{FIX_LIGHT[0]} fields and broke {FIX_LIGHT[1]}, on Azure DI text it fixed {FIX_DI[0]} and broke {FIX_DI[1]}. "
-    f"AOAI: prompt v2 with clearer field definitions, DI text grouped into page rows and a few general checks; it "
-    f"fixed {FIX_PROMPT[0]} fields and broke {FIX_PROMPT[1]}. " + HELD_NOTE + " " + SOURCE)
+    f"AOAI: prompt v2 with clearer field definitions fixed {FIX_PROMPT[0]} fields and broke {FIX_PROMPT[1]}. The "
+    "row layout and Python checks added at the same time changed no result (see the prompt v2 slide). "
+    + HELD_NOTE + " " + SOURCE)
 tbl = table(s, 0.39, 1.95, [3.05, 5.55, 2.05, 1.9], [0.62, 0.78, 0.62, 0.78])
 header_row(tbl, ["Approach", "What we changed", "Development score", "Fixed / broke"], size=14,
            align=[PP_ALIGN.LEFT, PP_ALIGN.LEFT, C, C])
@@ -525,8 +529,8 @@ rows = [("PaddleOCR Light + rules", f"Rewrote the rules by hand: Chinese and bil
                                     f"layouts ({VOCAB_ORIG} → {VOCAB_IMPR} label phrases)", IMPR["light"],
          FIX_LIGHT),
         ("Azure DI + rules", "The same rule changes, on Azure DI text", IMPR["di"], FIX_DI),
-        ("Azure DI + AOAI, prompt v2", "Revised the prompt: clearer field definitions, text kept in page rows, a few "
-                                       "general checks", AOAI_V2, FIX_PROMPT)]
+        ("Azure DI + AOAI, prompt v2", "Revised the prompt wording: clearer definitions of each field", AOAI_V2,
+         FIX_PROMPT)]
 for i, (name, what, a, (fixed, broke)) in enumerate(rows, start=1):
     ai = a is AOAI_V2
     fill_cell(tbl.cell(i, 0), [dict(t=name, size=15, bold=True)], fill=LIGHT if ai else None)
@@ -548,6 +552,138 @@ for k, (head, body) in enumerate([
                                                dict(t=body, size=13)], margin=0.2, fill=LIGHT)
 note(s, f"Development results: every change was made after reviewing these {N_RECEIPTS} receipts, so these scores "
         "are not independent validation.", y=6.02)
+
+# ===================================================================== 5. accuracy by field (development results)
+TUNED = {"PaddleOCR Light + rules": "paddle_light_improved", "Azure DI + rules": "azure_di_improved",
+         "Azure DI + AOAI, prompt v2": "aoai_v2_rows"}
+
+
+def field_score(approach, field):
+    """(correct, applicable) counted from detail.csv, checked against the per-field % in summary.csv."""
+    rows = [r for k, r in V2_DETAIL.items() if k[0] == approach and k[2] == field and r["result"] in ("Correct", "Wrong")]
+    c, n = sum(r["result"] == "Correct" for r in rows), len(rows)
+    if f"{100 * c / n:.1f}" != f"{float(SUM_V2PROMPT[approach][field + '_accuracy_pct']):.1f}":
+        sys.exit(f"{approach} {field}: detail.csv {c}/{n} disagrees with summary.csv")
+    return c, n
+
+
+FIELD_SCORES = {(a, f): field_score(a, f) for a in TUNED.values() for f in FIELDS}
+for a in TUNED.values():  # the per-field counts add up to the overall score
+    assert sum(FIELD_SCORES[(a, f)][0] for f in FIELDS) == int(SUM_V2PROMPT[a]["correct"])
+APPLIC = {f: {FIELD_SCORES[(a, f)][1] for a in TUNED.values()} for f in FIELDS}
+assert all(len(v) == 1 for v in APPLIC.values())
+APPLIC = {f: v.pop() for f, v in APPLIC.items()}
+REG_N = APPLIC["registration_number"]
+assert REG_N < N_RECEIPTS and all(APPLIC[f] == N_RECEIPTS for f in FIELDS if f != "registration_number")
+WRONG = {a: {(k[1], k[2]) for k, r in V2_DETAIL.items() if k[0] == a and r["result"] == "Wrong"} for a in TUNED.values()}
+SHARED = set.intersection(*WRONG.values())
+assert SHARED == {("receipt9", "doctor_name"), ("receipt10", "service_date")}, SHARED
+s = content_slide(
+    "Accuracy by Field (Development Results)",
+    "After tuning, all three approaches miss the same two fields; the rules also miss patient and receipt numbers.",
+    f"Development results after tuning on these {N_RECEIPTS} receipts, not independent validation. Counts from "
+    "results/v2/scores_aoai_improved/detail.csv, checked against the per-field percentages in summary.csv. "
+    f"Registration number is printed on {REG_N} of the {N_RECEIPTS} receipts, so it has {REG_N} applicable receipts; "
+    f"every other field has {N_RECEIPTS}. All three approaches miss the vet invoice's doctor (two practitioners, and "
+    "the OCR misread the signature) and the pharmacy receipt's service date (print date vs item date, an open "
+    "ground-truth question). The rules also miss patient and receipt number on the vet invoice and the pharmacy "
+    "receipt (an OCR artefact on the label, a payment receipt number, no labels); Azure DI + rules also misses one "
+    "total. " + SOURCE)
+names = list(TUNED)
+tbl = table(s, 0.39, 1.95, [2.75, 1.55, 2.75, 2.75, 2.75], [0.62] + [0.5] * len(FIELDS))
+header_row(tbl, ["Field", "Receipts"] + names, size=13, align=[PP_ALIGN.LEFT] + [C] * 4)
+for i, f in enumerate(FIELDS, start=1):
+    fill_cell(tbl.cell(i, 0), [dict(t=FIELD_NAMES[f].replace("Reg. no.", "Registration no."), size=14, bold=True)])
+    fill_cell(tbl.cell(i, 1), [dict(t=f"{APPLIC[f]}" + ("*" if f == "registration_number" else ""), size=14,
+                                    color=GREY_TXT, align=C)])
+    for c, a in enumerate(TUNED.values(), start=2):
+        k, n = FIELD_SCORES[(a, f)]
+        full = k == n
+        fill_cell(tbl.cell(i, c), [dict(runs=[(f"{100 * k / n:.1f}%", dict(size=16, bold=full, color=GOOD if full
+                                                                            else CHAR)),
+                                              (f"  ({k}/{n})", dict(size=11, color=GREY_TXT))], align=C)],
+                  fill=GOOD_TINT if full else None)
+    for c in range(5):
+        cell_border(tbl.cell(i, c), sides="B")
+note(s, f"Development results after tuning on these {N_RECEIPTS} receipts, not independent validation. "
+        f"* Registration number is printed on {REG_N} of the {N_RECEIPTS} receipts; every other field on all "
+        f"{N_RECEIPTS}.", y=5.65)
+
+# ===================================================================== 6. what changed in AOAI prompt v2
+from receipt_bench import di_aoai  # noqa: E402  (prompt text only; nothing is called)
+
+V2_RUNS = {"plain": "aoai_v2_plain", "rows": "aoai_v2_rows", "image": "aoai_v2_rows_image"}
+assert len({SUM_V2PROMPT[r]["correct"] for r in V2_RUNS.values()}) == 1, "the slide says the variants score the same"
+
+
+def raw_reply(run_dir, receipt, field):
+    j = json.loads((RES / run_dir / f"{receipt}.json").read_text())
+    return str((j.get("raw_fields") or {}).get(field))
+
+
+def validation_changes(run_dir):
+    """Values the Python checks changed (model reply vs saved value) in one prompt v2 run."""
+    n = 0
+    for p in (RES / run_dir).glob("receipt*.json"):
+        j = json.loads(p.read_text())
+        for f in ("doctor_name", "registration_number", "patient_name", "receipt_number"):
+            raw = j["raw_fields"].get(f)
+            n += isinstance(raw, str) and raw.strip() not in ("", j.get(f))
+    return n
+
+
+VALIDATION_CHANGES = sum(validation_changes(d) for d in ("di_aoai_v2_plain", "di_aoai_v2_rows",
+                                                         "di_aoai_v2_rows_image"))
+# Each fix: field, receipt, the prompt v2 wording that targets it (must be in SYSTEM_PROMPT_V2).
+PROMPT_FIXES = [("registration_number", "receipt1", "GP receipt", "the identifier only, without its label"),
+                ("doctor_name", "receipt5", "Dental receipt", "Leave out qualifications and post-nominals"),
+                ("doctor_name", "receipt10", "Pharmacy receipt", "clinic, hospital or practice names"),
+                ("total_amount", "receipt9", "Vet invoice", "after any discounts, rounding or other adjustments")]
+fixed_keys = {(r, f) for f, r, _, _ in PROMPT_FIXES}
+actual = {(k[1], k[2]) for k, r in V2_DETAIL.items()
+          if k[0] == "aoai_original" and r["result"] == "Wrong" and V2_DETAIL[("aoai_v2_rows", k[1], k[2])]["result"]
+          == "Correct"}
+assert fixed_keys == actual and len(actual) == FIX_PROMPT[0], f"fixes differ from the scores: {sorted(actual)}"
+prompt_flat = " ".join(di_aoai.SYSTEM_PROMPT_V2.split())
+for f, r, _, quote in PROMPT_FIXES:
+    assert quote in prompt_flat and quote not in " ".join(di_aoai.SYSTEM_PROMPT.split()), f"not a v2 change: {quote}"
+    for run in V2_RUNS.values():  # already right in the model's reply, in every prompt v2 variant
+        assert V2_DETAIL[(run, r, f)]["result"] == "Correct"
+s = content_slide(
+    "What Changed in AOAI Prompt V2",
+    f"{AOAI_ACC} → {AOAI_V2_ACC}: four fields fixed, all by clearer prompt wording. Nothing else changed a result.",
+    f"Original prompt {AOAI_ACC} ({count(AOAI)}); prompt v2 {AOAI_V2_ACC} ({count(AOAI_V2)}), a development result "
+    "because prompt v2 was written after reviewing these errors. The four fixes are in the model's own reply (before "
+    "any Python check) in all three prompt v2 runs. Credit: prompt wording only. The Python checks changed "
+    f"{VALIDATION_CHANGES} values; plain-text OCR input ({count(SUM_V2PROMPT['aoai_v2_plain'])}) scores the same as "
+    f"the row layout ({count(AOAI_V2)}); attaching the photo also scores {count(SUM_V2PROMPT['aoai_v2_rows_image'])}. "
+    "Remaining errors: the vet invoice doctor (two practitioners; OCR misread the signature) and the pharmacy "
+    "service date (open ground-truth question). Prompt text: receipt_bench/di_aoai.py (SYSTEM_PROMPT and "
+    "SYSTEM_PROMPT_V2, commit 034d7d5). " + SOURCE)
+tbl = table(s, 0.39, 1.95, [2.0, 3.85, 4.1, 2.6], [0.55] + [0.62] * len(PROMPT_FIXES))
+header_row(tbl, ["Field fixed", "Original prompt replied", "Prompt v2 wording added", "Prompt v2 replied"], size=13)
+for i, (f, r, where, quote) in enumerate(PROMPT_FIXES, start=1):
+    fill_cell(tbl.cell(i, 0), [dict(t=FIELD_NAMES[f].replace("Reg. no.", "Registration no."), size=13, bold=True),
+                               dict(t=where, size=11, color=GREY_TXT)])
+    fill_cell(tbl.cell(i, 1), [dict(runs=[("✗ ", dict(bold=True, color=RED)), (raw_reply("di_aoai", r, f), {})],
+                                    size=12.5)], fill=BAD_TINT)
+    fill_cell(tbl.cell(i, 2), [dict(t=f"“{quote}”", size=12.5, italic=True)])
+    fill_cell(tbl.cell(i, 3), [dict(runs=[("✓ ", dict(bold=True, color=GOOD)), (raw_reply("di_aoai_v2_rows", r, f), {})],
+                                    size=12.5)], fill=GOOD_TINT)
+    for c in range(4):
+        cell_border(tbl.cell(i, c), sides="B", color="FFFFFF", w=19050)
+parts = [("Prompt wording", f"{len(PROMPT_FIXES)} fields fixed", True),
+         ("Python checks", f"changed {VALIDATION_CHANGES} values", False),
+         ("OCR row layout", f"plain text also {count(SUM_V2PROMPT['aoai_v2_plain'])}", False),
+         ("Photo attached", f"also {count(SUM_V2PROMPT['aoai_v2_rows_image'])}", False)]
+pw = (12.55 - 3 * 0.2) / 4
+for k, (head, body, credit) in enumerate(parts):
+    text(s, 0.39 + k * (pw + 0.2), 5.15, pw, 0.75, [dict(t=head, size=14, bold=True, color=RED if credit else CHAR,
+                                                         after=2),
+                                                    dict(t=body, size=12.5, color=CHAR if credit else GREY_TXT)],
+         anchor=MSO_ANCHOR.MIDDLE, margin=0.16, fill=WHITE if credit else LIGHT, line=RED if credit else None)
+note(s, "Development result: prompt v2 was written after reviewing these errors. Still wrong: the vet invoice doctor "
+        "and the pharmacy service date.", y=6.05)
 
 # ===================================================================== 5. bilingual example: the rule layer failed
 for v in ("蔡嘉穎", "Dr. Siu Ka Wai"):
@@ -630,8 +766,7 @@ example_table(s, 6.3, 1.95, "receipt9", ["receipt_number", "patient_name", "tota
 text(s, 6.3, 4.75, 6.64, 1.2, [
     dict(t="Improved rules: picked the payment receipt number.", size=13, bullet=True, after=4),
     dict(t="Rules: the OCR read \"FPatient:\", so the patient label was missed.", size=13, bullet=True, after=4),
-    dict(t="AOAI (original prompt): picked the sub total. Prompt v2 fixes it, but was tuned on this receipt.",
-         size=13, bullet=True),
+    dict(t="AOAI (original prompt): picked the sub total instead of the total.", size=13, bullet=True),
 ])
 
 # ===================================================================== 8. effort and maintenance
