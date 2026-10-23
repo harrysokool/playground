@@ -1,0 +1,29 @@
+{
+  "document_id": "receipt6",
+  "doctor_name": "Dr. Jessica Sterenborg",
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": null,
+  "service_date": "2017-03-01",
+  "total_amount": 51.2,
+  "sources": {
+    "doctor_name": "Dr Jessica Sterenborg Picton Medical Centre",
+    "service_date": "1Mar17 46022/1 ENSURE PLUS Fruit/Forest Tetra",
+    "total_amount": "$51.20"
+  },
+  "rules": {
+    "doctor_name": "unlabelled 'Dr <name>' pattern",
+    "service_date": "unlabelled: 4/6 dates agree",
+    "total_amount": "unlabelled column sum of 4 amounts above"
+  },
+  "validations": [],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value",
+    "patient_name: no label or reusable pattern produced a confident value",
+    "receipt_number: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 2236.2376680002853,
+    "extract_ms": 1.8702499801293015
+  }
+}

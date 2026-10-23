@@ -11,8 +11,8 @@ The OCR was not re-run: both rule sets read the same OCR output.
 > - The rules were written while looking at these receipts, so their scores here show what
 >   tuning can reach. They are not an estimate for unfamiliar receipts.
 > - Azure DI + AOAI uses a generic prompt written before Version 2 existed.
-> - The Version 1 check (applying the improved rules to the Version 1 OCR) was not run or
->   pushed, so no independent test exists yet.
+> - **Update (Oct 2026):** the Version 1 check has now been run (`results/v1_heldout/scores_rules/`).
+>   On the four unseen Version 1 receipts the improved rules gained no field; see section 5.
 
 ## 1. Results
 
@@ -122,9 +122,21 @@ changed the answer on a seventh.
   did not improve and lost one field. DI + AOAI scored 6/10 there; the rules 4/10.
 - **A layout problem was hidden only by luck:** a slightly wider layout already defeats the
   distance limit (receipt5 on DI).
-- **The independent check has not been run:** the Version 1 run (see the README, "Version 1
-  check") was not run or pushed. Even then, only Version 1 receipts 1, 2, 3 and 5 would be
-  unseen, and they are handwritten.
+- **The Version 1 check (run later, Oct 2026) shows no gain on unseen receipts.** Only Version 1
+  receipts 1, 2, 3 and 5 were unseen during development (handwritten, 15 applicable fields).
+  Source: `results/v1_heldout/scores_rules/` (summary.csv, detail.csv, report.md).
+
+  | | Original rules | Improved rules |
+  |---|---|---|
+  | Light, 4 unseen receipts | 13/15 | 13/15 |
+  | DI, 4 unseen receipts | 10/15 | 10/15 |
+  | Light, all 6 Version 1 receipts | 18/25 (72.0%) | 17/25 (68.0%) |
+  | DI, all 6 Version 1 receipts | 15/25 (60.0%) | 14/25 (56.0%) |
+
+  The +26 / +23 fields gained on Version 2 did not transfer. The one-field loss on all six is
+  the receipt-number regression on the vet invoice (3.2). DI's service-date errors here are
+  OCR: it reads the handwritten year 2026 as 2020 (Light reads it correctly). The sample is
+  small, but it supports treating the Version 2 improved-rule scores as overfitted.
 
 By contrast, the AOAI result (88.2%; 95.1% on the new receipts) came from a prompt that was not
 tuned to these receipts.
@@ -145,7 +157,7 @@ tuned to these receipts.
 and decide on an **unseen** test:
 1. Freeze both, including the improved rules (commit `64d18de`) and the AOAI prompt.
 2. Run them on a fresh set of receipts neither has seen: ideally 30 or more real, anonymised
-   receipts, plus the Version 1 check above.
+   receipts (the Version 1 check above has since been run).
 3. Report the accuracy, plus the effort needed to fix each new layout. That ongoing
    maintenance is the real cost of the rule-based option.
 4. **Optional:** PaddleOCR Light + AOAI (untested). Light's OCR text was accurate, so this

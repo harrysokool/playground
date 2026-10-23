@@ -381,6 +381,11 @@ python -m receipt_bench.score --ground-truth data/ground_truth/ground_truth_temp
     --output-dir $V1/scores
 ```
 
+The committed result is in `results/v1_heldout/` (`extracted_*_light`, `extracted_*_azure_di`,
+`scores_rules/`; `scores_rules/` also includes `aoai_v2_rows` for comparison). On the four
+unseen receipts the improved rules scored the same as the original rules (Light 13/15, DI
+10/15); see `results/v2/scores_improved/RULES_COMPARISON.md`, section 5.
+
 ## Improved DI + AOAI pipeline (Phase 12)
 
 `receipt_bench/di_aoai.py` now has two pipelines. The **original benchmark pipeline is kept
