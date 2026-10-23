@@ -7,7 +7,8 @@ additional cost and complexity compared with simpler OCR solutions?**
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 3 (current)**, 12 slides | `current/OCR_Benchmark_V3.pptx` | `scripts/generate_ppt_v3.py` | `results/v2/scores_improved/` and `scores_aoai_improved/` (summary, detail), `results/v1_heldout/`, `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
+| **Version 4 (current)**, 12 slides | `current/OCR_Benchmark_V4.pptx` | `scripts/generate_ppt_v4.py` | `results/v2/scores_improved/` and `scores_aoai_improved/`, `results/v1_heldout/`, `results/diagnosis/`, `data/diagnosis/`, `results/v2/*/receiptN.json`, `receipt_bench/di_aoai.py` (prompt text) |
+| Version 3, final 12-slide deck (archived) | `archive/v3_final/OCR_Benchmark_V3.pptx` (+ PDF preview) | `scripts/generate_ppt_v3.py` (unchanged) | `results/v2/scores_improved/` and `scores_aoai_improved/` (summary, detail), `results/v1_heldout/`, `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
 | Version 3, 10-slide revision before the field and prompt v2 slides (archived) | `archive/v3_10slides/OCR_Benchmark_V3.pptx` (+ PDF preview) | `scripts/generate_ppt_v3.py` at commit `c06d945` | Same as Version 3 |
 | Version 3, first revision (archived): no rule accuracy figures | `archive/v3_first/OCR_Benchmark_V3.pptx` (+ PDF preview) | `scripts/generate_ppt_v3.py` at commit `3678fd9` | Same as Version 3 |
 | Version 2, final 10-slide deck (archived) | `archive/v2_final/OCR_Benchmark_V2.pptx` (+ PDF preview) | `scripts/generate_ppt_v2.py` (unchanged) | `results/v2/scores_improved/` (summary, detail), `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
@@ -30,18 +31,44 @@ is typed in by hand.
 | Folder | Contents |
 |---|---|
 | `template/` | Official AIA PowerPoint template (`aia_ppt_template.pptx`). Do not edit. |
-| `current/` | The current deck (Version 3) |
+| `current/` | The current deck (Version 4) |
 | `previews/` | PDF and PNG previews of the current deck |
 | `archive/v1/` | The frozen Version 1 deck and its preview. Never written to by the generators. |
 | `archive/v2_12slides/` | The first, 12-slide Version 2 deck and its PDF preview, kept for reference |
 | `archive/v2_8slides/` | The 8-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_9slides/` | The 9-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_10slides/` | The 10-slide revision before the slide 9 rewrite, and its PDF preview |
+| `archive/v3_final/` | The final 12-slide Version 3 deck and its PDF preview |
 | `archive/v3_10slides/` | The 10-slide Version 3 revision and its PDF preview |
 | `archive/v3_first/` | The first Version 3 revision (rule accuracy not shown) and its PDF preview |
 | `archive/v2_final/` | The final Version 2 deck (with PaddleOCR Heavy and the tuned rule accuracies) and its PDF preview |
-| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py` and `generate_ppt_v3.py` (identical) |
+| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py` and `generate_ppt_v4.py` (identical) |
 | `scripts/` | The generators |
+
+## Version 4: a redesign around one question
+
+**Can OCR with extraction rules replace Azure OpenAI for medical receipts, and if not, why is AOAI
+needed?** The answer comes first, then the evidence. Every slide carries an evidence tag: measured
+before tuning, measured on the development set, or potential (not yet tested).
+
+1. Title · 2. The answer in brief · 3. What we compared · 4. Before tuning (chart; why the rules scored
+low) · 5. After tuning (chart; effort of each change) · 6. Accuracy by field · 7. What prompt v2 changed ·
+8. Rules vs AOAI scorecard (accuracy, speed, cost, effort, side effects, new layouts, control) ·
+9. Diagnosis-comment check (when rules are enough) · 10. Beyond six fields (potential only) ·
+11. Limits of what we know · 12. Recommendation and next steps.
+
+`scripts/check_deck_v4.py` enforces: 12 slides; no Heavy; chart values match the score files; original
+rule figures only with the missing Chinese support explained; development figures only with a
+development label; the "beyond six fields" slide marked as potential and not yet tested.
+
+```bash
+python3 ppt/ocr_benchmark/scripts/generate_ppt_v4.py --force
+python3 ppt/ocr_benchmark/scripts/check_deck_v4.py
+```
+
+`scripts/build_v4_on_azure.sh` does the same on Azure ML compute, then commits and pushes. The Version 3
+generator and check (`generate_ppt_v3.py`, `check_deck_v3.py`) are kept unchanged to reproduce the
+archived Version 3 deck (use `--output` to write it elsewhere).
 
 ## Version 3: what changed from Version 2
 
@@ -83,7 +110,6 @@ Without `--force`, the script won't overwrite an existing deck. It always refuse
 into `archive/` or `template/`. `scripts/generate_ppt_v2.py` and `check_deck_v2.py` are kept
 unchanged to reproduce the archived Version 2 deck (use `--output` to write it elsewhere).
 
-`scripts/build_v3_on_azure.sh` does the same on Azure ML compute, then commits and pushes.
 
 ## Previews
 
@@ -91,9 +117,9 @@ These need LibreOffice and Poppler:
 
 ```bash
 cd ppt/ocr_benchmark
-soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V3.pptx
-mv previews/OCR_Benchmark_V3.pdf previews/OCR_Benchmark_V3_preview.pdf
-pdftoppm -png -r 80 previews/OCR_Benchmark_V3_preview.pdf previews/slide
+soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V4.pptx
+mv previews/OCR_Benchmark_V4.pdf previews/OCR_Benchmark_V4_preview.pdf
+pdftoppm -png -r 80 previews/OCR_Benchmark_V4_preview.pdf previews/slide
 ```
 
 LibreOffice may substitute fonts, so the preview is for review. PowerPoint renders Arial and
@@ -102,7 +128,7 @@ Microsoft JhengHei (Traditional Chinese).
 ## Outstanding before distribution
 
 1. **Prices.** Compute rate, Document Intelligence page price and gpt-5-mini token prices are
-   still unconfirmed; slide 8 says so.
+   still unconfirmed; slides 8 and 11 say so.
 2. **Sensitivity label.** The deck carries the template's **[AIA – PUBLIC]** label. Apply the
    correct label in PowerPoint (Home → Sensitivity) before sharing.
 3. **Presenter name and date,** if required.
