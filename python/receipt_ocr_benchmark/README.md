@@ -479,6 +479,22 @@ Use the six standard field names and `null` for anything not found. Write dates 
 
 Ground-truth corrections and open questions are in `data/ground_truth/GROUND_TRUTH_REVIEW.md`.
 
+## Decisions and investigations (outside the six-field benchmark)
+
+**Exact doctor-database matching: not pursued (Oct 2026).**
+- Exact regex matching of OCR text against the roughly 40,000 registered doctor names is
+  technically feasible without AI.
+- It shows whether a registered doctor's name appears on the receipt, not whether that person is
+  the treating doctor.
+- Cases where those differ: referring doctors, several doctors on one receipt, clinic directors,
+  and doctors named from earlier consultations.
+- These cases may be rare, but how often they occur is unknown. Whether that risk is acceptable
+  is a business decision.
+- It will not be built or benchmarked unless the business asks for it.
+
+**Diagnosis comment present or missing:** investigation only, not implemented. See
+`docs/DIAGNOSIS_COMMENT.md`.
+
 ## Data
 
 Real receipt samples go in `data/raw/` and are **not committed to Git** (see `data/README.md`).
