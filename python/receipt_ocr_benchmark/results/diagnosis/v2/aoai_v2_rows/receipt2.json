@@ -1,0 +1,77 @@
+{
+  "document_id": "receipt2",
+  "status": "ok",
+  "doctor_name": "Dr. Ng Chun Yip",
+  "registration_number": "M20581",
+  "patient_name": "Ho Siu Ming",
+  "receipt_number": "SC2026/01593",
+  "service_date": "2026-04-22",
+  "total_amount": 1880.0,
+  "raw_fields": {
+    "doctor_name": "Dr. Ng Chun Yip",
+    "registration_number": "M20581",
+    "patient_name": "Ho Siu Ming",
+    "receipt_number": "SC2026/01593",
+    "service_date": "22 April 2026",
+    "total_amount": "HK$1,880.00"
+  },
+  "warnings": [],
+  "review_fields": [],
+  "uncertain_fields": [],
+  "diagnosis": {
+    "status": "missing",
+    "evidence": null,
+    "model_status": "missing",
+    "warnings": []
+  },
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": false,
+    "diagnosis": true
+  },
+  "input_text": "Kowloon Heart and Vascular | OFFICIAL RECEIPT\nCentre\nReceipt No. | SC2026/01593\nRoom 1608, 16/F, Grand Pacific Tower,\nConsultation Date | 22 April 2026\n188 Nathan Road, Tsim Sha Tsui\nTel: 2000 7315 | 24 April 2026\nReceipt Date\nFile No. | KHV-11872\nATTENDING DOCTOR\nDr. Ng Chun Yip\nSpecialist in Cardiology | Reg. No. M20581\nPatient: | Ho Siu Ming\nReferred by: | Dr. Lam Pui Shan\nNo. | Description | Qty | Amount (HK$)\n1 | Specialist consultation | 1 | 1,200.00\n2 | Resting electrocardiogram (ECG) | 1 | 680.00\nTotal | HK$1,880.00\nPaid by Visa (card ending 4421) | HK$1,880.00\nBalance | HK$0.00\nPayment received with thanks. | For Kowloon Heart and Vascular Centre\nSAMPLE / 測試樣本",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 215,
+      "prompt_tokens": 1127,
+      "total_tokens": 1342,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 128,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 31,
+        "engine_ttlt_ms": 1870,
+        "pre_inference_ms": 105,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 174,
+        "service_ttlt_ms": 2009,
+        "user_visible_ttft_ms": 69
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2546.1017650013673,
+    "aoai_ms": 2532.097760999932,
+    "total_ms": 5078.199526001299,
+    "ocr_predict_ms": 2546.1017650013673,
+    "extract_ms": 2532.097760999932
+  }
+}

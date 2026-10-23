@@ -25,3 +25,16 @@ rules_azure_di,v1,receipt1,present,present,correct,NOTES: -> 'patient is severel
 rules_azure_di,v1,receipt2,missing,missing,correct,NOTES: -> '' (missing)
 rules_azure_di,v1,receipt3,present,present,correct,Notes: -> 'Back pain need water.' (present)
 rules_azure_di,v1,receipt5,missing,missing,correct,NOTES: -> '' (missing)
+aoai_v2,v2,receipt1,missing,missing,correct,
+aoai_v2,v2,receipt2,missing,missing,correct,
+aoai_v2,v2,receipt3,missing,missing,correct,
+aoai_v2,v2,receipt4,missing,missing,correct,
+aoai_v2,v2,receipt5,missing,missing,correct,
+aoai_v2,v2,receipt6,missing,missing,correct,
+aoai_v2,v2,receipt8,missing,missing,correct,
+aoai_v2,v2,receipt9,present,present,correct,Diagnosis: | Colitis
+aoai_v2,v2,receipt10,missing,missing,correct,
+aoai_v2,v1,receipt1,present,present,correct,broken ribs.
+aoai_v2,v1,receipt2,missing,missing,correct,
+aoai_v2,v1,receipt3,present,present,correct,Notes: | Back pain need water.
+aoai_v2,v1,receipt5,missing,missing,correct,

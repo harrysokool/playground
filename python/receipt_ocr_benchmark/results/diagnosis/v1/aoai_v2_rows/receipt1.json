@@ -1,0 +1,84 @@
+{
+  "document_id": "receipt1",
+  "status": "ok",
+  "doctor_name": "Dr. Lau Sai Kit, Lawrence",
+  "registration_number": null,
+  "patient_name": null,
+  "receipt_number": null,
+  "service_date": "2020-02-07",
+  "total_amount": 1540.0,
+  "raw_fields": {
+    "doctor_name": "Dr. Lau Sai Kit, Lawrence",
+    "registration_number": null,
+    "patient_name": null,
+    "receipt_number": null,
+    "service_date": "07/02/2020",
+    "total_amount": "1540.00"
+  },
+  "warnings": [
+    "service_date: '07/02/2020' read day-first as 2020-02-07",
+    "service_date: model marked the value as uncertain"
+  ],
+  "review_fields": [
+    "service_date"
+  ],
+  "uncertain_fields": [
+    "service_date"
+  ],
+  "diagnosis": {
+    "status": "present",
+    "evidence": "broken ribs.",
+    "model_status": "present",
+    "warnings": []
+  },
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": false,
+    "diagnosis": true
+  },
+  "input_text": "MEDICAL RECEIPT TEMPLATE\nDr. Lau Sai Kit, Lawrence | MEDICAL INVOICE\nHospital Name, Slogan | 劉世傑\nStreet Address | Room 1103, Champion Building\n301 Nathan Road, Yau Ma tei, KL | com\nCity/State, Zip\nPhone Number, Web Address Etc\nPatient | Age | 27\nHospital No | 12345678910 | Consultant\nName | Payment Mode | Via\nAddress | Bed No. 4017\nPhone | 12345678\nEmail | patient@gmail.com | emp ted | Admission Date | 07/02/2020\nDischarge Date\n# | PARTICULARS | QTY | RATE | AMOUNT\n1 | broken ribs. | 1 | 450.00 | 1500.00\n2 | water | 2 | 20.00 | 40.00\nCop\nSUBTOTAL | 1540.00\nTAX 8.000%\nNOTES: | MED CLAIM\npatient is severely injured | TOTAL | 1540.00\nand he need more rest | PAID | 1540.00\nbefore getting to work | TOTAL DUE",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 977,
+      "prompt_tokens": 1129,
+      "total_tokens": 2106,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 896,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 28,
+        "engine_ttlt_ms": 6786,
+        "pre_inference_ms": 101,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 179,
+        "service_ttlt_ms": 6928,
+        "user_visible_ttft_ms": 77
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2315.0032799994733,
+    "aoai_ms": 8431.812651999962,
+    "total_ms": 10746.815931999436,
+    "ocr_predict_ms": 2315.0032799994733,
+    "extract_ms": 8431.812651999962
+  }
+}

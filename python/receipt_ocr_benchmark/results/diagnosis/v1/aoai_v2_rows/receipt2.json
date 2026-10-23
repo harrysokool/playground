@@ -1,0 +1,87 @@
+{
+  "document_id": "receipt2",
+  "status": "ok",
+  "doctor_name": "李俊年醫生",
+  "registration_number": "18228",
+  "patient_name": "Carol Tse",
+  "receipt_number": null,
+  "service_date": "2020-07-11",
+  "total_amount": 998.0,
+  "raw_fields": {
+    "doctor_name": "李俊年醫生",
+    "registration_number": "18228",
+    "patient_name": "Carol Tse",
+    "receipt_number": null,
+    "service_date": "11/7/2020",
+    "total_amount": "998.00"
+  },
+  "warnings": [
+    "service_date: '11/7/2020' read day-first as 2020-07-11",
+    "registration_number: model marked the value as uncertain",
+    "service_date: model marked the value as uncertain"
+  ],
+  "review_fields": [
+    "registration_number",
+    "service_date"
+  ],
+  "uncertain_fields": [
+    "registration_number",
+    "service_date"
+  ],
+  "diagnosis": {
+    "status": "missing",
+    "evidence": null,
+    "model_status": "missing",
+    "warnings": []
+  },
+  "pipeline": {
+    "prompt": "v2",
+    "text": "rows",
+    "image": false,
+    "diagnosis": true
+  },
+  "input_text": "MEDICAL RECEIPT TEMPLATE\nMEDICAL INVOICE\nHospital Name, Slogan | 李俊年醫生\n18228 | SVI\nStreet Address | Hong Kong | com\nHYS JIM\nCity/State, Zip\nPhone Number, Web Address Etc\nCarol Tse | Age | 47 | H\nPatient\nHospital No 123456 | Consultant | -\nCarol Tse | Payment Mode | cash\nName\n九龍塘 | 124\nAddress\nPhone +852 6202 0528\nTempted | Admission Date | 11/7/2020\nEmail\nDischarge Date\nPARTICULARS | QTY | RATE | AMOUNT\n#\nbedroom | 2 | 499.00 | 998.00\n1\nCopy | 998.00\nSUBTOTAL\nTAX 8.000% | -\nNOTES: | MED CLAIM\nTOTAL\nPAID\nTOTAL DUE",
+  "aoai": {
+    "deployment": "gpt-5-mini",
+    "api_version": "2025-04-01-preview",
+    "reasoning_effort": "low",
+    "model": "gpt-5-mini-2025-08-07",
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 560,
+      "prompt_tokens": 1076,
+      "total_tokens": 1636,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 448,
+        "rejected_prediction_tokens": 0,
+        "text_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": null,
+        "cached_tokens": 0,
+        "image_tokens": null,
+        "text_tokens": null
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 6,
+        "engine_ttft_ms": 26,
+        "engine_ttlt_ms": 3561,
+        "pre_inference_ms": 232,
+        "service_tbt_ms": 6,
+        "service_ttft_ms": 293,
+        "service_ttlt_ms": 3823,
+        "user_visible_ttft_ms": 61
+      }
+    }
+  },
+  "timings": {
+    "di_ms": 2276.9435299996985,
+    "aoai_ms": 4367.950532999998,
+    "total_ms": 6644.894062999697,
+    "ocr_predict_ms": 2276.9435299996985,
+    "extract_ms": 4367.950532999998
+  }
+}

@@ -1,0 +1,3565 @@
+{
+  "di_ms": 2676.7332700001134,
+  "result": {
+    "apiVersion": "2024-11-30",
+    "modelId": "prebuilt-read",
+    "stringIndexType": "textElements",
+    "content": "NORTHPOINT MOTION PHYSIOTHERAPY CENTRE\nFlat B, 11/F, Java Commercial Centre, 128 Java Road, North Point Tel: 2000 8452\nRECEIPT\nReceipt No. RCP-10388 Date Issued 17 Jul 2026\nCLIENT\nPHYSIOTHERAPIST\nName\nYeung Tsz Kit\nName\nCHEUNG Hoi Ying\nClient No.\nNM-5582\nTitle\nRegistered Physiotherapist\nReferred by\nDr. Kwok Man Hin\nReg. No.\nPT004175\nSession Date 16 Jul 2026\nNext Appointment 23 Jul 2026\nSERVICE\nFEE\nInitial physiotherapy assessment\nHK$650.00\nTreatment: manual therapy and interferential therapy\nHK$550.00\nTotal\nAmount Paid (FPS)\nOutstanding Balance\nHK$1,200.00\nHK$700.00\nHK$500.00\nPlease settle the outstanding balance at your next appointment. Thank you.\n003738\nNorthpoint Motion Physiotherapy Centre\nSAMPLE / 測試樣本",
+    "pages": [
+      {
+        "pageNumber": 1,
+        "angle": 0.4696269929409027,
+        "width": 3024,
+        "height": 4032,
+        "unit": "pixel",
+        "words": [
+          {
+            "content": "NORTHPOINT",
+            "polygon": [
+              406,
+              249,
+              1044,
+              262,
+              1042,
+              340,
+              404,
+              322
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 0,
+              "length": 10
+            }
+          },
+          {
+            "content": "MOTION",
+            "polygon": [
+              1065,
+              262,
+              1440,
+              278,
+              1438,
+              353,
+              1063,
+              341
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 11,
+              "length": 6
+            }
+          },
+          {
+            "content": "PHYSIOTHERAPY",
+            "polygon": [
+              398,
+              347,
+              787,
+              351,
+              785,
+              393,
+              398,
+              386
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 18,
+              "length": 13
+            }
+          },
+          {
+            "content": "CENTRE",
+            "polygon": [
+              814,
+              352,
+              1003,
+              357,
+              1002,
+              397,
+              812,
+              394
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 32,
+              "length": 6
+            }
+          },
+          {
+            "content": "Flat",
+            "polygon": [
+              1936,
+              277,
+              1998,
+              278,
+              1997,
+              317,
+              1935,
+              316
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 39,
+              "length": 4
+            }
+          },
+          {
+            "content": "B,",
+            "polygon": [
+              2009,
+              278,
+              2041,
+              278,
+              2040,
+              317,
+              2008,
+              317
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 44,
+              "length": 2
+            }
+          },
+          {
+            "content": "11/F,",
+            "polygon": [
+              2048,
+              278,
+              2128,
+              279,
+              2127,
+              318,
+              2048,
+              317
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 47,
+              "length": 5
+            }
+          },
+          {
+            "content": "Java",
+            "polygon": [
+              2136,
+              279,
+              2209,
+              280,
+              2209,
+              318,
+              2135,
+              318
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 53,
+              "length": 4
+            }
+          },
+          {
+            "content": "Commercial",
+            "polygon": [
+              2218,
+              280,
+              2417,
+              281,
+              2416,
+              320,
+              2217,
+              318
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 58,
+              "length": 10
+            }
+          },
+          {
+            "content": "Centre,",
+            "polygon": [
+              2426,
+              281,
+              2544,
+              281,
+              2544,
+              321,
+              2426,
+              320
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 69,
+              "length": 7
+            }
+          },
+          {
+            "content": "128",
+            "polygon": [
+              2107,
+              334,
+              2167,
+              334,
+              2166,
+              370,
+              2106,
+              370
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 77,
+              "length": 3
+            }
+          },
+          {
+            "content": "Java",
+            "polygon": [
+              2177,
+              334,
+              2251,
+              334,
+              2250,
+              371,
+              2176,
+              370
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 81,
+              "length": 4
+            }
+          },
+          {
+            "content": "Road,",
+            "polygon": [
+              2261,
+              334,
+              2353,
+              334,
+              2351,
+              371,
+              2259,
+              371
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 86,
+              "length": 5
+            }
+          },
+          {
+            "content": "North",
+            "polygon": [
+              2360,
+              334,
+              2453,
+              335,
+              2451,
+              372,
+              2358,
+              371
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 92,
+              "length": 5
+            }
+          },
+          {
+            "content": "Point",
+            "polygon": [
+              2465,
+              335,
+              2550,
+              336,
+              2550,
+              372,
+              2463,
+              372
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 98,
+              "length": 5
+            }
+          },
+          {
+            "content": "Tel:",
+            "polygon": [
+              2302,
+              386,
+              2366,
+              388,
+              2366,
+              424,
+              2302,
+              424
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 104,
+              "length": 4
+            }
+          },
+          {
+            "content": "2000",
+            "polygon": [
+              2373,
+              388,
+              2455,
+              389,
+              2455,
+              424,
+              2373,
+              424
+            ],
+            "confidence": 0.985,
+            "span": {
+              "offset": 109,
+              "length": 4
+            }
+          },
+          {
+            "content": "8452",
+            "polygon": [
+              2465,
+              389,
+              2549,
+              390,
+              2548,
+              426,
+              2464,
+              425
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 114,
+              "length": 4
+            }
+          },
+          {
+            "content": "RECEIPT",
+            "polygon": [
+              391,
+              630,
+              804,
+              632,
+              804,
+              705,
+              389,
+              702
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 119,
+              "length": 7
+            }
+          },
+          {
+            "content": "Receipt",
+            "polygon": [
+              2091,
+              696,
+              2233,
+              699,
+              2233,
+              743,
+              2089,
+              741
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 127,
+              "length": 7
+            }
+          },
+          {
+            "content": "No.",
+            "polygon": [
+              2248,
+              700,
+              2309,
+              701,
+              2309,
+              744,
+              2247,
+              744
+            ],
+            "confidence": 0.973,
+            "span": {
+              "offset": 135,
+              "length": 3
+            }
+          },
+          {
+            "content": "RCP-10388",
+            "polygon": [
+              2324,
+              701,
+              2547,
+              704,
+              2547,
+              745,
+              2323,
+              744
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 139,
+              "length": 9
+            }
+          },
+          {
+            "content": "Date",
+            "polygon": [
+              2099,
+              760,
+              2186,
+              761,
+              2184,
+              803,
+              2097,
+              802
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 149,
+              "length": 4
+            }
+          },
+          {
+            "content": "Issued",
+            "polygon": [
+              2202,
+              762,
+              2319,
+              764,
+              2317,
+              805,
+              2200,
+              804
+            ],
+            "confidence": 0.937,
+            "span": {
+              "offset": 154,
+              "length": 6
+            }
+          },
+          {
+            "content": "17",
+            "polygon": [
+              2336,
+              764,
+              2377,
+              765,
+              2376,
+              806,
+              2334,
+              805
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 161,
+              "length": 2
+            }
+          },
+          {
+            "content": "Jul",
+            "polygon": [
+              2389,
+              765,
+              2440,
+              766,
+              2439,
+              807,
+              2387,
+              806
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 164,
+              "length": 3
+            }
+          },
+          {
+            "content": "2026",
+            "polygon": [
+              2454,
+              767,
+              2546,
+              769,
+              2545,
+              808,
+              2453,
+              807
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 168,
+              "length": 4
+            }
+          },
+          {
+            "content": "CLIENT",
+            "polygon": [
+              439,
+              933,
+              604,
+              934,
+              603,
+              968,
+              439,
+              967
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 173,
+              "length": 6
+            }
+          },
+          {
+            "content": "PHYSIOTHERAPIST",
+            "polygon": [
+              1568,
+              959,
+              1990,
+              964,
+              1989,
+              1000,
+              1568,
+              997
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 180,
+              "length": 15
+            }
+          },
+          {
+            "content": "Name",
+            "polygon": [
+              441,
+              1018,
+              564,
+              1020,
+              564,
+              1055,
+              441,
+              1055
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 196,
+              "length": 4
+            }
+          },
+          {
+            "content": "Yeung",
+            "polygon": [
+              780,
+              1019,
+              908,
+              1023,
+              906,
+              1072,
+              778,
+              1069
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 201,
+              "length": 5
+            }
+          },
+          {
+            "content": "Tsz",
+            "polygon": [
+              920,
+              1024,
+              981,
+              1026,
+              979,
+              1074,
+              917,
+              1073
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 207,
+              "length": 3
+            }
+          },
+          {
+            "content": "Kit",
+            "polygon": [
+              994,
+              1026,
+              1048,
+              1028,
+              1048,
+              1074,
+              992,
+              1074
+            ],
+            "confidence": 0.999,
+            "span": {
+              "offset": 211,
+              "length": 3
+            }
+          },
+          {
+            "content": "Name",
+            "polygon": [
+              1570,
+              1047,
+              1694,
+              1050,
+              1694,
+              1085,
+              1568,
+              1084
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 215,
+              "length": 4
+            }
+          },
+          {
+            "content": "CHEUNG",
+            "polygon": [
+              1903,
+              1041,
+              2093,
+              1044,
+              2091,
+              1100,
+              1900,
+              1098
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 220,
+              "length": 6
+            }
+          },
+          {
+            "content": "Hoi",
+            "polygon": [
+              2109,
+              1044,
+              2173,
+              1044,
+              2171,
+              1100,
+              2107,
+              1100
+            ],
+            "confidence": 0.976,
+            "span": {
+              "offset": 227,
+              "length": 3
+            }
+          },
+          {
+            "content": "Ying",
+            "polygon": [
+              2185,
+              1044,
+              2278,
+              1045,
+              2278,
+              1100,
+              2183,
+              1100
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 231,
+              "length": 4
+            }
+          },
+          {
+            "content": "Client",
+            "polygon": [
+              438,
+              1092,
+              559,
+              1093,
+              558,
+              1132,
+              438,
+              1133
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 236,
+              "length": 6
+            }
+          },
+          {
+            "content": "No.",
+            "polygon": [
+              571,
+              1093,
+              645,
+              1094,
+              644,
+              1134,
+              570,
+              1132
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 243,
+              "length": 3
+            }
+          },
+          {
+            "content": "NM-5582",
+            "polygon": [
+              780,
+              1097,
+              973,
+              1102,
+              973,
+              1140,
+              779,
+              1136
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 247,
+              "length": 7
+            }
+          },
+          {
+            "content": "Title",
+            "polygon": [
+              1568,
+              1120,
+              1655,
+              1120,
+              1655,
+              1161,
+              1568,
+              1160
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 255,
+              "length": 5
+            }
+          },
+          {
+            "content": "Registered",
+            "polygon": [
+              1903,
+              1125,
+              2118,
+              1124,
+              2117,
+              1173,
+              1903,
+              1173
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 261,
+              "length": 10
+            }
+          },
+          {
+            "content": "Physiotherapist",
+            "polygon": [
+              2136,
+              1124,
+              2447,
+              1125,
+              2447,
+              1174,
+              2135,
+              1173
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 272,
+              "length": 15
+            }
+          },
+          {
+            "content": "Referred",
+            "polygon": [
+              439,
+              1165,
+              611,
+              1167,
+              608,
+              1212,
+              436,
+              1209
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 288,
+              "length": 8
+            }
+          },
+          {
+            "content": "by",
+            "polygon": [
+              627,
+              1167,
+              676,
+              1168,
+              675,
+              1212,
+              624,
+              1212
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 297,
+              "length": 2
+            }
+          },
+          {
+            "content": "Dr.",
+            "polygon": [
+              780,
+              1169,
+              837,
+              1171,
+              834,
+              1214,
+              778,
+              1213
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 300,
+              "length": 3
+            }
+          },
+          {
+            "content": "Kwok",
+            "polygon": [
+              851,
+              1172,
+              959,
+              1176,
+              957,
+              1216,
+              849,
+              1214
+            ],
+            "confidence": 0.991,
+            "span": {
+              "offset": 304,
+              "length": 4
+            }
+          },
+          {
+            "content": "Man",
+            "polygon": [
+              972,
+              1176,
+              1058,
+              1179,
+              1056,
+              1219,
+              970,
+              1217
+            ],
+            "confidence": 0.999,
+            "span": {
+              "offset": 309,
+              "length": 3
+            }
+          },
+          {
+            "content": "Hin",
+            "polygon": [
+              1073,
+              1180,
+              1141,
+              1182,
+              1141,
+              1222,
+              1071,
+              1220
+            ],
+            "confidence": 0.998,
+            "span": {
+              "offset": 313,
+              "length": 3
+            }
+          },
+          {
+            "content": "Reg.",
+            "polygon": [
+              1566,
+              1196,
+              1656,
+              1196,
+              1654,
+              1241,
+              1564,
+              1240
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 317,
+              "length": 4
+            }
+          },
+          {
+            "content": "No.",
+            "polygon": [
+              1671,
+              1196,
+              1738,
+              1197,
+              1737,
+              1240,
+              1669,
+              1241
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 322,
+              "length": 3
+            }
+          },
+          {
+            "content": "PT004175",
+            "polygon": [
+              1904,
+              1196,
+              2108,
+              1197,
+              2108,
+              1238,
+              1904,
+              1238
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 326,
+              "length": 8
+            }
+          },
+          {
+            "content": "Session",
+            "polygon": [
+              425,
+              1419,
+              580,
+              1423,
+              579,
+              1464,
+              423,
+              1460
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 335,
+              "length": 7
+            }
+          },
+          {
+            "content": "Date",
+            "polygon": [
+              597,
+              1423,
+              690,
+              1425,
+              689,
+              1466,
+              596,
+              1464
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 343,
+              "length": 4
+            }
+          },
+          {
+            "content": "16",
+            "polygon": [
+              721,
+              1426,
+              775,
+              1427,
+              774,
+              1469,
+              719,
+              1467
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 348,
+              "length": 2
+            }
+          },
+          {
+            "content": "Jul",
+            "polygon": [
+              788,
+              1427,
+              858,
+              1428,
+              857,
+              1471,
+              787,
+              1469
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 351,
+              "length": 3
+            }
+          },
+          {
+            "content": "2026",
+            "polygon": [
+              870,
+              1428,
+              979,
+              1430,
+              979,
+              1475,
+              869,
+              1471
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 355,
+              "length": 4
+            }
+          },
+          {
+            "content": "Next",
+            "polygon": [
+              1129,
+              1440,
+              1224,
+              1441,
+              1223,
+              1489,
+              1128,
+              1486
+            ],
+            "confidence": 0.987,
+            "span": {
+              "offset": 360,
+              "length": 4
+            }
+          },
+          {
+            "content": "Appointment",
+            "polygon": [
+              1236,
+              1441,
+              1500,
+              1445,
+              1499,
+              1492,
+              1235,
+              1489
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 365,
+              "length": 11
+            }
+          },
+          {
+            "content": "23",
+            "polygon": [
+              1526,
+              1445,
+              1572,
+              1446,
+              1572,
+              1492,
+              1525,
+              1492
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 377,
+              "length": 2
+            }
+          },
+          {
+            "content": "Jul",
+            "polygon": [
+              1586,
+              1446,
+              1650,
+              1446,
+              1650,
+              1492,
+              1585,
+              1492
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 380,
+              "length": 3
+            }
+          },
+          {
+            "content": "2026",
+            "polygon": [
+              1659,
+              1446,
+              1758,
+              1447,
+              1758,
+              1491,
+              1659,
+              1492
+            ],
+            "confidence": 0.988,
+            "span": {
+              "offset": 384,
+              "length": 4
+            }
+          },
+          {
+            "content": "SERVICE",
+            "polygon": [
+              353,
+              1632,
+              539,
+              1636,
+              539,
+              1669,
+              353,
+              1667
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 389,
+              "length": 7
+            }
+          },
+          {
+            "content": "FEE",
+            "polygon": [
+              2467,
+              1666,
+              2548,
+              1667,
+              2547,
+              1699,
+              2467,
+              1697
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 397,
+              "length": 3
+            }
+          },
+          {
+            "content": "Initial",
+            "polygon": [
+              352,
+              1754,
+              461,
+              1754,
+              460,
+              1803,
+              350,
+              1800
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 401,
+              "length": 7
+            }
+          },
+          {
+            "content": "physiotherapy",
+            "polygon": [
+              479,
+              1755,
+              772,
+              1760,
+              770,
+              1808,
+              478,
+              1803
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 409,
+              "length": 13
+            }
+          },
+          {
+            "content": "assessment",
+            "polygon": [
+              785,
+              1760,
+              1022,
+              1766,
+              1022,
+              1808,
+              784,
+              1808
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 423,
+              "length": 10
+            }
+          },
+          {
+            "content": "HK$650.00",
+            "polygon": [
+              2319,
+              1784,
+              2545,
+              1784,
+              2545,
+              1822,
+              2319,
+              1823
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 434,
+              "length": 9
+            }
+          },
+          {
+            "content": "Treatment:",
+            "polygon": [
+              350,
+              1892,
+              570,
+              1894,
+              569,
+              1942,
+              350,
+              1936
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 444,
+              "length": 10
+            }
+          },
+          {
+            "content": "manual",
+            "polygon": [
+              586,
+              1894,
+              737,
+              1896,
+              736,
+              1946,
+              586,
+              1943
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 455,
+              "length": 6
+            }
+          },
+          {
+            "content": "therapy",
+            "polygon": [
+              750,
+              1897,
+              907,
+              1899,
+              907,
+              1950,
+              749,
+              1947
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 462,
+              "length": 7
+            }
+          },
+          {
+            "content": "and",
+            "polygon": [
+              921,
+              1899,
+              994,
+              1900,
+              994,
+              1952,
+              920,
+              1950
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 470,
+              "length": 3
+            }
+          },
+          {
+            "content": "interferential",
+            "polygon": [
+              1011,
+              1901,
+              1261,
+              1906,
+              1261,
+              1956,
+              1010,
+              1952
+            ],
+            "confidence": 0.935,
+            "span": {
+              "offset": 474,
+              "length": 14
+            }
+          },
+          {
+            "content": "therapy",
+            "polygon": [
+              1276,
+              1906,
+              1431,
+              1910,
+              1431,
+              1958,
+              1275,
+              1956
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 489,
+              "length": 7
+            }
+          },
+          {
+            "content": "HK$550.00",
+            "polygon": [
+              2316,
+              1921,
+              2545,
+              1923,
+              2545,
+              1962,
+              2314,
+              1960
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 497,
+              "length": 9
+            }
+          },
+          {
+            "content": "Total",
+            "polygon": [
+              410,
+              2161,
+              496,
+              2161,
+              496,
+              2195,
+              410,
+              2196
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 507,
+              "length": 5
+            }
+          },
+          {
+            "content": "Amount",
+            "polygon": [
+              1156,
+              2169,
+              1289,
+              2170,
+              1288,
+              2207,
+              1155,
+              2206
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 513,
+              "length": 6
+            }
+          },
+          {
+            "content": "Paid",
+            "polygon": [
+              1301,
+              2170,
+              1367,
+              2171,
+              1365,
+              2207,
+              1299,
+              2207
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 520,
+              "length": 4
+            }
+          },
+          {
+            "content": "(FPS)",
+            "polygon": [
+              1379,
+              2171,
+              1466,
+              2172,
+              1466,
+              2207,
+              1377,
+              2207
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 525,
+              "length": 5
+            }
+          },
+          {
+            "content": "Outstanding",
+            "polygon": [
+              1871,
+              2176,
+              2081,
+              2181,
+              2079,
+              2220,
+              1870,
+              2219
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 531,
+              "length": 11
+            }
+          },
+          {
+            "content": "Balance",
+            "polygon": [
+              2095,
+              2182,
+              2229,
+              2184,
+              2229,
+              2221,
+              2093,
+              2220
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 543,
+              "length": 7
+            }
+          },
+          {
+            "content": "HK$1,200.00",
+            "polygon": [
+              409,
+              2233,
+              833,
+              2232,
+              833,
+              2295,
+              409,
+              2295
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 551,
+              "length": 11
+            }
+          },
+          {
+            "content": "HK$700.00",
+            "polygon": [
+              1153,
+              2240,
+              1500,
+              2240,
+              1500,
+              2297,
+              1152,
+              2297
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 563,
+              "length": 9
+            }
+          },
+          {
+            "content": "HK$500.00",
+            "polygon": [
+              1873,
+              2247,
+              2224,
+              2251,
+              2223,
+              2308,
+              1872,
+              2303
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 573,
+              "length": 9
+            }
+          },
+          {
+            "content": "Please",
+            "polygon": [
+              337,
+              2432,
+              455,
+              2432,
+              454,
+              2475,
+              336,
+              2473
+            ],
+            "confidence": 0.993,
+            "span": {
+              "offset": 583,
+              "length": 6
+            }
+          },
+          {
+            "content": "settle",
+            "polygon": [
+              467,
+              2432,
+              564,
+              2433,
+              563,
+              2476,
+              466,
+              2475
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 590,
+              "length": 6
+            }
+          },
+          {
+            "content": "the",
+            "polygon": [
+              575,
+              2433,
+              633,
+              2433,
+              632,
+              2477,
+              574,
+              2476
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 597,
+              "length": 3
+            }
+          },
+          {
+            "content": "outstanding",
+            "polygon": [
+              645,
+              2433,
+              862,
+              2435,
+              861,
+              2479,
+              644,
+              2477
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 601,
+              "length": 11
+            }
+          },
+          {
+            "content": "balance",
+            "polygon": [
+              876,
+              2435,
+              1016,
+              2436,
+              1015,
+              2480,
+              875,
+              2479
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 613,
+              "length": 7
+            }
+          },
+          {
+            "content": "at",
+            "polygon": [
+              1029,
+              2436,
+              1062,
+              2436,
+              1061,
+              2481,
+              1028,
+              2481
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 621,
+              "length": 2
+            }
+          },
+          {
+            "content": "your",
+            "polygon": [
+              1073,
+              2436,
+              1148,
+              2436,
+              1147,
+              2481,
+              1072,
+              2481
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 624,
+              "length": 4
+            }
+          },
+          {
+            "content": "next",
+            "polygon": [
+              1157,
+              2436,
+              1236,
+              2437,
+              1235,
+              2482,
+              1156,
+              2481
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 629,
+              "length": 4
+            }
+          },
+          {
+            "content": "appointment.",
+            "polygon": [
+              1248,
+              2437,
+              1484,
+              2439,
+              1483,
+              2483,
+              1247,
+              2482
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 634,
+              "length": 12
+            }
+          },
+          {
+            "content": "Thank",
+            "polygon": [
+              1493,
+              2439,
+              1600,
+              2440,
+              1599,
+              2483,
+              1492,
+              2483
+            ],
+            "confidence": 0.997,
+            "span": {
+              "offset": 647,
+              "length": 5
+            }
+          },
+          {
+            "content": "you.",
+            "polygon": [
+              1610,
+              2440,
+              1689,
+              2441,
+              1689,
+              2483,
+              1609,
+              2483
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 653,
+              "length": 4
+            }
+          },
+          {
+            "content": "003738",
+            "polygon": [
+              903,
+              2749,
+              897,
+              2971,
+              852,
+              2971,
+              859,
+              2748
+            ],
+            "confidence": 0.24,
+            "span": {
+              "offset": 658,
+              "length": 6
+            }
+          },
+          {
+            "content": "Northpoint",
+            "polygon": [
+              320,
+              3483,
+              503,
+              3484,
+              502,
+              3526,
+              318,
+              3525
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 665,
+              "length": 10
+            }
+          },
+          {
+            "content": "Motion",
+            "polygon": [
+              514,
+              3484,
+              628,
+              3484,
+              628,
+              3527,
+              513,
+              3526
+            ],
+            "confidence": 0.994,
+            "span": {
+              "offset": 676,
+              "length": 6
+            }
+          },
+          {
+            "content": "Physiotherapy",
+            "polygon": [
+              639,
+              3484,
+              871,
+              3485,
+              870,
+              3527,
+              639,
+              3527
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 683,
+              "length": 13
+            }
+          },
+          {
+            "content": "Centre",
+            "polygon": [
+              882,
+              3485,
+              999,
+              3485,
+              999,
+              3526,
+              882,
+              3527
+            ],
+            "confidence": 0.992,
+            "span": {
+              "offset": 697,
+              "length": 6
+            }
+          },
+          {
+            "content": "SAMPLE",
+            "polygon": [
+              2239,
+              3614,
+              2358,
+              3617,
+              2357,
+              3647,
+              2236,
+              3643
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 704,
+              "length": 6
+            }
+          },
+          {
+            "content": "/",
+            "polygon": [
+              2363,
+              3617,
+              2379,
+              3618,
+              2378,
+              3647,
+              2362,
+              3647
+            ],
+            "confidence": 0.99,
+            "span": {
+              "offset": 711,
+              "length": 1
+            }
+          },
+          {
+            "content": "測",
+            "polygon": [
+              2389,
+              3618,
+              2410,
+              3618,
+              2409,
+              3648,
+              2388,
+              3648
+            ],
+            "confidence": 0.983,
+            "span": {
+              "offset": 713,
+              "length": 1
+            }
+          },
+          {
+            "content": "試",
+            "polygon": [
+              2418,
+              3618,
+              2438,
+              3618,
+              2437,
+              3649,
+              2418,
+              3649
+            ],
+            "confidence": 0.995,
+            "span": {
+              "offset": 714,
+              "length": 1
+            }
+          },
+          {
+            "content": "樣",
+            "polygon": [
+              2450,
+              3618,
+              2470,
+              3618,
+              2469,
+              3650,
+              2450,
+              3650
+            ],
+            "confidence": 0.989,
+            "span": {
+              "offset": 715,
+              "length": 1
+            }
+          },
+          {
+            "content": "本",
+            "polygon": [
+              2482,
+              3618,
+              2510,
+              3618,
+              2510,
+              3652,
+              2482,
+              3651
+            ],
+            "confidence": 0.996,
+            "span": {
+              "offset": 716,
+              "length": 1
+            }
+          }
+        ],
+        "lines": [
+          {
+            "content": "NORTHPOINT MOTION",
+            "polygon": [
+              406,
+              249,
+              1479,
+              274,
+              1477,
+              353,
+              404,
+              321
+            ],
+            "spans": [
+              {
+                "offset": 0,
+                "length": 17
+              }
+            ]
+          },
+          {
+            "content": "PHYSIOTHERAPY CENTRE",
+            "polygon": [
+              397,
+              346,
+              1002,
+              355,
+              1001,
+              396,
+              397,
+              385
+            ],
+            "spans": [
+              {
+                "offset": 18,
+                "length": 20
+              }
+            ]
+          },
+          {
+            "content": "Flat B, 11/F, Java Commercial Centre,",
+            "polygon": [
+              1934,
+              276,
+              2544,
+              281,
+              2543,
+              320,
+              1934,
+              316
+            ],
+            "spans": [
+              {
+                "offset": 39,
+                "length": 37
+              }
+            ]
+          },
+          {
+            "content": "128 Java Road, North Point",
+            "polygon": [
+              2106,
+              333,
+              2549,
+              335,
+              2549,
+              371,
+              2106,
+              369
+            ],
+            "spans": [
+              {
+                "offset": 77,
+                "length": 26
+              }
+            ]
+          },
+          {
+            "content": "Tel: 2000 8452",
+            "polygon": [
+              2302,
+              386,
+              2548,
+              389,
+              2547,
+              426,
+              2302,
+              423
+            ],
+            "spans": [
+              {
+                "offset": 104,
+                "length": 14
+              }
+            ]
+          },
+          {
+            "content": "RECEIPT",
+            "polygon": [
+              389,
+              629,
+              803,
+              631,
+              803,
+              704,
+              388,
+              702
+            ],
+            "spans": [
+              {
+                "offset": 119,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "Receipt No. RCP-10388",
+            "polygon": [
+              2089,
+              696,
+              2547,
+              702,
+              2546,
+              745,
+              2089,
+              740
+            ],
+            "spans": [
+              {
+                "offset": 127,
+                "length": 21
+              }
+            ]
+          },
+          {
+            "content": "Date Issued 17 Jul 2026",
+            "polygon": [
+              2097,
+              759,
+              2545,
+              767,
+              2545,
+              808,
+              2097,
+              801
+            ],
+            "spans": [
+              {
+                "offset": 149,
+                "length": 23
+              }
+            ]
+          },
+          {
+            "content": "CLIENT",
+            "polygon": [
+              439,
+              933,
+              603,
+              933,
+              603,
+              967,
+              439,
+              966
+            ],
+            "spans": [
+              {
+                "offset": 173,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "PHYSIOTHERAPIST",
+            "polygon": [
+              1567,
+              959,
+              1989,
+              963,
+              1988,
+              999,
+              1567,
+              996
+            ],
+            "spans": [
+              {
+                "offset": 180,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "Name",
+            "polygon": [
+              441,
+              1017,
+              563,
+              1018,
+              563,
+              1055,
+              441,
+              1054
+            ],
+            "spans": [
+              {
+                "offset": 196,
+                "length": 4
+              }
+            ]
+          },
+          {
+            "content": "Yeung Tsz Kit",
+            "polygon": [
+              779,
+              1018,
+              1047,
+              1026,
+              1046,
+              1074,
+              778,
+              1068
+            ],
+            "spans": [
+              {
+                "offset": 201,
+                "length": 13
+              }
+            ]
+          },
+          {
+            "content": "Name",
+            "polygon": [
+              1568,
+              1047,
+              1693,
+              1048,
+              1693,
+              1084,
+              1568,
+              1083
+            ],
+            "spans": [
+              {
+                "offset": 215,
+                "length": 4
+              }
+            ]
+          },
+          {
+            "content": "CHEUNG Hoi Ying",
+            "polygon": [
+              1899,
+              1041,
+              2277,
+              1043,
+              2276,
+              1100,
+              1899,
+              1098
+            ],
+            "spans": [
+              {
+                "offset": 220,
+                "length": 15
+              }
+            ]
+          },
+          {
+            "content": "Client No.",
+            "polygon": [
+              438,
+              1091,
+              644,
+              1093,
+              643,
+              1133,
+              438,
+              1132
+            ],
+            "spans": [
+              {
+                "offset": 236,
+                "length": 10
+              }
+            ]
+          },
+          {
+            "content": "NM-5582",
+            "polygon": [
+              780,
+              1096,
+              972,
+              1101,
+              971,
+              1140,
+              779,
+              1135
+            ],
+            "spans": [
+              {
+                "offset": 247,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "Title",
+            "polygon": [
+              1568,
+              1120,
+              1654,
+              1121,
+              1653,
+              1161,
+              1568,
+              1161
+            ],
+            "spans": [
+              {
+                "offset": 255,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "Registered Physiotherapist",
+            "polygon": [
+              1902,
+              1124,
+              2446,
+              1124,
+              2446,
+              1173,
+              1902,
+              1173
+            ],
+            "spans": [
+              {
+                "offset": 261,
+                "length": 26
+              }
+            ]
+          },
+          {
+            "content": "Referred by",
+            "polygon": [
+              436,
+              1165,
+              675,
+              1167,
+              675,
+              1211,
+              436,
+              1209
+            ],
+            "spans": [
+              {
+                "offset": 288,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "Dr. Kwok Man Hin",
+            "polygon": [
+              779,
+              1168,
+              1140,
+              1179,
+              1139,
+              1222,
+              778,
+              1212
+            ],
+            "spans": [
+              {
+                "offset": 300,
+                "length": 16
+              }
+            ]
+          },
+          {
+            "content": "Reg. No.",
+            "polygon": [
+              1563,
+              1196,
+              1737,
+              1196,
+              1737,
+              1240,
+              1563,
+              1240
+            ],
+            "spans": [
+              {
+                "offset": 317,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "PT004175",
+            "polygon": [
+              1903,
+              1196,
+              2107,
+              1196,
+              2107,
+              1238,
+              1903,
+              1237
+            ],
+            "spans": [
+              {
+                "offset": 326,
+                "length": 8
+              }
+            ]
+          },
+          {
+            "content": "Session Date 16 Jul 2026",
+            "polygon": [
+              424,
+              1418,
+              978,
+              1429,
+              977,
+              1474,
+              423,
+              1461
+            ],
+            "spans": [
+              {
+                "offset": 335,
+                "length": 24
+              }
+            ]
+          },
+          {
+            "content": "Next Appointment 23 Jul 2026",
+            "polygon": [
+              1128,
+              1439,
+              1757,
+              1446,
+              1756,
+              1492,
+              1128,
+              1488
+            ],
+            "spans": [
+              {
+                "offset": 360,
+                "length": 28
+              }
+            ]
+          },
+          {
+            "content": "SERVICE",
+            "polygon": [
+              353,
+              1632,
+              538,
+              1634,
+              538,
+              1669,
+              353,
+              1666
+            ],
+            "spans": [
+              {
+                "offset": 389,
+                "length": 7
+              }
+            ]
+          },
+          {
+            "content": "FEE",
+            "polygon": [
+              2468,
+              1666,
+              2547,
+              1668,
+              2546,
+              1699,
+              2467,
+              1698
+            ],
+            "spans": [
+              {
+                "offset": 397,
+                "length": 3
+              }
+            ]
+          },
+          {
+            "content": "Initial physiotherapy assessment",
+            "polygon": [
+              351,
+              1753,
+              1021,
+              1762,
+              1020,
+              1808,
+              350,
+              1800
+            ],
+            "spans": [
+              {
+                "offset": 401,
+                "length": 32
+              }
+            ]
+          },
+          {
+            "content": "HK$650.00",
+            "polygon": [
+              2318,
+              1783,
+              2544,
+              1783,
+              2544,
+              1822,
+              2318,
+              1822
+            ],
+            "spans": [
+              {
+                "offset": 434,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "Treatment: manual therapy and interferential therapy",
+            "polygon": [
+              350,
+              1892,
+              1430,
+              1908,
+              1429,
+              1958,
+              350,
+              1938
+            ],
+            "spans": [
+              {
+                "offset": 444,
+                "length": 52
+              }
+            ]
+          },
+          {
+            "content": "HK$550.00",
+            "polygon": [
+              2314,
+              1921,
+              2544,
+              1922,
+              2544,
+              1961,
+              2314,
+              1960
+            ],
+            "spans": [
+              {
+                "offset": 497,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "Total",
+            "polygon": [
+              411,
+              2161,
+              495,
+              2161,
+              495,
+              2195,
+              410,
+              2196
+            ],
+            "spans": [
+              {
+                "offset": 507,
+                "length": 5
+              }
+            ]
+          },
+          {
+            "content": "Amount Paid (FPS)",
+            "polygon": [
+              1155,
+              2168,
+              1465,
+              2170,
+              1464,
+              2207,
+              1155,
+              2205
+            ],
+            "spans": [
+              {
+                "offset": 513,
+                "length": 17
+              }
+            ]
+          },
+          {
+            "content": "Outstanding Balance",
+            "polygon": [
+              1870,
+              2175,
+              2228,
+              2180,
+              2228,
+              2221,
+              1870,
+              2218
+            ],
+            "spans": [
+              {
+                "offset": 531,
+                "length": 19
+              }
+            ]
+          },
+          {
+            "content": "HK$1,200.00",
+            "polygon": [
+              408,
+              2232,
+              832,
+              2231,
+              833,
+              2294,
+              408,
+              2294
+            ],
+            "spans": [
+              {
+                "offset": 551,
+                "length": 11
+              }
+            ]
+          },
+          {
+            "content": "HK$700.00",
+            "polygon": [
+              1151,
+              2239,
+              1499,
+              2238,
+              1499,
+              2296,
+              1151,
+              2296
+            ],
+            "spans": [
+              {
+                "offset": 563,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "HK$500.00",
+            "polygon": [
+              1872,
+              2247,
+              2223,
+              2250,
+              2223,
+              2307,
+              1871,
+              2303
+            ],
+            "spans": [
+              {
+                "offset": 573,
+                "length": 9
+              }
+            ]
+          },
+          {
+            "content": "Please settle the outstanding balance at your next appointment. Thank you.",
+            "polygon": [
+              335,
+              2431,
+              1688,
+              2440,
+              1687,
+              2483,
+              335,
+              2475
+            ],
+            "spans": [
+              {
+                "offset": 583,
+                "length": 74
+              }
+            ]
+          },
+          {
+            "content": "003738",
+            "polygon": [
+              904,
+              2737,
+              896,
+              2971,
+              852,
+              2969,
+              858,
+              2736
+            ],
+            "spans": [
+              {
+                "offset": 658,
+                "length": 6
+              }
+            ]
+          },
+          {
+            "content": "Northpoint Motion Physiotherapy Centre",
+            "polygon": [
+              318,
+              3483,
+              998,
+              3484,
+              998,
+              3526,
+              318,
+              3525
+            ],
+            "spans": [
+              {
+                "offset": 665,
+                "length": 38
+              }
+            ]
+          },
+          {
+            "content": "SAMPLE / 測試樣本",
+            "polygon": [
+              2237,
+              3613,
+              2510,
+              3618,
+              2509,
+              3651,
+              2236,
+              3644
+            ],
+            "spans": [
+              {
+                "offset": 704,
+                "length": 13
+              }
+            ]
+          }
+        ],
+        "spans": [
+          {
+            "offset": 0,
+            "length": 717
+          }
+        ]
+      }
+    ],
+    "paragraphs": [
+      {
+        "spans": [
+          {
+            "offset": 0,
+            "length": 38
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              399,
+              249,
+              1479,
+              274,
+              1476,
+              410,
+              396,
+              385
+            ]
+          }
+        ],
+        "content": "NORTHPOINT MOTION PHYSIOTHERAPY CENTRE"
+      },
+      {
+        "spans": [
+          {
+            "offset": 39,
+            "length": 79
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1934,
+              276,
+              2550,
+              281,
+              2549,
+              426,
+              1933,
+              421
+            ]
+          }
+        ],
+        "content": "Flat B, 11/F, Java Commercial Centre, 128 Java Road, North Point Tel: 2000 8452"
+      },
+      {
+        "spans": [
+          {
+            "offset": 119,
+            "length": 7
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              388,
+              629,
+              803,
+              631,
+              803,
+              704,
+              388,
+              702
+            ]
+          }
+        ],
+        "content": "RECEIPT"
+      },
+      {
+        "spans": [
+          {
+            "offset": 127,
+            "length": 45
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2089,
+              696,
+              2547,
+              702,
+              2546,
+              808,
+              2088,
+              802
+            ]
+          }
+        ],
+        "content": "Receipt No. RCP-10388 Date Issued 17 Jul 2026"
+      },
+      {
+        "spans": [
+          {
+            "offset": 173,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              439,
+              933,
+              603,
+              933,
+              603,
+              967,
+              439,
+              967
+            ]
+          }
+        ],
+        "content": "CLIENT"
+      },
+      {
+        "spans": [
+          {
+            "offset": 180,
+            "length": 15
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1567,
+              959,
+              1989,
+              963,
+              1989,
+              1000,
+              1567,
+              996
+            ]
+          }
+        ],
+        "content": "PHYSIOTHERAPIST"
+      },
+      {
+        "spans": [
+          {
+            "offset": 196,
+            "length": 4
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              441,
+              1017,
+              563,
+              1018,
+              563,
+              1055,
+              441,
+              1054
+            ]
+          }
+        ],
+        "content": "Name"
+      },
+      {
+        "spans": [
+          {
+            "offset": 201,
+            "length": 13
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              779,
+              1018,
+              1047,
+              1024,
+              1046,
+              1074,
+              778,
+              1068
+            ]
+          }
+        ],
+        "content": "Yeung Tsz Kit"
+      },
+      {
+        "spans": [
+          {
+            "offset": 215,
+            "length": 4
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1568,
+              1047,
+              1693,
+              1048,
+              1693,
+              1084,
+              1568,
+              1083
+            ]
+          }
+        ],
+        "content": "Name"
+      },
+      {
+        "spans": [
+          {
+            "offset": 220,
+            "length": 15
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1899,
+              1041,
+              2277,
+              1043,
+              2277,
+              1100,
+              1899,
+              1098
+            ]
+          }
+        ],
+        "content": "CHEUNG Hoi Ying"
+      },
+      {
+        "spans": [
+          {
+            "offset": 236,
+            "length": 10
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              438,
+              1091,
+              644,
+              1093,
+              644,
+              1134,
+              438,
+              1132
+            ]
+          }
+        ],
+        "content": "Client No."
+      },
+      {
+        "spans": [
+          {
+            "offset": 247,
+            "length": 7
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              780,
+              1096,
+              972,
+              1101,
+              971,
+              1140,
+              779,
+              1135
+            ]
+          }
+        ],
+        "content": "NM-5582"
+      },
+      {
+        "spans": [
+          {
+            "offset": 255,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1568,
+              1120,
+              1654,
+              1120,
+              1654,
+              1161,
+              1568,
+              1161
+            ]
+          }
+        ],
+        "content": "Title"
+      },
+      {
+        "spans": [
+          {
+            "offset": 261,
+            "length": 26
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1902,
+              1124,
+              2446,
+              1124,
+              2446,
+              1173,
+              1902,
+              1173
+            ]
+          }
+        ],
+        "content": "Registered Physiotherapist"
+      },
+      {
+        "spans": [
+          {
+            "offset": 288,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              436,
+              1165,
+              675,
+              1167,
+              675,
+              1211,
+              436,
+              1209
+            ]
+          }
+        ],
+        "content": "Referred by"
+      },
+      {
+        "spans": [
+          {
+            "offset": 300,
+            "length": 16
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              779,
+              1168,
+              1140,
+              1178,
+              1139,
+              1222,
+              778,
+              1212
+            ]
+          }
+        ],
+        "content": "Dr. Kwok Man Hin"
+      },
+      {
+        "spans": [
+          {
+            "offset": 317,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1563,
+              1196,
+              1737,
+              1196,
+              1737,
+              1240,
+              1563,
+              1240
+            ]
+          }
+        ],
+        "content": "Reg. No."
+      },
+      {
+        "spans": [
+          {
+            "offset": 326,
+            "length": 8
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1903,
+              1196,
+              2107,
+              1196,
+              2107,
+              1238,
+              1903,
+              1238
+            ]
+          }
+        ],
+        "content": "PT004175"
+      },
+      {
+        "spans": [
+          {
+            "offset": 335,
+            "length": 24
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              424,
+              1417,
+              978,
+              1429,
+              977,
+              1474,
+              423,
+              1462
+            ]
+          }
+        ],
+        "content": "Session Date 16 Jul 2026"
+      },
+      {
+        "spans": [
+          {
+            "offset": 360,
+            "length": 28
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1128,
+              1439,
+              1757,
+              1446,
+              1756,
+              1495,
+              1127,
+              1488
+            ]
+          }
+        ],
+        "content": "Next Appointment 23 Jul 2026"
+      },
+      {
+        "spans": [
+          {
+            "offset": 389,
+            "length": 7
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              353,
+              1632,
+              538,
+              1634,
+              538,
+              1669,
+              353,
+              1667
+            ]
+          }
+        ],
+        "content": "SERVICE"
+      },
+      {
+        "spans": [
+          {
+            "offset": 397,
+            "length": 3
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2468,
+              1666,
+              2547,
+              1668,
+              2546,
+              1700,
+              2467,
+              1698
+            ]
+          }
+        ],
+        "content": "FEE"
+      },
+      {
+        "spans": [
+          {
+            "offset": 401,
+            "length": 32
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              351,
+              1753,
+              1021,
+              1762,
+              1020,
+              1809,
+              350,
+              1800
+            ]
+          }
+        ],
+        "content": "Initial physiotherapy assessment"
+      },
+      {
+        "spans": [
+          {
+            "offset": 434,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2318,
+              1783,
+              2544,
+              1783,
+              2544,
+              1822,
+              2318,
+              1822
+            ]
+          }
+        ],
+        "content": "HK$650.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 444,
+            "length": 52
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              350,
+              1892,
+              1430,
+              1908,
+              1429,
+              1958,
+              349,
+              1942
+            ]
+          }
+        ],
+        "content": "Treatment: manual therapy and interferential therapy"
+      },
+      {
+        "spans": [
+          {
+            "offset": 497,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2314,
+              1921,
+              2544,
+              1922,
+              2544,
+              1961,
+              2314,
+              1960
+            ]
+          }
+        ],
+        "content": "HK$550.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 507,
+            "length": 5
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              410,
+              2161,
+              495,
+              2161,
+              495,
+              2196,
+              410,
+              2196
+            ]
+          }
+        ],
+        "content": "Total"
+      },
+      {
+        "spans": [
+          {
+            "offset": 513,
+            "length": 17
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1155,
+              2168,
+              1465,
+              2170,
+              1465,
+              2207,
+              1155,
+              2205
+            ]
+          }
+        ],
+        "content": "Amount Paid (FPS)"
+      },
+      {
+        "spans": [
+          {
+            "offset": 531,
+            "length": 19
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1870,
+              2175,
+              2228,
+              2178,
+              2228,
+              2221,
+              1870,
+              2218
+            ]
+          }
+        ],
+        "content": "Outstanding Balance"
+      },
+      {
+        "spans": [
+          {
+            "offset": 551,
+            "length": 11
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              408,
+              2231,
+              833,
+              2231,
+              833,
+              2294,
+              408,
+              2294
+            ]
+          }
+        ],
+        "content": "HK$1,200.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 563,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1151,
+              2238,
+              1499,
+              2238,
+              1499,
+              2296,
+              1151,
+              2296
+            ]
+          }
+        ],
+        "content": "HK$700.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 573,
+            "length": 9
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              1872,
+              2246,
+              2224,
+              2250,
+              2223,
+              2307,
+              1871,
+              2303
+            ]
+          }
+        ],
+        "content": "HK$500.00"
+      },
+      {
+        "spans": [
+          {
+            "offset": 583,
+            "length": 74
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              335,
+              2431,
+              1688,
+              2440,
+              1688,
+              2484,
+              335,
+              2475
+            ]
+          }
+        ],
+        "content": "Please settle the outstanding balance at your next appointment. Thank you."
+      },
+      {
+        "spans": [
+          {
+            "offset": 658,
+            "length": 6
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              858,
+              2735,
+              904,
+              2737,
+              896,
+              2971,
+              850,
+              2969
+            ]
+          }
+        ],
+        "content": "003738"
+      },
+      {
+        "spans": [
+          {
+            "offset": 665,
+            "length": 38
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              318,
+              3483,
+              998,
+              3484,
+              998,
+              3526,
+              318,
+              3525
+            ]
+          }
+        ],
+        "content": "Northpoint Motion Physiotherapy Centre"
+      },
+      {
+        "spans": [
+          {
+            "offset": 704,
+            "length": 13
+          }
+        ],
+        "boundingRegions": [
+          {
+            "pageNumber": 1,
+            "polygon": [
+              2237,
+              3611,
+              2510,
+              3618,
+              2509,
+              3651,
+              2236,
+              3644
+            ]
+          }
+        ],
+        "content": "SAMPLE / 測試樣本"
+      }
+    ],
+    "styles": [],
+    "contentFormat": "text"
+  },
+  "reused_from": "results/v2/di_aoai/di_response"
+}
