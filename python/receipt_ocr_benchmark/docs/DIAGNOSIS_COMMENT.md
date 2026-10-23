@@ -87,10 +87,34 @@ Other checks:
   design.
 - **Unreadable pages:** PaddleOCR Heavy's two blank pages give `needs_review`.
 
-### AOAI
+### AOAI (Azure ML, Oct 2026)
 
-Not run yet: it needs Azure. Run this on Azure ML; it makes 13 AOAI calls and no DI calls, and
-commits the results:
+Results are in `results/diagnosis/{v2,v1}/aoai_v2_rows/` and `results/diagnosis/scores/`. All 13
+runs ended with status "ok".
+
+**Diagnosis:** 13/13 correct, with 0 needs review, 0 false present and 0 false missing. The
+evidence check downgraded none of the model's answers.
+
+| Receipt with a comment | Rules evidence | AOAI evidence |
+|---|---|---|
+| V2 9 | `Diagnosis: Colitis`, `Symptoms: diarrhoea.` | `Diagnosis: \| Colitis` |
+| V1 1 | NOTES: `patient is severely injured` | `broken ribs.`, the unlabelled line item |
+| V1 3 | `Notes: Back pain need water.` | `Notes: \| Back pain need water.` |
+
+On V1 1, AOAI found the condition written as a line item, which the rules cannot see. The rules
+reached the same answer through the NOTES comment, so no receipt here separates the two methods.
+
+**The six fields are unchanged:**
+- Version 2: identical predictions on every receipt and field (49/51, 96.1%).
+- Version 1 receipts 1, 2, 3, 5: identical predictions.
+
+A plain rescore of the Version 1 folder shows 11/25 only because receipts 4 and 6 (= V2 9 and 10)
+were not run.
+
+**Cost:** about +26% input tokens and +25% output tokens per receipt (Version 2: 1,211 vs 962
+input), and about +0.4 s per receipt.
+
+Script used (13 AOAI calls, no DI calls):
 
 ```bash
 git pull --ff-only && bash python/receipt_ocr_benchmark/scripts/aoai_diagnosis_on_azure.sh
@@ -125,5 +149,12 @@ python -m receipt_bench.diagnosis_cli score --ground-truth data/diagnosis/ground
   - values sit to the right (within 6 line heights) or on the next line;
   - the "unreadable" threshold is a fixed 10 OCR text blocks;
   - multi-page receipts: only page 1 is read, as with the six fields.
-- **Next:** build a labelled test set of real, anonymised receipts with a present/missing column,
-  and run the AOAI script before choosing between the two methods.
+- **AOAI's 13/13 is also a development score.** DIAGNOSIS_NOTE was written after reading these
+  receipts, and the same 3 positives are labelled, so they are easy cases for both methods.
+- **Recommendation (Oct 2026):** use the rules as the default, because they are free, offline and
+  work with either OCR engine. Keep AOAI as an optional second opinion where DI + AOAI already
+  runs for the six fields, since the extra cost is small. Decide on a real test set: if
+  unlabelled comments are common, rely on AOAI for those cases.
+- **Next:** build a labelled set of real, anonymised receipts with a present/missing column. Include
+  unlabelled comments, Chinese diagnoses and remarks mixing administrative and medical words. Then
+  rescore both methods with no prompt or rule changes.
