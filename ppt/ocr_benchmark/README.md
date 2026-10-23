@@ -8,6 +8,7 @@ additional cost and complexity compared with simpler OCR solutions?**
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
 | **Version 3 (current)**, 10 slides | `current/OCR_Benchmark_V3.pptx` | `scripts/generate_ppt_v3.py` | `results/v2/scores_improved/` and `scores_aoai_improved/` (summary, detail), `results/v1_heldout/`, `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
+| Version 3, first revision (archived): no rule accuracy figures | `archive/v3_first/OCR_Benchmark_V3.pptx` (+ PDF preview) | `scripts/generate_ppt_v3.py` at commit `3678fd9` | Same as Version 3 |
 | Version 2, final 10-slide deck (archived) | `archive/v2_final/OCR_Benchmark_V2.pptx` (+ PDF preview) | `scripts/generate_ppt_v2.py` (unchanged) | `results/v2/scores_improved/` (summary, detail), `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
 | Version 2, 10-slide revision before the slide 9 rewrite (archived; as last saved in PowerPoint) | `archive/v2_10slides/OCR_Benchmark_V2.pptx` (+ PDF preview) | `scripts/generate_ppt_v2.py` at commit `dbec587` | Same as Version 2 |
 | Version 2, 9-slide revision (archived) | `archive/v2_9slides/OCR_Benchmark_V2.pptx` (+ PDF preview) | `scripts/generate_ppt_v2.py` at commit `5e11b39` | Same as Version 2 |
@@ -35,24 +36,29 @@ is typed in by hand.
 | `archive/v2_8slides/` | The 8-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_9slides/` | The 9-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_10slides/` | The 10-slide revision before the slide 9 rewrite, and its PDF preview |
+| `archive/v3_first/` | The first Version 3 revision (rule accuracy not shown) and its PDF preview |
 | `archive/v2_final/` | The final Version 2 deck (with PaddleOCR Heavy and the tuned rule accuracies) and its PDF preview |
 | `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py` and `generate_ppt_v3.py` (identical) |
 | `scripts/` | The generators |
 
 ## Version 3: what changed from Version 2
 
-Version 3 cleans up the presentation; the OCR code, results and ground truth are unchanged.
-- **PaddleOCR Heavy removed** everywhere (discontinued in October 2026).
-- **No accuracy percentage for extraction rules.** The original rules (37.3% / 41.2%) had no Chinese
-  labels, so they are not a fair measure of OCR + rules; the improved rules (88.2% / 86.3%) were tuned
-  on these receipts. Rules are compared on effort, maintenance and handling new layouts instead.
-- **AOAI:** 88.2% with the original prompt (written before these receipts) is the accuracy figure.
-  96.1% (prompt v2) is shown only as a development result, labelled as tuned on these receipts.
-- **Held-out Version 1 check** added to slides 3, 6 and 8: neither the rule tuning nor prompt v2
-  gained anything on unseen receipts. It is not used to rank the approaches.
+Version 3 tells the story in two steps; the OCR code, results and ground truth are unchanged.
+- **Slide 3, Initial Results:** every approach before any tuning on the nine Version 2 receipts
+  (PaddleOCR Light + rules 37.3%, Azure DI + rules 41.2%, Azure DI + AOAI 88.2%). The original rules
+  had no Chinese labels, so this compares initial implementations, not maximum capability.
+- **Slide 4, How We Improved Accuracy:** one table of what was changed in each approach, the resulting
+  development scores (88.2%, 86.3%, AOAI prompt v2 96.1%) and fields fixed / broken (rules +27/−1 and
+  +24/−1, prompt +4/−0), plus the effort of changing rules vs a prompt. Labelled as development results,
+  not independent validation.
+- **Later slides do not repeat these figures.** The "AOAI replaces the rule layer" diagram was dropped
+  (slide 2 already shows the two steps); slides 8–10 focus on effort, maintenance and new layouts.
+- **The small held-out Version 1 check** is mentioned only in the speaker notes, and is not used to say
+  that either approach generalises better.
+- **PaddleOCR Heavy is removed everywhere** (discontinued in October 2026).
 
-`scripts/check_deck_v3.py` enforces these rules: no Heavy, no rule accuracy, and 96.1% only on slides
-that label it.
+`scripts/check_deck_v3.py` enforces: no Heavy; original rule figures only on a slide that explains the
+missing Chinese support; 86.3% and 96.1% only on a slide that calls them development results.
 
 ## Generate the Version 3 deck
 

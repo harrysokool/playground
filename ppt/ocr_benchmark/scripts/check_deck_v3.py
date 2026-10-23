@@ -4,11 +4,12 @@
 
 Checks:
 - 10 slides, every slide has speaker notes;
-- PaddleOCR Heavy appears nowhere (slides or notes);
-- no extraction-rule accuracy percentage appears (slides or notes); because the original AOAI result
-  has the same value as one rule result (88.2%), a slide paragraph with that figure must not mention rules;
-- the original AOAI accuracy and time appear, and the prompt v2 accuracy appears only on slides that
-  call it tuned / a development result.
+- PaddleOCR Heavy and its accuracy figures appear nowhere (slides or notes);
+- the initial results (original rules 37.3% / 41.2%, AOAI 88.2%) appear, and a slide showing an original
+  rule figure also explains the missing Chinese support;
+- the development results (improved rules 88.2% / 86.3%, AOAI prompt v2 96.1%) appear, and a slide showing
+  86.3% or 96.1% also calls them development results;
+- the AOAI time appears.
 Writes previews/deck_text.md (all slide text and notes). Exits non-zero on failure.
 """
 import csv
@@ -31,7 +32,9 @@ SUM, SUM_V2 = summary(RES / "scores_improved" / "summary.csv"), summary(RES / "s
 pct = lambda r: f"{float(r['accuracy_pct']):.1f}%"  # noqa: E731
 AOAI_PCT, AOAI_V2_PCT = pct(SUM["azure_di_aoai"]), pct(SUM_V2["aoai_v2_rows"])
 AOAI_SECS = f"{int(SUM['azure_di_aoai']['mean_ms_per_receipt']) / 1000:.1f} s"
-RULE_PCTS = {pct(r) for a, r in SUM.items() if a != "azure_di_aoai"}  # rules, incl. historical Heavy rows
+INITIAL = {pct(SUM[a]) for a in ("paddle_light_general", "azure_di_general")}
+DEVELOPMENT = {pct(SUM[a]) for a in ("paddle_light_improved", "azure_di_improved")} | {AOAI_V2_PCT}
+HEAVY = {pct(r) for a, r in SUM.items() if "heavy" in a} - INITIAL - DEVELOPMENT - {AOAI_PCT}
 
 prs = Presentation(DECK)
 problems, out = [], [f"# {DECK.name}: text and notes\n"]
@@ -57,19 +60,16 @@ for i, s in enumerate(prs.slides, 1):
     if not notes.strip():
         problems.append(f"slide {i}: no speaker notes")
     for where, t in (("slide", slide_text), ("notes", notes)):
-        if "heavy" in t.lower():
-            problems.append(f"slide {i} {where}: mentions PaddleOCR Heavy")
-        for p in RULE_PCTS - {AOAI_PCT}:
-            if p in t:
-                problems.append(f"slide {i} {where}: shows rule accuracy {p}")
-    for p in paras:
-        if AOAI_PCT in p and "rule" in p.lower():
-            problems.append(f"slide {i}: {AOAI_PCT} next to rules in {p!r}")
-    if AOAI_V2_PCT in slide_text and not any(w in slide_text.lower() for w in ("tuned", "development")):
-        problems.append(f"slide {i}: {AOAI_V2_PCT} without a tuned / development label")
+        if "heavy" in t.lower() or any(p in t for p in HEAVY):
+            problems.append(f"slide {i} {where}: mentions PaddleOCR Heavy or its results")
+    low = slide_text.lower()
+    if any(p in slide_text for p in INITIAL) and "chinese" not in low:
+        problems.append(f"slide {i}: original rule accuracy without the missing Chinese support explained")
+    if any(p in slide_text for p in DEVELOPMENT - {AOAI_PCT}) and "development" not in low:
+        problems.append(f"slide {i}: development result without a development label")
 
 joined = "\n".join(all_slide_text)
-for needed in (AOAI_PCT, AOAI_V2_PCT, AOAI_SECS):
+for needed in sorted(INITIAL | DEVELOPMENT | {AOAI_PCT, AOAI_SECS}):
     if needed not in joined:
         problems.append(f"{needed} not found in slide text")
 
@@ -77,5 +77,5 @@ for needed in (AOAI_PCT, AOAI_V2_PCT, AOAI_SECS):
 (PROJECT / "previews" / "deck_text.md").write_text("\n".join(out) + "\n")
 if problems:
     sys.exit("Deck check FAILED:\n- " + "\n- ".join(problems))
-print(f"Deck check passed: {len(prs.slides)} slides; no Heavy, no rule accuracy; AOAI {AOAI_PCT} and labelled "
-      f"{AOAI_V2_PCT} present; text in previews/deck_text.md")
+print(f"Deck check passed: {len(prs.slides)} slides; no Heavy; initial {sorted(INITIAL | {AOAI_PCT})} and "
+      f"development {sorted(DEVELOPMENT)} results present and labelled; text in previews/deck_text.md")
