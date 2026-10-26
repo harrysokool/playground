@@ -4,6 +4,7 @@ Usage:
     python -m receipt_bench.extract_cli --input results/paddle_light --output results/paddle_light_extracted
     python -m receipt_bench.extract_cli --rules tuned --input results/paddle_light --output results/extracted_tuned_light
     python -m receipt_bench.extract_cli --rules general --input results/paddle_light --output results/extracted_general_light
+    python -m receipt_bench.extract_cli --rules multilingual --input results/v2/paddle_light --output results/v2/extracted_multilingual_light
 """
 
 from __future__ import annotations
@@ -16,6 +17,7 @@ from pathlib import Path
 from receipt_bench.extraction import extract_receipt
 from receipt_bench.extraction_general import extract_receipt_general
 from receipt_bench.extraction_improved import extract_receipt_improved
+from receipt_bench.extraction_multilingual import extract_receipt_multilingual
 from receipt_bench.extraction_tuned import extract_receipt_tuned
 from receipt_bench.raw_ocr import RawOCRResult
 
@@ -26,15 +28,16 @@ def main() -> None:
     parser.add_argument("--output", required=True, type=Path, help="Directory to write extracted JSON to.")
     parser.add_argument(
         "--rules",
-        choices=["baseline", "tuned", "general", "improved"],
+        choices=["baseline", "tuned", "general", "improved", "multilingual"],
         default="baseline",
         help="baseline = Phase 3 first-pass rules; tuned = Phase 3b rules deliberately overfit to the sample layouts; "
         "general = Phase 3c reusable rules with no layout knowledge; "
-        "improved = Phase 10 rules tuned on the Version 2 receipts (Chinese/bilingual labels, distractors).",
+        "improved = Phase 10 rules tuned on the Version 2 receipts (Chinese/bilingual labels, distractors); "
+        "multilingual = general rules + common Chinese label translations (retrospective baseline).",
     )
     args = parser.parse_args()
     extract = {"baseline": extract_receipt, "tuned": extract_receipt_tuned, "general": extract_receipt_general,
-               "improved": extract_receipt_improved}[args.rules]
+               "improved": extract_receipt_improved, "multilingual": extract_receipt_multilingual}[args.rules]
 
     files = sorted(args.input.glob("*.json"))
     if not files:
