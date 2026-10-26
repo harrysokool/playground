@@ -1,4 +1,4 @@
-# OCR_Benchmark_V5.pptx: text, chart data and notes
+# OCR_Benchmark_V6.pptx: text, chart data and notes
 
 
 ## Slide 1
@@ -14,15 +14,15 @@
 - ‹#›
 - Rules are enough for simple, clearly labelled checks, not as a general replacement for AOAI.
 - Not as a general replacement. / Rules work for simple, clearly labelled checks. / AOAI reduces the case-by-case logic we must write, and could unlock richer medical data.
-- 88.2% vs 37.3–41.2%
-- First versions: AOAI far ahead. The first rules had no Chinese support.
+- 88.2% vs 51.0–70.6%
+- Even with Chinese labels added (retrospective), rules trailed AOAI. The English-only first rules: 37.3–41.2%.
 - 96.1% (development)
 - Clearer prompt instructions fixed four more fields. Not yet independently validated.
 - Less logic to maintain
 - Rules must anticipate every label, language and layout. AOAI works from plain-language instructions.
 - Small benchmark: 9 receipts. Development results are not independent validation.
 
-  Notes: Initial implementations: rules 37.3–41.2%, AOAI 88.2% (the first rules had no Chinese labels). Prompt v2: 96.1%, a development result. Rules must anticipate each new label, language and layout in code; AOAI follows plain-language instructions, which often cover varied wording, though this is not guaranteed for unseen layouts. Extra medical fields are potential, not yet benchmarked. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
+  Notes: Initial implementations: rules 37.3–41.2%, AOAI 88.2% (the first rules had no Chinese labels). With common Chinese labels added (retrospective baseline): rules 51.0–70.6%. Prompt v2: 96.1%, a development result. Rules must anticipate each new label, language and layout in code; AOAI follows plain-language instructions, which often cover varied wording, though this is not guaranteed for unseen layouts. Extra medical fields are potential, not yet benchmarked. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
 ## Slide 3
 
@@ -52,16 +52,16 @@
 
 ## Slide 4
 
-- Initial Results: AOAI Was Far Ahead
+- Initial Results and a Fairer Rules Baseline
 - ‹#›
 - MEASURED · BEFORE TUNING
-- First versions of each approach, before anything was changed for these receipts.
-  chart 'Accuracy': PaddleOCR Light + rules 19/51=37.3, Azure DI + rules 21/51=41.2, Azure DI + AOAI 45/51=88.2
-- Why the rules scored low / The first rules knew English labels only: no Chinese or bilingual labels. / So this compares initial implementations, not the best each can do.
-- The OCR read the name 蔡嘉穎. / The first rules returned the label 病人 ("patient") instead.
-- Accuracy = correct fields out of 51 on 9 receipts. Receipt shown: bilingual medical centre receipt.
+- Even with Chinese labels added, rules trailed AOAI: 51.0–70.6% vs 88.2%.
+  chart 'Accuracy': PaddleOCR Light English only 19/51=37.3, PaddleOCR Light + Chinese* 26/51=51.0, Azure DI English only 21/51=41.2, Azure DI + Chinese* 36/51=70.6, Azure DI + AOAI 45/51=88.2
+- Why the first rules scored low / English labels only: no Chinese or bilingual labels. / The OCR read 蔡嘉穎; the rules returned the label 病人.
+- With Chinese labels (retrospective*) / Common Chinese labels and basic bilingual handling: +15 fields on Azure DI, none broken. / The rest would need new label types, layout logic and OCR-tolerant matching.
+- * Retrospective: Chinese labels added after these receipts were examined (rules fixed before scoring); not an independent test. Accuracy = correct fields out of 51 on 9 receipts.
 
-  Notes: Accuracy = correct fields / 51 on the 9 receipts. The AOAI prompt was written before these receipts existed. The original rules knew English labels only; on the Chinese and bilingual receipts the OCR read the values but the rules could not find them, e.g. the OCR read the patient name 蔡嘉穎 and the rules returned the label 病人 ('patient'). So this compares initial implementations, not the best possible performance of each approach. The rules were later adapted by hand to these receipts; that accuracy is not shown because it says nothing about new formats. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
+  Notes: Accuracy = correct fields / 51 on the 9 receipts. The AOAI prompt was written before these receipts existed. The first rules knew English labels only (37.3–41.2%); on the Chinese and bilingual receipts the OCR read the values but the rules could not find them (e.g. the patient name 蔡嘉穎 was returned as the label 病人). The multilingual baseline adds common Traditional and Simplified Chinese translations of the existing labels and basic bilingual handling, nothing else (docs/MULTILINGUAL_BASELINE.md, committed before scoring). It fixed 7 fields on PaddleOCR Light and 15 on Azure DI and broke none. Remaining rule errors need new label types, labels inside lines, layout logic or OCR-tolerant matching; PaddleOCR Light gained less because its OCR glues words and mixes characters in bilingual labels. Retrospective: Chinese labels added after these receipts were examined (rules fixed before scoring); not an independent test. The rules tuned later on these receipts are not shown because that says nothing about new formats. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
 ## Slide 5
 
@@ -114,14 +114,14 @@
   |  | OCR + rules | Azure DI + AOAI | Evidence |
   | Cost | + PaddleOCR: own compute, no API fee (Azure DI: page fee) | − Azure DI page fee + ~602 input / 263 output tokens per receipt | Prices to confirm |
   | Speed | PaddleOCR 13.9 s (CPU) · Azure DI 3.8 s | 6.2 s per receipt | Measured |
-  | Accuracy | − First versions 37.3–41.2% (no Chinese support) | + 88.2% first; 96.1% with prompt v2 (development) | Measured |
+  | Accuracy | − 37.3–41.2% English only; 51.0–70.6% with Chinese labels (retrospective) | + 88.2% first; 96.1% with prompt v2 (development) | Measured |
   | Maintenance | − New labels, languages and layouts need code and a full retest | + Many changes made in plain-language instructions; still retest | Measured / expected |
   | Flexibility | − Finds only what it was written for | + New fields can be requested in the prompt (not yet benchmarked) | Expected |
   | Auditability | + Every result traceable to a rule | − Harder to explain; keep quoted evidence and logs | Expected |
   | Reliability | + Same input, same output | − Can return a confident wrong value (e.g. a sub total as the total); model updates need retesting | Measured / expected |
 - Green = stronger side. First versions = before tuning; the first rules had no Chinese labels. Expected = not measured here.
 
-  Notes: Measured: initial accuracy (rules 37.3–41.2%, AOAI 88.2%; prompt v2 96.1%, development result); speed per receipt (PaddleOCR Light 13.9 s on Azure ML CPU, Azure DI 3.8 s, Azure DI + AOAI 6.2 s incl. network); AOAI tokens per receipt with the original prompt (602 input, 263 output); rule effort (69 -> 225 label phrases) and the vet invoice sub-total error. Prices are not confirmed. Flexibility, auditability and model-update effects are expectations. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
+  Notes: Measured: initial accuracy (rules 37.3–41.2%, 51.0–70.6% with Chinese labels in the retrospective baseline; AOAI 88.2%; prompt v2 96.1%, development result); speed per receipt (PaddleOCR Light 13.9 s on Azure ML CPU, Azure DI 3.8 s, Azure DI + AOAI 6.2 s incl. network); AOAI tokens per receipt with the original prompt (602 input, 263 output); rule effort (69 -> 225 label phrases) and the vet invoice sub-total error. Prices are not confirmed. Flexibility, auditability and model-update effects are expectations. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
 ## Slide 8
 
@@ -148,12 +148,12 @@
 - ‹#›
 - The direction is clear, but the numbers are not yet proof.
 - 1 / Small dataset / 9 receipts, 51 fields. 7 are printed test receipts.
-- 2 / First rules lacked Chinese / The initial gap (37.3–41.2% vs 88.2%) overstates what rules can do.
+- 2 / First rules lacked Chinese / With Chinese labels added, rules reached 51.0–70.6% (retrospective, not an independent test).
 - 3 / Tuned on the same receipts / Prompt v2's 96.1% is a development result. Tuned rule scores are not shown.
 - 4 / Little independent validation / Only 4 unseen handwritten receipts. On all 4, Azure DI misread the year 2026 as 2020.
 - 5 / Costs not confirmed / Token counts are measured; Document Intelligence and gpt-5-mini prices are not.
 
-  Notes: 9 receipts and 51 fields; 7 are printed, fictional test receipts. The original rules had no Chinese labels, so the initial gap overstates what rules can do. Prompt v2 (and the rules) were tuned on the same receipts; the tuned rule accuracy is not shown for that reason, and 96.1% is a development result. Unseen test: only 4 handwritten Version 1 receipts were not used for tuning; on all 4, Azure DI read the handwritten year 2026 as 2020 (results/v1_heldout), an OCR error no extraction step can fix. Prices are not confirmed. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
+  Notes: 9 receipts and 51 fields; 7 are printed, fictional test receipts. The original rules had no Chinese labels, so the initial gap overstates what rules can do; with common Chinese labels added (retrospective baseline, rules fixed before scoring but written after these receipts were examined) they reached 51.0–70.6%. Prompt v2 (and the rules) were tuned on the same receipts; the tuned rule accuracy is not shown for that reason, and 96.1% is a development result. Unseen test: only 4 handwritten Version 1 receipts were not used for tuning; on all 4, Azure DI read the handwritten year 2026 as 2020 (results/v1_heldout), an OCR error no extraction step can fix. Prices are not confirmed. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
 ## Slide 10
 

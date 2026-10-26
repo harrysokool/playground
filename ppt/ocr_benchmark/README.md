@@ -7,7 +7,8 @@ additional cost and complexity compared with simpler OCR solutions?**
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 5 (current)**, 10 slides | `current/OCR_Benchmark_V5.pptx` | `scripts/generate_ppt_v5.py` | `results/v2/scores_improved/` and `scores_aoai_improved/`, `results/v1_heldout/`, `results/diagnosis/`, `results/v2/*/receiptN.json`, `receipt_bench/di_aoai.py` (prompt text) |
+| **Version 6 (current)**, 10 slides | `current/OCR_Benchmark_V6.pptx` | `scripts/generate_ppt_v6.py` | As Version 5, plus `results/v2/scores_multilingual/` |
+| Version 5, 10-slide management version (archived) | `archive/v5_final/OCR_Benchmark_V5.pptx` (+ PDF preview) | `scripts/generate_ppt_v5.py` (unchanged) | `results/v2/scores_improved/` and `scores_aoai_improved/`, `results/v1_heldout/`, `results/diagnosis/`, `results/v2/*/receiptN.json`, `receipt_bench/di_aoai.py` (prompt text) |
 | Version 4, 12-slide redesign (archived) | `archive/v4_final/OCR_Benchmark_V4.pptx` (+ PDF preview) | `scripts/generate_ppt_v4.py` (unchanged) | `results/v2/scores_improved/` and `scores_aoai_improved/`, `results/v1_heldout/`, `results/diagnosis/`, `data/diagnosis/`, `results/v2/*/receiptN.json`, `receipt_bench/di_aoai.py` (prompt text) |
 | Version 3, final 12-slide deck (archived) | `archive/v3_final/OCR_Benchmark_V3.pptx` (+ PDF preview) | `scripts/generate_ppt_v3.py` (unchanged) | `results/v2/scores_improved/` and `scores_aoai_improved/` (summary, detail), `results/v1_heldout/`, `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
 | Version 3, 10-slide revision before the field and prompt v2 slides (archived) | `archive/v3_10slides/OCR_Benchmark_V3.pptx` (+ PDF preview) | `scripts/generate_ppt_v3.py` at commit `c06d945` | Same as Version 3 |
@@ -32,20 +33,48 @@ is typed in by hand.
 | Folder | Contents |
 |---|---|
 | `template/` | Official AIA PowerPoint template (`aia_ppt_template.pptx`). Do not edit. |
-| `current/` | The current deck (Version 5) |
+| `current/` | The current deck (Version 6) |
 | `previews/` | PDF and PNG previews of the current deck |
 | `archive/v1/` | The frozen Version 1 deck and its preview. Never written to by the generators. |
 | `archive/v2_12slides/` | The first, 12-slide Version 2 deck and its PDF preview, kept for reference |
 | `archive/v2_8slides/` | The 8-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_9slides/` | The 9-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_10slides/` | The 10-slide revision before the slide 9 rewrite, and its PDF preview |
+| `archive/v5_final/` | The 10-slide Version 5 deck and its PDF preview |
 | `archive/v4_final/` | The 12-slide Version 4 deck and its PDF preview |
 | `archive/v3_final/` | The final 12-slide Version 3 deck and its PDF preview |
 | `archive/v3_10slides/` | The 10-slide Version 3 revision and its PDF preview |
 | `archive/v3_first/` | The first Version 3 revision (rule accuracy not shown) and its PDF preview |
 | `archive/v2_final/` | The final Version 2 deck (with PaddleOCR Heavy and the tuned rule accuracies) and its PDF preview |
-| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py` and `generate_ppt_v5.py` (identical) |
+| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py` and `generate_ppt_v6.py` (identical) |
 | `scripts/` | The generators |
+
+## Version 6: Version 5 plus the multilingual rules baseline
+
+The same 10 slides as Version 5. Slide 4, "Initial Results and a Fairer Rules Baseline", now shows the
+retrospective multilingual rules baseline (`python/receipt_ocr_benchmark/docs/MULTILINGUAL_BASELINE.md`)
+next to the first, English-only rules. The baseline is the original rules plus common Chinese labels,
+fixed before scoring:
+
+| | English-only rules | With Chinese labels (retrospective) | AOAI, original prompt |
+|---|---|---|---|
+| PaddleOCR Light | 37.3% | 51.0% | |
+| Azure DI | 41.2% | 70.6% | 88.2% |
+
+Every slide that shows these figures labels them as retrospective: the labels were added after these
+receipts were examined, so they are not an independent test. The answer, pros and cons, and limitations
+slides cite the baseline too.
+
+`scripts/check_deck_v6.py` = the Version 5 checks, plus: chart values may also be the baseline figures,
+and a slide showing them must say "retrospective".
+
+```bash
+python3 ppt/ocr_benchmark/scripts/generate_ppt_v6.py --force
+python3 ppt/ocr_benchmark/scripts/check_deck_v6.py
+```
+
+`scripts/build_v6_on_azure.sh` does the same on Azure ML compute. The Version 5 generator and check are
+kept unchanged to reproduce the archived Version 5 deck.
 
 ## Version 5: the management version (10 slides)
 
@@ -75,7 +104,7 @@ python3 ppt/ocr_benchmark/scripts/generate_ppt_v5.py --force
 python3 ppt/ocr_benchmark/scripts/check_deck_v5.py
 ```
 
-`scripts/build_v5_on_azure.sh` does the same on Azure ML compute, then commits and pushes. The Version 4
+The Version 4
 generator and check are kept unchanged to reproduce the archived Version 4 deck.
 
 ## Version 4: a redesign around one question
@@ -150,9 +179,9 @@ These need LibreOffice and Poppler:
 
 ```bash
 cd ppt/ocr_benchmark
-soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V5.pptx
-mv previews/OCR_Benchmark_V5.pdf previews/OCR_Benchmark_V5_preview.pdf
-pdftoppm -png -r 80 previews/OCR_Benchmark_V5_preview.pdf previews/slide
+soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V6.pptx
+mv previews/OCR_Benchmark_V6.pdf previews/OCR_Benchmark_V6_preview.pdf
+pdftoppm -png -r 80 previews/OCR_Benchmark_V6_preview.pdf previews/slide
 ```
 
 LibreOffice may substitute fonts, so the preview is for review. PowerPoint renders Arial and
