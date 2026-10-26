@@ -1,0 +1,33 @@
+{
+  "document_id": "receipt5",
+  "doctor_name": null,
+  "registration_number": "D03158",
+  "patient_name": "馮浩霖",
+  "receipt_number": "DEN-77342",
+  "service_date": "2026-06-27",
+  "total_amount": 1750.0,
+  "sources": {
+    "registration_number": "Reg. No. 註冊編號: | D03158",
+    "patient_name": "Patient 病人: | 馮浩霖",
+    "receipt_number": "Receipt No. 收據編號:DEN-77342",
+    "service_date": "Treatment Date 治療日期: | 27/06/2026",
+    "total_amount": "1,750.00"
+  },
+  "rules": {
+    "registration_number": "label 'reg. no' (right)",
+    "patient_name": "label 'patient' (right)",
+    "receipt_number": "label 'receipt no' (same block)",
+    "service_date": "label 'treatment date' (right), numeric",
+    "total_amount": "unlabelled column sum of 3 amounts above"
+  },
+  "validations": [
+    "total_amount: 650.00 + 300.00 + 800.00 == 1,750.00"
+  ],
+  "warnings": [
+    "doctor_name: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 3546.8465279991506,
+    "extract_ms": 8.731834000172967
+  }
+}

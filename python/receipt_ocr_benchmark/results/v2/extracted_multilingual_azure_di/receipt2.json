@@ -1,0 +1,33 @@
+{
+  "document_id": "receipt2",
+  "doctor_name": "Dr. Ng Chun Yip",
+  "registration_number": null,
+  "patient_name": "Ho Siu Ming",
+  "receipt_number": "SC2026/01593",
+  "service_date": "2026-04-22",
+  "total_amount": 1880.0,
+  "sources": {
+    "doctor_name": "ATTENDING DOCTOR | Dr. Ng Chun Yip",
+    "patient_name": "Patient: | Ho Siu Ming",
+    "receipt_number": "Receipt No. | SC2026/01593",
+    "service_date": "Consultation Date | 22 April 2026",
+    "total_amount": "HK$1,880.00"
+  },
+  "rules": {
+    "doctor_name": "label 'attending doctor' (below)",
+    "patient_name": "label 'patient' (right)",
+    "receipt_number": "label 'receipt no' (right)",
+    "service_date": "label 'consultation date' (right), textual",
+    "total_amount": "unlabelled column sum of 2 amounts above"
+  },
+  "validations": [
+    "total_amount: 1,200.00 + 680.00 == HK$1,880.00"
+  ],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 5700.038324001071,
+    "extract_ms": 8.727792000172485
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "document_id": "receipt4",
+  "doctor_name": null,
+  "registration_number": null,
+  "patient_name": "麥詠琳",
+  "receipt_number": "Y2605117",
+  "service_date": "2026-06-09",
+  "total_amount": 790.0,
+  "sources": {
+    "patient_name": "病人姓名 | 麥詠琳",
+    "receipt_number": "收據編號:Y2605117",
+    "service_date": "診症日期 | 2026年6月9日",
+    "total_amount": "合計 | 港幣 $790.00"
+  },
+  "rules": {
+    "patient_name": "label '病人姓名' (right)",
+    "receipt_number": "label '收據編號' (same block)",
+    "service_date": "label '診症日期' (right), chinese",
+    "total_amount": "total: label '合計' (right)"
+  },
+  "validations": [
+    "total_amount: labelled amounts {'total': 790.0}"
+  ],
+  "warnings": [
+    "doctor_name: no label or reusable pattern produced a confident value",
+    "registration_number: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 2767.6092440015054,
+    "extract_ms": 8.932791999541223
+  }
+}

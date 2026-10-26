@@ -1,0 +1,33 @@
+{
+  "document_id": "receipt1",
+  "doctor_name": "Dr. Tsang Hoi Lam",
+  "registration_number": null,
+  "patient_name": "Leung Wai Kei",
+  "receipt_number": "HFC-260314-0087",
+  "service_date": "2026-03-14",
+  "total_amount": 550.0,
+  "sources": {
+    "doctor_name": "DOCTOR | Dr. Tsang Hoi Lam",
+    "patient_name": "Patient Name: Leung Wai Kei",
+    "receipt_number": "Receipt No.: | HFC-260314-0087",
+    "service_date": "Date: | 14/03/2026",
+    "total_amount": "HK$550.00"
+  },
+  "rules": {
+    "doctor_name": "label 'doctor' (below)",
+    "patient_name": "label 'patient name' (same block)",
+    "receipt_number": "label 'receipt no' (right)",
+    "service_date": "label 'date' (right), numeric",
+    "total_amount": "unlabelled column sum of 3 amounts above"
+  },
+  "validations": [
+    "total_amount: 380.00 + 120.00 + 50.00 == HK$550.00"
+  ],
+  "warnings": [
+    "registration_number: no label or reusable pattern produced a confident value"
+  ],
+  "timings": {
+    "ocr_predict_ms": 16356.804056998953,
+    "extract_ms": 19.991415999356832
+  }
+}

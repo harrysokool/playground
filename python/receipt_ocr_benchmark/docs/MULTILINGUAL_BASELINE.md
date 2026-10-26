@@ -95,6 +95,66 @@ does not match 病人編號 ("patient number"); this follows the original word-b
 
 `YYYY年M月D日` (spaces allowed) is read as a date. Every other date rule is unchanged.
 
-## Results
+## Results (retrospective, Version 2, nine receipts)
 
-Scored after this document and the code were committed; see the section added below.
+The rules above were committed in `388fad9` before any scoring. Nothing was changed after scoring.
+Saved OCR was reused: no OCR or API calls.
+
+Files:
+- extraction output: `results/v2/extracted_multilingual_light/` and
+  `results/v2/extracted_multilingual_azure_di/`;
+- scores: `results/v2/scores_multilingual/` (summary.csv, detail.csv, report.md).
+
+| | Original rules (English only) | Multilingual baseline | AOAI, original prompt |
+|---|---|---|---|
+| PaddleOCR Light | 37.3% (19/51) | **51.0% (26/51)** | |
+| Azure DI | 41.2% (21/51) | **70.6% (36/51)** | 88.2% (45/51) |
+
+- **Fixed and broken:** PaddleOCR Light fixed 7 fields and broke 0; Azure DI fixed 15 and broke 0.
+- **No invented values,** and all 9 receipts were processed by every approach.
+
+### Accuracy by field
+
+| Field (applicable receipts) | Light original | Light multilingual | DI original | DI multilingual | AOAI original |
+|---|---|---|---|---|---|
+| Doctor (9) | 33.3% | 44.4% | 33.3% | 55.6% | 66.7% |
+| Registration no. (6) | 16.7% | 16.7% | 16.7% | 50.0% | 83.3% |
+| Patient (9) | 33.3% | 66.7% | 33.3% | 77.8% | 100.0% |
+| Receipt no. (9) | 44.4% | 55.6% | 44.4% | 88.9% | 100.0% |
+| Service date (9) | 33.3% | 44.4% | 44.4% | 66.7% | 88.9% |
+| Total (9) | 55.6% | 66.7% | 66.7% | 77.8% | 88.9% |
+
+### Remaining errors (no further tuning)
+
+**Azure DI, 15 errors.** PaddleOCR Light makes all of these too.
+
+| Cause | Fields |
+|---|---|
+| A label concept the original English rules never had, so by design it was not translated: "Attendance Date", 主診中醫師 / 註冊中醫編號 (Chinese-medicine practitioner), "Dentist" | receipt3 date (fell back to the invoice date), receipt4 doctor and reg. no., receipt5 doctor |
+| The label is in the middle of a line ("MBBS (HK) · Reg. No. M17642"); the original rules only match labels that start a block | receipt1 and receipt2 reg. no. |
+| Layout logic the original rules lack: the amount is beyond the distance limit, so the column sum (the subtotal) is used; a role header with a "Name" row under it; an issue date taken for the service date; amounts in a card row | receipt5 total, receipt6 doctor (the referring doctor was taken), date, total |
+| The two receipts carried over from Version 1: OCR misread the signature, two practitioners in the ground truth; "FPatient:" OCR artefact; no labels at all; the open print-date question | receipt9 doctor and patient, receipt10 patient, receipt no. and date |
+
+**PaddleOCR Light, 10 more errors, all from how the OCR wrote the labels:**
+- words glued together: "Patient病人：", "Reg.No.註冊編號：", "TreatmentDate治療日期", "VisitDate就診日期",
+  "AttendingDoctor";
+- Simplified characters inside Traditional labels: "收據编號", "註冊编號", "發票编號";
+- "HKS" read for "HK$" in front of a total.
+
+The exact-match labels do not recognise these forms (receipt2 total, receipt3 receipt no., receipt5
+patient, receipt no., reg. no. and date, receipt8 doctor, receipt no., reg. no. and date). On receipt8 the
+glued "AttendingDoctor" label was missed, so the unlabelled "<name>醫生" pattern also picked up 主診醫生
+as a second doctor candidate, and the doctor was left empty as ambiguous. Handling these would need
+OCR-tolerant label matching, which is a further rule change and was not made.
+
+### What this means
+
+- **Language support explains part of the gap, not all of it.**
+  - Adding Chinese labels brought Azure DI + rules from 41.2% to 70.6%, against 88.2% for AOAI with its
+    original prompt.
+  - PaddleOCR Light gained less (51.0%), because its OCR output distorts bilingual labels.
+- **What remains needs more scenario-specific logic.** The remaining rule errors need new label
+  concepts, labels inside lines, layout handling or OCR-tolerant matching: the kind of logic the
+  improved rules added after reviewing these receipts.
+- **Retrospective only.** These receipts were already known when the rules were written, so neither
+  figure is an estimate for new receipts.

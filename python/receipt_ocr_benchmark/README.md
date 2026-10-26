@@ -492,6 +492,19 @@ Ground-truth corrections and open questions are in `data/ground_truth/GROUND_TRU
   is a business decision.
 - It will not be built or benchmarked unless the business asks for it.
 
+**Multilingual rules baseline (retrospective).** This is a fairer rules comparison: the original
+general rules plus common Chinese label translations and basic bilingual handling, with nothing taken
+from the improved rules (`receipt_bench/extraction_multilingual.py`, `extract_cli --rules multilingual`).
+The rules were committed before scoring.
+
+On the nine Version 2 receipts (results in `results/v2/scores_multilingual/`):
+- PaddleOCR Light: 37.3% → 51.0%;
+- Azure DI: 41.2% → 70.6%;
+- AOAI, original prompt, for comparison: 88.2%.
+
+These receipts had already been examined, so this is not an independent test. Rules, translations,
+per-field results and the remaining errors are in `docs/MULTILINGUAL_BASELINE.md`.
+
 **Diagnosis comment: present, missing or needs_review.** This is separate from the six fields.
 - **Rules:** `receipt_bench/diagnosis.py`, run with `diagnosis_cli detect`. The same logic is used
   for PaddleOCR Light and Azure DI.
