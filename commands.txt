@@ -1,1 +1,10 @@
-for the pdf for the ocr benchmark that i am going ot present to my manager, few things i would like to change, first is the percemtages, i dont think there is a point of showing the tuned rules percentages since that cannot accurately display or show when the new receipt format is different, what i mean is that the accuracy is overfiited, so i dont think we should show it. second lets not make the diagnosis a main thing, its not that big of a deal. i guess we want to emphasize that when using the aoai, we do not need to write out all the new rules to fit all the scenarios, aoai is smart enough to do that by just instructing it in the prompt. there is no point showing the tuned accuracy, but one thing i want to show is that the aoai new prompt accuracy. and maybe make the slides shorter keep it around 10 slides
+Questions for the business auditors
+Area	Questions to ask
+1. Information extraction	Which fields do you normally check? Doctor, patient, registration number, date, receipt number, amount, or anything else?
+2. Cross-checking	Do you compare receipt details with claim submissions, policy information, doctor registries or other systems?
+3. Medical information	Do you check diagnoses, symptoms, treatments, medication details or whether a diagnosis comment exists?
+4. Financial checks	Do you verify the total, individual charges, discounts, duplicate receipts or unusual amounts?
+5. Doctor verification	Do you only confirm that the doctor is registered, or do you need to identify the actual treating doctor?
+6. Exceptions	What are the most common mistakes or suspicious cases you encounter?
+7. Decision making	Which checks are straightforward rule based comparisons, and which require human judgment or context?
+8. Workload	How many receipts are reviewed, how long does each take, and which checks consume the most time?
