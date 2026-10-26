@@ -7,7 +7,8 @@ additional cost and complexity compared with simpler OCR solutions?**
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 6 (current)**, 10 slides | `current/OCR_Benchmark_V6.pptx` | `scripts/generate_ppt_v6.py` | As Version 5, plus `results/v2/scores_multilingual/` |
+| **Version 7 (current)**, 9 slides | `current/OCR_Benchmark_V7.pptx` | `scripts/generate_ppt_v7.py` | As Version 6 |
+| Version 6, 10 slides (archived) | `archive/v6_final/OCR_Benchmark_V6.pptx` (+ PDF preview) | `scripts/generate_ppt_v6.py` (unchanged) | As Version 5, plus `results/v2/scores_multilingual/` |
 | Version 5, 10-slide management version (archived) | `archive/v5_final/OCR_Benchmark_V5.pptx` (+ PDF preview) | `scripts/generate_ppt_v5.py` (unchanged) | `results/v2/scores_improved/` and `scores_aoai_improved/`, `results/v1_heldout/`, `results/diagnosis/`, `results/v2/*/receiptN.json`, `receipt_bench/di_aoai.py` (prompt text) |
 | Version 4, 12-slide redesign (archived) | `archive/v4_final/OCR_Benchmark_V4.pptx` (+ PDF preview) | `scripts/generate_ppt_v4.py` (unchanged) | `results/v2/scores_improved/` and `scores_aoai_improved/`, `results/v1_heldout/`, `results/diagnosis/`, `data/diagnosis/`, `results/v2/*/receiptN.json`, `receipt_bench/di_aoai.py` (prompt text) |
 | Version 3, final 12-slide deck (archived) | `archive/v3_final/OCR_Benchmark_V3.pptx` (+ PDF preview) | `scripts/generate_ppt_v3.py` (unchanged) | `results/v2/scores_improved/` and `scores_aoai_improved/` (summary, detail), `results/v1_heldout/`, `results/v2/*/receiptN.json`, receipt photos in `data/receipts_v2/` |
@@ -33,21 +34,50 @@ is typed in by hand.
 | Folder | Contents |
 |---|---|
 | `template/` | Official AIA PowerPoint template (`aia_ppt_template.pptx`). Do not edit. |
-| `current/` | The current deck (Version 6) |
+| `current/` | The current deck (Version 7) |
 | `previews/` | PDF and PNG previews of the current deck |
 | `archive/v1/` | The frozen Version 1 deck and its preview. Never written to by the generators. |
 | `archive/v2_12slides/` | The first, 12-slide Version 2 deck and its PDF preview, kept for reference |
 | `archive/v2_8slides/` | The 8-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_9slides/` | The 9-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_10slides/` | The 10-slide revision before the slide 9 rewrite, and its PDF preview |
+| `archive/v6_final/` | The 10-slide Version 6 deck and its PDF preview |
 | `archive/v5_final/` | The 10-slide Version 5 deck and its PDF preview |
 | `archive/v4_final/` | The 12-slide Version 4 deck and its PDF preview |
 | `archive/v3_final/` | The final 12-slide Version 3 deck and its PDF preview |
 | `archive/v3_10slides/` | The 10-slide Version 3 revision and its PDF preview |
 | `archive/v3_first/` | The first Version 3 revision (rule accuracy not shown) and its PDF preview |
 | `archive/v2_final/` | The final Version 2 deck (with PaddleOCR Heavy and the tuned rule accuracies) and its PDF preview |
-| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py` and `generate_ppt_v6.py` (identical) |
+| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py`, `generate_ppt_v6.py` and `generate_ppt_v7.py` (identical) |
 | `scripts/` | The generators |
+
+## Version 7: simplified management deck (9 slides)
+
+1. Title
+2. **Executive summary:** Azure DI + AOAI prompt v2 96.1% (development result) vs OCR + general
+   multilingual rules 51.0–70.6% (51.0% = PaddleOCR Light, 70.6% = Azure DI; retrospective), why AOAI may
+   still be needed, and a short caveat. The 88.2% figure is not on this slide.
+3. **What we compared:** for each of the 9 receipts, 6 key fields across 3 approaches. A small note says
+   51 of 54 fields are scored, because 3 receipts have no doctor registration number.
+4. **A fairer comparison:** multilingual rules 51.0% / 70.6% vs AOAI with its original prompt 88.2%, and
+   what rules would still need. No English-only bars.
+5. The key difference: maintenance
+6. Advantages and disadvantages
+7. Beyond six fields (potential, not yet benchmarked)
+8. Limits of this evidence
+9. Recommendation and next steps
+
+The Version 6 "Improving AOAI" slide was removed. English-only and tuned rule figures are not shown.
+`scripts/check_deck_v7.py` = the Version 6 checks for 9 slides, plus: no 88.2% or English-only rule figure
+on the executive summary.
+
+```bash
+python3 ppt/ocr_benchmark/scripts/generate_ppt_v7.py --force
+python3 ppt/ocr_benchmark/scripts/check_deck_v7.py
+```
+
+`scripts/build_v7_on_azure.sh` does the same on Azure ML compute. The Version 6 generator and check are kept
+unchanged to reproduce the archived Version 6 deck.
 
 ## Version 6: Version 5 plus the multilingual rules baseline
 
@@ -73,7 +103,7 @@ python3 ppt/ocr_benchmark/scripts/generate_ppt_v6.py --force
 python3 ppt/ocr_benchmark/scripts/check_deck_v6.py
 ```
 
-`scripts/build_v6_on_azure.sh` does the same on Azure ML compute. The Version 5 generator and check are
+The Version 5 generator and check are
 kept unchanged to reproduce the archived Version 5 deck.
 
 ## Version 5: the management version (10 slides)
@@ -179,9 +209,9 @@ These need LibreOffice and Poppler:
 
 ```bash
 cd ppt/ocr_benchmark
-soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V6.pptx
-mv previews/OCR_Benchmark_V6.pdf previews/OCR_Benchmark_V6_preview.pdf
-pdftoppm -png -r 80 previews/OCR_Benchmark_V6_preview.pdf previews/slide
+soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V7.pptx
+mv previews/OCR_Benchmark_V7.pdf previews/OCR_Benchmark_V7_preview.pdf
+pdftoppm -png -r 80 previews/OCR_Benchmark_V7_preview.pdf previews/slide
 ```
 
 LibreOffice may substitute fonts, so the preview is for review. PowerPoint renders Arial and
@@ -190,7 +220,7 @@ Microsoft JhengHei (Traditional Chinese).
 ## Outstanding before distribution
 
 1. **Prices.** Compute rate, Document Intelligence page price and gpt-5-mini token prices are
-   still unconfirmed; slides 7 and 9 say so.
+   still unconfirmed; slides 6 and 8 say so.
 2. **Sensitivity label.** The deck carries the template's **[AIA – PUBLIC]** label. Apply the
    correct label in PowerPoint (Home → Sensitivity) before sharing.
 3. **Presenter name and date,** if required.
