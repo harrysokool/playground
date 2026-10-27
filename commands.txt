@@ -1,39 +1,39 @@
-Perform a final review of the Sources tab for my existing Genie Agent, "Agent Master and Licensing Analytics".
+I'll check whether any existing configuration uses these two technical representative columns before I change them.
 
-Do not modify any other configuration section.
+Neither column is used anywhere except its own column settings: no instructions, examples, joins, measures or benchmarks refer to them. I'll apply the two changes now.
 
-1. Education level metadata
+I hid the technical representative access ID and turned off prompt matching for the representative name, and re-reading the configuration confirms both changes saved. I left the education level description unchanged, as you asked.
 
-Inspect the exact Unity Catalog column comment for:
+1. Education level metadata (no change made)
 
-aiahk_dna_p_catalog.dna_gia_base.gold_agent_education.agt_edu_level_code
+The exact Unity Catalog comment on gold_agent_education.agt_edu_level_code is:
 
-Report the documented meanings of codes 01, 02, and 03.
+Level of Education. 01 = College/University 02 = Vocational Education Institution 03 = Secondary School Source: aa_tbleducation.TXTEDULEVELCD
 
-Compare these with the current Genie column description.
+Code
+Unity Catalog meaning
+01
+College/University
+02
+Vocational Education Institution
+03
+Secondary School
+The current Genie description is different: it says the code meanings "have not been confirmed by source documentation" and tells Genie to show the codes as stored and ask before translating them. Because the Genie description takes priority, Genie currently won't use these three labels. The metadata gives no meanings for any codes other than 01–03.
 
-Do not update this description yet. I want to review the exact metadata before deciding whether to adopt those meanings.
+2. Technical representative access ID (pd_tr_access_id)
 
-2. Technical representative access ID
+What the metadata says: the Unity Catalog comment is "Broker Technical Representative Access ID. Source: aa_tbltragent.TXTACCESSID". The name suggests a login or system-access identifier rather than a business reference, but nothing in the metadata says so explicitly. I couldn't confirm whether it is a login ID, an internal reference or something else.
+Dependencies: none. The column isn't used in any instructions, examples, joins, measures, benchmarks or suggested questions.
+Visibility: changed from visible to hidden.
+Prompt matching: it was already off, so nothing needed to change.
+Kept as is: its existing description, display name and synonyms. These only take effect if the column is made visible again.
+3. Technical representative name (pd_tr_name)
 
-Review pd_tr_access_id in gold_agent_master.
+Prompt matching: changed from on to off.
+Visibility: left visible, as you asked. It also has no dependencies elsewhere.
+4. Not confirmed
 
-Determine from metadata whether it represents a system login, an internal reference, or another type of identifier.
+Whether pd_tr_access_id is a system login. Only the source system owner or documentation for that source table can confirm it.
+Whether the education level labels for 01–03 are authoritative and complete. The comment has no version or owner details, and compute was unavailable earlier, so I couldn't check which codes actually appear in the data.
+Nothing else in your Genie agent was changed, and the underlying tables and their permissions were not touched. If you decide to adopt the 01–03 meanings, I can update the Genie description to use them.
 
-Since this field is not needed for our verified joins, hide it from Genie's query context and disable its prompt matching if doing so does not affect any existing configuration dependencies.
-
-Do not change the underlying table or its permissions.
-
-3. Technical representative name
-
-For pd_tr_name, disable prompt matching to avoid unnecessary sampling of personal names.
-
-Leave the column's visibility unchanged for now.
-
-4. Validation
-
-Verify that all changes persisted.
-
-Report the exact Unity Catalog education level descriptions, the changes made to the two PD technical representative columns, and anything that could not be confirmed.
-
-Do not modify About, Instructions, Examples, joins, measures, benchmarks, or underlying data.
