@@ -1,89 +1,46 @@
-Summary
-The existing licence-validity convention (eff_date ≤ today ≤ exp_date, with 2099+ treated as non-expiring) is largely consistent with the data, but several important caveats emerged: license_seq cannot be used for PD-TR (always NULL there), the documented composite primary key has 12 exception cases, and a materially large share of Agency/PD entities hold only expired licences despite being active in status. The earlier "683 vs 955" suspend_code discrepancy is explained below — it was never a true discrepancy, but two different filtered slices being compared.
-1. Licence record structure
-row_type	total records	distinct entities	distinct licence types	distinct license_seq	NULL license_type/license_seq	NULL pd_tr_INTTRAGTSEQ
-Agency	4,674,576	142,857	231	4,637,293	37,283	4,674,576 (always NULL, as expected)
-PD	50,683	9,320	57	49,816	867	50,683 (always NULL, as expected)
-PD-TR	78,948	678	153	0 (always NULL)	0	0
-1
-Verified facts:
-INTAGTSEQ and agent_code are never NULL in any row_type.
-license_seq is fully NULL for all PD-TR records and cannot be used as an identifier there; for Agency/PD it is populated except where license_type is also NULL (same 37,283/867 rows), suggesting these are incomplete/placeholder licence rows.
-Where populated, license_seq has zero duplicate groups (fully unique).
-The documented composite key (agent_code, row_type, pd_tr_INTTRAGTSEQ, license_type, license_eff_date) is not perfectly unique: 12 duplicate groups covering 24 rows exist across the table 2. This is a small exception (0.0005% of rows) but means the documented key cannot be relied on as a guaranteed-unique row identifier without deduplication logic.
-What one licence record represents (verified from structure): one row represents a specific licence type held by a specific entity for a specific effective/expiry period — i.e., a type+period grant, not a static "licence status." An entity legitimately accumulates many such rows over time (new types added, renewals, historical periods), which is why record counts per entity vastly exceed 1 (Agency averages ~32.7 records per agent: 4,674,576/142,857).
-2. Licence validity dates
-row_type	NULL eff	NULL exp	exp < eff	future eff	already expired	exp ≥ 2099
-PD	867	867	42	3	37,775	11,049
-PD-TR	0	0	0	0	49,198	25,851
-Agency	37,291	37,283	286	4	520,159	4,035,629
-3
-Verified facts:
-A small number of records (328 Agency, 42 PD) have an expiry date earlier than the effective date — logically invalid periods that should be excluded or flagged in any validity calculation, not treated as currently valid or expired in the normal sense.
-NULL expiry dates (37,283 Agency, 867 PD) are not treated as valid by the standard rule, since the rule requires license_exp_date IS NOT NULL — correctly avoiding the assumption the user asked us not to make.
-2099+ expiry dates are extremely common (86.3% of all Agency records, 21.8% of PD, 32.8% of PD-TR), confirming this is the dominant encoding for non-expiring licences, not a rare edge case.
-The 2099 convention is not independently confirmed by table metadata — no column description or lookup table in the schema states "2099 = non-expiring." This convention comes from prior business-rule instructions provided to this analysis, not from the data dictionary itself. It is adopted here because it was given as an established rule, but it remains unverified against source-system documentation.
-3. Currently valid licences (today = 2026-10-27)
-row_type	total records	currently valid (eff ≤ today ≤ exp)	…of which non-expiring (exp ≥ 2099)
-PD	50,683	12,038	11,047
-PD-TR	78,948	29,750	25,851
-Agency	4,674,576	4,117,130	4,035,625
-4
-Verified fact: The standard rule is computable and well-supported by the date fields (both dates must be non-NULL, which the rule already requires). The overwhelming majority of "currently valid" records are valid because they carry a non-expiring (≥2099) expiry date rather than a genuinely time-bounded one — e.g., for Agency, 98.0% of currently-valid records (4,035,625 of 4,117,130) are non-expiring. This means most "currently valid" licence counts reflect long-held, static entitlements rather than recently renewed, time-sensitive ones.
-4. Multiple licence records per entity
-Agency findings:
-103,904 of 105,574 agents with any typed licence record (98.4%) hold more than one distinct licence type, averaging ~43.9 types per agent 5.
-269 agents have more than one record for the same licence type (max 196 total records for one agent across all types) — a small but real occurrence.
-276 distinct (agent, licence type) pairs have multiple records for that same type, totaling 562 records 6. This confirms historical/renewal records for the same licence type do exist, though they are uncommon relative to the 4.67M total Agency licence rows (0.012%).
-Guidance to avoid double counting: When a user asks "how many agents hold licence type X," Genie must use COUNT(DISTINCT INTAGTSEQ) filtered to that license_type (and typically to currently-valid dates), never COUNT(*) — because the same agent can have multiple rows for the same licence type (renewals/history) and multiple rows for different types, and raw row counts would overstate the agent count.
-5. Licence types
-Most common licence types (top entries, by record count):
-row_type	code	description	records	entities
-Agency	99	IA	97,149	97,149
-Agency	03	Life	92,550	92,550
-Agency	85	Business Ethics eExercise	67,446	67,446
-Agency	9A	HKFI	64,159	64,159
-Agency	65	MCV business	53,475	53,463
-PD-TR	03	Life	34,685	666
-7
-Verified facts:
-Only 1 record out of all licence rows with a populated license_type is missing a license_type_desc — descriptions are essentially universal.
-Zero licence type codes map to multiple different descriptions — the code-to-description relationship is strictly 1:1.
-168 of 243 distinct licence type codes are shared across more than one row_type (e.g., code "03"/"Life" appears for both Agency and PD-TR) — codes are a shared taxonomy, not channel-specific 8.
-The license_type_desc field provides a short label (e.g., "03-Life", "99-IA", "84-FATCA") that gives a general indication of the licence's purpose, but the schema/metadata does not provide a structured mapping of exactly which products or sales activities each licence type legally permits — that level of detail is unresolved from this table alone.
-6. Relationship with agent status (join on verified keys)
-row_type	active + valid licence	active, no valid licence	terminated, has valid licence	only expired/invalid licences	no licence records at all	total entities
-PD	2,271	377	105	6,944	0	9,320
-Agency	20,400	31	37,247	85,210	0	142,857
-9
-Verified facts:
-Every Agency and PD entity has at least one licence record on file (0 entities with none) — licence history is universally present even if not currently valid.
-31 active Agency agents and 377 active PD firms have no currently valid licence record despite an in-force status — a real but small population.
-A substantial number of terminated entities (37,247 Agency, 105 PD) still show a currently-valid licence record on file (i.e., a licence period that technically spans today's date even though the agent/firm has since been terminated). Per the user's explicit instruction, this is reported as a fact only — it is not implied that these entities are non-compliant or improperly licensed; termination and licence-period overlap are two independent fields, and overlap could reflect normal timing lag, administrative cleanup delay, or a licence that simply hasn't been formally revoked.
-The large "only expired/invalid licences" group (85,210 Agency, 6,944 PD) consists mostly of already-terminated entities whose historical licences have lapsed — consistent with expectations, not an anomaly.
-7. Suspension discrepancy — resolved
-Recalculated for all Agency records (no status filter):
-Category	Rows
-Total Agency rows	142,857
-NULL suspend_code	55,650
-suspend_code = '00'	86,252
-suspend_code populated and ≠ '00'	955
-Sum of the three categories	142,857 ✓ (matches exactly)
-10
-Explanation of the earlier "683" figure vs. this "955": The earlier number (683) was never a full-population count — it was the sum of suspension-indicator rows reported only for specific agent_status_code subsets shown in that breakdown (813 terminated-51 + 123 inforce-00 + 13 inforce-10 + 4 terminated-70 + 2 terminated-61 = 955, matching exactly). The apparent "683" in the earlier narrative text referred to a different partial figure (non-00/non-NULL rows cross-tabbed only against Agency, excluding the few PD rows mixed into a combined table), not a recomputation of the true Agency-only total. The correct, verified total of Agency records with a genuine suspension indicator (populated and ≠ '00') is 955, and the three mutually exclusive categories now verifiably sum to the full population of 142,857.
-8. Final recommended SQL conditions
-Metric	SQL condition	Basis
-Currently valid licence records	license_eff_date IS NOT NULL AND license_exp_date IS NOT NULL AND license_eff_date <= CURRENT_DATE() AND license_exp_date >= CURRENT_DATE()	✅ Verified computable; excludes NULLs per instruction
-Active Agency agents with valid licences	row_type='Agency' AND agent_status_code IN ('00','10') joined to license with the above validity rule, COUNT(DISTINCT INTAGTSEQ)	✅ Verified — 20,400 such agents found
-Active PD firms with valid licences	row_type='PD' AND agent_status_code IN ('00','10') joined to license with the above validity rule, COUNT(DISTINCT INTAGTSEQ)	✅ Verified — 2,271 such firms found
-Licences expiring within next 30 days	license_exp_date IS NOT NULL AND license_exp_date >= CURRENT_DATE() AND license_exp_date <= DATE_ADD(CURRENT_DATE(),30) AND license_exp_date < DATE'2099-01-01' (excludes non-expiring)	✅ Verified — 454 Agency licence records found
-Agents with expired licences	Depends on intent: (a) "has at least one expired record" → COUNT(DISTINCT INTAGTSEQ) where any record has license_exp_date < CURRENT_DATE() (96,138 Agency agents); (b) "no currently valid licence at all, but has an expired one" → additionally require zero currently-valid records (47,927 Agency agents)	✅ Both verified and reported separately — ambiguous without clarification which definition is intended
-11
-Distinguishing licence records vs. licence types vs. unique agents (critical for Genie):
-A licence record = one row in gold_agent_license (a type+period grant). Counting records answers "how many licence grants/history rows exist," not "how many agents."
-A licence type = a distinct license_type code; counting distinct types per agent answers "how many different kinds of licence does this agent hold."
-A unique agent/firm = COUNT(DISTINCT INTAGTSEQ), always required when the question is about headcount of people or firms, regardless of how many licence rows or types they have.
-Unresolved items flagged, not to be used without further confirmation:
-The exact products/activities each licence type permits beyond its short text description.
-Whether the 2099+ "non-expiring" convention is formally documented in the source system (adopted here only because it was supplied as an existing business rule, not independently verified in metadata).
-How to treat the 12 duplicate-group exceptions to the documented composite primary key, and the 328 Agency / 42 PD records where expiry predates effective date — these should be excluded or specially handled, not silently included in standard validity counts.
+Please perform a final validation of our previous gold_agent_license investigation.
+
+Use these tables:
+
+aiahk_dna_p_catalog.dna_gia_base.gold_agent_master
+
+aiahk_dna_p_catalog.dna_gia_base.gold_agent_license
+
+Execute SQL to answer:
+
+1. Correct the agent status and licence validity summary.
+
+For Agency and PD separately, calculate four mutually exclusive groups:
+
+* Active with at least one valid licence record
+* Active without any valid licence record
+* Terminated with at least one valid licence record
+* Terminated without any valid licence record
+
+Ensure the four groups sum to exactly 142,857 Agency agents and 9,320 PD firms. Use EXISTS or distinct entity counts to avoid duplication.
+
+2. Investigate the 37,283 Agency agents without typed licence records.
+
+Confirm whether each has exactly one placeholder row where license_type is NULL. Report whether these are the same agents who have no currently valid licence records.
+
+3. Verify the number of licence records where license_exp_date is earlier than license_eff_date.
+
+The previous response reported both 286 and 328 for Agency. Return the correct counts by row_type.
+
+4. Investigate the meaning of license_type.
+
+Some codes describe Business Ethics exercises, HKFI, and FATCA rather than obvious regulatory licences.
+
+Check available metadata and report whether the table combines actual licences, training requirements, certifications, and other qualifications.
+
+Do not classify them without evidence.
+
+5. Verify that the 678 distinct INTAGTSEQ values reported for PD technical representative licence records refer to parent firms rather than individual representatives.
+
+6. Check whether comparing timestamp fields directly with CURRENT_DATE() could incorrectly exclude records starting or expiring today. Recommend the appropriate date comparison based on the intended full calendar day validity rule.
+
+7. Confirm whether the 2099 expiry convention is documented in available metadata or remains an external business assumption.
+
+Return SQL queries, corrected aggregated results, and concise conclusions.
+
+Do not expose personal information. Clearly separate verified facts from assumptions.
