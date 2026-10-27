@@ -1,10 +1,13 @@
-Questions for the business auditors
-Area	Questions to ask
-1. Information extraction	Which fields do you normally check? Doctor, patient, registration number, date, receipt number, amount, or anything else?
-2. Cross-checking	Do you compare receipt details with claim submissions, policy information, doctor registries or other systems?
-3. Medical information	Do you check diagnoses, symptoms, treatments, medication details or whether a diagnosis comment exists?
-4. Financial checks	Do you verify the total, individual charges, discounts, duplicate receipts or unusual amounts?
-5. Doctor verification	Do you only confirm that the doctor is registered, or do you need to identify the actual treating doctor?
-6. Exceptions	What are the most common mistakes or suspicious cases you encounter?
-7. Decision making	Which checks are straightforward rule based comparisons, and which require human judgment or context?
-8. Workload	How many receipts are reviewed, how long does each take, and which checks consume the most time?
+I am configuring this Genie Agent and need to understand its data sources before adding business instructions.
+
+Please examine all tables attached to this Genie Agent. For each table, explain:
+
+1. Full table name and its likely business purpose.
+2. All available columns, their data types if known, and what each represents.
+3. What one row represents in the table.
+4. Possible primary keys and important identifiers.
+5. Date columns and their likely meanings.
+6. Potential relationships with other attached tables and possible join keys.
+7. Business questions that this table could help answer.
+
+Use available metadata and data queries to support your findings. Clearly distinguish verified facts from assumptions. Do not invent column names, relationships, or business definitions. If the request is too large, analyze the tables one at a time.
