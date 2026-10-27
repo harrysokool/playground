@@ -1,40 +1,32 @@
-Configure ONLY the About section of my existing Genie Agent. Do not create a new agent or modify any other configuration.
+I'll update only the About section: the description and the suggested questions. First I'll check the current setup so the agent name stays the same and I don't add duplicate questions.
 
-The agent uses three tables in `aiahk_dna_p_catalog.dna_gia_base`:
+The agent name and all three tables are already set, and there are no suggested questions yet. Next I'll replace the description and add the five questions.
 
-1. gold_agent_master
-2. gold_agent_license
-3. gold_agent_education
+I saved both About changes, and nothing else in your Genie agent was changed.
 
-Based on our completed data investigations, configure the following:
+Description: saved. The old description was replaced with the four paragraphs you supplied, word for word. Those paragraphs cover:
 
-**Description**
+Agency agents, PD firms, technical representative records, agent status and distribution channels
+Licence and training records, and educational qualifications
+Questions about active and terminated agents, whether licence records are valid, and education information
+The caveats that the licence table mixes several record types, and that technical representative headcounts and some education verification codes aren't fully defined
+Common questions: saved. There were no suggested questions before, so all five were added as written:
 
-This Genie Agent helps AIA Hong Kong users explore insurance intermediary data using natural language.
+How many active Agency agents are there?
+How many active PD firms are there?
+How many Agency agents are there by region and distribution channel?
+How many active Agency agents have at least one currently effective licence record?
+How many Agency agents have education records?
+Left unchanged:
 
-It provides information about Agency agents, Partnership Distribution (PD) firms, technical representative records, agent status, distribution channels, licence and training records, and educational qualifications.
+The agent name, "Agent Master and Licensing Analytics"
+The three attached tables in aiahk_dna_p_catalog.dna_gia_base
+Instructions, SQL examples, joins, filters and measures, benchmarks, and the run-as setting
+One thing to be aware of: your Genie agent also reads this description as guidance when it answers. The old description had a "Limitations" section that is now gone, so the agent no longer sees these notes there:
 
-Users can ask questions about active and terminated agents, licence record validity, and education information.
+The data is a current snapshot, so it doesn't support reliable point-in-time history questions.
+It shouldn't guess what undocumented licence codes mean.
+Licence counts use distinct licence types unless the user asks otherwise, because renewals and duplicates exist.
+If those rules aren't already in your Instructions, you may want to add them there in a later phase.
 
-The licence table contains a mixture of regulatory licences, training, certifications, and other records. Technical representative headcounts and certain education verification codes are not fully defined, so some questions may require additional clarification.
-
-**Common Questions**
-
-Add these suggested questions:
-
-1. How many active Agency agents are there?
-2. How many active PD firms are there?
-3. How many Agency agents are there by region and distribution channel?
-4. How many active Agency agents have at least one currently effective licence record?
-5. How many Agency agents have education records?
-
-**Requirements**
-
-1. Keep the existing agent name unchanged.
-2. Use clear, professional English suitable for business users.
-3. Apply and save the description and common questions.
-4. Do not modify Sources, Instructions, SQL examples, joins, benchmarks, or underlying tables.
-5. Do not invent business capabilities beyond what the three tables support.
-6. Report exactly what was successfully saved. If you cannot make a change directly, explain what needs to be done manually.
-
-Only complete the About configuration in this phase.
+Your earlier request to analyse benchmark results wasn't part of this phase, so I didn't review any benchmark runs. I can do that next if you'd like.
