@@ -1,25 +1,105 @@
-Make one final update to the Sources tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
+Configure ONLY the Join Relationships in the Examples tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-Update only the column description for:
+Do not create a new agent or modify other configuration sections.
 
-aiahk_dna_p_catalog.dna_gia_base.gold_agent_education.agt_edu_level_code
+Use these three existing tables in aiahk_dna_p_catalog.dna_gia_base:
 
-Use the documented Unity Catalog definitions:
+1. gold_agent_master
+2. gold_agent_license
+3. gold_agent_education
 
-01 = College/University
-02 = Vocational Education Institution
-03 = Secondary School
+First, inspect the existing join relationships. Preserve any relationships that are already correct and do not create duplicates.
 
-Source: aa_tbleducation.TXTEDULEVELCD
+## Relationship 1: Agency and PD master to licence
 
-Replace the existing description that incorrectly states these codes have no documented meanings.
+Left table: gold_agent_master
+Right table: gold_agent_license
 
-Explain that these definitions come from the Unity Catalog source metadata. NULL or unknown codes must not be assigned an invented education level.
+Required conditions:
 
-Add appropriate synonyms if needed, without changing unrelated column settings.
+master.INTAGTSEQ = license.INTAGTSEQ
+AND master.row_type = license.row_type
+AND master.row_type IN ('Agency', 'PD')
 
-Save the change and verify that it persisted.
+Relationship type: One master record to many licence records.
 
-Do not modify any other columns, tables, instructions, joins, SQL examples, benchmarks, or settings.
+INTAGTSEQ is unique within Agency and PD master records, but multiple licence records may exist for each entity.
 
-Report the final saved description.
+Do not join using INTAGTSEQ alone without matching row_type.
+
+## Relationship 2: PD technical representative master to licence
+
+Left table: gold_agent_master
+Right table: gold_agent_license
+
+Required conditions:
+
+master.INTAGTSEQ = license.INTAGTSEQ
+AND master.row_type = 'PD-TR'
+AND license.row_type = 'PD-TR'
+AND master.pd_tr_INTTRAGTSEQ = license.pd_tr_INTTRAGTSEQ
+
+Relationship type: One master technical representative record to many licence records.
+
+INTAGTSEQ identifies the parent firm, not the technical representative.
+
+pd_tr_INTTRAGTSEQ identifies the technical representative record and must be included in this join.
+
+Previously verified results:
+
+36,815 master PD-TR records.
+34,799 master records have matching licence records.
+2,016 master records have no matching licence records.
+All 78,948 PD-TR licence rows match master records.
+
+## Relationship 3: Agency master to education
+
+Left table: gold_agent_master
+Right table: gold_agent_education
+
+Required conditions:
+
+master.INTAGTSEQ = education.INTAGTSEQ
+AND master.row_type = 'Agency'
+
+Relationship type: One Agency agent to many education records.
+
+Previously verified results:
+
+144,509 education records.
+136,467 distinct Agency agents with education records.
+All education records match Agency master records.
+No education records belong to PD firms or PD technical representatives.
+
+Do not join education to PD or PD-TR records.
+
+## Configuration requirements
+
+1. Inspect all existing joins before making changes.
+2. Configure the three logical relationships using the supported Genie join configuration.
+3. Use SQL expressions for complex join conditions if necessary.
+4. Configure the correct relationship cardinality.
+5. Avoid duplicate or conflicting joins between the same tables.
+6. Do not create a simplified join that drops required conditions.
+7. Do not add filters that remove unmatched master records from unrelated queries.
+8. If the configuration cannot represent a relationship safely, leave that relationship unchanged and explain the limitation.
+9. Do not modify About, Sources, general Instructions, SQL measures, example SQL queries, benchmarks, or underlying data.
+
+## Validation
+
+After saving, read the join configuration again to confirm what persisted.
+
+If SQL compute is available, validate each relationship using aggregate queries and compare with the verified counts above.
+
+If SQL compute is unavailable, explain that the joins were saved but not independently tested.
+
+Finally, report:
+
+1. Existing joins that were preserved.
+2. Joins that were added or corrected.
+3. Exact saved join conditions.
+4. Relationship cardinality for each join.
+5. Any limitations or conflicting relationships.
+6. Whether the changes were successfully saved and tested.
+
+Complete only this phase.
