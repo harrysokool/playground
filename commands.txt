@@ -1,56 +1,52 @@
-Key Finding: INTPERSONSEQ Does Not Represent the Technical Representative — It Represents the Firm
-The hypothesis is confirmed. On PD-TR rows, INTPERSONSEQ is tied to the broker firm, not to the individual technical representative. The most likely individual-level identifier is pd_tr_ia_code, and pd_tr_INTTRAGTSEQ is a record/relationship-level key, not a person-level key.
-1. Row counts, NULLs, and distinct counts (PD-TR only)
-Field	Non-null rows	Distinct values
-pd_tr_INTTRAGTSEQ	36,815 / 36,815	36,815
-pd_tr_ia_code	31,182 / 36,815 (5,633 NULL)	15,063
-pd_tr_access_id	36,815 / 36,815	23,573
-pd_tr_name	36,815 / 36,815	616
-INTPERSONSEQ	36,815 / 36,815	483
-INTAGTSEQ	36,815 / 36,815	805
-1
-Verified fact: pd_tr_INTTRAGTSEQ is fully populated and unique (one row each) — it is a clean row-level key for this table. pd_tr_ia_code has notable NULLs (15.3%) and far fewer distinct values than rows. pd_tr_name collapses to only 616 distinct values across 36,815 rows and 483 persons — more distinct names than persons, which is itself inconsistent with INTPERSONSEQ being a stable 1:1 person key.
-2. Relationship between pd_tr_INTTRAGTSEQ and pd_tr_ia_code / pd_tr_access_id
-Direction	Count
-pd_tr_INTTRAGTSEQ values mapping to >1 pd_tr_ia_code	0
-pd_tr_ia_code values mapping to >1 pd_tr_INTTRAGTSEQ	8,848 of 15,063
-pd_tr_INTTRAGTSEQ values mapping to >1 pd_tr_access_id	0
-pd_tr_access_id values mapping to >1 pd_tr_INTTRAGTSEQ	10,940 of 23,573
-2
-Verified fact: The relationship is strictly many-to-one: each pd_tr_INTTRAGTSEQ maps to exactly one pd_tr_ia_code and exactly one pd_tr_access_id, but the majority of pd_tr_ia_code/pd_tr_access_id values are shared by multiple pd_tr_INTTRAGTSEQ rows. This means pd_tr_INTTRAGTSEQ is a finer-grained record sitting underneath a given IA code / access ID — consistent with it being a relationship or transaction-level key, while pd_tr_ia_code (and pd_tr_access_id) look like the more stable, individual-level credential.
-3. Does the same pd_tr_ia_code appear under multiple firms (INTAGTSEQ)?
-Yes — verified. Of 15,063 distinct pd_tr_ia_code values, 8,762 (58%) appear under more than one INTAGTSEQ, with a maximum of 229 distinct firms for a single IA code and an average of ~2.0 firms per IA code 3.
-This confirms an IA-licensed individual can legitimately be registered as a technical representative at multiple broker firms simultaneously — a real-world pattern consistent with IA licensing rules, not a data error by itself.
-4. Within the same firm, do multiple pd_tr_INTTRAGTSEQ values carry different pd_tr_ia_code/pd_tr_access_id?
-Metric	Value
-Total distinct firms (INTAGTSEQ)	805
-Firms with multiple pd_tr_INTTRAGTSEQ	614
-…of which also have multiple pd_tr_ia_code	540
-…of which also have multiple pd_tr_access_id	614 (all of them)
-…of which have multiple TR IDs but only one IA code	60
-Max distinct TR IDs in one firm	3,783
-Max distinct IA codes in one firm	2,573
-4
-Verified fact: Within a firm, multiple pd_tr_INTTRAGTSEQ values almost always correspond to multiple different pd_tr_ia_code/pd_tr_access_id values (614 of 614 firms show multiple access IDs when there are multiple TR IDs) — i.e., this multiplicity is largely explained by genuinely different representatives/credentials within the firm, not pure duplication of the same rep. However, there remain 60 firms where many TR IDs map to a single IA code, meaning some fraction of the TR-ID multiplicity is not explained by distinct IA-credentialed individuals and remains unexplained by the fields examined here.
-5. Is INTPERSONSEQ associated with the firm rather than the representative?
-Confirmed — this is the central finding.
-Per distinct INTPERSONSEQ (483 total): average 1.67 firms, but average 40.8 distinct pd_tr_ia_code values, 52.9 distinct pd_tr_access_id values, and 76.2 distinct pd_tr_INTTRAGTSEQ values per person — one person-level INTPERSONSEQ is associated with dozens of different individual-looking credentials, which is not plausible for a single real individual 5.
-Directly testing the hypothesis: for all 805 of 805 PD-TR firms, the INTPERSONSEQ values seen on their PD-TR rows exactly match the INTPERSONSEQ already recorded on that same firm's own row_type = 'PD' master record 6.
-Verified conclusion: INTPERSONSEQ on PD-TR rows is the firm's person-sequence identifier (likely a contact/principal person tied to the broker-firm registration), carried down onto every technical-representative row for that firm — not a person-level identifier for the technical representative. This fully explains why 36,815 PD-TR rows collapse to only 483 INTPERSONSEQ values and why all 483 also appear in Agency-type-adjacent/firm records: it is firm-linked metadata, not individual identity.
-6. Match coverage between master PD-TR records and gold_agent_license
-Metric	Value
-Distinct (INTAGTSEQ, pd_tr_INTTRAGTSEQ) keys in master	36,815
-Distinct (INTAGTSEQ, pd_tr_INTTRAGTSEQ) keys in license	34,799
-Master keys found in license	34,799 (94.5% of master keys)
-License keys found in master	34,799 (100% of license keys)
-License rows after joining (row-level)	78,948 (vs. 36,815 master rows and 78,948 total license rows)
-78
-Verified fact: Every license-side PD-TR key has a matching master record (no orphaned license keys), but 2,016 master PD-TR keys (5.5%) have no licence record at all — these TRs exist in the roster with no licence on file, which is plausible (e.g., newly registered, lapsed, or in-process) but not explained further by this table. The join fans out cleanly to all 78,948 license rows (no duplication beyond the expected one-to-many of multiple licence types/records per TR), confirming (INTAGTSEQ, pd_tr_INTTRAGTSEQ) is a valid join key into gold_agent_license as intended by the predefined relationship.
-7. Which identifier represents what?
-Identifier	Most likely represents	Confidence
-pd_tr_ia_code	An individual technical representative's licensing/IA credential — many-to-one from pd_tr_INTTRAGTSEQ, and the same code recurs across firms and across multiple TR-ID rows for that person, consistent with one real person holding one IA licence usable at multiple firms	Verified pattern, but not independently confirmed as a true 1:1 person key since ~15% of rows have it NULL and its exact source-system meaning wasn't validated beyond this table
-pd_tr_INTTRAGTSEQ + INTAGTSEQ together	A representative-at-firm relationship record, but likely at a finer grain than one clean relationship — many firms show far more TR IDs than distinct IA codes, so some TR-ID multiplicity is unexplained	Verified as a unique row key; its exact business grain (e.g., renewal, appointment event) remains a hypothesis, not confirmed
-pd_tr_INTTRAGTSEQ alone	A unique database record/row in gold_agent_master, and the correct join key into gold_agent_license	Verified
-INTPERSONSEQ	The parent PD firm's own person/contact identifier, not the technical representative's identity	Verified — exact match to the firm's own PD-row INTPERSONSEQ in all 805 cases
-What remains unresolved
-No single field tested here is confirmed as a clean, non-duplicated "one row = one real individual" key for PD-TR. pd_tr_ia_code is the strongest candidate based on its many-to-one relationship with pd_tr_INTTRAGTSEQ and its reuse across firms, but 15.3% NULL coverage and the 60 firms with many TR IDs under a single IA code mean a counting rule based on pd_tr_ia_code would still need further validation (e.g., against the source aa_tbltragent/IA registry) before being adopted as a business metric. No final counting rule is recommended given this unresolved gap.
+Please continue investigating the PD technical representative data in `aiahk_dna_p_catalog.dna_gia_base.gold_agent_master`.
+
+Our goal is to establish reliable identifiers and counting rules for technical representatives.
+
+The previous investigation found 15,063 distinct pd_tr_ia_code values, 23,573 distinct pd_tr_access_id values, and only 616 distinct pd_tr_name values across 36,815 records.
+
+Please execute SQL to investigate:
+
+1. Relationship between IA codes and access IDs
+
+For records where pd_tr_ia_code is populated:
+   * How many IA codes map to multiple access IDs?
+   * How many access IDs map to multiple IA codes?
+   * How many distinct pairs exist?
+   * Does each access ID appear to represent one individual, or can it belong to multiple individuals?
+
+2. Missing IA codes
+
+For the 5,633 records with NULL pd_tr_ia_code:
+   * How many distinct access IDs exist?
+   * Do these access IDs also appear on records with populated IA codes?
+   * Can access IDs safely identify representatives whose IA codes are missing?
+
+3. Representative names
+
+Investigate why 36,815 records contain only 616 distinct pd_tr_name values.
+   * Do many different IA codes share the same name?
+   * Does one IA code map to multiple names?
+   * Are names potentially masked, generic, or repeated?
+   * Is there evidence that pd_tr_name does not reliably identify an individual?
+
+4. Unusually large numbers of firms per IA code
+
+The previous analysis found that one IA code appears under 229 firms.
+   * How many IA codes appear under more than 2, 5, 10, or 20 firms?
+   * Are these relationships associated with different dates or statuses?
+   * Could NULL substitutes, default values, or reused codes explain the unusually high counts?
+   * Does the data actually establish simultaneous active relationships, or only that the codes appear in multiple records?
+
+5. Technical representative status
+
+Investigate the distinct values and frequencies of pd_tr_status.
+   * Which values exist?
+   * How do they relate to agent_status_code?
+   * Are inactive or historical representative records included?
+   * Does IA code completeness differ by status?
+
+Please provide the executed SQL queries, aggregate results, and conclusions.
+
+Do not reveal actual names, IA codes, access IDs, or other personal information.
+
+Clearly separate verified findings from assumptions. Do not invent business definitions or recommend a final unique representative counting rule without sufficient evidence.
