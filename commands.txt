@@ -1,57 +1,66 @@
-Key Finding: The 229-Firm Outlier Is a Data-Quality Artifact, Not a Real IA Code; Names Are Not Individual-Specific
-The single most important discovery: the "IA code appearing under 229 firms" is an empty string masquerading as a valid value, not a genuine credential. Once that artifact is excluded, the real pattern of IA-code reuse across firms is modest (max 12 firms). Separately, pd_tr_name is confirmed to be far too generic to identify individuals.
-1. IA code ↔ access ID relationship (where pd_tr_ia_code is populated)
-Metric	Value
-Distinct IA codes	15,063
-IA codes mapping to multiple access IDs	3,278 (max 449 access IDs under one IA code)
-Distinct access IDs (within populated-IA rows)	19,464
-Access IDs mapping to multiple IA codes	117 (max 53 IA codes under one access ID)
-Distinct (IA code, access ID) pairs	19,651
-1
-Verified fact: The relationship is many-to-many in both directions, though asymmetric — 21.8% of IA codes have multiple access IDs, while only 0.6% of access IDs have multiple IA codes. This means neither field cleanly identifies "one individual" on its own: an access ID occasionally spans multiple IA codes (117 cases, up to 53), and an IA code commonly spans multiple access IDs (3,278 cases, up to 449). An access ID therefore cannot be assumed to represent exactly one individual — it is associated with multiple IA codes in a small but non-trivial number of cases, and the underlying business reason (shared system login vs. data error) is not determinable from this table.
-2. Missing IA codes (5,633 NULL records)
-Metric	Value
-Distinct pd_tr_access_id values among NULL-IA-code records	4,328
-Of those, also seen on a populated-IA-code record	219 (5.1%)
-2
-Verified fact: The vast majority (94.9%) of access IDs tied to missing IA codes never appear elsewhere with an IA code populated. This means access IDs cannot generally be used as a substitute key to "backfill" or identify the representative when the IA code is missing — for the overwhelming majority of NULL-IA-code rows, there is no cross-reference available within this table to recover identity via access ID. Only a small subset (219 access IDs) could, in principle, be reconciled this way, and even those cannot be confirmed reliable given the many-to-many issues found in point 1.
-3. Representative names
-Metric	Value
-Distinct pd_tr_name values (where IA code also populated)	489
-Names shared by multiple IA codes	351 of 489 (72%)
-Max distinct IA codes sharing one name	611
-Average IA codes per name	31.5
-IA codes mapping to multiple names	129 of 15,063
-Max distinct names for one IA code	194
-3
-Verified fact: pd_tr_name is confirmed not reliable for identifying an individual. With only 489–616 distinct name values spread across 15,063 IA codes and 36,815 rows, the overwhelming majority of names are shared across many different, unrelated IA codes (72% of names, averaging 31.5 IA codes per name, up to 611). This is consistent with pd_tr_name being a generic, templated, or non-unique field (e.g., a placeholder, title-only, or truncated/standardized value) rather than an individual's actual name — though the exact cause (masking, data entry convention, or genuine common names) cannot be determined from this table alone and should be treated as an open question, not a confirmed root cause.
-4. Unusually large firm counts per IA code — resolved as a data artifact
-Firm-count threshold	IA codes exceeding it
-> 2 firms	2,850
-> 5 firms	376
-> 10 firms	4
-> 20 firms	1 (the 229-firm case)
-4
-Root cause identified and verified: Isolating by code content shows the single IA code with 229 firms is an empty string (""), length zero — not a real IA registration code. Excluding this one blank value, the maximum firm count among genuine (non-empty) IA codes drops to 12, and only 3 real codes exceed 10 firms 5.
-For the remaining real high-firm-count codes (11–13 firms each), a spot check of status and date fields shows these rows are all agent_status_code = '00' (Inforce) with no populated status_change_date, and no termination_effective_date on these particular groupings 6. This means the data shows these as concurrently in-force relationships across multiple firms, not resolved via different historical periods — but whether this reflects genuinely simultaneous active appointments or stale/unclosed records cannot be confirmed without transaction-level history, which is not available in this table.
-Conclusion: The extreme 229-firm case is a NULL/blank-code artifact and should be excluded from any IA-code-based analysis (filter out empty-string pd_tr_ia_code, not just NULL). Genuine IA-code firm-sharing is real but modest in scale (rarely above a handful of firms).
-5. Technical representative status (pd_tr_status)
-pd_tr_status	agent_status_code	Rows	% with IA code populated
-T	00 - Inforce	22,162	—
-I	00 - Inforce	14,001	—
-T	51 - Terminated	573	—
-I	51 - Terminated	60	—
-T	61 - Terminated - Vested	19	0%
-7
-Aggregated by pd_tr_status alone:
-pd_tr_status	Total rows	% with IA code
-T	22,754	76.80%
-I	14,061	97.48%
-8
-Verified facts:
-Only two pd_tr_status values exist in the data: T and I (undocumented codes — business meaning not provided in the schema and not invented here).
-pd_tr_status does not perfectly align with agent_status_code: both T and I statuses appear under both in-force (00) and terminated (51, 61) agent statuses, confirming these are two independent fields, not duplicates of each other.
-The large majority of PD-TR rows (36,197 of 36,815, ~98.3%) carry agent_status_code = '00' (Inforce), meaning the vast majority of records represent currently in-force relationships rather than historical/terminated ones — but a nontrivial number (652 rows) are terminated and remain in the table, confirming historical/inactive records are not excluded from this dataset.
-IA-code completeness differs materially by pd_tr_status: rows marked I are 97.5% complete for IA code, while rows marked T are only 76.8% complete. This suggests pd_tr_status may relate to a verification or confirmation stage (hypothesis, not confirmed), since the less-IA-complete group (T) could represent earlier-stage or less-validated records — but the exact meaning of T vs. I is undocumented and should not be assumed.
-What remains unresolved
-No field investigated so far — pd_tr_ia_code, pd_tr_access_id, pd_tr_name, or pd_tr_INTTRAGTSEQ — has been shown to cleanly and uniquely identify one individual technical representative without exceptions. pd_tr_ia_code remains the most plausible individual-level credential (after excluding the blank-string artifact), but it still shows multiple access IDs per code in 21.8% of cases and is only 85% populated overall (31,182 of 36,815 rows). Given these unresolved inconsistencies, no final unique technical-representative counting rule is recommended; any such rule should first exclude blank/empty-string pd_tr_ia_code values and should be validated against the source IA registry or aa_tbltragent system before being adopted as a business metric.
+Please investigate agent status definitions in `aiahk_dna_p_catalog.dna_gia_base.gold_agent_master`.
+
+Our goal is to establish accurate business rules for counting active, terminated, and suspended agents.
+
+Please execute SQL queries to investigate:
+
+1. Agent status codes
+
+For each row_type (Agency, PD, PD-TR), report:
+   * Every distinct agent_status_code and agent_status_desc
+   * Total records for each status
+   * Whether any status codes or descriptions are NULL
+   * Whether one code maps to multiple descriptions
+
+2. Active and terminated definitions
+
+Investigate whether these existing business rules match the actual data:
+
+   * 00 and 10 indicate in-force
+   * 51, 61, 62, 70, and 81 indicate terminated
+
+Identify any additional status codes or unusual cases.
+
+3. Suspension
+
+Investigate:
+   * All distinct suspend_code and suspend_desc values
+   * Number of Agency and PD records with suspension information
+   * Whether suspended agents can still have an in-force agent_status_code
+   * How suspend_effective_date and suspend_expiry_date relate to suspension status
+
+Do not assume a populated suspension field means someone is currently suspended.
+
+4. Termination dates
+
+Check:
+   * How many terminated agents have a termination_effective_date
+   * How many in-force agents have a termination_effective_date
+   * Whether termination_effective_date and status_change_date are consistent with agent_status_code
+
+5. PD technical representative status
+
+Report the combinations of pd_tr_status and agent_status_code.
+
+Check whether available metadata documents what T and I mean. Do not infer their business definitions from the values alone.
+
+6. Verify earlier count inconsistencies
+
+Recalculate:
+   * Total in-force and terminated PD-TR rows
+   * Maximum number of distinct firms associated with a nonblank pd_tr_ia_code, excluding NULL, empty strings, and whitespace-only values
+
+7. Recommended counting rules
+
+Based on verified evidence, explain how Genie should calculate:
+   * Total Agency agents
+   * Active Agency agents
+   * Terminated Agency agents
+   * Active PD firms
+   * Currently suspended Agency agents
+
+For each metric, provide the relevant SQL conditions.
+
+If a business definition cannot be confirmed from the data or metadata, explicitly mark it as unresolved.
+
+Return actual SQL queries, aggregated results, and findings. Do not expose personal information.
