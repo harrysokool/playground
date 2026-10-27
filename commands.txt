@@ -1,24 +1,35 @@
-Please investigate the actual data in `aiahk_dna_p_catalog.dna_gia_base.gold_agent_master`.
-
-I am trying to establish the correct counting rules for Agency agents, PD firms, and PD technical representatives.
-
-Please execute SQL queries to answer the following:
-
-1. For each `row_type`, report the total row count and distinct counts of `INTAGTSEQ`, `agent_code`, `INTPERSONSEQ`, and `pd_tr_INTTRAGTSEQ`.
-
-2. Check whether each identifier contains NULL values or duplicates within its relevant `row_type`.
-
-3. For PD technical representatives, investigate whether `pd_tr_INTTRAGTSEQ` identifies a unique individual or a relationship between an individual and a PD firm. Check whether the same `INTPERSONSEQ` can be associated with multiple `pd_tr_INTTRAGTSEQ` or `INTAGTSEQ` values.
-
-4. Check whether `(agent_code, row_type)` is actually unique, as suggested by the existing metadata.
-
-5. Based on the verified results, recommend the correct identifier to use when counting:
-   * Individual Agency agents
-   * PD firms
-   * PD technical representatives
-
-Please provide the actual SQL queries and aggregated results.
-
-Do not expose personal information or individual identity records. Do not assume that an identifier represents a unique individual without evidence.
-
-Clearly distinguish verified findings from assumptions.
+Summary of Findings
+The data confirms INTAGTSEQ is the correct, clean identifier for Agency agents and PD firms, but reveals that none of the available identifiers — including pd_tr_INTTRAGTSEQ and INTPERSONSEQ — safely represent "one PD technical representative" without further investigation that is out of scope here. The (agent_code, row_type) key is not unique, contrary to the existing metadata, entirely because of PD-TR records.
+1 & 2. Row counts, distinct identifier counts, and NULL/duplicate checks by row_type
+row_type	total rows	distinct INTAGTSEQ	distinct agent_code	distinct INTPERSONSEQ	distinct pd_tr_INTTRAGTSEQ
+Agency	142,857	142,857	142,857	131,904	0 (always NULL)
+PD	9,320	9,320	9,320	8,914	0 (always NULL)
+PD-TR	36,815	805	805	483	36,815
+1
+Verified facts:
+INTAGTSEQ and agent_code are non-null and have zero duplicate groups within Agency (142,857 rows = 142,857 distinct values each) and within PD (9,320 = 9,320) — each is a clean one-row-per-entity key for these two row types 2.
+pd_tr_INTTRAGTSEQ is always NULL for Agency and PD rows, and fully populated with zero duplicates for PD-TR rows (36,815 rows = 36,815 distinct values) 32.
+INTPERSONSEQ is non-null everywhere, but is not unique within any row type: 142,857 Agency rows map to only 131,904 distinct persons, 9,320 PD rows map to 8,914 distinct persons, and — most importantly — 36,815 PD-TR rows map to only 483 distinct persons.
+agent_code is not unique for PD-TR: 36,815 rows collapse to only 805 distinct agent_code/INTAGTSEQ values, with 614 agent_code values each appearing on multiple rows 2.
+3. Does pd_tr_INTTRAGTSEQ identify an individual, or a relationship — or something finer?
+This is the critical finding. Restricting to PD-TR rows and working only with aggregate counts (no row-level identity exposed):
+483 distinct INTPERSONSEQ values exist across 36,815 PD-TR rows.
+395 of those 483 persons (82%) have more than one pd_tr_INTTRAGTSEQ value, and 300 of 483 (62%) are associated with more than one INTAGTSEQ (firm) — confirming a person can be linked to multiple broker firms and multiple TR sequence IDs 4.
+The maximum number of distinct pd_tr_INTTRAGTSEQ values for a single person is 6,935, and the maximum number of distinct firms for a single person is 5 4.
+Crucially, even within a single (person, firm) pair, pd_tr_INTTRAGTSEQ is often not 1:1. Only 191 of 1,055 person-firm pairs have exactly one pd_tr_INTTRAGTSEQ; the rest have 2 up to 3,783 distinct pd_tr_INTTRAGTSEQ values for the same person at the same firm 5.
+Spot-checking the largest such pair (3,783 distinct pd_tr_INTTRAGTSEQ values for one person at one firm): all of these rows share the same agent_status_code ("00 - Inforce") and the same GIA_update_at refresh timestamp — they are not sequential history/renewal rows with differing statuses or load times 6.
+Verified conclusion: pd_tr_INTTRAGTSEQ does not represent one unique individual, and does not cleanly represent one unique (individual, firm) relationship either — within a single load/status snapshot, one person at one firm can carry thousands of distinct pd_tr_INTTRAGTSEQ values simultaneously. This is strong evidence that pd_tr_INTTRAGTSEQ operates at a finer grain than "relationship" (e.g., something closer to an event, assignment, or application/transaction-level sequence), but the exact business meaning of that finer grain is not confirmed by this table alone — it would require inspecting the source aa_tbltragent.INTTRAGTSEQ system or another table out of scope here. This is an open question, not resolved by the data available.
+Separately, it is a verified fact (not an assumption) that 483 individuals (INTPERSONSEQ) appear in both an Agency row and a PD-TR row simultaneously (n_row_types = 2), out of 140,818 total distinct persons in the table; the remaining 140,335 persons appear under only one row_type 7. This confirms a small set of individuals span multiple intermediary roles, but does not by itself explain the PD-TR multiplicity above.
+4. Is (agent_code, row_type) actually unique?
+No — verified false. There are 614 duplicate groups of (agent_code, row_type), accounting for 36,624 rows (out of 36,815 total PD-TR rows) 8. This 100%-overlaps with the PD-TR agent_code duplication found in check #2. For Agency and PD row types, (agent_code, row_type) is unique (0 duplicate groups) — the non-uniqueness is confined entirely to PD-TR.
+The existing metadata's claim that (agent_code, row_type) is a primary key is therefore incorrect for PD-TR records and should not be relied upon as-is.
+5. Recommended counting identifiers
+Entity	Recommended identifier	Verified basis
+Individual Agency agents	COUNT(DISTINCT INTAGTSEQ) (row_type = 'Agency')	Confirmed zero duplicates, zero nulls — 1 row = 1 agent
+PD firms	COUNT(DISTINCT INTAGTSEQ) (row_type = 'PD')	Confirmed zero duplicates, zero nulls — 1 row = 1 firm
+PD technical representatives	Caution: no identifier in this table is verified to equal "one individual" or "one clean relationship." COUNT(DISTINCT pd_tr_INTTRAGTSEQ) counts relationship/record rows, not people — confirmed to vastly overcount true headcount (36,815 rows vs. only 483 distinct persons). COUNT(DISTINCT INTPERSONSEQ) would undercount if the intent is "representative-firm relationships," since persons can legitimately serve multiple firms.	
+Recommendation for PD-TR: Do not default to pd_tr_INTTRAGTSEQ as "number of technical representatives" — it measures something closer to records/events, as shown by one person-firm pair alone containing 3,783 distinct values on the same day with the same status. Before building a counting rule, clarify with the business/source-system owner what pd_tr_INTTRAGTSEQ grain actually represents (e.g., is it a renewal, authorization, or transaction ID). Until that is confirmed:
+If the goal is "how many unique people act as technical representatives," use COUNT(DISTINCT INTPERSONSEQ) restricted to row_type = 'PD-TR' — this is the most defensible people-count given current evidence, though it is not been fully validated as a stable person-level key across time (that would require checking changes over multiple refreshes, which was not done here).
+If the goal is "how many person-firm engagements exist," use COUNT(DISTINCT INTPERSONSEQ, INTAGTSEQ) (i.e., distinct pairs), not pd_tr_INTTRAGTSEQ.
+pd_tr_INTTRAGTSEQ should be treated as a row/record-level key suitable for joining to gold_agent_license, not as a business headcount measure.
+This finding should be escalated before finalizing any PD-TR counting rule in business instructions, since it materially contradicts the existing assumption that pd_tr_INTTRAGTSEQ is a reliable representative-count identifier.
