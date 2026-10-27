@@ -1,49 +1,39 @@
-I'll start by reading the current Sources configuration and each table's columns, so I can see existing descriptions, indexing, and which sensitive fields are present.
+Perform a final review of the Sources tab for my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-A few quick read-only checks will confirm value encodings before I write any descriptions.
+Do not modify any other configuration section.
 
-You asked me to check that the changes persisted, so I'll re-read the Sources configuration.
+1. Education level metadata
 
-I've saved the Sources configuration and re-read it afterwards; every change below persisted. The About section, instructions, SQL examples, joins, measures, benchmarks, attached tables, Unity Catalog permissions and the underlying data were not touched.
+Inspect the exact Unity Catalog column comment for:
 
-1. Table descriptions saved (all three)
+aiahk_dna_p_catalog.dna_gia_base.gold_agent_education.agt_edu_level_code
 
-gold_agent_master: saved as you wrote it, except I added "(PD)" after "Partnership Distribution".
-gold_agent_license: saved exactly as you wrote it.
-gold_agent_education: saved exactly as you wrote it.
-2. Column descriptions and synonyms
+Report the documented meanings of codes 01, 02, and 03.
 
-Master: descriptions and synonyms for row_type, INTAGTSEQ, agent_code, INTPERSONSEQ, pd_tr_INTTRAGTSEQ, agent_status_code, agent_status_desc, agent_channel, region, suspend_code and termination_effective_date. GIA_update_at got a description only.
-I removed "agent ID" from INTAGTSEQ's synonyms because it could be confused with agent_code.
-pd_tr_ia_code already had an accurate description and synonyms, so I left it unchanged.
-Licence: descriptions and synonyms for INTAGTSEQ, row_type, pd_tr_INTTRAGTSEQ, license_type, license_type_desc, license_eff_date, license_exp_date and license_seq. GIA_update_at got a description only.
-Education: descriptions and synonyms for INTAGTSEQ, agent_code, agt_edu_seq, agt_edu_level_code, agt_edu_academic_qualification_code, agt_edu_verification_result, agt_edu_verification_sent_date and agt_edu_verification_completed_date. agt_edu__result and GIA_update_at got descriptions only.
-All seven verified facts are in the relevant descriptions:
+Compare these with the current Genie column description.
 
-Which entity INTAGTSEQ and INTPERSONSEQ point to on technical representative rows.
-Technical representative IDs are record counts, not headcounts.
-Status codes 00 and 10 mean in force; 51, 61, 62, 70 and 81 mean terminated.
-Education level and verification result codes are undocumented.
-GIA_update_at is a refresh timestamp, not a business date.
-The 2099 expiry convention is unconfirmed.
-3. Sensitive columns hidden (15)
+Do not update this description yet. I want to review the exact metadata before deciding whether to adopt those meanings.
 
-Master (12):
-Identity numbers: agent_hkid_encrypt, agent_hkid_masked, pd_tr_hkid_encrypt, pd_tr_hkid_masked
-Mobile numbers: agent_mobile, pd_tr_mobile
-Birth date: agent_DOB
-Payment accounts: agent_pay_account_bank_code, agent_pay_account_branch_code, agent_pay_account_no_masked, agent_pay_account_no_encrypt
-Income: Annual_Income
-Education (3): agt_edu_address_1, agt_edu_address_2 and agt_edu_remarks.
-Join and counting identifiers stay visible, and so does the masked agent name.
-4. Prompt matching changes
+2. Technical representative access ID
 
-Turned off on all 15 hidden columns. Before this change their matching setting wasn't listed for the master columns, while the three education columns had it on.
-Also turned off on 4 education columns that stay visible: the free-text agt_edu_other_result and agt_edu_hkfi_other, and the user-ID fields agt_edu_created_by and agt_edu_last_updated_by.
-No other matching settings changed.
-5. What couldn't be done, and points to review
+Review pd_tr_access_id in gold_agent_master.
 
-No data checks: the SQL compute was unavailable, so I couldn't look at actual values (status codes, 2099 dates, education codes). I wrote the descriptions from the existing table metadata and your verified facts only.
-Education level conflict: the Unity Catalog comment on agt_edu_level_code lists meanings for 01, 02 and 03. Following your finding, the agent's description now calls these unconfirmed and tells it not to translate them. If those labels are in fact authoritative, the description should be updated.
-Left unchanged for your decision: pd_tr_access_id (could be a login-type identifier, currently visible) and pd_tr_name (a masked name with prompt matching on).
-agt_edu__result: has no source documentation, so its description tells the agent not to use it unless a user asks for it explicitly.
+Determine from metadata whether it represents a system login, an internal reference, or another type of identifier.
+
+Since this field is not needed for our verified joins, hide it from Genie's query context and disable its prompt matching if doing so does not affect any existing configuration dependencies.
+
+Do not change the underlying table or its permissions.
+
+3. Technical representative name
+
+For pd_tr_name, disable prompt matching to avoid unnecessary sampling of personal names.
+
+Leave the column's visibility unchanged for now.
+
+4. Validation
+
+Verify that all changes persisted.
+
+Report the exact Unity Catalog education level descriptions, the changes made to the two PD technical representative columns, and anything that could not be confirmed.
+
+Do not modify About, Instructions, Examples, joins, measures, benchmarks, or underlying data.
