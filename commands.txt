@@ -1,45 +1,75 @@
-I'll start by reading the existing relationship configuration so I can keep what's already correct and avoid creating duplicates.
+Configure ONLY the Filters in the Examples tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-I'll update the Agency join in place so it uses the combined condition, then remove the separate PD join.
+First inspect all existing filters and preserve correct definitions. Avoid duplicate or conflicting filters.
 
-Now I'll re-read the saved joins and, if compute is available, check each relationship against your verified counts.
+Create or update these five reusable SQL filters.
 
-I saved all three relationships and re-read them to confirm they persisted, but I couldn't test them: the SQL compute was unavailable, so none of the validation queries ran.
+1. Active Agency agents
 
-1. Preserved
+Table: gold_agent_master
 
-PD technical representatives to PD-TR licence records: this join already matched Relationship 2 exactly, so I left it unchanged.
-2. Added or corrected
+SQL:
+row_type = 'Agency' AND agent_status_code IN ('00', '10')
 
-Relationship 1, corrected: as you chose, I updated the existing Agency join in place to the combined Agency and PD condition. It is now titled "Agency agents and PD firms to licence records".
-Old PD-only join, deleted: "PD broker firms to PD licence records" was removed because the combined join now covers it.
-Relationship 3, added: "Agency agents to education records" is new. There was no education join before.
-3. Exact saved join conditions
+Synonyms: active agency agents, inforce agency agents, current agency agents
 
-Relationship
-Saved condition
-1. Master to licence (Agency and PD)
-`gold_agent_master`.`INTAGTSEQ` = `gold_agent_license`.`INTAGTSEQ` AND `gold_agent_master`.`row_type` = `gold_agent_license`.`row_type` AND `gold_agent_master`.`row_type` IN ('Agency', 'PD')
-2. Master to licence (PD-TR)
-`gold_agent_master`.`INTAGTSEQ` = `gold_agent_license`.`INTAGTSEQ` AND `gold_agent_master`.`pd_tr_INTTRAGTSEQ` = `gold_agent_license`.`pd_tr_INTTRAGTSEQ` AND `gold_agent_master`.`row_type` = 'PD-TR' AND `gold_agent_license`.`row_type` = 'PD-TR'
-3. Master to education
-`gold_agent_master`.`INTAGTSEQ` = `gold_agent_education`.`INTAGTSEQ` AND `gold_agent_master`.`row_type` = 'Agency'
-All your required conditions are kept, and none of the joins uses INTAGTSEQ alone. The usage notes on each join tell Genie:
+2. Terminated Agency agents
 
-how to count agents, firms and technical representatives correctly after joining;
-to use a LEFT JOIN when master records without a match must be kept;
-never to join education to PD or PD-TR records.
-4. Cardinality
+Table: gold_agent_master
 
-All three joins are saved as one-to-many, from the master table to the licence or education table.
+SQL:
+row_type = 'Agency' AND agent_status_code IN ('51', '61', '62', '70', '81')
 
-5. Limitations and possible conflicts
+Synonyms: terminated agency agents, former agency agents
 
-No overlap: Relationship 1 covers Agency and PD rows and Relationship 2 covers PD-TR rows, so the two master-to-licence joins don't apply to the same rows.
-No new filters: the row-type limits apply only inside the join conditions. If Genie used an inner join instead of a LEFT JOIN, master records without a match would drop out of that query's results; the usage notes tell it to use a LEFT JOIN when those records must be kept.
-Possible gap for PD firm licences: the Unity Catalog comment on the licence table's row_type lists only "Agency" (described as "Agency/Broker Firm record") and "PD-TR". It doesn't mention "PD". If PD firm licences are actually stored as "Agency", Relationship 1 would return no licences for PD firms. The old PD-only join and your existing PD licence measures would have had the same problem. The data needs checking to confirm this.
-6. Saved and tested?
+3. Active PD firms
 
-Saved: yes, all three joins persisted as shown above.
-Tested: no, because SQL compute was unavailable. Your verified counts weren't re-checked: 36,815 / 34,799 / 2,016 / 78,948 for PD-TR, 144,509 / 136,467 for education, and the Agency/PD licence matches. When compute is available, the first check should be which row_type values appear in the licence table.
-Nothing else was changed: About, Sources, instructions, SQL measures and filters, example queries, benchmarks and the underlying data are untouched.
+Table: gold_agent_master
+
+SQL:
+row_type = 'PD' AND agent_status_code IN ('00', '10')
+
+Synonyms: active PD firms, active broker firms, inforce PD firms
+
+4. Terminated PD firms
+
+Table: gold_agent_master
+
+SQL:
+row_type = 'PD' AND agent_status_code IN ('51', '61', '62', '70', '81')
+
+Synonyms: terminated PD firms, terminated broker firms
+
+5. Currently effective licence records
+
+Table: gold_agent_license
+
+SQL:
+license_type IS NOT NULL
+AND license_eff_date IS NOT NULL
+AND license_exp_date IS NOT NULL
+AND license_eff_date <= CURRENT_DATE()
+AND license_exp_date >= CURRENT_DATE()
+
+Synonyms: currently effective licence records, valid licence periods, unexpired licence records
+
+Usage guidance:
+
+This fifth filter checks date validity only. It does not confirm regulatory authorization because license_type includes training, certifications, eligibility flags, and restrictions.
+
+Do not assume that every effective licence record represents permission to sell insurance.
+
+Additional requirements:
+
+1. Follow the supported Genie SQL filter syntax. Qualify column references where needed.
+2. Ensure every filter applies to the correct table.
+3. Preserve existing correct filters. Report any conflicting definitions before replacing them.
+4. Do not define a currently suspended filter because the business definition is unresolved.
+5. Do not define a unique PD technical representative headcount filter.
+6. Do not modify joins, measures, fields, example queries, About, Sources, Instructions, or benchmarks.
+7. Save all supported changes and read the configuration again to verify persistence.
+8. If SQL compute is available, test the filters using aggregate queries. Otherwise, clearly state that they were saved but not executed.
+
+Report the exact saved SQL for each filter and any existing filters that were preserved.
+
+Complete only the Filters configuration.
