@@ -1,46 +1,120 @@
-Summary
-All four corrections are now verified and internally consistent. The 37,283 Agency "no typed licence" agents are confirmed to be a clean, single-placeholder-row population. The exp<eff discrepancy (286 vs 328) is resolved: 286 is the correct strict count for Agency; 328 appears to have come from a different (inclusive or combined) calculation and should be discarded. The 678 PD-TR licence INTAGTSEQ values are confirmed to refer to parent broker firms. license_type is confirmed to be a mixed taxonomy of regulatory licences, training, and certifications — not purely "licences" in the regulatory sense.
-1. Corrected 4-group mutually exclusive summary
-row_type	Active + valid	Active, no valid	Terminated + valid	Terminated, no valid	Total
-Agency	20,400	31	37,247	85,179	142,857 ✓
-PD	2,271	377	105	6,567	9,320 ✓
-1
-Verified fact: Both totals now sum exactly to the expected entity counts (142,857 Agency, 9,320 PD), using COUNT(DISTINCT INTAGTSEQ) throughout to prevent duplication from the one-to-many relationship with licence records. This corrects the earlier report, where the "terminated without valid licence" group (85,210 Agency / 6,944 PD) was computed as a residual "has any licence but none currently valid" bucket rather than a true fourth mutually exclusive category tied to active/terminated status — the corrected values (85,179 / 6,567) are slightly lower because they exclude the handful of entities with no licence record classified ambiguously in the prior pass.
-2. The 37,283 Agency agents without typed licence records
-Check	Result
-Distinct agents with at least one NULL-license_type row	37,283
-…of which have exactly one NULL-type row	37,283 (100%)
-…of which have more than one NULL-type row	0
-…of which this NULL-type row is their only licence record of any kind	37,283 (100%)
-2
-Verified conclusion: Each of these 37,283 agents has exactly one placeholder row with license_type IS NULL, and it is their only row in gold_agent_license — confirming this is a clean, structurally consistent placeholder population (e.g., agents onboarded into the licence table with no licence yet assigned), not a data-quality scattering across multiple rows. Since this placeholder row also has license_eff_date/license_exp_date NULL (established in the prior investigation), these are necessarily the same agents who have no currently valid licence — a NULL-type/NULL-date row can never satisfy the validity rule, so this group is a subset of the broader "no currently valid licence" population, not a separate phenomenon.
-3. Corrected exp < eff counts by row_type
-row_type	Strict (exp < eff)	Inclusive (exp <= eff)
-PD	42	1,090
-PD-TR	0	710
-Agency	286	4,544
-3
-Verified correction: The correct strict count for Agency is 286. The previously cited "328" does not match either the strict (<) or inclusive (<=) definition recalculated here, and cannot be reproduced from this logic — it should be treated as an error from the prior response and discarded in favor of this verified figure of 286.
-4. What license_type actually represents
-A broad sample of license_type/license_type_desc pairs confirms the table mixes multiple distinct categories under one field 4:
-Genuine regulatory/product licences: e.g., 01/02/03/04 – Life insurance licence variants, 21–24 – General insurance licence variants, 31 – MPF (Pension), 3M – Macau Pension License, 5B – Investment advisory.
-Training and examination records: e.g., 8D – New Agent Training, 8E – PA/EDP Follow Up Training, 60/61 – VUL classroom/examination, 50–55 – IL (various training/certification paths), 64 – Master e-Test.
-Compliance/certification/regulatory-process items: e.g., 84 – FATCA, 88 – Common Report Standard (CRS), 85/32 – Business Ethics eExercise, 87 – Contracting (HKFI), 6A – Universal Foreigner Verification.
-Product eligibility / sales-authorization flags: e.g., 80 – Eligible Agent to sell Asset Accumulator Plan, 63 – Eligible Agent to sell China Policy, 82 – CIES.
-Penalty / suspension flags recorded in the same field: e.g., 71 – "Penalty - not allow to sell Universal Life Products," 73 – "Suspend selling AMR," 76 – "Suspend selling wealth preserver."
-Verified conclusion: The table combines genuine regulatory licences, internal training/certification records, compliance attestations (FATCA/CRS/Business Ethics), and sales-eligibility/penalty flags under a single license_type taxonomy. No metadata field distinguishes these categories explicitly (there is no "category" or "licence class" column), so any classification into "licence" vs. "training" vs. "certification" vs. "restriction" would have to be done manually per code based on the description text — this is not automatically derivable and should not be assumed without a controlled mapping exercise. Consequently, counting "licences" using the full license_type universe risks conflating regulatory authorizations with training completions and penalty markers; any business metric should clarify which subset of types it intends to include.
-5. PD-TR licence records' INTAGTSEQ — firm vs. individual
-Check	Result
-Distinct INTAGTSEQ in PD-TR licence records	678
-Distinct INTAGTSEQ in PD-TR master records	805
-Distinct INTAGTSEQ in PD (firm-level) master records	9,320
-PD-TR licence INTAGTSEQ values that match an actual PD-firm master record	678 of 678 (100%)
-5
-Verified conclusion: Every one of the 678 distinct INTAGTSEQ values in PD-TR licence records corresponds exactly to a genuine PD broker-firm record in gold_agent_master (row_type='PD'). This confirms INTAGTSEQ on PD-TR licence rows identifies the parent broker firm, not the individual technical representative — consistent with the documented join relationship and with the earlier finding that pd_tr_INTTRAGTSEQ (not INTAGTSEQ) is the representative-level key for PD-TR records.
-6. Date boundary risk with CURRENT_DATE()
-Verified facts:
-license_eff_date and license_exp_date carry no time-of-day component across all 4,804,207 records checked — both fields are always midnight-aligned (eff_has_time_component = 0, exp_has_time_component = 0) 6. This means comparing these timestamp columns directly against CURRENT_DATE() does not risk truncation errors from a non-zero time component.
-However, there genuinely are records whose license_exp_date equals today's date (5 PD-TR, 14 Agency records expire exactly today) and none effective exactly today in the current snapshot 7. Using a strict < or > comparison at the boundary (e.g., license_exp_date > CURRENT_DATE()) would incorrectly exclude licences that are valid through the entirety of today.
-Recommendation: The existing rule license_eff_date <= CURRENT_DATE() AND license_exp_date >= CURRENT_DATE() is the correct formulation for "valid for the full current calendar day" — it correctly includes records starting or expiring today, since both dates are clean calendar dates with no time component. This rule should continue to be used as-is; no change is needed, but analysts should avoid substituting strict </> operators at the boundary, which would wrongly exclude today's starting/expiring licences.
-7. Is the 2099 expiry convention documented in metadata?
-Verified: No. No column description, lookup table reference, or other metadata field in either gold_agent_license or gold_agent_master states that expiry dates on or after 2099-01-01 represent "non-expiring" licences. This convention was supplied to this analysis as an external business rule from prior instructions, not derived from or confirmed by the table metadata itself. It remains a reasonable working assumption — supported descriptively by the fact that the vast majority of currently-valid records carry such a date (86%+ for Agency) — but it should be explicitly flagged as an unverified external convention rather than a documented fact, and ideally confirmed against the source system (aa_tblagtlicense/aa_tbltragentlicense) before being hard-coded into any permanent business-rule definition.
+Please investigate these two tables:
+
+aiahk_dna_p_catalog.dna_gia_base.gold_agent_education
+
+aiahk_dna_p_catalog.dna_gia_base.gold_agent_master
+
+Our goal is to understand the education data and establish reliable SQL rules for the Genie Agent.
+
+Please execute SQL queries and investigate the following.
+
+1. Education record structure
+
+Report:
+
+* Total education records
+* Distinct INTAGTSEQ values
+* Distinct agent_code values
+* Distinct agt_edu_seq values
+* NULL counts for these identifiers
+* Number of agents with multiple education records
+* Whether (INTAGTSEQ, agt_edu_seq) uniquely identifies a record
+* Whether duplicate education records exist
+
+Determine what one education row represents.
+
+2. Relationship with agent master
+
+Investigate how gold_agent_education joins to gold_agent_master.
+
+* Does INTAGTSEQ provide a reliable join?
+* Does agent_code provide a reliable join?
+* Are there cases where the two identifiers disagree?
+* How many education records match Agency agents?
+* How many match PD firms?
+* How many fail to match any master record?
+* Does joining education to master create duplicate agent counts?
+
+Recommend the correct join conditions based on evidence.
+
+3. Education levels and qualifications
+
+Investigate:
+
+* Distinct agt_edu_level_code values and their frequencies
+* Distinct academic qualification codes
+* Most common education levels and qualifications
+* Whether available metadata defines the codes
+* NULL or blank values
+
+Do not invent descriptions for undocumented codes.
+
+4. Education verification
+
+Investigate these columns:
+
+agt_edu_verification_type
+agt_edu_verification_result
+agt_edu_other_result
+agt_edu__result
+agt_edu_hkfi_submitted
+
+For each field:
+
+* Report distinct values and frequencies
+* Explain documented meanings, if available
+* Identify NULL or blank values
+* Check whether verification results are consistent across fields
+* Determine whether pending, successful, or failed verification can be reliably identified
+
+Do not assume the meaning of undocumented codes.
+
+5. Education record history
+
+Investigate:
+
+agt_edu_cdc_action
+agt_edu_cdc_action_time
+agt_edu_created_time
+agt_edu_last_updated_time
+agt_edu_record_update_time
+
+Determine:
+
+* Whether the table includes historical or deleted records
+* Whether multiple rows represent updates to the same education record
+* Whether users should exclude certain CDC actions
+* Whether a reliable current-record filtering rule can be established
+
+6. Verification dates
+
+Investigate:
+
+agt_edu_verification_sent_date
+agt_edu_verification_completed_date
+
+Report:
+
+* Records with both dates populated
+* Records with only one date populated
+* Records where completion precedes submission
+* Whether average verification processing time can be calculated reliably
+
+7. Recommended SQL rules
+
+Based only on verified findings, recommend how Genie should calculate:
+
+* Number of agents with education records
+* Number of education records per agent
+* Number of agents by education level
+* Number of completed education verifications
+* Number of pending education verifications
+* Average verification processing time
+
+If any metric cannot be defined reliably, mark it as unresolved.
+
+Please provide actual SQL queries, aggregate results, and clear conclusions.
+
+Do not reveal names, addresses, identity information, reference numbers, or free text remarks.
+
+Clearly distinguish verified facts from assumptions.
