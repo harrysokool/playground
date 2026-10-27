@@ -1,32 +1,77 @@
-I'll update only the About section: the description and the suggested questions. First I'll check the current setup so the agent name stays the same and I don't add duplicate questions.
+Configure ONLY the Sources tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-The agent name and all three tables are already set, and there are no suggested questions yet. Next I'll replace the description and add the five questions.
+Use the findings from our previous table investigations. Do not create a new agent or modify other tabs.
 
-I saved both About changes, and nothing else in your Genie agent was changed.
+The three attached tables are:
 
-Description: saved. The old description was replaced with the four paragraphs you supplied, word for word. Those paragraphs cover:
+1. aiahk_dna_p_catalog.dna_gia_base.gold_agent_master
+2. aiahk_dna_p_catalog.dna_gia_base.gold_agent_license
+3. aiahk_dna_p_catalog.dna_gia_base.gold_agent_education
 
-Agency agents, PD firms, technical representative records, agent status and distribution channels
-Licence and training records, and educational qualifications
-Questions about active and terminated agents, whether licence records are valid, and education information
-The caveats that the licence table mixes several record types, and that technical representative headcounts and some education verification codes aren't fully defined
-Common questions: saved. There were no suggested questions before, so all five were added as written:
+TASK 1: Table descriptions
 
-How many active Agency agents are there?
-How many active PD firms are there?
-How many Agency agents are there by region and distribution channel?
-How many active Agency agents have at least one currently effective licence record?
-How many Agency agents have education records?
-Left unchanged:
+Configure accurate descriptions for all three tables.
 
-The agent name, "Agent Master and Licensing Analytics"
-The three attached tables in aiahk_dna_p_catalog.dna_gia_base
-Instructions, SQL examples, joins, filters and measures, benchmarks, and the run-as setting
-One thing to be aware of: your Genie agent also reads this description as guidance when it answers. The old description had a "Limitations" section that is now gone, so the agent no longer sees these notes there:
+gold_agent_master:
+Contains Agency agents, Partnership Distribution firms, and PD technical representative records. Includes entity identifiers, status, channels, contract information, suspension indicators, and termination details. Agency and PD rows represent unique agents or firms. Technical representative rows have a different record grain and must not automatically be counted as unique individuals.
 
-The data is a current snapshot, so it doesn't support reliable point-in-time history questions.
-It shouldn't guess what undocumented licence codes mean.
-Licence counts use distinct licence types unless the user asks otherwise, because renewals and duplicates exist.
-If those rules aren't already in your Instructions, you may want to add them there in a later phase.
+gold_agent_license:
+Contains regulatory licences, training, examinations, certifications, product eligibility, and restriction records. Each row describes a type code and its effective or expiry period. Multiple records may exist per entity. Not every record represents a regulatory licence.
 
-Your earlier request to analyse benchmark results wasn't part of this phase, so I didn't review any benchmark runs. I can do that next if you'd like.
+gold_agent_education:
+Contains educational qualifications and verification information for Agency agents only. Each row represents one education entry, uniquely identified by the combination of INTAGTSEQ and agt_edu_seq. Agents can have multiple entries.
+
+TASK 2: Column descriptions and synonyms
+
+Inspect existing metadata and improve descriptions for important columns.
+
+Prioritize:
+
+Master:
+row_type, INTAGTSEQ, agent_code, INTPERSONSEQ, pd_tr_INTTRAGTSEQ, pd_tr_ia_code, agent_status_code, agent_status_desc, agent_channel, region, suspend_code, termination_effective_date.
+
+Licence:
+INTAGTSEQ, row_type, pd_tr_INTTRAGTSEQ, license_type, license_type_desc, license_eff_date, license_exp_date, license_seq.
+
+Education:
+INTAGTSEQ, agent_code, agt_edu_seq, agt_edu_level_code, agt_edu_academic_qualification_code, agt_edu_verification_result, agt_edu__result, agt_edu_verification_sent_date, agt_edu_verification_completed_date.
+
+Add useful, unambiguous business synonyms.
+
+Important verified facts:
+
+1. INTAGTSEQ identifies Agency agents and PD firms, but on technical representative rows it identifies the parent firm.
+2. INTPERSONSEQ on technical representative rows belongs to the parent firm, not the representative.
+3. pd_tr_INTTRAGTSEQ identifies a unique record, not a confirmed unique person.
+4. Status codes 00 and 10 indicate in force. Codes 51, 61, 62, 70, and 81 indicate terminated.
+5. Education level and verification result code meanings remain undocumented.
+6. GIA_update_at is a technical refresh timestamp, not a business event date.
+7. The 2099 expiry convention has not been independently confirmed by source documentation.
+
+Do not invent business meanings or misleading synonyms.
+
+TASK 3: Sensitive columns
+
+Review sensitive personal fields such as identity numbers, birth dates, mobile numbers, financial accounts, personal addresses, and free text remarks.
+
+Hide clearly unnecessary sensitive fields from Genie's query context and disable their prompt matching.
+
+Preserve important identifiers needed for joins and calculations.
+
+Do not change Unity Catalog permissions or the underlying data.
+
+TASK 4: Validation
+
+Save the Sources configuration and verify the changes persisted.
+
+Do not modify About, Instructions, Examples, relationships, SQL measures, benchmarks, or attached tables.
+
+Report:
+
+1. Which table descriptions were saved.
+2. Which column descriptions and synonyms were added or updated.
+3. Which sensitive columns were hidden.
+4. Which prompt matching settings were changed.
+5. Anything that could not be configured.
+
+Only complete the Sources tab in this phase.
