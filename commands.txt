@@ -1,39 +1,25 @@
-I'll check whether any existing configuration uses these two technical representative columns before I change them.
+Make one final update to the Sources tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-Neither column is used anywhere except its own column settings: no instructions, examples, joins, measures or benchmarks refer to them. I'll apply the two changes now.
+Update only the column description for:
 
-I hid the technical representative access ID and turned off prompt matching for the representative name, and re-reading the configuration confirms both changes saved. I left the education level description unchanged, as you asked.
+aiahk_dna_p_catalog.dna_gia_base.gold_agent_education.agt_edu_level_code
 
-1. Education level metadata (no change made)
+Use the documented Unity Catalog definitions:
 
-The exact Unity Catalog comment on gold_agent_education.agt_edu_level_code is:
+01 = College/University
+02 = Vocational Education Institution
+03 = Secondary School
 
-Level of Education. 01 = College/University 02 = Vocational Education Institution 03 = Secondary School Source: aa_tbleducation.TXTEDULEVELCD
+Source: aa_tbleducation.TXTEDULEVELCD
 
-Code
-Unity Catalog meaning
-01
-College/University
-02
-Vocational Education Institution
-03
-Secondary School
-The current Genie description is different: it says the code meanings "have not been confirmed by source documentation" and tells Genie to show the codes as stored and ask before translating them. Because the Genie description takes priority, Genie currently won't use these three labels. The metadata gives no meanings for any codes other than 01–03.
+Replace the existing description that incorrectly states these codes have no documented meanings.
 
-2. Technical representative access ID (pd_tr_access_id)
+Explain that these definitions come from the Unity Catalog source metadata. NULL or unknown codes must not be assigned an invented education level.
 
-What the metadata says: the Unity Catalog comment is "Broker Technical Representative Access ID. Source: aa_tbltragent.TXTACCESSID". The name suggests a login or system-access identifier rather than a business reference, but nothing in the metadata says so explicitly. I couldn't confirm whether it is a login ID, an internal reference or something else.
-Dependencies: none. The column isn't used in any instructions, examples, joins, measures, benchmarks or suggested questions.
-Visibility: changed from visible to hidden.
-Prompt matching: it was already off, so nothing needed to change.
-Kept as is: its existing description, display name and synonyms. These only take effect if the column is made visible again.
-3. Technical representative name (pd_tr_name)
+Add appropriate synonyms if needed, without changing unrelated column settings.
 
-Prompt matching: changed from on to off.
-Visibility: left visible, as you asked. It also has no dependencies elsewhere.
-4. Not confirmed
+Save the change and verify that it persisted.
 
-Whether pd_tr_access_id is a system login. Only the source system owner or documentation for that source table can confirm it.
-Whether the education level labels for 01–03 are authoritative and complete. The comment has no version or owner details, and compute was unavailable earlier, so I couldn't check which codes actually appear in the data.
-Nothing else in your Genie agent was changed, and the underlying tables and their permissions were not touched. If you decide to adopt the 01–03 meanings, I can update the Genie description to use them.
+Do not modify any other columns, tables, instructions, joins, SQL examples, benchmarks, or settings.
 
+Report the final saved description.
