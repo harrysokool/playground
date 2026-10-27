@@ -1,89 +1,24 @@
-Overview
-This Genie Agent has three attached tables, all in aiahk_dna_p_catalog.dna_gia_base, forming an insurance-intermediary (agent/broker) licensing data mart: a master roster, a licensing table, and an education/qualification table. All three are tied together by the agent identifier INTAGTSEQ (plus agent_code, and pd_tr_INTTRAGTSEQ for broker technical representatives).
-1. gold_agent_master
-Likely business purpose: The central roster of all licensed intermediaries selling insurance — individual Agency agents, PD (Partnership Distribution — e.g. bank/broker) firms, and PD Technical Representatives (individuals working under broker firms). This is the "who" table: identity, status, channel, title, and termination info.
-What one row represents: Verified via query — one row per Agency agent (142,857 rows, 142,857 distinct INTAGTSEQ), one row per PD broker firm (9,320 rows, 9,320 distinct INTAGTSEQ), and one row per PD-TR relationship (36,815 rows, but only 805 distinct INTAGTSEQ/firm and 36,815 distinct pd_tr_INTTRAGTSEQ) — meaning a single broker firm can have many technical-representative rows, each uniquely identified by pd_tr_INTTRAGTSEQ, not by agent_code/INTAGTSEQ alone 1.
-Columns and meaning (data types as returned by the engine):
-row_type (string) — record type: Agency, PD, or PD-TR. Determines which identity/measure columns apply.
-agent_code (string) — human-readable agent/firm code, e.g. 00000G9321.
-region (string) — HKG/MAC (and some blank/"nul" values observed).
-agency_code (string) — agency grouping code (role not independently verified beyond the schema description).
-agent_type_code / agent_type_desc (string) — type classification (e.g. "Er", "01"–"04").
-agent_channel (string) — distribution channel, e.g. AGT, BKG, BNK, CRP, CSH.
-agent_status_code / agent_status_desc (string) — status (e.g. "00 - Inforce"); per business rules, '00'/'10' = in-force, '51'/'61'/'62'/'70'/'81' = terminated.
-status_change_date (timestamp) — when status last changed.
-title_effective_date, title_code, title_desc, title_agt_pd — compensation title and effective date.
-suspend_code, suspend_desc, suspend_effective_date, suspend_expiry_date — suspension/special-handling indicator fields (distinct concept from agent status).
-contract_effective_date (timestamp) — when the agent's contract began.
-business_title_code, business_title_desc — business title fields.
-termination_effective_date (timestamp) — date of termination, if applicable.
-termination_reason_code / termination_reason_desc (string) — reason for termination.
-channel_code, channel_desc — additional channel classification.
-pd_tr_name (string) — name of the PD technical representative (populated for PD-TR rows).
-GIA_update_at (timestamp) — last data refresh timestamp into this gold layer (not a business date).
-pd_tr_INTTRAGTSEQ (string) — unique ID for the PD-TR relationship.
-INTAGTSEQ (string) — unique ID of the Agency agent or PD broker firm; for PD-TR rows, identifies the associated broker firm.
-INTPERSONSEQ (string) — person-level identifier.
-agent_name_masked, agent_hkid_encrypt, agent_hkid_masked, agent_mobile, agent_pay_account_* — masked/encrypted PII fields (bank account, HKID, mobile) — sensitive, not for direct exposure.
-pd_tr_ia_code, pd_tr_corp_name, pd_tr_access_id, pd_tr_status, pd_tr_hkid_encrypt, pd_tr_hkid_masked, pd_tr_mobile — PD-TR–specific identity/status fields.
-agent_DOB (timestamp) — date of birth (sensitive).
-Last_App_Date (timestamp) — date of the agent's last application received.
-Annual_Income (string) — self-reported income (sensitive).
-Primary key / identifiers: Composite key is (agent_code, row_type) per schema metadata, but the verified unique entity identifiers are: INTAGTSEQ for Agency agents and PD firms; pd_tr_INTTRAGTSEQ for PD-TR relationships.
-Date columns: status_change_date, title_effective_date, contract_effective_date, suspend_effective_date/suspend_expiry_date, termination_effective_date, agent_DOB, Last_App_Date, GIA_update_at (technical refresh timestamp, not business-meaningful).
-Relationships to other tables: Joins to gold_agent_license via INTAGTSEQ (+ matching row_type), and for PD-TR specifically also via pd_tr_INTTRAGTSEQ, per the defined join relationships. Joins to gold_agent_education via INTAGTSEQ/agent_code (not an officially defined relationship in metadata, but both tables share these columns).
-Example business questions: How many in-force Agency agents are there by region/channel? How many PD broker firms vs. PD-TR relationships are currently active? What is the termination rate and reason breakdown by channel? Which agents have a suspension indicator?
-2. gold_agent_license
-Likely business purpose: Tracks all licence types held (historically and currently) by each Agency agent, PD broker firm, and PD-TR, including effective/expiry dates — the regulatory "what are they licensed to sell" table.
-What one row represents: One licence record (a specific license_type with an effective/expiry period) for a given entity. Verified counts: 4,674,576 rows for Agency (142,857 distinct agents, 231 distinct licence types), 50,683 rows for PD (9,320 distinct firms, 57 licence types), 78,948 rows for PD-TR (678 distinct INTAGTSEQ, 153 licence types) 2. The high row-to-entity ratio confirms agents/firms hold multiple licence types and/or multiple historical renewal records per type.
-Columns:
-agent_code (string) — links to the agent/firm code.
-row_type (string) — Agency / PD / PD-TR (with a pd_tr_INTTRAGTSEQ component for PD-TR).
-pd_tr_INTTRAGTSEQ (string) — PD-TR sequence identifier (part of primary key for PD-TR rows).
-license_type (string) — licence type code, e.g. G002, T001, CO01, M001, S001.
-license_eff_date (timestamp) — date the licence became effective.
-license_exp_date (timestamp) — date the licence expires (values ≥ 2099-01-01 are treated as non-expiring per business convention).
-GIA_update_at (timestamp) — technical refresh timestamp.
-INTAGTSEQ (string) — unique agent/firm identifier.
-pd_tr_ia_code (string) — PD-TR IA code.
-license_type_desc (string) — description of the licence type.
-license_seq (string) — licence record sequence.
-Primary key: Composite — (agent_code, row_type, pd_tr_INTTRAGTSEQ, license_type, license_eff_date) per schema metadata.
-Date columns: license_eff_date and license_exp_date define the validity window of each licence; GIA_update_at is a technical refresh timestamp only.
-Relationships: Joins to gold_agent_master on INTAGTSEQ + matching row_type (Agency-to-Agency, PD-to-PD), and additionally on pd_tr_INTTRAGTSEQ for PD-TR rows — these are the three explicitly defined join relationships in this environment.
-Example business questions: How many currently valid licence types does each agent hold? Which agents have no currently valid licence (lapsed)? Which licences are expiring in the next 30 days? What's the distribution of licence types by channel/region?
-3. gold_agent_education
-Likely business purpose: Captures educational background and qualification-verification history for agents — used for compliance/eligibility checks (e.g., HKFI/IA verification workflows referenced in column names).
-What one row represents: One education/qualification record per agent (institution, qualification, and verification details for a specific study period). Verified: 144,509 rows across 136,467 distinct agents (agent_code/INTAGTSEQ) and 133,407 distinct agt_edu_seq values 3 — so most agents have one record, though some have more than one (multiple qualifications).
-Columns:
-INTAGTSEQ, agent_code (string) — links to the agent.
-agt_edu_seq (string) — education record sequence (part of grain).
-agt_edu_country_code, agt_edu_country_other — country of education.
-agt_edu_level_code — education level code.
-agt_edu_institution_code, agt_edu_institution_name — institution attended (e.g. "THEI", "SECONDARY").
-agt_edu_academic_qualification_code, agt_edu_academic_qualification_other — qualification held.
-agt_edu_from_date, agt_edu_to_date (timestamp) — study period.
-agt_edu_verification_type, agt_edu_verification_result, agt_edu_other_result — verification process and outcome.
-agt_edu_verification_sent_date, agt_edu_verification_completed_date (timestamp) — verification workflow dates.
-agt_edu_remarks (string) — free-text notes.
-agt_edu_hkfi_submitted, agt_edu_hkfi_other — HKFI (Hong Kong Federation of Insurers) submission indicator/notes.
-agt_edu_address_1, agt_edu_address_2 — institution address.
-agt_edu_chsino — CHSI (China Higher Education Student Information) reference number, used in degree verification.
-agt_edu_degree_code_no — degree code number.
-agt_edu_import_indicator — flags records imported from pre-contract applications.
-agt_edu_created_by, agt_edu_created_time, agt_edu_last_updated_by, agt_edu_last_updated_time — record audit trail.
-agt_edu_record_update_time, agt_edu_cdc_action (Insert/Update/Delete), agt_edu_cdc_action_time — change-data-capture audit fields.
-GIA_update_at (timestamp) — technical refresh timestamp.
-agt_edu__result (string) — appears to be a result/outcome field (exact distinction from agt_edu_verification_result not documented — flagged as an assumption, not verified).
-Primary key: Documented as agent_code (primary key per schema), though agt_edu_seq and INTAGTSEQ together better reflect the true one-row-per-education-entry grain observed.
-Date columns: agt_edu_from_date/agt_edu_to_date (study period), agt_edu_verification_sent_date/agt_edu_verification_completed_date (verification workflow), agt_edu_created_time/agt_edu_last_updated_time/agt_edu_record_update_time/agt_edu_cdc_action_time (audit trail), GIA_update_at (technical refresh).
-Relationships: No join relationship for this table is explicitly defined in the environment's relationship metadata. It shares agent_code and INTAGTSEQ with gold_agent_master, which can plausibly be used to join education records to agent identity/status — but this is an inferred join, not a predefined/verified one.
-Example business questions: What is the educational qualification profile of current agents? How many education records are pending HKFI/verification? Which agents' qualifications failed verification? Average time between verification sent and completed dates.
-Cross-table summary
-Entity backbone: INTAGTSEQ (Agency agent / PD firm) and pd_tr_INTTRAGTSEQ (PD-TR) are the verified keys linking gold_agent_master ↔ gold_agent_license, with explicit, predefined join logic requiring matching row_type.
-gold_agent_education shares agent_code/INTAGTSEQ with the master table but has no predefined join relationship in this environment — treat any join to it as an assumption requiring validation if used in business logic.
-Together, the three tables support compliance and workforce-management reporting: who is licensed and active (gold_agent_master), what they're licensed to sell and when that lapses (gold_agent_license), and how qualified they are (gold_agent_education).
+Please investigate the actual data in `aiahk_dna_p_catalog.dna_gia_base.gold_agent_master`.
 
+I am trying to establish the correct counting rules for Agency agents, PD firms, and PD technical representatives.
 
+Please execute SQL queries to answer the following:
 
-3 sources
+1. For each `row_type`, report the total row count and distinct counts of `INTAGTSEQ`, `agent_code`, `INTPERSONSEQ`, and `pd_tr_INTTRAGTSEQ`.
+
+2. Check whether each identifier contains NULL values or duplicates within its relevant `row_type`.
+
+3. For PD technical representatives, investigate whether `pd_tr_INTTRAGTSEQ` identifies a unique individual or a relationship between an individual and a PD firm. Check whether the same `INTPERSONSEQ` can be associated with multiple `pd_tr_INTTRAGTSEQ` or `INTAGTSEQ` values.
+
+4. Check whether `(agent_code, row_type)` is actually unique, as suggested by the existing metadata.
+
+5. Based on the verified results, recommend the correct identifier to use when counting:
+   * Individual Agency agents
+   * PD firms
+   * PD technical representatives
+
+Please provide the actual SQL queries and aggregated results.
+
+Do not expose personal information or individual identity records. Do not assume that an identifier represents a unique individual without evidence.
+
+Clearly distinguish verified findings from assumptions.
