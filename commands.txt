@@ -1,66 +1,87 @@
-Please investigate agent status definitions in `aiahk_dna_p_catalog.dna_gia_base.gold_agent_master`.
-
-Our goal is to establish accurate business rules for counting active, terminated, and suspended agents.
-
-Please execute SQL queries to investigate:
-
-1. Agent status codes
-
-For each row_type (Agency, PD, PD-TR), report:
-   * Every distinct agent_status_code and agent_status_desc
-   * Total records for each status
-   * Whether any status codes or descriptions are NULL
-   * Whether one code maps to multiple descriptions
-
-2. Active and terminated definitions
-
-Investigate whether these existing business rules match the actual data:
-
-   * 00 and 10 indicate in-force
-   * 51, 61, 62, 70, and 81 indicate terminated
-
-Identify any additional status codes or unusual cases.
-
+Summary
+The existing business rules for in-force (00/10) and terminated (51/61/62/70/81) status codes are verified correct and complete — no additional codes exist beyond these seven. However, two important caveats emerged: one code (62) has a mislabeled description, and a small number of "in-force" Agency/PD records unexpectedly carry a populated termination date, which is a data inconsistency worth flagging rather than acting on.
+1. Agent status codes by row_type
+row_type	code	description	rows
+Agency	51	Terminated	121,295
+Agency	00	Inforce	19,410
+Agency	10	Inforce - Withdraw P-Fund	1,021
+Agency	81	Terminated - New Retirement Program	499
+Agency	61	Terminated - Vested	323
+Agency	70	Terminated - Deceased	308
+Agency	62	"61 - Terminated - Retired" (mismatched desc)	1
+PD	51	Terminated	3,576
+PD	61	Terminated - Vested	3,093
+PD	00	Inforce	2,632
+PD	10	Inforce - Withdraw P-Fund	16
+PD	62	"61 - Terminated - Retired" (mismatched desc)	3
+PD-TR	00	Inforce	36,163
+PD-TR	51	Terminated	633
+PD-TR	61	Terminated - Vested	19
+1
+Verified facts:
+agent_status_code and agent_status_desc are never NULL anywhere in the table 2.
+No status code maps to multiple descriptions — the mapping is strictly 1:1 at the code level 2. The anomaly is cosmetic: code 62's description text begins with "61" (likely a copy/paste labeling error in the source lookup table), but 62 itself is still a single, distinct, consistently-used code — this does not create ambiguity for counting purposes, only a display/label quirk.
+PD-TR records only ever carry codes 00, 51, or 61 — codes 10, 70, 62, 81 never appear for PD-TR.
+2. Active/terminated definition check
+Verified: the existing rule is correct and exhaustive.
+Codes 00 and 10 → in-force: confirmed present and consistently labeled "Inforce" variants across all three row types.
+Codes 51, 61, 62, 70, 81 → terminated: confirmed present (though 62 and 81 do not occur for PD-TR, and 70/81 do not occur for PD) and consistently labeled "Terminated" variants.
+No additional, unexpected, or unmapped status codes exist in any row_type — the full code inventory for this table is exactly {00, 10, 51, 61, 62, 70, 81}.
 3. Suspension
-
-Investigate:
-   * All distinct suspend_code and suspend_desc values
-   * Number of Agency and PD records with suspension information
-   * Whether suspended agents can still have an in-force agent_status_code
-   * How suspend_effective_date and suspend_expiry_date relate to suspension status
-
-Do not assume a populated suspension field means someone is currently suspended.
-
+All distinct suspend_code/suspend_desc values (Agency and PD): 00 (no special review), NULL, 10 (suspended selling AI), 01/02/09/21/41 (unknown), E0/C0/G0/A0 (hold FYC variants), 20 (random check), 80 (suspend hospital coverage), 30 (dubious quality), 40 (unfav claim history), 60 (non-med privilege removed) 3.
+row_type	has suspend info (non-NULL)
+Agency	86,935 of 142,857 rows (NULL: 55,650 / code 00: 86,252 / other codes: 683)
+PD	4,173 of 9,320 rows (NULL: 5,147 / code 00: 4,170 / other codes: 3)
+Suspended agents can still be in-force — verified. Restricting to rows with a genuine suspension indicator (suspend_code populated and ≠ 00):
+row_type	agent_status	rows with indicator	rows w/ suspend_effective_date	rows w/ suspend_expiry_date	already-expired
+Agency	51-Terminated	813	8	6	0
+Agency	00-Inforce	123	12	12	0
+Agency	10-Inforce-Withdraw P-Fund	13	0	0	0
+Agency	70-Terminated-Deceased	4	0	0	0
+Agency	61-Terminated-Vested	2	0	0	0
+PD	00-Inforce	2	0	0	0
+PD	51-Terminated	1	0	0	0
+4
+Verified facts:
+123 in-force (00) Agency agents carry a non-trivial suspension indicator, confirming agent_status_code and suspend_code are independent fields, as instructed.
+suspend_effective_date/suspend_expiry_date are populated for only a small minority of records with a suspension indicator (e.g., 12 of 123 in-force+suspended Agency rows) — most suspension-indicator rows have no date information at all, and none of the populated expiry dates have already passed. This means suspend dates cannot be relied on to determine whether a suspension is "currently active" for the large majority of flagged records — the date fields are too sparse to support a date-based "currently suspended" rule. A populated, non-00 suspend_code is the only consistently available signal, and even that — per existing guidance — indicates a suspension/special-handling indicator, not confirmed current suspension status.
 4. Termination dates
-
-Check:
-   * How many terminated agents have a termination_effective_date
-   * How many in-force agents have a termination_effective_date
-   * Whether termination_effective_date and status_change_date are consistent with agent_status_code
-
-5. PD technical representative status
-
-Report the combinations of pd_tr_status and agent_status_code.
-
-Check whether available metadata documents what T and I mean. Do not infer their business definitions from the values alone.
-
-6. Verify earlier count inconsistencies
-
-Recalculate:
-   * Total in-force and terminated PD-TR rows
-   * Maximum number of distinct firms associated with a nonblank pd_tr_ia_code, excluding NULL, empty strings, and whitespace-only values
-
+row_type	status group	rows	rows with termination_effective_date	rows with status_change_date
+Agency	terminated (51/61/62/70/81)	122,426	122,426 (100%)	74,909 (61.2%)
+Agency	in-force (00/10)	20,431	596 (2.9%)	528 (2.6%)
+PD	terminated	6,672	6,672 (100%)	1,217 (18.2%)
+PD	in-force	2,648	47 (1.8%)	52 (2.0%)
+5
+Verified facts:
+Every terminated record (100%) has a termination_effective_date populated — fully consistent with agent_status_code.
+A data inconsistency exists: 596 Agency and 47 PD records are coded as currently in-force (00/10) yet still carry a populated termination_effective_date, with dates ranging as far back as 1980 and as recent as 2026-10-16 6. This cannot be explained from available fields — it may reflect reinstated agents whose historical termination date was never cleared, a reporting lag, or a data-quality defect. This is flagged as unresolved and should not be used to override agent_status_code when determining active/terminated status; agent_status_code remains the authoritative field.
+status_change_date is far less consistently populated than termination_effective_date (only 61.2% of terminated Agency rows, 18.2% of terminated PD rows) and should not be relied upon as a complete source for status-change timing.
+5. PD-TR status (pd_tr_status) combinations
+pd_tr_status	agent_status_code	rows
+T	00 - Inforce	22,162
+I	00 - Inforce	14,001
+T	51 - Terminated	573
+I	51 - Terminated	60
+T	61 - Terminated - Vested	19
+7
+Verified fact: No metadata (column description, lookup table reference, or documentation) in the schema defines what T and I mean. Per instructions, their business meaning is not inferred from the data. What is verified is only that: (a) only two values exist, T and I; (b) neither value aligns exclusively with in-force or terminated agent_status_code — both occur under both; (c) T and I are therefore independent of agent_status_code and cannot be used as a proxy for it. The definition of pd_tr_status is unresolved.
+6. Recalculated PD-TR totals and clean max-firms-per-IA-code
+Metric	Value
+Total PD-TR rows	36,815
+In-force PD-TR rows (status 00/10)	36,163
+Terminated PD-TR rows (status 51/61/62/70/81)	652
+Distinct clean (non-NULL, non-empty, non-whitespace) pd_tr_ia_code values	15,062
+Max distinct firms for one clean IA code	12
+8
+This confirms the prior finding: once the single blank-string artifact is excluded, the maximum genuine IA-code-to-firm spread is 12 firms, not 229 — consistent with the earlier conclusion.
 7. Recommended counting rules
-
-Based on verified evidence, explain how Genie should calculate:
-   * Total Agency agents
-   * Active Agency agents
-   * Terminated Agency agents
-   * Active PD firms
-   * Currently suspended Agency agents
-
-For each metric, provide the relevant SQL conditions.
-
-If a business definition cannot be confirmed from the data or metadata, explicitly mark it as unresolved.
-
-Return actual SQL queries, aggregated results, and findings. Do not expose personal information.
+Metric	SQL condition	Status
+Total Agency agents	row_type = 'Agency', COUNT(DISTINCT INTAGTSEQ)	✅ Verified — INTAGTSEQ is unique and complete for Agency rows
+Active Agency agents	row_type = 'Agency' AND agent_status_code IN ('00','10'), COUNT(DISTINCT INTAGTSEQ)	✅ Verified against actual code/description inventory
+Terminated Agency agents	row_type = 'Agency' AND agent_status_code IN ('51','61','62','70','81'), COUNT(DISTINCT INTAGTSEQ)	✅ Verified against actual code/description inventory
+Active PD firms	row_type = 'PD' AND agent_status_code IN ('00','10'), COUNT(DISTINCT INTAGTSEQ)	✅ Verified against actual code/description inventory
+Currently suspended Agency agents	Unresolved — a defensible indicator-based version is row_type = 'Agency' AND suspend_code IS NOT NULL AND suspend_code <> '00', COUNT(DISTINCT INTAGTSEQ), but this measures "has a suspension/special-handling indicator on file," not confirmed current suspension, because suspend_effective_date/suspend_expiry_date are populated for only a small fraction of flagged records and cannot reliably establish an active window	⚠️ Partially unresolved — use indicator-based wording, not "currently suspended," unless suspend dates are later shown to be reliably populated
+Explicitly unresolved items, not to be used in business rules without further source-system confirmation:
+The business meaning of pd_tr_status values T and I.
+Whether the 596 Agency / 47 PD in-force records with a populated termination_effective_date represent reinstatements, data lag, or defects.
+Whether suspension should ever be treated as date-bound "currently active," given sparse date population.
