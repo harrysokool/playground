@@ -1,105 +1,45 @@
-Configure ONLY the Join Relationships in the Examples tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
+I'll start by reading the existing relationship configuration so I can keep what's already correct and avoid creating duplicates.
 
-Do not create a new agent or modify other configuration sections.
+I'll update the Agency join in place so it uses the combined condition, then remove the separate PD join.
 
-Use these three existing tables in aiahk_dna_p_catalog.dna_gia_base:
+Now I'll re-read the saved joins and, if compute is available, check each relationship against your verified counts.
 
-1. gold_agent_master
-2. gold_agent_license
-3. gold_agent_education
+I saved all three relationships and re-read them to confirm they persisted, but I couldn't test them: the SQL compute was unavailable, so none of the validation queries ran.
 
-First, inspect the existing join relationships. Preserve any relationships that are already correct and do not create duplicates.
+1. Preserved
 
-## Relationship 1: Agency and PD master to licence
+PD technical representatives to PD-TR licence records: this join already matched Relationship 2 exactly, so I left it unchanged.
+2. Added or corrected
 
-Left table: gold_agent_master
-Right table: gold_agent_license
+Relationship 1, corrected: as you chose, I updated the existing Agency join in place to the combined Agency and PD condition. It is now titled "Agency agents and PD firms to licence records".
+Old PD-only join, deleted: "PD broker firms to PD licence records" was removed because the combined join now covers it.
+Relationship 3, added: "Agency agents to education records" is new. There was no education join before.
+3. Exact saved join conditions
 
-Required conditions:
+Relationship
+Saved condition
+1. Master to licence (Agency and PD)
+`gold_agent_master`.`INTAGTSEQ` = `gold_agent_license`.`INTAGTSEQ` AND `gold_agent_master`.`row_type` = `gold_agent_license`.`row_type` AND `gold_agent_master`.`row_type` IN ('Agency', 'PD')
+2. Master to licence (PD-TR)
+`gold_agent_master`.`INTAGTSEQ` = `gold_agent_license`.`INTAGTSEQ` AND `gold_agent_master`.`pd_tr_INTTRAGTSEQ` = `gold_agent_license`.`pd_tr_INTTRAGTSEQ` AND `gold_agent_master`.`row_type` = 'PD-TR' AND `gold_agent_license`.`row_type` = 'PD-TR'
+3. Master to education
+`gold_agent_master`.`INTAGTSEQ` = `gold_agent_education`.`INTAGTSEQ` AND `gold_agent_master`.`row_type` = 'Agency'
+All your required conditions are kept, and none of the joins uses INTAGTSEQ alone. The usage notes on each join tell Genie:
 
-master.INTAGTSEQ = license.INTAGTSEQ
-AND master.row_type = license.row_type
-AND master.row_type IN ('Agency', 'PD')
+how to count agents, firms and technical representatives correctly after joining;
+to use a LEFT JOIN when master records without a match must be kept;
+never to join education to PD or PD-TR records.
+4. Cardinality
 
-Relationship type: One master record to many licence records.
+All three joins are saved as one-to-many, from the master table to the licence or education table.
 
-INTAGTSEQ is unique within Agency and PD master records, but multiple licence records may exist for each entity.
+5. Limitations and possible conflicts
 
-Do not join using INTAGTSEQ alone without matching row_type.
+No overlap: Relationship 1 covers Agency and PD rows and Relationship 2 covers PD-TR rows, so the two master-to-licence joins don't apply to the same rows.
+No new filters: the row-type limits apply only inside the join conditions. If Genie used an inner join instead of a LEFT JOIN, master records without a match would drop out of that query's results; the usage notes tell it to use a LEFT JOIN when those records must be kept.
+Possible gap for PD firm licences: the Unity Catalog comment on the licence table's row_type lists only "Agency" (described as "Agency/Broker Firm record") and "PD-TR". It doesn't mention "PD". If PD firm licences are actually stored as "Agency", Relationship 1 would return no licences for PD firms. The old PD-only join and your existing PD licence measures would have had the same problem. The data needs checking to confirm this.
+6. Saved and tested?
 
-## Relationship 2: PD technical representative master to licence
-
-Left table: gold_agent_master
-Right table: gold_agent_license
-
-Required conditions:
-
-master.INTAGTSEQ = license.INTAGTSEQ
-AND master.row_type = 'PD-TR'
-AND license.row_type = 'PD-TR'
-AND master.pd_tr_INTTRAGTSEQ = license.pd_tr_INTTRAGTSEQ
-
-Relationship type: One master technical representative record to many licence records.
-
-INTAGTSEQ identifies the parent firm, not the technical representative.
-
-pd_tr_INTTRAGTSEQ identifies the technical representative record and must be included in this join.
-
-Previously verified results:
-
-36,815 master PD-TR records.
-34,799 master records have matching licence records.
-2,016 master records have no matching licence records.
-All 78,948 PD-TR licence rows match master records.
-
-## Relationship 3: Agency master to education
-
-Left table: gold_agent_master
-Right table: gold_agent_education
-
-Required conditions:
-
-master.INTAGTSEQ = education.INTAGTSEQ
-AND master.row_type = 'Agency'
-
-Relationship type: One Agency agent to many education records.
-
-Previously verified results:
-
-144,509 education records.
-136,467 distinct Agency agents with education records.
-All education records match Agency master records.
-No education records belong to PD firms or PD technical representatives.
-
-Do not join education to PD or PD-TR records.
-
-## Configuration requirements
-
-1. Inspect all existing joins before making changes.
-2. Configure the three logical relationships using the supported Genie join configuration.
-3. Use SQL expressions for complex join conditions if necessary.
-4. Configure the correct relationship cardinality.
-5. Avoid duplicate or conflicting joins between the same tables.
-6. Do not create a simplified join that drops required conditions.
-7. Do not add filters that remove unmatched master records from unrelated queries.
-8. If the configuration cannot represent a relationship safely, leave that relationship unchanged and explain the limitation.
-9. Do not modify About, Sources, general Instructions, SQL measures, example SQL queries, benchmarks, or underlying data.
-
-## Validation
-
-After saving, read the join configuration again to confirm what persisted.
-
-If SQL compute is available, validate each relationship using aggregate queries and compare with the verified counts above.
-
-If SQL compute is unavailable, explain that the joins were saved but not independently tested.
-
-Finally, report:
-
-1. Existing joins that were preserved.
-2. Joins that were added or corrected.
-3. Exact saved join conditions.
-4. Relationship cardinality for each join.
-5. Any limitations or conflicting relationships.
-6. Whether the changes were successfully saved and tested.
-
-Complete only this phase.
+Saved: yes, all three joins persisted as shown above.
+Tested: no, because SQL compute was unavailable. Your verified counts weren't re-checked: 36,815 / 34,799 / 2,016 / 78,948 for PD-TR, 144,509 / 136,467 for education, and the Agency/PD licence matches. When compute is available, the first check should be which row_type values appear in the licence table.
+Nothing else was changed: About, Sources, instructions, SQL measures and filters, example queries, benchmarks and the underlying data are untouched.
