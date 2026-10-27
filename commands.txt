@@ -1,120 +1,110 @@
-Please investigate these two tables:
-
-aiahk_dna_p_catalog.dna_gia_base.gold_agent_education
-
-aiahk_dna_p_catalog.dna_gia_base.gold_agent_master
-
-Our goal is to understand the education data and establish reliable SQL rules for the Genie Agent.
-
-Please execute SQL queries and investigate the following.
-
+Summary
+The education table is cleanly structured (zero duplicate keys, 100% match to Agency agents only), but several metrics the user wants to calculate — verification status, qualification meaning, and processing time — cannot be reliably derived due to undocumented codes and extremely sparse date population.
 1. Education record structure
-
-Report:
-
-* Total education records
-* Distinct INTAGTSEQ values
-* Distinct agent_code values
-* Distinct agt_edu_seq values
-* NULL counts for these identifiers
-* Number of agents with multiple education records
-* Whether (INTAGTSEQ, agt_edu_seq) uniquely identifies a record
-* Whether duplicate education records exist
-
-Determine what one education row represents.
-
+Metric	Value
+Total education records	144,509
+Distinct INTAGTSEQ	136,467
+Distinct agent_code	136,467
+Distinct agt_edu_seq	133,407
+NULL INTAGTSEQ / agent_code / agt_edu_seq	0 / 0 / 0
+1
+Metric	Value
+Agents with more than one education record	7,044
+Max education records for one agent	6
+(INTAGTSEQ, agt_edu_seq) duplicate groups	0
+2
+Verified conclusion: (INTAGTSEQ, agt_edu_seq) uniquely identifies every record (zero duplicates), and all three identifiers are fully populated. One row represents a single education/qualification entry for an agent (one institution, qualification, and study period) — most agents (129,423 of 136,467, 94.8%) have exactly one such entry, while 7,044 have multiple genuinely distinct qualification entries (not duplicates).
 2. Relationship with agent master
-
-Investigate how gold_agent_education joins to gold_agent_master.
-
-* Does INTAGTSEQ provide a reliable join?
-* Does agent_code provide a reliable join?
-* Are there cases where the two identifiers disagree?
-* How many education records match Agency agents?
-* How many match PD firms?
-* How many fail to match any master record?
-* Does joining education to master create duplicate agent counts?
-
-Recommend the correct join conditions based on evidence.
-
+Check	Result
+Education records matched by INTAGTSEQ to master	144,509 of 144,509 (100%)
+Education records matched by agent_code to master	144,509 of 144,509 (100%)
+Records where INTAGTSEQ-match and agent_code-match disagree on row_type	0
+Records unmatched by either identifier	0
+3
+Match by row_type:
+row_type	Joined rows	Distinct education agents matched
+Agency	144,509	136,467
+PD	0	0
+PD-TR	0	0
+4
+Verified conclusions:
+Both INTAGTSEQ and agent_code provide equally reliable joins — they never disagree, and every education record matches a master record by both.
+Every education record matches an Agency agent, and none match PD firms or PD-TR representatives — this table applies exclusively to individual Agency agents.
+Joining education to master produces no fan-out duplication (144,509 joined rows exactly equals 144,509 source education records), confirming the join is clean and each education row matches exactly one master record.
+Recommended join: gold_agent_education.INTAGTSEQ = gold_agent_master.INTAGTSEQ AND gold_agent_master.row_type = 'Agency' (equivalently via agent_code). No row_type filter is required on the education side since it contains no PD/PD-TR records, but filtering gold_agent_master.row_type = 'Agency' avoids any theoretical ambiguity.
 3. Education levels and qualifications
-
-Investigate:
-
-* Distinct agt_edu_level_code values and their frequencies
-* Distinct academic qualification codes
-* Most common education levels and qualifications
-* Whether available metadata defines the codes
-* NULL or blank values
-
-Do not invent descriptions for undocumented codes.
-
-4. Education verification
-
-Investigate these columns:
-
-agt_edu_verification_type
-agt_edu_verification_result
-agt_edu_other_result
-agt_edu__result
-agt_edu_hkfi_submitted
-
-For each field:
-
-* Report distinct values and frequencies
-* Explain documented meanings, if available
-* Identify NULL or blank values
-* Check whether verification results are consistent across fields
-* Determine whether pending, successful, or failed verification can be reliably identified
-
-Do not assume the meaning of undocumented codes.
-
-5. Education record history
-
-Investigate:
-
-agt_edu_cdc_action
-agt_edu_cdc_action_time
-agt_edu_created_time
-agt_edu_last_updated_time
-agt_edu_record_update_time
-
-Determine:
-
-* Whether the table includes historical or deleted records
-* Whether multiple rows represent updates to the same education record
-* Whether users should exclude certain CDC actions
-* Whether a reliable current-record filtering rule can be established
-
+agt_edu_level_code distribution:
+Code	Records
+03	69,542
+01	67,042
+02	7,617
+NULL	308
+5
+agt_edu_academic_qualification_code distribution:
+Code	Records
+NULL	79,576
+02	24,490
+05	17,816
+01	13,302
+03	6,170
+04	2,529
+99	626
+6
+Verified facts: agt_edu_level_code is populated for 99.8% of records across only 3 codes (01, 02, 03), while agt_edu_academic_qualification_code is missing for the majority (55.1%) of records. No metadata, lookup table, or column documentation in the schema defines what codes 01/02/03 (level) or 01–05/99 (qualification) mean — per instructions, no description is invented for these. Business meaning of these codes is unresolved and would require a separate lookup reference not available in this environment.
+4. Education verification fields
+Field	Distinct values (non-NULL)	NULL count
+agt_edu_verification_type	01 (8,402), 03 (1,681), 05 (91), 02 (67), 04 (12)	134,256
+agt_edu_verification_result	01 (10,741), 02 (575), 04 (11)	133,182
+agt_edu__result	01 (10,747), 02 (575), 04 (11)	133,176
+agt_edu_hkfi_submitted	Y (44,387), N (5,239), O (25)	94,858
+7
+Additional checks:
+Check	Result
+agt_edu_other_result populated	11 of 144,509
+agt_edu_verification_result vs agt_edu__result — both populated	11,327
+…of which mismatched	0
+8
+Verified facts:
+agt_edu_verification_result and agt_edu__result are near-identical in population and never disagree when both are populated (0 mismatches across 11,327 shared rows) — they appear to represent the same underlying verification outcome (possibly a raw vs. cleaned/derived copy), though this exact relationship is not documented in metadata and should be treated as an observed pattern, not a confirmed design fact.
+No metadata documents what result codes 01, 02, 04 mean (e.g., which represents "pass," "fail," or "pending"). Per instructions, these are not classified without evidence.
+agt_edu_hkfi_submitted uses Y/N/O, which are self-evidently a submission flag (Yes/No/Other), but the exact meaning of "O" is not documented.
+Reliable identification of pending, successful, or failed verification status is not possible from this table — none of the result codes carry a documented business meaning, so no status classification (pending/pass/fail) can be produced without inventing definitions, which instructions prohibit.
+5. Education record history (CDC)
+agt_edu_cdc_action	Records
+I (Insert)	109,155
+U (Update)	35,354
+9
+Timestamp field	Non-null count
+agt_edu_created_time	144,509 (100%)
+agt_edu_last_updated_time	144,509 (100%)
+agt_edu_record_update_time	144,509 (100%)
+agt_edu_cdc_action_time	49,839 (34.5%)
+Records where last_updated_time < created_time	0
+10
+Verified conclusions:
+agt_edu_cdc_action contains only I (Insert) and U (Update) — no D (Delete) actions were found, so there is no evidence of deleted-record markers remaining in this table.
+Since (INTAGTSEQ, agt_edu_seq) is already confirmed unique with zero duplicates (finding #1), multiple rows do not represent multiple versions/updates of the same education entry — each agt_edu_seq appears exactly once, meaning the table stores the current state of each entry rather than a full update history. The U action likely marks that a given row was modified in place at some point, not that an older version coexists alongside a newer one.
+agt_edu_last_updated_time is never earlier than agt_edu_created_time, consistent with a well-formed audit trail.
+No CDC action needs to be excluded for standard counting — since no delete markers exist and no duplicate versions exist, a simple COUNT(*) / COUNT(DISTINCT agt_edu_seq) over the whole table already reflects current records. A reliable "current record" filter is therefore the full table itself; no additional filtering by agt_edu_cdc_action is necessary or evidenced as useful.
 6. Verification dates
-
-Investigate:
-
-agt_edu_verification_sent_date
-agt_edu_verification_completed_date
-
-Report:
-
-* Records with both dates populated
-* Records with only one date populated
-* Records where completion precedes submission
-* Whether average verification processing time can be calculated reliably
-
+Metric	Value
+Records with both agt_edu_verification_sent_date and agt_edu_verification_completed_date populated	2
+Records with only sent_date populated	1
+Records with only completed_date populated	50
+Records where completion precedes submission	0
+Average days between sent and completed (valid pairs only)	12.5 days (n = 2)
+11
+Verified conclusion: Both verification date fields are populated together in only 2 records out of 144,509 — far too sparse to support any reliable average processing-time calculation. The 12.5-day average shown is not statistically meaningful (computed from only 2 data points) and should not be reported as a real business metric. Average verification processing time is unresolved due to insufficient data.
 7. Recommended SQL rules
-
-Based only on verified findings, recommend how Genie should calculate:
-
-* Number of agents with education records
-* Number of education records per agent
-* Number of agents by education level
-* Number of completed education verifications
-* Number of pending education verifications
-* Average verification processing time
-
-If any metric cannot be defined reliably, mark it as unresolved.
-
-Please provide actual SQL queries, aggregate results, and clear conclusions.
-
-Do not reveal names, addresses, identity information, reference numbers, or free text remarks.
-
-Clearly distinguish verified facts from assumptions.
+Metric	Recommended SQL condition	Status
+Number of agents with education records	COUNT(DISTINCT INTAGTSEQ) from gold_agent_education	✅ Verified — 136,467 agents
+Number of education records per agent	COUNT(*) grouped by INTAGTSEQ (or agt_edu_seq count per agent)	✅ Verified — clean, no duplicates to worry about
+Number of agents by education level	COUNT(DISTINCT INTAGTSEQ) grouped by agt_edu_level_code	⚠️ Countable, but the business meaning of each code (01/02/03) is unresolved — results can be reported by raw code only, not labeled with a description
+Number of completed education verifications	Cannot be defined	❌ Unresolved — no documented code confirms which agt_edu_verification_result/agt_edu__result value means "completed/passed"
+Number of pending education verifications	Cannot be defined	❌ Unresolved — same reason; also, "pending" would require a status value that isn't documented, and a NULL result is ambiguous between "not yet submitted" and "not applicable"
+Average verification processing time	Cannot be defined	❌ Unresolved — only 2 of 144,509 records have both dates populated, an insufficient sample
+Items explicitly marked unresolved, not to be used in business rules without further source documentation:
+Business meaning of agt_edu_level_code and agt_edu_academic_qualification_code values.
+Business meaning of agt_edu_verification_type, agt_edu_verification_result, agt_edu__result codes (01/02/04/etc.) and the exact relationship between agt_edu_verification_result and agt_edu__result.
+Meaning of agt_edu_hkfi_submitted value "O".
+Verification processing-time metrics, due to near-total absence of paired dates.
