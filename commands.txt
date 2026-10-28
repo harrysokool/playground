@@ -1,27 +1,30 @@
-Make one final correction to the Measures in my existing Genie Agent.
+I'll update the education measure and, at the same time, try the read-only checks: blank or whitespace-only licence codes, and the education record count.
 
-1. Find the existing measure "Number of education records".
+*Used Manage Instructions By Room, Execute Sql, Grep*
 
-Replace COUNT(*) with:
+I updated the education records measure, and a re-read confirms it saved. I couldn't test it because the SQL compute was unavailable again, so the expected 144,509 hasn't been confirmed, and I couldn't check the licence codes either.
 
-COUNT(DISTINCT `gold_agent_education`.`INTAGTSEQ`, `gold_agent_education`.`agt_edu_seq`)
+**Final saved education measure**
+- **Title:** Number of education records - unique INTAGTSEQ and agt_edu_seq combinations
+- **SQL:** ``COUNT(DISTINCT `gold_agent_education`.`INTAGTSEQ`, `gold_agent_education`.`agt_edu_seq`)``
 
-Both columns are nonNULL, and their combination uniquely identifies each education record.
+I also shortened the title. The old one warned that this was a row count that joins could inflate, which no longer applies. Nothing else in the measure changed.
 
-This prevents duplicate counting when joins multiply education rows.
+**Licence-type measures (left unchanged)**
 
-2. Inspect existing measures that count distinct license_type values.
+Yes, these measures could count blank or space-only codes as real licence types. A check for "not empty" only excludes missing values. A blank code (`''`) or a code made only of spaces (`'  '`) still counts as its own distinct type, and so does a code with extra spaces at either end (`'ABC '`) next to the same code without them (`'ABC'`).
 
-Check whether they can count blank or whitespace only licence codes as meaningful types.
+These measures are affected:
+- Number of Agency licence types
+- Number of currently effective Agency licence types
+- Number of currently effective PD licence types
+- Number of distinct currently effective licence types
+- Number of currently effective typed licence records: this one counts records, but its "typed" condition would also accept blank codes.
 
-If SQL compute is available, investigate whether those values exist. Do not change existing licence measures without evidence.
+I didn't change any of them, because I couldn't check whether such values actually exist.
 
-3. Preserve all other measures and configurations.
+**Unresolved concerns**
+- **Education count:** not tested. If either column is ever empty, that row won't be counted. You've confirmed neither is empty today, but that hasn't been re-checked.
+- **Blank, space-only or padded licence codes:** not investigated. When compute is available, count, for each row type, the licence codes that are empty, blank after removing spaces, or have spaces at either end. If any turn up, the licence-type measures should ignore blank codes and remove extra spaces before counting.
 
-4. Save the updated education measure and reread it to confirm persistence.
-
-5. If compute is available, verify that the education measure returns 144509. Otherwise, report that the change was saved but not tested.
-
-Do not modify any other configuration section.
-
-Report the exact final SQL and any unresolved concerns.
+Nothing else was changed: all other measures and every other section are untouched.
