@@ -1,30 +1,118 @@
-I'll update the education measure and, at the same time, try the read-only checks: blank or whitespace-only licence codes, and the education record count.
+Configure ONLY the Fields in the Examples tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-*Used Manage Instructions By Room, Execute Sql, Grep*
+First inspect all existing Fields, their SQL expressions, and dependencies. Preserve correct definitions and avoid duplicates.
 
-I updated the education records measure, and a re-read confirms it saved. I couldn't test it because the SQL compute was unavailable again, so the expected 144,509 hasn't been confirmed, and I couldn't check the licence codes either.
+Use the three existing tables in aiahk_dna_p_catalog.dna_gia_base.
 
-**Final saved education measure**
-- **Title:** Number of education records - unique INTAGTSEQ and agt_edu_seq combinations
-- **SQL:** ``COUNT(DISTINCT `gold_agent_education`.`INTAGTSEQ`, `gold_agent_education`.`agt_edu_seq`)``
+## 1. Agent status category
 
-I also shortened the title. The old one warned that this was a row count that joins could inflate, which no longer applies. Nothing else in the measure changed.
+Table: gold_agent_master
 
-**Licence-type measures (left unchanged)**
+Create or update a reusable Field named "Agent status category".
 
-Yes, these measures could count blank or space-only codes as real licence types. A check for "not empty" only excludes missing values. A blank code (`''`) or a code made only of spaces (`'  '`) still counts as its own distinct type, and so does a code with extra spaces at either end (`'ABC '`) next to the same code without them (`'ABC'`).
+SQL:
 
-These measures are affected:
-- Number of Agency licence types
-- Number of currently effective Agency licence types
-- Number of currently effective PD licence types
-- Number of distinct currently effective licence types
-- Number of currently effective typed licence records: this one counts records, but its "typed" condition would also accept blank codes.
+CASE
+  WHEN `gold_agent_master`.`agent_status_code` IN ('00', '10') THEN 'In force'
+  WHEN `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81') THEN 'Terminated'
+  ELSE 'Unknown'
+END
 
-I didn't change any of them, because I couldn't check whether such values actually exist.
+This field groups agent status codes into readable categories.
 
-**Unresolved concerns**
-- **Education count:** not tested. If either column is ever empty, that row won't be counted. You've confirmed neither is empty today, but that hasn't been re-checked.
-- **Blank, space-only or padded licence codes:** not investigated. When compute is available, count, for each row type, the licence codes that are empty, blank after removing spaces, or have spaces at either end. If any turn up, the licence-type measures should ignore blank codes and remove extra spaces before counting.
+Do not use termination_effective_date to override agent_status_code.
 
-Nothing else was changed: all other measures and every other section are untouched.
+Check whether a similar field already exists. Preserve it if correct.
+
+## 2. Education level description
+
+Table: gold_agent_education
+
+Create or update a reusable Field named "Education level description".
+
+Use the verified Unity Catalog metadata:
+
+01 = College/University
+02 = Vocational Education Institution
+03 = Secondary School
+
+Source: aa_tbleducation.TXTEDULEVELCD
+
+SQL:
+
+CASE
+  WHEN `gold_agent_education`.`agt_edu_level_code` = '01' THEN 'College/University'
+  WHEN `gold_agent_education`.`agt_edu_level_code` = '02' THEN 'Vocational Education Institution'
+  WHEN `gold_agent_education`.`agt_edu_level_code` = '03' THEN 'Secondary School'
+  WHEN `gold_agent_education`.`agt_edu_level_code` IS NULL THEN 'Not recorded'
+  ELSE CONCAT('Unknown code: ', `gold_agent_education`.`agt_edu_level_code`)
+END
+
+Do not invent meanings for unknown codes.
+
+Preserve existing correct Fields if they already provide this mapping.
+
+## 3. Licence expiry date category
+
+Table: gold_agent_license
+
+Inspect the existing "Licence expiry category" Field.
+
+The previous investigation found that it labels expiry dates in 2099 or later as "Nonexpiring".
+
+However, this business meaning has not been confirmed by source documentation.
+
+Update the Field to use neutral wording.
+
+For expiry dates on or after January 1, 2099, use:
+
+'Expiry in 2099 or later'
+
+Do not label these records as confirmed nonexpiring licences.
+
+Preserve the other existing expiry categories if their SQL logic is correct.
+
+Make sure this Field describes expiry dates only. It must not imply regulatory authorization or overall licence validity.
+
+Check whether any existing benchmarks expect the old "Nonexpiring" label.
+
+Do not modify benchmarks in this phase. Report any expected benchmark conflicts so they can be corrected during the Benchmarks phase.
+
+## 4. Review other existing Fields
+
+Inspect all other calculated Fields.
+
+Identify any that:
+
+1. Use undocumented business code meanings.
+2. Confuse licence records with regulatory authorizations.
+3. Assume all 2099 expiry dates are confirmed nonexpiring.
+4. Count technical representative records as unique individuals.
+5. Conflict with our verified status or education rules.
+
+Correct only clearly verified errors within Fields.
+
+Report uncertain definitions instead of guessing.
+
+Do not create unnecessary Fields.
+
+## 5. Save and validate
+
+Save all supported Field changes and reread the configuration to confirm persistence.
+
+If SQL compute is available, test the expressions against the actual data.
+
+If compute is unavailable, report that they were saved but not independently tested.
+
+Report:
+
+1. Existing Fields preserved.
+2. New Fields added.
+3. Existing Fields corrected.
+4. Exact final SQL expressions.
+5. Any conflicting definitions or benchmark dependencies.
+6. Whether the changes were saved and tested.
+
+Do not modify About, Sources, Filters, Measures, Joins, Example Queries, general Instructions, Benchmarks, or underlying tables.
+
+Complete only the Fields phase.
