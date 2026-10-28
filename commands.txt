@@ -1,45 +1,15 @@
-Configure ONLY the Fields in the Examples tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
+I'll check which benchmarks, example queries and instructions use the current field labels before I change anything.
 
-First inspect all existing Fields, their SQL expressions, and dependencies. Preserve correct definitions and avoid duplicates.
+*Used Grep, Manage Instructions By Room, Execute Sql*
 
-Use the three existing tables in aiahk_dna_p_catalog.dna_gia_base.
+I updated the two existing fields and added the education level field; a re-read confirms all three saved. I couldn't test them because the SQL compute was unavailable again.
 
-## 1. Agent status category
+**1. Existing fields kept**
 
-Table: gold_agent_master
+The agent had only two calculated fields, and I updated both, so none were kept unchanged. There were no other fields to review.
 
-Create or update a reusable Field named "Agent status category".
-
-SQL:
-
-CASE
-  WHEN `gold_agent_master`.`agent_status_code` IN ('00', '10') THEN 'In force'
-  WHEN `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81') THEN 'Terminated'
-  ELSE 'Unknown'
-END
-
-This field groups agent status codes into readable categories.
-
-Do not use termination_effective_date to override agent_status_code.
-
-Check whether a similar field already exists. Preserve it if correct.
-
-## 2. Education level description
-
-Table: gold_agent_education
-
-Create or update a reusable Field named "Education level description".
-
-Use the verified Unity Catalog metadata:
-
-01 = College/University
-02 = Vocational Education Institution
-03 = Secondary School
-
-Source: aa_tbleducation.TXTEDULEVELCD
-
-SQL:
-
+**2. New field added: Education level description (education table)**
+```sql
 CASE
   WHEN `gold_agent_education`.`agt_edu_level_code` = '01' THEN 'College/University'
   WHEN `gold_agent_education`.`agt_edu_level_code` = '02' THEN 'Vocational Education Institution'
@@ -47,72 +17,47 @@ CASE
   WHEN `gold_agent_education`.`agt_edu_level_code` IS NULL THEN 'Not recorded'
   ELSE CONCAT('Unknown code: ', `gold_agent_education`.`agt_edu_level_code`)
 END
+```
 
-Do not invent meanings for unknown codes.
+**3. Existing fields corrected**
 
-Preserve existing correct Fields if they already provide this mapping.
+*Agent status category (master table).* It used to label code 10 separately as "In-force - Withdraw P-Fund". That meaning isn't among our verified status rules, and the field now uses your definition:
+```sql
+CASE
+  WHEN `gold_agent_master`.`agent_status_code` IN ('00', '10') THEN 'In force'
+  WHEN `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81') THEN 'Terminated'
+  ELSE 'Unknown'
+END
+```
+It doesn't use `termination_effective_date`.
 
-## 3. Licence expiry date category
+*Licence expiry date category (licence table).* I renamed it from "Licence expiry category" and added "expiry dates only, not licence validity or authorization" to the title. Two labels changed:
+- "Non-expiring" is now "Expiry in 2099 or later".
+- "Valid beyond 30 days" is now "Expiring after 30 days". The old wording implied the licence was valid, which conflicts with your rule that this field describes expiry dates only.
 
-Table: gold_agent_license
+The other categories and the order they're checked in are unchanged.
+```sql
+CASE
+  WHEN `gold_agent_license`.`license_exp_date` IS NULL THEN 'Expiry date missing'
+  WHEN `gold_agent_license`.`license_exp_date` >= DATE '2099-01-01' THEN 'Expiry in 2099 or later'
+  WHEN `gold_agent_license`.`license_exp_date` < CURRENT_DATE() THEN 'Expired'
+  WHEN `gold_agent_license`.`license_exp_date` <= DATE_ADD(CURRENT_DATE(), 30) THEN 'Expiring within 30 days'
+  ELSE 'Expiring after 30 days'
+END
+```
 
-Inspect the existing "Licence expiry category" Field.
+**4. Benchmark conflicts and other dependencies (not changed)**
+- **"Show Agency licence records by expiry category":** its expected answer still uses "Non-expiring" and "Valid beyond 30 days", so it will no longer match the field labels.
+- **"Show the number of Agency agents by status category":** its expected answer still splits code 10 into "In-force - Withdraw P-Fund", while the field now groups 00 and 10 as "In force".
+- **General Instructions item 11:** still says to treat expiry dates in 2099 or later as non-expiring, which conflicts with the new wording.
+- **Education field:** a blank or space-only level code would show as "Unknown code: " followed by nothing. That's harmless, but it would show up as a separate group if such values exist.
 
-The previous investigation found that it labels expiry dates in 2099 or later as "Nonexpiring".
+No example queries refer to these fields or their labels.
 
-However, this business meaning has not been confirmed by source documentation.
+**5. Saved and tested?**
+- **Saved:** yes, all three fields persisted as shown above.
+- **Tested:** no, because compute was unavailable. Once it is available, run a breakdown of each field's categories to check:
+  - the Agency status groups add up to your verified counts (20,431 in force, 122,426 terminated);
+  - the education level groups add up to 144,509 records, and how many fall into "Unknown code".
 
-Update the Field to use neutral wording.
-
-For expiry dates on or after January 1, 2099, use:
-
-'Expiry in 2099 or later'
-
-Do not label these records as confirmed nonexpiring licences.
-
-Preserve the other existing expiry categories if their SQL logic is correct.
-
-Make sure this Field describes expiry dates only. It must not imply regulatory authorization or overall licence validity.
-
-Check whether any existing benchmarks expect the old "Nonexpiring" label.
-
-Do not modify benchmarks in this phase. Report any expected benchmark conflicts so they can be corrected during the Benchmarks phase.
-
-## 4. Review other existing Fields
-
-Inspect all other calculated Fields.
-
-Identify any that:
-
-1. Use undocumented business code meanings.
-2. Confuse licence records with regulatory authorizations.
-3. Assume all 2099 expiry dates are confirmed nonexpiring.
-4. Count technical representative records as unique individuals.
-5. Conflict with our verified status or education rules.
-
-Correct only clearly verified errors within Fields.
-
-Report uncertain definitions instead of guessing.
-
-Do not create unnecessary Fields.
-
-## 5. Save and validate
-
-Save all supported Field changes and reread the configuration to confirm persistence.
-
-If SQL compute is available, test the expressions against the actual data.
-
-If compute is unavailable, report that they were saved but not independently tested.
-
-Report:
-
-1. Existing Fields preserved.
-2. New Fields added.
-3. Existing Fields corrected.
-4. Exact final SQL expressions.
-5. Any conflicting definitions or benchmark dependencies.
-6. Whether the changes were saved and tested.
-
-Do not modify About, Sources, Filters, Measures, Joins, Example Queries, general Instructions, Benchmarks, or underlying tables.
-
-Complete only the Fields phase.
+Nothing else was changed: About, Sources, filters, measures, joins, example queries, general Instructions, benchmarks and the underlying tables are untouched.
