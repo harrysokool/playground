@@ -1,57 +1,128 @@
-I'll check whether any instructions, example queries, measures or benchmarks refer to these filters, so that renaming or updating them doesn't break anything.
+Configure ONLY the Measures in the Examples tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-I finished the remaining four filter updates, and a re-read confirms all eleven filters saved as shown below. I couldn't test any of them because the SQL compute was unavailable again.
+First inspect all existing measures, their SQL, and any related dependencies. Preserve correct measures and avoid duplicates.
 
-Synonyms and instructions fields: the tools I can use here only let me save a title and SQL for each filter. There's no separate synonyms or instructions field. Those fields may be available in the Genie interface itself, but I couldn't use them. So I kept the synonyms in brackets in the titles, and put the essential caveats after a dash.
+Use only the three attached tables in aiahk_dna_p_catalog.dna_gia_base.
 
-Dependencies: nothing in the agent refers to these filters by name. The example queries, measures and benchmarks each contain their own SQL, so nothing broke and nothing needed deleting.
+## 1. Agency measures
 
-Final filters (exact saved SQL)
+Table: gold_agent_master
 
-Filter
-Change in this pass
-Exact SQL
-Active Agency agents (also: inforce Agency agents, current Agency agents)
-None
-`gold_agent_master`.`row_type` = 'Agency' AND `gold_agent_master`.`agent_status_code` IN ('00', '10')
-Terminated Agency agents (also: former Agency agents)
-None
-`gold_agent_master`.`row_type` = 'Agency' AND `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81')
-Active PD firms (also: active broker firms, inforce PD firms)
-None
-`gold_agent_master`.`row_type` = 'PD' AND `gold_agent_master`.`agent_status_code` IN ('00', '10')
-Terminated PD firms (also: terminated broker firms)
-None
-`gold_agent_master`.`row_type` = 'PD' AND `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81')
-Currently effective licence records (also: valid licence periods, unexpired licence records) - date validity only; does not confirm regulatory authorization or permission to sell
-None
-`gold_agent_license`.`license_type` IS NOT NULL AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE()
-Currently effective Agency licence records - date validity only
-Renamed from "Currently valid Agency licence"; added the license_type check
-`gold_agent_license`.`row_type` = 'Agency' AND `gold_agent_license`.`license_type` IS NOT NULL AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE()
-Currently effective PD licence records - date validity only
-Renamed from "Currently valid PD licence"; added the license_type check
-`gold_agent_license`.`row_type` = 'PD' AND `gold_agent_license`.`license_type` IS NOT NULL AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE()
-Agency suspension or special handling indicator - does not prove current suspension
-Renamed from "Agency suspension indicator"; same condition
-`gold_agent_master`.`row_type` = 'Agency' AND `gold_agent_master`.`suspend_code` IS NOT NULL AND `gold_agent_master`.`suspend_code` <> '00'
-Licence expiry date in 2099 or later - non-expiring meaning not confirmed by source
-Renamed from "Non-expiring licence"; same condition
-`gold_agent_license`.`license_exp_date` >= DATE '2099-01-01'
-The Agency and PD licence filters now use exactly the same date check as the general licence filter, plus their own row-type limit. That removes the earlier mismatch between them.
+Total Agency agents:
+COUNT(DISTINCT CASE WHEN row_type = 'Agency' THEN INTAGTSEQ END)
 
-Conflicts in other sections (not changed, because they're outside this phase)
+Active Agency agents:
+COUNT(DISTINCT CASE WHEN row_type = 'Agency' AND agent_status_code IN ('00', '10') THEN INTAGTSEQ END)
 
-General Instructions:
+Terminated Agency agents:
+COUNT(DISTINCT CASE WHEN row_type = 'Agency' AND agent_status_code IN ('51', '61', '62', '70', '81') THEN INTAGTSEQ END)
 
-Item 10 defines a currently valid licence without requiring license_type.
-Item 11 treats an expiry in 2099 or later as non-expiring.
-Both disagree with the filters above and should be updated in the Instructions phase.
+Previously verified counts:
+Total: 142857
+Active: 20431
+Terminated: 122426
 
-Licence expiry category field: it labels expiry dates in 2099 or later as "Non-expiring", and one benchmark expects that label. That conflicts with the caveat that this meaning is unconfirmed.
+## 2. PD firm measures
 
-Two licence-type measures ("Number of currently valid Agency/PD licence types"): these don't include the license_type check. They still give the same numbers, because they count distinct license_type values and empty ones aren't counted anyway.
+Table: gold_agent_master
 
-Testing: not done. Once compute is available, run counts of currently effective records and of 2099-or-later expiry dates for each row type. That will also show whether PD firm licences are stored as "PD".
+Total PD firms:
+COUNT(DISTINCT CASE WHEN row_type = 'PD' THEN INTAGTSEQ END)
 
-Nothing else was changed: joins, measures, other fields, example queries, About, Sources, general Instructions, benchmarks and the underlying tables are untouched.
+Active PD firms:
+COUNT(DISTINCT CASE WHEN row_type = 'PD' AND agent_status_code IN ('00', '10') THEN INTAGTSEQ END)
+
+Terminated PD firms:
+COUNT(DISTINCT CASE WHEN row_type = 'PD' AND agent_status_code IN ('51', '61', '62', '70', '81') THEN INTAGTSEQ END)
+
+Previously verified counts:
+Total: 9320
+Active: 2648
+Terminated: 6672
+
+## 3. PD technical representative records
+
+Table: gold_agent_master
+
+Total PD technical representative records:
+COUNT(DISTINCT CASE WHEN row_type = 'PD-TR' THEN pd_tr_INTTRAGTSEQ END)
+
+Previously verified: 36815 records.
+
+This measure counts unique database records, NOT unique technical representative individuals.
+
+Do not create a technical representative headcount measure because no reliable individual identifier has been confirmed.
+
+## 4. Licence measures
+
+Table: gold_agent_license
+
+Currently effective typed licence records:
+COUNT(CASE WHEN license_type IS NOT NULL AND license_eff_date IS NOT NULL AND license_exp_date IS NOT NULL AND license_eff_date <= CURRENT_DATE() AND license_exp_date >= CURRENT_DATE() THEN 1 END)
+
+Distinct currently effective licence types:
+COUNT(DISTINCT CASE WHEN license_type IS NOT NULL AND license_eff_date IS NOT NULL AND license_exp_date IS NOT NULL AND license_eff_date <= CURRENT_DATE() AND license_exp_date >= CURRENT_DATE() THEN license_type END)
+
+Important:
+
+These measures use date validity only.
+
+The license_type field includes licences, training, certifications, sales eligibility, and restriction records.
+
+Do not describe these measures as counts of regulatory authorizations.
+
+Review the existing Agency and PD licence type measures. Preserve them if their calculations are correct. If changes are needed, explain the difference before replacing them.
+
+## 5. Education measures
+
+Table: gold_agent_education
+
+Total education records:
+COUNT(*)
+
+Agency agents with education records:
+COUNT(DISTINCT INTAGTSEQ)
+
+Previously verified:
+Total education records: 144509
+Distinct Agency agents: 136467
+
+The combination of INTAGTSEQ and agt_edu_seq uniquely identifies an education record.
+
+agt_edu_seq alone is not globally unique.
+
+## 6. Configuration rules
+
+1. Use valid Databricks SQL measure expressions.
+2. Use table-qualified columns where required.
+3. Check existing measures before adding new ones.
+4. Do not overwrite correct measures.
+5. Avoid creating duplicate measures with different names.
+6. Clearly distinguish agents, firms, technical representative records, licence records, licence types, and education records.
+7. Ensure entity counts use DISTINCT to prevent double counting after joins.
+8. For licence and education record measures, warn that joining multiple tables can multiply rows. Use suitable aggregation or EXISTS when necessary.
+9. Do not define measures for currently suspended agents, unique technical representative headcount, or education verification success rates because their business definitions are not confirmed.
+10. Do not assume every record with a currently effective licence date is a valid regulatory authorization.
+
+## 7. Save and validate
+
+Configure all supported measures and save them.
+
+Re-read the saved measures to confirm persistence.
+
+If SQL compute is available, execute independent aggregate queries and compare results with the verified counts.
+
+If compute is unavailable, report that the measures were saved but not tested.
+
+Report:
+
+1. Existing measures preserved.
+2. New measures added.
+3. Existing measures corrected, if any.
+4. Exact saved SQL expressions.
+5. Conflicting or duplicate measures found.
+6. Whether validation was possible.
+
+Do not modify About, Sources, joins, filters, fields, example queries, Instructions, benchmarks, or underlying data.
+
+Complete only the Measures phase.
