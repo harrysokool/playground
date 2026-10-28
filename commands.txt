@@ -1,101 +1,107 @@
-Apply the approved Examples tab cleanup to my existing Genie Agent, "Agent Master and Licensing Analytics".
+I'll apply the cleanup now. The dependency check from the audit still holds, so first I'll save the corrections, the merged measure and the new example, then make the deletions.
 
-You have already completed an audit of all 46 items across Example Queries, Filters, Measures, Fields, and Joins.
+*Used Manage Instructions By Room*
 
-Use that audit as the starting point. Do not perform a completely new redesign.
+The corrections and additions are saved. Next I'll update rule 10 so it no longer refers to the filters being deleted, and then make the 11 deletions.
 
-Our target is 37 items, but correctness is more important than reaching an exact number.
+*Used Set Text Instructions By Room, Manage Instructions By Room*
 
-1. Filters
+Now I'll re-read the full Examples configuration and try to run the new and corrected queries.
 
-Apply the three removals recommended in your audit:
+*Used Read, Execute Sql*
 
-Remove the separate Agency and PD currently effective licence filters.
+The cleanup is saved and the re-read confirms the Examples tab now has **37 items**. None of the changes have been run, because the SQL compute was unavailable again. Nothing has been validated by executing it.
 
-Remove the redundant 2099 expiry filter.
+**Final counts**
 
-Keep the six remaining filters.
+| Type | Before | After |
+|---|---|---|
+| Example queries | 15 | 12 |
+| Filters | 9 | 6 |
+| Measures | 16 | 13 |
+| Fields | 3 | 3 |
+| Joins | 3 | 3 |
+| **Total** | **46** | **37** |
 
-Preserve the general currently effective licence records filter as the shared date validity definition.
+**Dependency check before deleting:** nothing in the agent referred to any deleted item by name. That includes other Examples items, the suggested questions and the benchmarks. The one exception was Instructions rule 10, which I updated first. All the business logic is still covered by the general filter and measures, the joins and the remaining examples, so I didn't need to keep any item back.
 
-2. Measures
+**Deleted (11)**
+- **Filters (3):**
+  - Currently effective Agency licence records
+  - Currently effective PD licence records
+  - Licence expiry date in 2099 or later
+- **Measures (2):**
+  - Number of currently effective Agency licence types
+  - Number of currently effective PD licence types
+- **Example queries (4):**
+  - Show the breakdown of in-force agents by region
+  - Show the breakdown of in-force agents by channel
+  - How many in-force Agency agents have no currently effective licence records?
+  - How many currently valid licence types does each Agency agent hold?
 
-Apply your recommended measure cleanup.
+**Merged (2 into 1)**
 
-Remove the separate Agency and PD currently effective licence type measures.
+"Number of Agency licence records" and "Number of PD licence records" were replaced by:
+- **Title:** Number of licence records - source licence rows; calculate directly from the licence table or before joins that multiply rows
+- **SQL:** `COUNT(*)`
 
-Merge the Agency and PD licence record count measures into one general "Number of licence records" measure.
+To get Agency or PD counts, Genie groups or filters this measure by row type. It now also covers PD-TR licence records, which neither of the old measures did.
 
-Make clear that this counts source licence rows. It must be calculated before joins that multiply records, or directly from the licence table.
+**Corrected (8)**
+- **Measure:** "Number of PD broker firms" is now "Number of PD firms". The SQL is unchanged.
+- **PD-TR join usage note:** now says these are technical representative record counts, not unique individuals, and must never be described as a headcount. It also says that on PD-TR rows `INTAGTSEQ` identifies the parent firm.
+- **Education join usage note:** now says `COUNT(*)` is valid only on the education table alone. After any join that may multiply rows, count distinct combinations of `INTAGTSEQ` and `agt_edu_seq`.
+- **Termination example:** renamed to "How many Agency agents with a terminated status have a termination effective date in 2026?". The wording now matches the two conditions in the SQL (terminated status code and termination date in 2026), and a comment says the date doesn't override the status code.
+- **Contract date example:** renamed to "How many Agency agent records have a contract effective date in 2026?". A comment says this field hasn't been verified as the joining date.
+- **PD-TR licence-type example:** now "How many currently effective licence types does each PD technical representative record hold?". It adds the licence-type check, labels the firm column as the parent PD firm, and has comments covering record grain and date validity.
+- **Suspension example:** now "How many in-force Agency agents have a suspension or special handling indicator?", with a comment that this doesn't prove a current suspension.
 
-Preserve all distinct agent, firm, technical representative record, licence type, and education measures.
+None of the join conditions changed, and none of the other examples' logic changed except the added licence-type check in the PD-TR example.
 
-Rename "Number of PD broker firms" to "Number of PD firms".
+**Added (1)**
 
-3. Fields and Joins
+*How many active Agency agents have both a currently effective typed licence record and an education record?*
+```sql
+-- Separate EXISTS checks avoid multiplying agents by licence and education rows.
+-- Currently effective = date validity only; not proof of regulatory authorization.
+SELECT
+  COUNT(DISTINCT `m`.`INTAGTSEQ`) AS `active_agents_with_effective_licence_and_education`
+FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_master` AS `m`
+WHERE `m`.`row_type` = 'Agency'
+  AND `m`.`agent_status_code` IN ('00', '10')
+  AND EXISTS (
+    SELECT 1
+    FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_license` AS `l`
+    WHERE `l`.`INTAGTSEQ` = `m`.`INTAGTSEQ`
+      AND `l`.`row_type` = `m`.`row_type`
+      AND `l`.`license_type` IS NOT NULL
+      AND `l`.`license_eff_date` IS NOT NULL
+      AND `l`.`license_exp_date` IS NOT NULL
+      AND `l`.`license_eff_date` <= CURRENT_DATE()
+      AND `l`.`license_exp_date` >= CURRENT_DATE()
+  )
+  AND EXISTS (
+    SELECT 1
+    FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_education` AS `e`
+    WHERE `e`.`INTAGTSEQ` = `m`.`INTAGTSEQ`
+  )
+```
 
-Keep all three Fields and all three Joins.
+**General Instructions:** only rule 10 changed. It now says "Use the Currently effective licence records filter, combined with the relevant row type when a question concerns a specific entity type." The validity definition itself is unchanged.
 
-Correct the two join usage notes identified in your audit.
+**Remaining duplicates and conflicts**
+- **Duplicates:** none remain in the Examples tab. Each filter, measure, field and join covers a distinct definition.
+- **Benchmarks (not changed, as you asked):** five still conflict with current definitions:
+  - the status category split for code 10;
+  - the "Non-expiring" and "Valid beyond 30 days" expiry labels;
+  - "PD technical representative relationships" wording;
+  - two "currently valid" licence questions that don't require a populated licence type.
+- **The merged licence-record measure:** it's an unqualified `COUNT(*)`, so it's correct only on the licence table alone or before joins. The title says this.
+- **Minor wording:** Instructions rules 3 and 8 still say "PD broker firms", while the measure now says "PD firms". The meaning is the same.
+- **Row limit:** the PD-TR licence-type example returns one row per record, which can exceed the 2,000-row default in rule 17.
+- **Still unverified:**
+  - whether PD firm licences are stored with the "PD" row type; this affects the PD join logic and the PD NOT EXISTS example;
+  - whether blank or space-only licence codes exist;
+  - what the 2099 expiry dates mean.
 
-The PD technical representative join must describe record counts, not unique people.
-
-For education, COUNT(*) is valid on the education table alone. After joins that may multiply records, use distinct INTAGTSEQ and agt_edu_seq combinations.
-
-Do not modify any actual join conditions.
-
-4. Example Queries
-
-Apply the four removals recommended in your audit.
-
-Keep the seven core examples.
-
-Correct the remaining four examples identified in your audit, with one important adjustment:
-
-For "How many agents joined in 2026?", do not assume contract_effective_date is a verified joining date.
-
-Rename the question to explicitly refer to Agency agent records with contract_effective_date in 2026, and ensure the SQL matches that definition.
-
-For termination questions, ensure the wording accurately reflects the status and termination date conditions used in the SQL.
-
-Correct the PD technical representative and suspension example wording as recommended.
-
-Add one new example:
-
-"How many active Agency agents have both a currently effective typed licence record and an education record?"
-
-Use separate EXISTS conditions against gold_agent_license and gold_agent_education.
-
-Count distinct Agency INTAGTSEQ values and avoid multiplying rows.
-
-5. General Instructions
-
-Update only rule 10 to remove references to the deleted Agency and PD licence filters.
-
-Keep the general licence validity definition unchanged.
-
-6. Safety checks
-
-Before deleting anything, confirm it has no dependencies that would become invalid.
-
-Do not modify Benchmarks, About, Sources, Unity Catalog permissions, or underlying tables.
-
-Do not change correct business calculations merely to reduce the number of items.
-
-If any proposed removal would harm accuracy, keep the item and explain why.
-
-7. Validation and reporting
-
-Save all changes and reread the complete Examples configuration.
-
-Report the final number of Example Queries, Filters, Measures, Fields, and Joins.
-
-List exactly what was deleted, merged, corrected, and added.
-
-Report the final SQL for any merged or newly added items.
-
-Check for remaining duplicate definitions and conflicting business rules.
-
-If SQL compute is unavailable, clearly state that the cleanup was saved but not execution tested.
-
-Do not claim that the agent passed validation without actual execution.
+**Testing:** the cleanup is saved and the re-read confirms it, but none of the new or corrected SQL has been run. Once compute is available, run the 12 example queries and the benchmarks to confirm accuracy.
