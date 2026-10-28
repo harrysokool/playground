@@ -1,128 +1,60 @@
-Configure ONLY the Measures in the Examples tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
+The current measures were in the configuration I read in the filters phase. I'll quickly check whether any instructions, example queries or benchmarks refer to them by name before I change anything.
 
-First inspect all existing measures, their SQL, and any related dependencies. Preserve correct measures and avoid duplicates.
+*Used Grep, Manage Instructions By Room, Execute Sql*
 
-Use only the three attached tables in aiahk_dna_p_catalog.dna_gia_base.
+Eight new measures are saved, three existing measures were renamed with their calculations unchanged, and five were kept exactly as they were. A re-read confirms all 16 persisted. I couldn't test them because the SQL compute was unavailable again, so none of your verified counts were re-checked.
 
-## 1. Agency measures
+**1. Existing measures kept unchanged**
 
-Table: gold_agent_master
+| Measure | Exact SQL | Notes |
+|---|---|---|
+| Number of Agency agents | `` COUNT(DISTINCT CASE WHEN `gold_agent_master`.`row_type` = 'Agency' THEN `gold_agent_master`.`INTAGTSEQ` END) `` | Same as your "Total Agency agents", so no duplicate was added |
+| Number of PD broker firms | `` COUNT(DISTINCT CASE WHEN `gold_agent_master`.`row_type` = 'PD' THEN `gold_agent_master`.`INTAGTSEQ` END) `` | Same as your "Total PD firms" |
+| Number of Agency licence types | `` COUNT(DISTINCT CASE WHEN `gold_agent_license`.`row_type` = 'Agency' THEN `gold_agent_license`.`license_type` END) `` | All dates, not only currently effective |
+| Number of Agency licence records | `` COUNT(CASE WHEN `gold_agent_license`.`row_type` = 'Agency' THEN 1 END) `` | Row count |
+| Number of PD licence records | `` COUNT(CASE WHEN `gold_agent_license`.`row_type` = 'PD' THEN 1 END) `` | Row count |
 
-Total Agency agents:
-COUNT(DISTINCT CASE WHEN row_type = 'Agency' THEN INTAGTSEQ END)
+The SQL is shown on one line here; it's stored across several lines.
 
-Active Agency agents:
-COUNT(DISTINCT CASE WHEN row_type = 'Agency' AND agent_status_code IN ('00', '10') THEN INTAGTSEQ END)
+**2. New measures added**
 
-Terminated Agency agents:
-COUNT(DISTINCT CASE WHEN row_type = 'Agency' AND agent_status_code IN ('51', '61', '62', '70', '81') THEN INTAGTSEQ END)
+| Measure | Exact SQL |
+|---|---|
+| Number of active Agency agents | `` COUNT(DISTINCT CASE WHEN `gold_agent_master`.`row_type` = 'Agency' AND `gold_agent_master`.`agent_status_code` IN ('00', '10') THEN `gold_agent_master`.`INTAGTSEQ` END) `` |
+| Number of terminated Agency agents | `` COUNT(DISTINCT CASE WHEN `gold_agent_master`.`row_type` = 'Agency' AND `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81') THEN `gold_agent_master`.`INTAGTSEQ` END) `` |
+| Number of active PD firms | `` COUNT(DISTINCT CASE WHEN `gold_agent_master`.`row_type` = 'PD' AND `gold_agent_master`.`agent_status_code` IN ('00', '10') THEN `gold_agent_master`.`INTAGTSEQ` END) `` |
+| Number of terminated PD firms | `` COUNT(DISTINCT CASE WHEN `gold_agent_master`.`row_type` = 'PD' AND `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81') THEN `gold_agent_master`.`INTAGTSEQ` END) `` |
+| Number of currently effective typed licence records - date validity only, not regulatory authorizations; row count, so aggregate before joining to avoid multiplied rows | `` COUNT(CASE WHEN `gold_agent_license`.`license_type` IS NOT NULL AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE() THEN 1 END) `` |
+| Number of distinct currently effective licence types - date validity only, not regulatory authorizations | `` COUNT(DISTINCT CASE WHEN `gold_agent_license`.`license_type` IS NOT NULL AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE() THEN `gold_agent_license`.`license_type` END) `` |
+| Number of education records - row count, so aggregate before joining to licence records to avoid multiplied rows | `COUNT(*)` |
+| Number of Agency agents with education records | `` COUNT(DISTINCT `gold_agent_education`.`INTAGTSEQ`) `` |
 
-Previously verified counts:
-Total: 142857
-Active: 20431
-Terminated: 122426
+As with filters, measures have no separate notes field, so the join warnings and the "not regulatory authorizations" caveat are in the titles.
 
-## 2. PD firm measures
+**3. Existing measures renamed (calculations unchanged)**
 
-Table: gold_agent_master
+| Old name | New name | Exact SQL |
+|---|---|---|
+| Number of PD technical representative relationships | Number of PD technical representative records - database records, not unique individuals | `` COUNT(DISTINCT CASE WHEN `gold_agent_master`.`row_type` = 'PD-TR' AND `gold_agent_master`.`pd_tr_INTTRAGTSEQ` IS NOT NULL THEN `gold_agent_master`.`pd_tr_INTTRAGTSEQ` END) `` |
+| Number of currently valid Agency licence types | Number of currently effective Agency licence types - date validity only | `` COUNT(DISTINCT CASE WHEN `gold_agent_license`.`row_type` = 'Agency' AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE() THEN `gold_agent_license`.`license_type` END) `` |
+| Number of currently valid PD licence types | Number of currently effective PD licence types - date validity only | `` COUNT(DISTINCT CASE WHEN `gold_agent_license`.`row_type` = 'PD' AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE() THEN `gold_agent_license`.`license_type` END) `` |
 
-Total PD firms:
-COUNT(DISTINCT CASE WHEN row_type = 'PD' THEN INTAGTSEQ END)
+- **Technical representative measure:** it gives the same result as your expression. Its extra "is not empty" check makes no difference, because empty values aren't counted anyway. I renamed it from "relationships" to "records" to make clear it doesn't count people.
+- **Agency and PD licence-type measures:** I renamed them to use the same "currently effective" wording as the filters. They don't need a `license_type` check, because they count distinct `license_type` values and empty ones aren't counted.
 
-Active PD firms:
-COUNT(DISTINCT CASE WHEN row_type = 'PD' AND agent_status_code IN ('00', '10') THEN INTAGTSEQ END)
+**4. Overlaps and conflicts**
+- **No duplicates:** the new licence measures cover all row types, while the existing ones are limited to Agency or PD, so they don't repeat each other.
+- **Names close to the filters:** "Number of active Agency agents" and "Active Agency agents" are a measure and a filter. They use the same logic, so they don't conflict.
+- **`COUNT(*)` for education records:** this is correct only when the education table is the only table in the query, or is counted before any join. Joining to licence records would multiply the rows, and the title says so. You may prefer counting distinct combinations of `INTAGTSEQ` and `agt_edu_seq` here, since that stays correct after joins; I kept your expression.
+- **Join warning on the licence-record measures:** the three licence-record counts that use COUNT(…THEN 1) can also be multiplied by joins. Only the new one has that warning in its title; the two existing Agency and PD ones were left as they were.
+- **Not created, as you asked:** measures for currently suspended agents, technical representative headcount, or education verification success rates.
 
-Terminated PD firms:
-COUNT(DISTINCT CASE WHEN row_type = 'PD' AND agent_status_code IN ('51', '61', '62', '70', '81') THEN INTAGTSEQ END)
+**5. Validation**
 
-Previously verified counts:
-Total: 9320
-Active: 2648
-Terminated: 6672
+Not done, because compute was unavailable. Once it is available, run a count for each measure and compare with your figures:
+- Agency: 142,857 total, 20,431 active, 122,426 terminated
+- PD: 9,320 total, 2,648 active, 6,672 terminated
+- PD-TR: 36,815 records
+- Education: 144,509 records, 136,467 agents
 
-## 3. PD technical representative records
-
-Table: gold_agent_master
-
-Total PD technical representative records:
-COUNT(DISTINCT CASE WHEN row_type = 'PD-TR' THEN pd_tr_INTTRAGTSEQ END)
-
-Previously verified: 36815 records.
-
-This measure counts unique database records, NOT unique technical representative individuals.
-
-Do not create a technical representative headcount measure because no reliable individual identifier has been confirmed.
-
-## 4. Licence measures
-
-Table: gold_agent_license
-
-Currently effective typed licence records:
-COUNT(CASE WHEN license_type IS NOT NULL AND license_eff_date IS NOT NULL AND license_exp_date IS NOT NULL AND license_eff_date <= CURRENT_DATE() AND license_exp_date >= CURRENT_DATE() THEN 1 END)
-
-Distinct currently effective licence types:
-COUNT(DISTINCT CASE WHEN license_type IS NOT NULL AND license_eff_date IS NOT NULL AND license_exp_date IS NOT NULL AND license_eff_date <= CURRENT_DATE() AND license_exp_date >= CURRENT_DATE() THEN license_type END)
-
-Important:
-
-These measures use date validity only.
-
-The license_type field includes licences, training, certifications, sales eligibility, and restriction records.
-
-Do not describe these measures as counts of regulatory authorizations.
-
-Review the existing Agency and PD licence type measures. Preserve them if their calculations are correct. If changes are needed, explain the difference before replacing them.
-
-## 5. Education measures
-
-Table: gold_agent_education
-
-Total education records:
-COUNT(*)
-
-Agency agents with education records:
-COUNT(DISTINCT INTAGTSEQ)
-
-Previously verified:
-Total education records: 144509
-Distinct Agency agents: 136467
-
-The combination of INTAGTSEQ and agt_edu_seq uniquely identifies an education record.
-
-agt_edu_seq alone is not globally unique.
-
-## 6. Configuration rules
-
-1. Use valid Databricks SQL measure expressions.
-2. Use table-qualified columns where required.
-3. Check existing measures before adding new ones.
-4. Do not overwrite correct measures.
-5. Avoid creating duplicate measures with different names.
-6. Clearly distinguish agents, firms, technical representative records, licence records, licence types, and education records.
-7. Ensure entity counts use DISTINCT to prevent double counting after joins.
-8. For licence and education record measures, warn that joining multiple tables can multiply rows. Use suitable aggregation or EXISTS when necessary.
-9. Do not define measures for currently suspended agents, unique technical representative headcount, or education verification success rates because their business definitions are not confirmed.
-10. Do not assume every record with a currently effective licence date is a valid regulatory authorization.
-
-## 7. Save and validate
-
-Configure all supported measures and save them.
-
-Re-read the saved measures to confirm persistence.
-
-If SQL compute is available, execute independent aggregate queries and compare results with the verified counts.
-
-If compute is unavailable, report that the measures were saved but not tested.
-
-Report:
-
-1. Existing measures preserved.
-2. New measures added.
-3. Existing measures corrected, if any.
-4. Exact saved SQL expressions.
-5. Conflicting or duplicate measures found.
-6. Whether validation was possible.
-
-Do not modify About, Sources, joins, filters, fields, example queries, Instructions, benchmarks, or underlying data.
-
-Complete only the Measures phase.
+Nothing else was changed: About, Sources, joins, filters, other calculated fields, example queries, Instructions, benchmarks and the underlying data are untouched.
