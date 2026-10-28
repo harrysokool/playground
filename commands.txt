@@ -1,49 +1,57 @@
-Review and finalize ONLY the Filters in my existing Genie Agent.
+I'll check whether any instructions, example queries, measures or benchmarks refer to these filters, so that renaming or updating them doesn't break anything.
 
-Five new or updated filters have already been saved. Preserve their correct SQL logic.
+I finished the remaining four filter updates, and a re-read confirms all eleven filters saved as shown below. I couldn't test any of them because the SQL compute was unavailable again.
 
-Please resolve these remaining issues.
+Synonyms and instructions fields: the tools I can use here only let me save a title and SQL for each filter. There's no separate synonyms or instructions field. Those fields may be available in the Genie interface itself, but I couldn't use them. So I kept the synonyms in brackets in the titles, and put the essential caveats after a dash.
 
-1. Existing Agency and PD licence filters
+Dependencies: nothing in the agent refers to these filters by name. The example queries, measures and benchmarks each contain their own SQL, so nothing broke and nothing needed deleting.
 
-Inspect "Currently valid Agency licence" and "Currently valid PD licence".
+Final filters (exact saved SQL)
 
-Check whether existing measures or example queries reference them.
+Filter
+Change in this pass
+Exact SQL
+Active Agency agents (also: inforce Agency agents, current Agency agents)
+None
+`gold_agent_master`.`row_type` = 'Agency' AND `gold_agent_master`.`agent_status_code` IN ('00', '10')
+Terminated Agency agents (also: former Agency agents)
+None
+`gold_agent_master`.`row_type` = 'Agency' AND `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81')
+Active PD firms (also: active broker firms, inforce PD firms)
+None
+`gold_agent_master`.`row_type` = 'PD' AND `gold_agent_master`.`agent_status_code` IN ('00', '10')
+Terminated PD firms (also: terminated broker firms)
+None
+`gold_agent_master`.`row_type` = 'PD' AND `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81')
+Currently effective licence records (also: valid licence periods, unexpired licence records) - date validity only; does not confirm regulatory authorization or permission to sell
+None
+`gold_agent_license`.`license_type` IS NOT NULL AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE()
+Currently effective Agency licence records - date validity only
+Renamed from "Currently valid Agency licence"; added the license_type check
+`gold_agent_license`.`row_type` = 'Agency' AND `gold_agent_license`.`license_type` IS NOT NULL AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE()
+Currently effective PD licence records - date validity only
+Renamed from "Currently valid PD licence"; added the license_type check
+`gold_agent_license`.`row_type` = 'PD' AND `gold_agent_license`.`license_type` IS NOT NULL AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE()
+Agency suspension or special handling indicator - does not prove current suspension
+Renamed from "Agency suspension indicator"; same condition
+`gold_agent_master`.`row_type` = 'Agency' AND `gold_agent_master`.`suspend_code` IS NOT NULL AND `gold_agent_master`.`suspend_code` <> '00'
+Licence expiry date in 2099 or later - non-expiring meaning not confirmed by source
+Renamed from "Non-expiring licence"; same condition
+`gold_agent_license`.`license_exp_date` >= DATE '2099-01-01'
+The Agency and PD licence filters now use exactly the same date check as the general licence filter, plus their own row-type limit. That removes the earlier mismatch between them.
 
-Align their validity logic with the newly saved "Currently effective licence records" filter, including the requirement for a populated license_type.
+Conflicts in other sections (not changed, because they're outside this phase)
 
-Keep their Agency and PD restrictions.
+General Instructions:
 
-Avoid duplicate or conflicting business definitions.
+Item 10 defines a currently valid licence without requiring license_type.
+Item 11 treats an expiry in 2099 or later as non-expiring.
+Both disagree with the filters above and should be updated in the Instructions phase.
 
-2. Agency suspension indicator
+Licence expiry category field: it labels expiry dates in 2099 or later as "Non-expiring", and one benchmark expects that label. That conflicts with the caveat that this meaning is unconfirmed.
 
-Preserve the SQL condition, but rename or clarify the filter as "Agency suspension or special handling indicator".
+Two licence-type measures ("Number of currently valid Agency/PD licence types"): these don't include the license_type check. They still give the same numbers, because they count distinct license_type values and empty ones aren't counted anyway.
 
-Explain that this does not prove someone is currently suspended.
+Testing: not done. Once compute is available, run counts of currently effective records and of 2099-or-later expiry dates for each row type. That will also show whether PD firm licences are stored as "PD".
 
-3. Nonexpiring licence filter
-
-Keep the condition checking expiry dates in 2099 or later, but rename it to "Licence expiry date in 2099 or later".
-
-Explain that the source system has not confirmed that these dates mean nonexpiring licences.
-
-4. Filter titles and synonyms
-
-Microsoft documentation describes separate Synonyms and Instructions fields for SQL expressions.
-
-Check whether these fields are available in our configuration.
-
-If supported, move synonyms and usage guidance out of long titles into their proper fields.
-
-Use short, clear titles.
-
-5. Validation
-
-Preserve all working dependencies and do not delete filters that other configurations require.
-
-Save and reread the configuration.
-
-Report the final filter names, exact SQL, changes made, and whether testing was possible.
-
-Do not modify joins, measures, fields, example queries, About, Sources, general Instructions, benchmarks, or underlying tables.
+Nothing else was changed: joins, measures, other fields, example queries, About, Sources, general Instructions, benchmarks and the underlying tables are untouched.
