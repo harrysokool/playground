@@ -1,63 +1,145 @@
-I'll check which benchmarks, example queries and instructions use the current field labels before I change anything.
+Configure ONLY the Example Queries in the Examples tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-*Used Grep, Manage Instructions By Room, Execute Sql*
+Use the three attached tables:
 
-I updated the two existing fields and added the education level field; a re-read confirms all three saved. I couldn't test them because the SQL compute was unavailable again.
+aiahk_dna_p_catalog.dna_gia_base.gold_agent_master
+aiahk_dna_p_catalog.dna_gia_base.gold_agent_license
+aiahk_dna_p_catalog.dna_gia_base.gold_agent_education
 
-**1. Existing fields kept**
+First inspect all existing example queries. Preserve correct examples, improve incorrect ones, and avoid duplicate questions.
 
-The agent had only two calculated fields, and I updated both, so none were kept unchanged. There were no other fields to review.
+Create or update these seven example questions with complete, accurate Databricks SQL.
 
-**2. New field added: Education level description (education table)**
-```sql
-CASE
-  WHEN `gold_agent_education`.`agt_edu_level_code` = '01' THEN 'College/University'
-  WHEN `gold_agent_education`.`agt_edu_level_code` = '02' THEN 'Vocational Education Institution'
-  WHEN `gold_agent_education`.`agt_edu_level_code` = '03' THEN 'Secondary School'
-  WHEN `gold_agent_education`.`agt_edu_level_code` IS NULL THEN 'Not recorded'
-  ELSE CONCAT('Unknown code: ', `gold_agent_education`.`agt_edu_level_code`)
-END
-```
+1. How many active Agency agents are there?
 
-**3. Existing fields corrected**
+Use gold_agent_master.
 
-*Agent status category (master table).* It used to label code 10 separately as "In-force - Withdraw P-Fund". That meaning isn't among our verified status rules, and the field now uses your definition:
-```sql
-CASE
-  WHEN `gold_agent_master`.`agent_status_code` IN ('00', '10') THEN 'In force'
-  WHEN `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81') THEN 'Terminated'
-  ELSE 'Unknown'
-END
-```
-It doesn't use `termination_effective_date`.
+Filter row_type = 'Agency' and agent_status_code IN ('00', '10').
 
-*Licence expiry date category (licence table).* I renamed it from "Licence expiry category" and added "expiry dates only, not licence validity or authorization" to the title. Two labels changed:
-- "Non-expiring" is now "Expiry in 2099 or later".
-- "Valid beyond 30 days" is now "Expiring after 30 days". The old wording implied the licence was valid, which conflicts with your rule that this field describes expiry dates only.
+Count distinct INTAGTSEQ.
 
-The other categories and the order they're checked in are unchanged.
-```sql
-CASE
-  WHEN `gold_agent_license`.`license_exp_date` IS NULL THEN 'Expiry date missing'
-  WHEN `gold_agent_license`.`license_exp_date` >= DATE '2099-01-01' THEN 'Expiry in 2099 or later'
-  WHEN `gold_agent_license`.`license_exp_date` < CURRENT_DATE() THEN 'Expired'
-  WHEN `gold_agent_license`.`license_exp_date` <= DATE_ADD(CURRENT_DATE(), 30) THEN 'Expiring within 30 days'
-  ELSE 'Expiring after 30 days'
-END
-```
+Previously verified: 20431.
 
-**4. Benchmark conflicts and other dependencies (not changed)**
-- **"Show Agency licence records by expiry category":** its expected answer still uses "Non-expiring" and "Valid beyond 30 days", so it will no longer match the field labels.
-- **"Show the number of Agency agents by status category":** its expected answer still splits code 10 into "In-force - Withdraw P-Fund", while the field now groups 00 and 10 as "In force".
-- **General Instructions item 11:** still says to treat expiry dates in 2099 or later as non-expiring, which conflicts with the new wording.
-- **Education field:** a blank or space-only level code would show as "Unknown code: " followed by nothing. That's harmless, but it would show up as a separate group if such values exist.
+2. How many active PD firms are there?
 
-No example queries refer to these fields or their labels.
+Use gold_agent_master.
 
-**5. Saved and tested?**
-- **Saved:** yes, all three fields persisted as shown above.
-- **Tested:** no, because compute was unavailable. Once it is available, run a breakdown of each field's categories to check:
-  - the Agency status groups add up to your verified counts (20,431 in force, 122,426 terminated);
-  - the education level groups add up to 144,509 records, and how many fall into "Unknown code".
+Filter row_type = 'PD' and agent_status_code IN ('00', '10').
 
-Nothing else was changed: About, Sources, filters, measures, joins, example queries, general Instructions, benchmarks and the underlying tables are untouched.
+Count distinct INTAGTSEQ.
+
+Previously verified: 2648.
+
+3. How many Agency agents are there by region and distribution channel?
+
+Use gold_agent_master.
+
+Filter row_type = 'Agency'.
+
+Group by region and agent_channel.
+
+Count distinct INTAGTSEQ in each group.
+
+Include all agent statuses because the question does not specify active agents.
+
+The grouped counts should total 142857.
+
+4. How many active Agency agents have at least one currently effective licence record?
+
+Use gold_agent_master and gold_agent_license.
+
+Select Agency agents with status 00 or 10.
+
+Match using INTAGTSEQ and row_type.
+
+A currently effective typed licence record must satisfy:
+
+license_type IS NOT NULL
+AND license_eff_date IS NOT NULL
+AND license_exp_date IS NOT NULL
+AND license_eff_date <= CURRENT_DATE()
+AND license_exp_date >= CURRENT_DATE()
+
+Prefer EXISTS to avoid multiplying agents through multiple licence records.
+
+Count distinct Agency agents, not licence records.
+
+Previously verified: 20400.
+
+Explain that effective dates do not prove regulatory authorization.
+
+5. How many Agency agents have education records?
+
+Use gold_agent_master and gold_agent_education.
+
+Match using INTAGTSEQ and restrict master.row_type to 'Agency'.
+
+Prefer EXISTS or COUNT(DISTINCT education.INTAGTSEQ) to avoid duplicate agent counts.
+
+Previously verified: 136467 Agency agents with education records.
+
+6. How many active PD firms have no currently effective licence records?
+
+Use gold_agent_master and gold_agent_license.
+
+Filter active PD firms using codes 00 and 10.
+
+Use NOT EXISTS with matching INTAGTSEQ and row_type = 'PD'.
+
+Use the currently effective typed licence conditions from question 4.
+
+Previously verified: 377.
+
+Do not describe these firms as noncompliant. This query only checks the available licence records.
+
+7. How many Agency agents are there by education level?
+
+Use gold_agent_education and gold_agent_master.
+
+Join on INTAGTSEQ and restrict master.row_type = 'Agency'.
+
+Use the documented education mappings:
+
+01 = College/University
+02 = Vocational Education Institution
+03 = Secondary School
+
+Group by education level and count distinct agents within each level.
+
+An agent can have multiple education levels, so group counts may overlap and should not be summed to calculate overall unique agents.
+
+Handle NULL and unknown codes without inventing labels.
+
+## General requirements
+
+1. Use the existing verified business definitions, filters, joins and measures.
+2. Use complete Databricks SQL with fully qualified table names.
+3. Preserve existing correct example queries.
+4. Avoid duplicate examples with the same meaning.
+5. Prevent duplicate counting when joining tables.
+6. Do not assume every license_type represents a regulatory licence.
+7. Do not use pd_tr_INTTRAGTSEQ as an individual headcount identifier.
+8. Avoid sensitive personal fields.
+9. Do not invent results or claim successful execution when SQL compute is unavailable.
+10. Treat previously verified counts as reference values from earlier investigations, not permanent results. CURRENT_DATE() queries may change over time.
+
+## Save and validation
+
+Save all supported example queries and reread the configuration to confirm persistence.
+
+If SQL compute is available, execute the SQL queries and report actual results.
+
+If compute is unavailable, save only the examples whose SQL can be checked for consistency with the confirmed schema and rules. Clearly mark them as not execution tested.
+
+Report:
+
+1. Existing examples preserved.
+2. New examples added.
+3. Existing examples corrected.
+4. Exact SQL for all seven requested questions.
+5. Any conflicts or unresolved definitions.
+6. Whether each example was saved and tested.
+
+Do not modify About, Sources, Joins, Filters, Measures, Fields, General Instructions, Benchmarks, or underlying tables.
+
+Complete only the Example Queries phase.
