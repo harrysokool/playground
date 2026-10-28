@@ -1,137 +1,101 @@
-I'll read every item across the five Examples types, plus the benchmarks and suggested questions that might depend on them. This is an audit only, so I won't change anything.
+Apply the approved Examples tab cleanup to my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-*Used Read*
+You have already completed an audit of all 46 items across Example Queries, Filters, Measures, Fields, and Joins.
 
-This is an audit only; I haven't changed anything. I read all 46 items in the Examples tab and checked them against the General Instructions, the five suggested questions and the 10 benchmarks. SQL compute was unavailable, so nothing was run; the findings come from the saved SQL and metadata only.
+Use that audit as the starting point. Do not perform a completely new redesign.
 
-One correction to my earlier report: the agent has **9 filters, not 11**. My Filters-phase summary miscounted; the table in that report listed the correct 9.
+Our target is 37 items, but correctness is more important than reaching an exact number.
 
-**Overall:** the configuration is accurate but carries some repetition. Most of it comes from row-type variants of the same licence logic, and from simple example queries that teach the same grouping pattern twice. I'd suggest 9 removals, 1 merge, 1 addition and 9 wording or logic corrections, taking the tab from **46 to 37 items**.
+1. Filters
 
-## 1. Current item counts
+Apply the three removals recommended in your audit:
 
-| Type | Count |
-|---|---|
-| Example queries | 15 |
-| Filters | 9 |
-| Measures | 16 |
-| Fields | 3 |
-| Joins | 3 |
-| **Total** | **46** |
+Remove the separate Agency and PD currently effective licence filters.
 
-## 2. Recommendations by type
+Remove the redundant 2099 expiry filter.
 
-### Joins (3): keep all three, correct two usage notes
+Keep the six remaining filters.
 
-| Join | Recommendation | Reason |
-|---|---|---|
-| Agency agents and PD firms to licence records | KEEP | Distinct and correct, with no overlap. |
-| PD technical representatives to PD-TR licence records | CORRECT the usage note | The note says "When counting PD technical representatives… count distinct pd_tr_INTTRAGTSEQ" and calls them "relationships". That reads like a headcount and conflicts with Instructions rule 8. It should say these are record counts, not unique individuals. |
-| Agency agents to education records | CORRECT the usage note | The note still says "Count education records with COUNT(*) or distinct…". That contradicts the corrected education measure and rule 13. It should say distinct combinations of INTAGTSEQ and agt_edu_seq only. |
+Preserve the general currently effective licence records filter as the shared date validity definition.
 
-There are no overlapping or conflicting join conditions; each covers different row types.
+2. Measures
 
-### Filters (9): keep 6, remove 3
+Apply your recommended measure cleanup.
 
-| Filter | Recommendation | Reason |
-|---|---|---|
-| Active Agency agents | KEEP | Core definition. |
-| Terminated Agency agents | KEEP | Core definition. |
-| Active PD firms | KEEP | Core definition. |
-| Terminated PD firms | KEEP | Core definition. |
-| Currently effective licence records | KEEP | The single source for the date-validity rule. |
-| Agency suspension or special handling indicator | KEEP | Distinct and properly caveated. |
-| **Currently effective Agency licence records - date validity only** | REMOVE (merge into the general filter) | Identical to the general filter plus a row-type limit. The Agency/PD join already matches on row type, and a row-type limit on its own is trivial for Genie. Keeping three copies means three places to keep the validity rule in step. |
-| **Currently effective PD licence records - date validity only** | REMOVE (merge into the general filter) | Same reason as the Agency variant. |
-| **Licence expiry date in 2099 or later** | REMOVE | Duplicates one branch of the Licence expiry date category field, which already uses the neutral wording. One location for the 2099 caveat is easier to maintain. |
+Remove the separate Agency and PD currently effective licence type measures.
 
-### Measures (16): keep 11, remove 2, merge 2 into 1, correct 1
+Merge the Agency and PD licence record count measures into one general "Number of licence records" measure.
 
-| Measure | Recommendation | Reason |
-|---|---|---|
-| Number of Agency agents | KEEP | Core count. |
-| Number of PD broker firms | CORRECT the title to "Number of PD firms" | The SQL is correct. Every other item says "PD firms", so the name is inconsistent. |
-| Number of active / terminated Agency agents (2) | KEEP | These are the most frequently asked counts. A filter and a measure for the same concept serve different purposes. |
-| Number of active / terminated PD firms (2) | KEEP | Same reason. |
-| Number of PD technical representative records | KEEP | Correctly labelled as records, not individuals. |
-| Number of Agency licence types (all dates) | KEEP | The only measure for "types ever held". |
-| Number of currently effective typed licence records | KEEP | Distinct metric. |
-| Number of distinct currently effective licence types | KEEP | Becomes the single "effective types" measure. |
-| **Number of currently effective Agency licence types** | REMOVE | Same as the general measure plus an Agency row-type limit. |
-| **Number of currently effective PD licence types** | REMOVE | Same as the general measure plus a PD row-type limit. |
-| **Number of Agency licence records** and **Number of PD licence records** | MERGE into one "Number of licence records" | Same row-count pattern split by row type. One measure, grouped or filtered by row type, also covers PD-TR, which neither covers today. The merged title should keep the warning that joins can multiply rows. |
-| Number of education records | KEEP | Join-safe after the last correction. |
-| Number of Agency agents with education records | KEEP | Distinct metric. |
+Make clear that this counts source licence rows. It must be calculated before joins that multiply records, or directly from the licence table.
 
-### Fields (3): keep all three
+Preserve all distinct agent, firm, technical representative record, licence type, and education measures.
 
-| Field | Recommendation | Reason |
-|---|---|---|
-| Agent status category | KEEP | Correct; a benchmark conflict is listed in section 3. |
-| Licence expiry date category | KEEP | Correct; a benchmark conflict is listed in section 3. |
-| Education level description | KEEP | Instructions rule 14 refers to it. |
+Rename "Number of PD broker firms" to "Number of PD firms".
 
-None of the fields duplicates another field or measure.
+3. Fields and Joins
 
-### Example queries (15): keep 7, remove 4, correct 4, add 1
+Keep all three Fields and all three Joins.
 
-| Example | Recommendation | Reason |
-|---|---|---|
-| How many active Agency agents are there? | KEEP | Simple, but anchors a suggested question. |
-| How many active PD firms are there? | KEEP | Simple, but anchors a suggested question. |
-| How many Agency agents are there by region and distribution channel? | KEEP | The best grouping example. |
-| How many active Agency agents have at least one currently effective licence record? | KEEP | The key EXISTS pattern. |
-| How many active PD firms have no currently effective licence records? | KEEP | The key NOT EXISTS pattern, for a different entity type. |
-| How many Agency agents have education records? | KEEP | Teaches the education EXISTS check; also a suggested question. |
-| How many Agency agents are there by education level? | KEEP | Teaches overlapping group counts. |
-| **Show the breakdown of in-force agents by region.** | REMOVE | Same group-by-and-count pattern as the region and channel example. The active filter is already defined elsewhere. |
-| **Show the breakdown of in-force agents by channel.** | REMOVE | Same reason. |
-| **How many in-force Agency agents have no currently effective licence records?** | REMOVE | The exact complement of the EXISTS example. The PD example already teaches NOT EXISTS. |
-| **How many currently valid licence types does each Agency agent hold?** | REMOVE | Lists one row per agent, which can be around 140,000 rows; that clashes with the 2,000-row default in rule 17. It also uses the outdated "currently valid" wording. The PD-TR version below teaches the same per-entity pattern with more value. |
-| How many agents were terminated in 2026? | CORRECT | Change "agents" to "Agency agents". Worth keeping, because it teaches filtering on a business date while still respecting the status code. |
-| How many agents joined in 2026? | CORRECT | Change "agents" to "Agency agents". It also equates "joined" with the contract effective date, which hasn't been confirmed; see section 3. |
-| How many currently valid licence types does each PD technical representative hold? | CORRECT | Reword to "currently effective" and "per PD technical representative record". Add the licence-type check and a comment that each row is a record, not a person. |
-| How many in-force agents have a suspension indicator? | CORRECT | Reword to "…have a suspension or special handling indicator", with a comment that this doesn't prove current suspension. That matches the filter and rule 12. |
-| **New:** a combined licence-and-education example | ADD | For example, "How many active Agency agents have both a currently effective licence record and an education record?", using two EXISTS checks. No current example shows joining three tables without multiplying rows, which is the riskiest SQL pattern in this agent. |
+Correct the two join usage notes identified in your audit.
 
-## 3. Dependencies and risks
+The PD technical representative join must describe record counts, not unique people.
 
-- **General Instructions:** rule 10 says to use "the Currently effective licence records filter, or its Agency and PD variants". If the two variant filters are removed, that sentence should drop "or its Agency and PD variants". No other instruction names an item proposed for removal.
-- **Suggested questions:** all five map to examples that are kept. None depend on removed items.
-- **Benchmarks:** none refer to Examples items by name, so removals won't break them. Five benchmarks already conflict with current definitions and should be fixed in the Benchmarks phase:
-  - **Status category:** expects "In-force - Withdraw P-Fund" as a separate group.
-  - **Expiry category:** expects "Non-expiring" and "Valid beyond 30 days".
-  - **PD-TR count:** asks about "relationships" rather than records.
-  - **"Currently valid" licence questions (2):** "In-force PD firms with at least one currently valid licence" and "Distinct licence types currently valid among Agency agents" don't require a populated licence type.
-- **Best practice:** don't copy benchmark SQL into examples, or the benchmarks stop being an independent test. The proposed new example doesn't overlap any benchmark.
-- **Business logic still covered after cleanup:**
-  - Row-type-specific licence validity still comes from the general filter, the row-type-matched join and rule 10.
-  - Per-row-type effective licence-type counts still come from the general measure plus a row-type limit.
-  - In-force breakdowns still come from the active filters plus the grouping example.
-- **Unverified risk unrelated to the cleanup:** the licence table's metadata lists only "Agency" and "PD-TR" row types. If PD firm licences are actually stored as "Agency", these would undercount or misreport:
-  - the PD licence logic in the join;
-  - the PD NOT EXISTS example;
-  - one benchmark (in-force PD firms holding a currently valid licence).
+For education, COUNT(*) is valid on the education table alone. After joins that may multiply records, use distinct INTAGTSEQ and agt_edu_seq combinations.
 
-  This needs compute to confirm.
-- **Unconfirmed definitions** (to resolve with your business team; I didn't guess): what "joined" means (contract effective date is assumed), whether blank or space-only licence codes exist, and whether the 2099 convention means non-expiring.
+Do not modify any actual join conditions.
 
-## 4. Configuration quality
+4. Example Queries
 
-- **Repeated logic:** the main problem is the licence validity rule. It is written out in two filters, two measures and several examples, each slightly different, and some versions lack the licence-type check. Keeping one general filter and one general measure removes that drift.
-- **Excessively specific examples:** the two per-entity listing examples. Removing the Agency one and correcting the PD-TR one addresses this.
-- **Conflicts:** the conflicts left are in two join usage notes, four example wordings and five benchmarks, all listed above. There are no conflicts between filters, measures and fields.
-- **Gaps:** there is no three-table example. Termination reasons, licences expiring within 30 days, and business title or agent type are already covered by benchmarks and don't need examples.
+Apply the four removals recommended in your audit.
 
-## 5. Estimated result after cleanup
+Keep the seven core examples.
 
-| Type | Now | After | Change |
-|---|---|---|---|
-| Example queries | 15 | 12 | 4 removed, 1 added, 4 corrected |
-| Filters | 9 | 6 | 3 removed |
-| Measures | 16 | 13 | 2 removed, 2 merged into 1, 1 title corrected |
-| Fields | 3 | 3 | none |
-| Joins | 3 | 3 | 2 usage notes corrected |
-| **Total** | **46** | **37** | |
+Correct the remaining four examples identified in your audit, with one important adjustment:
 
-Applying this would also require the one-sentence update to Instructions rule 10. Nothing has been changed. I can apply all of it, or only the parts you approve, for example the corrections without the removals.
+For "How many agents joined in 2026?", do not assume contract_effective_date is a verified joining date.
+
+Rename the question to explicitly refer to Agency agent records with contract_effective_date in 2026, and ensure the SQL matches that definition.
+
+For termination questions, ensure the wording accurately reflects the status and termination date conditions used in the SQL.
+
+Correct the PD technical representative and suspension example wording as recommended.
+
+Add one new example:
+
+"How many active Agency agents have both a currently effective typed licence record and an education record?"
+
+Use separate EXISTS conditions against gold_agent_license and gold_agent_education.
+
+Count distinct Agency INTAGTSEQ values and avoid multiplying rows.
+
+5. General Instructions
+
+Update only rule 10 to remove references to the deleted Agency and PD licence filters.
+
+Keep the general licence validity definition unchanged.
+
+6. Safety checks
+
+Before deleting anything, confirm it has no dependencies that would become invalid.
+
+Do not modify Benchmarks, About, Sources, Unity Catalog permissions, or underlying tables.
+
+Do not change correct business calculations merely to reduce the number of items.
+
+If any proposed removal would harm accuracy, keep the item and explain why.
+
+7. Validation and reporting
+
+Save all changes and reread the complete Examples configuration.
+
+Report the final number of Example Queries, Filters, Measures, Fields, and Joins.
+
+List exactly what was deleted, merged, corrected, and added.
+
+Report the final SQL for any merged or newly added items.
+
+Check for remaining duplicate definitions and conflicting business rules.
+
+If SQL compute is unavailable, clearly state that the cleanup was saved but not execution tested.
+
+Do not claim that the agent passed validation without actual execution.
