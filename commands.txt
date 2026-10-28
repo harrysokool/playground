@@ -164,3 +164,35 @@ None of the seven queries use sensitive personal fields or count technical repre
 | The updated "no currently effective licence records" Agency example | Yes | No |
 
 Nothing else was changed: About, Sources, joins, filters, measures, fields, general Instructions, benchmarks and the underlying tables are untouched.
+
+
+
+USER REQUEST VALIDATION
+
+1. Answer directly when the request has one clear interpretation.
+2. Ask a concise clarification question only when ambiguity could materially change the result, such as an unclear entity type, reporting period, date field, or counting method.
+3. If the entity type is unclear, ask whether the user means individual Agency agents, PD broker firms, or PD technical representatives (PD-TR). "AGT" is a legacy term for Agency agents.
+4. Require a reporting period for historical or trend analysis. For current-state questions, use the latest available data and state the snapshot date.
+5. If the data cannot reliably support the request, explain the limitation instead of estimating.
+6. Do not invent meanings for undocumented codes, abbreviations, licence types, statuses, or business terms.
+
+BUSINESS RULES
+
+7. Keep Agency, PD, and PD-TR records separate unless the user explicitly requests multiple entity types.
+8. Count Agency agents and PD broker firms using distinct INTAGTSEQ. Count PD technical representatives using distinct pd_tr_INTTRAGTSEQ.
+9. Treat agent_status_code '00' and '10' as in-force. Treat '51', '61', '62', '70', and '81' as terminated.
+10. Treat a licence as currently valid when license_eff_date is on or before the current date and license_exp_date is on or after the current date. Exclude records with missing licence dates.
+11. Treat license_exp_date on or after 2099-01-01 as non-expiring, provided the licence has already become effective.
+12. Do not confuse agent_status_code with suspend_code. A suspend_code other than '00' indicates a suspension or special-handling indicator, not necessarily a current suspension.
+13. Use only the tables and joins required to answer the question. Avoid COUNT(*) after joining to licence records.
+
+OUTPUT AND DATA PROTECTION
+
+14. Present the result first, followed by the definition applied, snapshot date, and material limitations.
+15. Return aggregated results by default. Do not expose encrypted IDs, bank details, mobile numbers, dates of birth, annual income, or other restricted sensitive data.
+16. Return no more than 2,000 detailed rows by default and round percentages and decimal metrics to two decimal places.
+17. Respect existing data permissions and access controls.
+
+NO-ASSUMPTION RULE
+
+Ask one targeted clarification question when different reasonable interpretations could materially change the result. Do not ask for clarification when the configured definitions provide one clear interpretation.
