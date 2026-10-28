@@ -1,198 +1,104 @@
-I'll start by reading all the existing example queries so I can keep the correct ones and avoid duplicating any of your seven questions.
+Update ONLY the General Instructions of my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-*Used Read, Execute Sql*
+I have reviewed the existing 17 numbered instructions. Most are already correct.
 
-The compute is still unavailable, so I can't run the queries. All seven only use columns confirmed in the table metadata and follow the agreed rules, so I'll save them and mark them as untested.
+Preserve the existing structure, wording, and correct business rules wherever possible.
 
-*Used Manage Instructions By Room, Grep*
+Make only the following targeted changes.
 
-All seven example questions are saved, and a re-read confirms the agent now has 15 example queries. None have been run, because the SQL compute was unavailable again; the reference counts are what earlier investigations found, not results from these queries.
+**Rule 4: Reporting periods and snapshots**
 
-**1. Existing examples kept unchanged (7)**
-- **By region:** Show the breakdown of in-force agents by region. Different from your question 3, which covers all statuses and groups by region and channel.
-- **By channel:** Show the breakdown of in-force agents by channel.
-- **Terminations:** How many agents were terminated in 2026?
-- **New joiners:** How many agents joined in 2026?
-- **Agency licence types:** How many currently valid licence types does each Agency agent hold? The count already leaves out empty licence types.
-- **PD-TR licence types:** How many currently valid licence types does each PD technical representative hold? It groups by technical representative record and makes no headcount claim.
-- **Suspension:** How many in-force agents have a suspension indicator? The SQL is unchanged; see point 5.
+Keep the requirement to clarify historical reporting periods.
 
-**2. New examples added (5):** your questions 3, 4, 5, 6 and 7.
+For current questions, use the latest available data. State the data refresh date when it can be established reliably.
 
-**3. Existing examples updated (3)**
-- **"How many agents are currently in-force?"** is now your question 1. The logic is the same; I reworded the question, used a table alias and added a comment.
-- **"How many PD broker firms are currently in-force?"** is now your question 2, updated the same way.
-- **"How many in-force Agency agents have no currently valid licences?"** I renamed it to say "currently effective licence records". It now also requires a populated licence type and matches on row type, as the other licence queries do. A comment says the result does not indicate non-compliance.
+GIA_update_at is a technical refresh timestamp, not necessarily the date of a business event or a single official reporting snapshot.
 
-**4. Exact SQL for the seven requested questions**
+Do not claim that the tables support complete historical snapshots.
 
-Example queries can only store a question and SQL. So the caveats, such as effective dates not proving authorization, are kept as SQL comments.
+**Rule 8: Entity counting**
 
-*Q1. How many active Agency agents are there?* (reference: 20,431)
-```sql
--- Active (in-force) Agency agents: status codes 00 and 10. Counts unique agents.
-SELECT
-  COUNT(DISTINCT `m`.`INTAGTSEQ`) AS `active_agency_agent_count`
-FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_master` AS `m`
-WHERE `m`.`row_type` = 'Agency'
-  AND `m`.`agent_status_code` IN ('00', '10')
-```
+Keep distinct INTAGTSEQ for counting Agency agents and PD firms.
 
-*Q2. How many active PD firms are there?* (reference: 2,648)
-```sql
--- Active (in-force) Partnership Distribution firms: status codes 00 and 10. Counts unique firms.
-SELECT
-  COUNT(DISTINCT `m`.`INTAGTSEQ`) AS `active_pd_firm_count`
-FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_master` AS `m`
-WHERE `m`.`row_type` = 'PD'
-  AND `m`.`agent_status_code` IN ('00', '10')
-```
+For PD technical representatives, COUNT(DISTINCT pd_tr_INTTRAGTSEQ) counts technical representative database records, not confirmed unique individuals.
 
-*Q3. How many Agency agents are there by region and distribution channel?* (reference total: 142,857)
-```sql
--- All Agency agents regardless of status. Each agent has one master record, so group counts add up to the total.
-SELECT
-  COALESCE(`m`.`region`, 'Unknown') AS `region`,
-  COALESCE(`m`.`agent_channel`, 'Unknown') AS `agent_channel`,
-  COUNT(DISTINCT `m`.`INTAGTSEQ`) AS `agency_agent_count`
-FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_master` AS `m`
-WHERE `m`.`row_type` = 'Agency'
-GROUP BY
-  COALESCE(`m`.`region`, 'Unknown'),
-  COALESCE(`m`.`agent_channel`, 'Unknown')
-ORDER BY
-  `region`,
-  `agency_agent_count` DESC
-```
+Do not describe this result as a unique representative headcount.
 
-*Q4. How many active Agency agents have at least one currently effective licence record?* (reference: 20,400)
-```sql
--- Currently effective = typed licence record whose effective period includes today.
--- Effective dates do not prove regulatory authorization: licence records also include training,
--- certifications, sales eligibility and restriction records.
--- EXISTS prevents agents being multiplied by multiple licence records.
-SELECT
-  COUNT(DISTINCT `m`.`INTAGTSEQ`) AS `active_agents_with_effective_licence_record`
-FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_master` AS `m`
-WHERE `m`.`row_type` = 'Agency'
-  AND `m`.`agent_status_code` IN ('00', '10')
-  AND EXISTS (
-    SELECT 1
-    FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_license` AS `l`
-    WHERE `l`.`INTAGTSEQ` = `m`.`INTAGTSEQ`
-      AND `l`.`row_type` = `m`.`row_type`
-      AND `l`.`license_type` IS NOT NULL
-      AND `l`.`license_eff_date` IS NOT NULL
-      AND `l`.`license_exp_date` IS NOT NULL
-      AND `l`.`license_eff_date` <= CURRENT_DATE()
-      AND `l`.`license_exp_date` >= CURRENT_DATE()
-  )
-```
+INTPERSONSEQ on PD-TR rows identifies the associated parent firm's person sequence, not the representative.
 
-*Q5. How many Agency agents have education records?* (reference: 136,467)
-```sql
--- Education records exist only for Agency agents. EXISTS counts each agent once even with multiple education entries.
-SELECT
-  COUNT(DISTINCT `m`.`INTAGTSEQ`) AS `agency_agents_with_education_records`
-FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_master` AS `m`
-WHERE `m`.`row_type` = 'Agency'
-  AND EXISTS (
-    SELECT 1
-    FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_education` AS `e`
-    WHERE `e`.`INTAGTSEQ` = `m`.`INTAGTSEQ`
-  )
-```
+**Rule 10: Currently effective licence records**
 
-*Q6. How many active PD firms have no currently effective licence records?* (reference: 377)
-```sql
--- Checks only the available licence records and their dates. Do not describe these firms as non-compliant;
--- licence records also include training, certifications, eligibility and restriction records.
-SELECT
-  COUNT(DISTINCT `m`.`INTAGTSEQ`) AS `active_pd_firms_without_effective_licence_records`
-FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_master` AS `m`
-WHERE `m`.`row_type` = 'PD'
-  AND `m`.`agent_status_code` IN ('00', '10')
-  AND NOT EXISTS (
-    SELECT 1
-    FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_license` AS `l`
-    WHERE `l`.`INTAGTSEQ` = `m`.`INTAGTSEQ`
-      AND `l`.`row_type` = 'PD'
-      AND `l`.`license_type` IS NOT NULL
-      AND `l`.`license_eff_date` IS NOT NULL
-      AND `l`.`license_exp_date` IS NOT NULL
-      AND `l`.`license_eff_date` <= CURRENT_DATE()
-      AND `l`.`license_exp_date` >= CURRENT_DATE()
-  )
-```
+Replace the current licence validity rule with:
 
-*Q7. How many Agency agents are there by education level?*
-```sql
--- Level labels come from Unity Catalog metadata (aa_tbleducation.TXTEDULEVELCD).
--- An agent can hold several education levels, so level counts overlap and must not be summed to get unique agents.
-SELECT
-  CASE
-    WHEN `e`.`agt_edu_level_code` = '01' THEN 'College/University'
-    WHEN `e`.`agt_edu_level_code` = '02' THEN 'Vocational Education Institution'
-    WHEN `e`.`agt_edu_level_code` = '03' THEN 'Secondary School'
-    WHEN `e`.`agt_edu_level_code` IS NULL THEN 'Not recorded'
-    ELSE CONCAT('Unknown code: ', `e`.`agt_edu_level_code`)
-  END AS `education_level`,
-  COUNT(DISTINCT `e`.`INTAGTSEQ`) AS `agency_agent_count`
-FROM `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_education` AS `e`
-JOIN `aiahk_dna_p_catalog`.`dna_gia_base`.`gold_agent_master` AS `m`
-  ON `m`.`INTAGTSEQ` = `e`.`INTAGTSEQ`
-  AND `m`.`row_type` = 'Agency'
-GROUP BY 1
-ORDER BY `agency_agent_count` DESC
-```
+A currently effective typed licence record must have a nonNULL license_type, nonNULL effective and expiry dates, license_eff_date on or before CURRENT_DATE(), and license_exp_date on or after CURRENT_DATE().
 
-None of the seven queries use sensitive personal fields or count technical representatives as people. The joins use EXISTS, NOT EXISTS or distinct counts so agents aren't counted twice.
+This establishes date validity only.
 
-**5. Conflicts and unresolved definitions**
-- **Q3 empty values:** blank regions and channels show as "Unknown", to match the existing examples. That label means "not recorded", not a real region or channel.
-- **Suspension example:** "How many in-force agents have a suspension indicator?" is kept unchanged, but your earlier filter decision says this indicator doesn't prove current suspension. Its wording could be reviewed in a later pass.
-- **Q6 and PD licences:** this query only works if PD firm licences are stored with the "PD" row type. The licence table's metadata lists only "Agency" and "PD-TR". If PD licences are actually stored under "Agency", the query would report every active PD firm as having no effective licence records. This needs checking when compute is available.
-- **Q7 blank codes:** a blank or space-only education level code would show as "Unknown code: " followed by nothing.
-- **Older wording:** the two existing licence-type examples still say "currently valid" rather than "currently effective". Their logic is correct.
-- **Counts can change:** Q4 and Q6 depend on today's date, so they may drift from the reference counts over time.
+The licence table contains regulatory licences, training, certifications, eligibility records, and restrictions.
 
-**6. Saved and tested?**
+Do not treat every effective record as regulatory authorization.
 
-| Example | Saved | Run |
-|---|---|---|
-| Q1 to Q7 | Yes, all re-read and confirmed | No, compute unavailable |
-| The updated "no currently effective licence records" Agency example | Yes | No |
+Blank or whitespace only licence codes have not yet been checked. Do not claim they have been verified.
 
-Nothing else was changed: About, Sources, joins, filters, measures, fields, general Instructions, benchmarks and the underlying tables are untouched.
+**Rule 11: Expiry dates in 2099 or later**
 
+Remove the statement that expiry dates in 2099 or later are confirmed nonexpiring.
 
+Replace it with:
 
-USER REQUEST VALIDATION
+Describe license_exp_date on or after January 1, 2099 as "Expiry in 2099 or later".
 
-1. Answer directly when the request has one clear interpretation.
-2. Ask a concise clarification question only when ambiguity could materially change the result, such as an unclear entity type, reporting period, date field, or counting method.
-3. If the entity type is unclear, ask whether the user means individual Agency agents, PD broker firms, or PD technical representatives (PD-TR). "AGT" is a legacy term for Agency agents.
-4. Require a reporting period for historical or trend analysis. For current-state questions, use the latest available data and state the snapshot date.
-5. If the data cannot reliably support the request, explain the limitation instead of estimating.
-6. Do not invent meanings for undocumented codes, abbreviations, licence types, statuses, or business terms.
+The source system's nonexpiring convention has not been independently confirmed.
 
-BUSINESS RULES
+Do not infer regulatory authorization from these expiry dates.
 
-7. Keep Agency, PD, and PD-TR records separate unless the user explicitly requests multiple entity types.
-8. Count Agency agents and PD broker firms using distinct INTAGTSEQ. Count PD technical representatives using distinct pd_tr_INTTRAGTSEQ.
-9. Treat agent_status_code '00' and '10' as in-force. Treat '51', '61', '62', '70', and '81' as terminated.
-10. Treat a licence as currently valid when license_eff_date is on or before the current date and license_exp_date is on or after the current date. Exclude records with missing licence dates.
-11. Treat license_exp_date on or after 2099-01-01 as non-expiring, provided the licence has already become effective.
-12. Do not confuse agent_status_code with suspend_code. A suspend_code other than '00' indicates a suspension or special-handling indicator, not necessarily a current suspension.
-13. Use only the tables and joins required to answer the question. Avoid COUNT(*) after joining to licence records.
+**Rule 13: Joins and counting**
 
-OUTPUT AND DATA PROTECTION
+Keep the existing rule to use only necessary tables and joins.
 
-14. Present the result first, followed by the definition applied, snapshot date, and material limitations.
-15. Return aggregated results by default. Do not expose encrypted IDs, bank details, mobile numbers, dates of birth, annual income, or other restricted sensitive data.
-16. Return no more than 2,000 detailed rows by default and round percentages and decimal metrics to two decimal places.
-17. Respect existing data permissions and access controls.
+Add:
 
-NO-ASSUMPTION RULE
+Use distinct INTAGTSEQ for Agency agent and PD firm counts.
 
-Ask one targeted clarification question when different reasonable interpretations could materially change the result. Do not ask for clarification when the configured definitions provide one clear interpretation.
+Use distinct pd_tr_INTTRAGTSEQ for technical representative record counts.
+
+Use distinct combinations of INTAGTSEQ and agt_edu_seq when counting education records after joins.
+
+Avoid counting multiplied rows when joining licence and education tables.
+
+Use EXISTS, NOT EXISTS, distinct identifiers, or appropriate aggregation where needed.
+
+**Additional review**
+
+Preserve the existing correct rules about:
+
+1. Clarification questions.
+2. Agent status codes.
+3. Suspension and special handling.
+4. Sensitive information and data protection.
+5. Aggregated responses.
+6. The 2,000 detailed row limit.
+7. Decimal formatting.
+8. Access permissions.
+9. Avoiding invented business definitions.
+
+Add a short instruction that education levels 01, 02, and 03 use the documented Unity Catalog meanings, while undocumented qualification and verification result codes must not be translated without evidence.
+
+Do not add permanent numerical totals.
+
+Remove duplication and correct conflicting guidance without unnecessarily lengthening the instructions.
+
+**Validation**
+
+Save the updated General Instructions and reread them.
+
+Report:
+
+1. The complete final saved instructions.
+2. Which rules changed.
+3. Which existing rules were preserved.
+4. Any remaining conflicts with Sources, Filters, Measures, Fields, Joins, and Example Queries.
+
+Do not modify any other configuration section, benchmarks, or underlying data.
+
+Complete only this Instructions phase.
