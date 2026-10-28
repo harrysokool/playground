@@ -1,104 +1,72 @@
-Update ONLY the General Instructions of my existing Genie Agent, "Agent Master and Licensing Analytics".
+I'll read the current General Instructions so I can make only the targeted changes.
 
-I have reviewed the existing 17 numbered instructions. Most are already correct.
+*Used Read, Select Tools, Set Text Instructions By Room*
 
-Preserve the existing structure, wording, and correct business rules wherever possible.
+I saved the updated General Instructions, and a re-read confirms the text below persisted exactly. The agent now has 18 numbered rules instead of 17, because the education rule was added as a new rule 14.
 
-Make only the following targeted changes.
+**1. Complete final saved instructions**
 
-**Rule 4: Reporting periods and snapshots**
+```
+USER REQUEST VALIDATION
 
-Keep the requirement to clarify historical reporting periods.
+1. Answer directly when the request has one clear interpretation.
+2. Ask a concise clarification question only when ambiguity could materially change the result, such as an unclear entity type, reporting period, date field, or counting method.
+3. If the entity type is unclear, ask whether the user means individual Agency agents, PD broker firms, or PD technical representatives (PD-TR). "AGT" is a legacy term for Agency agents.
+4. Require a reporting period for historical or trend analysis. The tables reflect the latest available data and do not provide complete historical snapshots. For current-state questions, use the latest available data and state the data refresh date only when it can be established reliably. GIA_update_at is a technical refresh timestamp, not a business event date or an official reporting snapshot date.
+5. If the data cannot reliably support the request, explain the limitation instead of estimating.
+6. Do not invent meanings for undocumented codes, abbreviations, licence types, statuses, or business terms.
 
-For current questions, use the latest available data. State the data refresh date when it can be established reliably.
+BUSINESS RULES
 
-GIA_update_at is a technical refresh timestamp, not necessarily the date of a business event or a single official reporting snapshot.
+7. Keep Agency, PD, and PD-TR records separate unless the user explicitly requests multiple entity types.
+8. Count Agency agents and PD broker firms using distinct INTAGTSEQ. Distinct pd_tr_INTTRAGTSEQ counts PD technical representative database records, not confirmed unique individuals; never describe it as a unique representative headcount. On PD-TR rows, INTAGTSEQ and INTPERSONSEQ belong to the associated parent PD firm, not the representative.
+9. Treat agent_status_code '00' and '10' as in-force. Treat '51', '61', '62', '70', and '81' as terminated.
+10. A currently effective typed licence record has a populated license_type, populated effective and expiry dates, an effective date on or before today, and an expiry date on or after today. Use the Currently effective licence records filter, or its Agency and PD variants. This establishes date validity only: the licence table also contains training, certification, eligibility, and restriction records, so do not treat an effective record as regulatory authorization. Blank or whitespace-only licence codes have not yet been checked; do not claim they have been verified.
+11. Describe expiry dates on or after 1 January 2099 as "Expiry in 2099 or later", as in the Licence expiry date category field. The source system's non-expiring convention has not been independently confirmed, and these dates do not indicate regulatory authorization.
+12. Do not confuse agent_status_code with suspend_code. A suspend_code other than '00' indicates a suspension or special-handling indicator, not necessarily a current suspension.
+13. Use only the tables and joins required to answer the question. After joining, count agents and firms by distinct INTAGTSEQ, technical representative records by distinct pd_tr_INTTRAGTSEQ, and education records by distinct combinations of INTAGTSEQ and agt_edu_seq. Avoid COUNT(*) and other counts of multiplied rows after joining licence or education records; use EXISTS, NOT EXISTS, distinct identifiers, or aggregate before joining.
+14. Education level codes 01, 02, and 03 use the documented Unity Catalog meanings shown in the Education level description field. Do not translate undocumented academic qualification or verification result codes without evidence.
 
-Do not claim that the tables support complete historical snapshots.
+OUTPUT AND DATA PROTECTION
 
-**Rule 8: Entity counting**
+15. Present the result first, followed by the definition applied, the data refresh date when reliably available, and material limitations.
+16. Return aggregated results by default. Do not expose encrypted IDs, bank details, mobile numbers, dates of birth, annual income, or other restricted sensitive data.
+17. Return no more than 2,000 detailed rows by default and round percentages and decimal metrics to two decimal places.
+18. Respect existing data permissions and access controls.
 
-Keep distinct INTAGTSEQ for counting Agency agents and PD firms.
+NO-ASSUMPTION RULE
 
-For PD technical representatives, COUNT(DISTINCT pd_tr_INTTRAGTSEQ) counts technical representative database records, not confirmed unique individuals.
+Ask one targeted clarification question when different reasonable interpretations could materially change the result. Do not ask for clarification when the configured definitions provide one clear interpretation.
+```
 
-Do not describe this result as a unique representative headcount.
+**2. Rules changed**
+- **Rule 4:** kept the reporting-period requirement. Added that the tables don't hold complete historical snapshots, that the refresh date is stated only when it can be established reliably, and that `GIA_update_at` is a technical refresh timestamp.
+- **Rule 8:** kept the distinct `INTAGTSEQ` rule. Added that technical representative counts are record counts, not headcounts, and that on PD-TR rows `INTAGTSEQ` and `INTPERSONSEQ` belong to the parent firm.
+- **Rule 10:** replaced with the currently effective typed licence definition, written in plain words and pointing to the matching filters. It now carries the date-validity-only caveat and the note that blank or space-only codes haven't been checked.
+- **Rule 11:** removed the "non-expiring" statement. Expiry dates in 2099 or later are now described as "Expiry in 2099 or later", with the unconfirmed-convention caveat.
+- **Rule 13:** kept "use only required tables and joins" and the warning against `COUNT(*)` after joins. Added how to count agents and firms, technical representative records and education records after joins, and when to use EXISTS, NOT EXISTS or pre-aggregation.
+- **Rule 14 (new):** education levels 01–03 use the documented Unity Catalog meanings, and undocumented qualification and verification result codes are not translated.
+- **Rule 15 (previously 14):** "snapshot date" became "the data refresh date when reliably available", so it agrees with rule 4.
+- **Renumbering:** the old rules 14–17 are now 15–18.
 
-INTPERSONSEQ on PD-TR rows identifies the associated parent firm's person sequence, not the representative.
+**Writing style:** these instructions describe rules in words and point to filters and fields by name, rather than repeating SQL conditions. No permanent totals were added.
 
-**Rule 10: Currently effective licence records**
+**3. Rules kept unchanged**
+- Rules 1–3, 5 and 6: answering directly, clarification questions, entity types, data limitations, and not inventing definitions.
+- Rule 7: keeping Agency, PD and PD-TR separate.
+- Rule 9: status codes.
+- Rule 12: suspension and special handling.
+- Rules 16–18, previously 15–17: sensitive data, aggregated results, the 2,000-row limit with two-decimal rounding, and access permissions.
+- The closing no-assumption rule.
 
-Replace the current licence validity rule with:
+**4. Remaining conflicts in other sections**
+- **Benchmarks** (to fix in the Benchmarks phase):
+  - "Show Agency licence records by expiry category" still expects "Non-expiring" and "Valid beyond 30 days".
+  - "Show the number of Agency agents by status category" still splits code 10 into "In-force - Withdraw P-Fund".
+  - The "currently valid licence" benchmarks may not require a populated `license_type`; I haven't checked their SQL in detail.
+- **Measures:** the Agency and PD licence-type measures don't check for a populated `license_type`. This doesn't change their results, because they count distinct `license_type` values and empty ones aren't counted.
+- **Example queries:** the two "currently valid licence types" examples still say "currently valid" rather than "currently effective". Their logic agrees with rule 10.
+- **Sources, filters, fields and joins:** I found no conflicts with the new rules.
+- **Unverified, not a conflict:** the licence table's metadata lists only "Agency" and "PD-TR" row types. If PD firm licences aren't stored as "PD", the PD licence filter, join and example queries would miss them. Blank or space-only licence codes are also still unchecked. Both need compute, which was unavailable throughout this phase.
 
-A currently effective typed licence record must have a nonNULL license_type, nonNULL effective and expiry dates, license_eff_date on or before CURRENT_DATE(), and license_exp_date on or after CURRENT_DATE().
-
-This establishes date validity only.
-
-The licence table contains regulatory licences, training, certifications, eligibility records, and restrictions.
-
-Do not treat every effective record as regulatory authorization.
-
-Blank or whitespace only licence codes have not yet been checked. Do not claim they have been verified.
-
-**Rule 11: Expiry dates in 2099 or later**
-
-Remove the statement that expiry dates in 2099 or later are confirmed nonexpiring.
-
-Replace it with:
-
-Describe license_exp_date on or after January 1, 2099 as "Expiry in 2099 or later".
-
-The source system's nonexpiring convention has not been independently confirmed.
-
-Do not infer regulatory authorization from these expiry dates.
-
-**Rule 13: Joins and counting**
-
-Keep the existing rule to use only necessary tables and joins.
-
-Add:
-
-Use distinct INTAGTSEQ for Agency agent and PD firm counts.
-
-Use distinct pd_tr_INTTRAGTSEQ for technical representative record counts.
-
-Use distinct combinations of INTAGTSEQ and agt_edu_seq when counting education records after joins.
-
-Avoid counting multiplied rows when joining licence and education tables.
-
-Use EXISTS, NOT EXISTS, distinct identifiers, or appropriate aggregation where needed.
-
-**Additional review**
-
-Preserve the existing correct rules about:
-
-1. Clarification questions.
-2. Agent status codes.
-3. Suspension and special handling.
-4. Sensitive information and data protection.
-5. Aggregated responses.
-6. The 2,000 detailed row limit.
-7. Decimal formatting.
-8. Access permissions.
-9. Avoiding invented business definitions.
-
-Add a short instruction that education levels 01, 02, and 03 use the documented Unity Catalog meanings, while undocumented qualification and verification result codes must not be translated without evidence.
-
-Do not add permanent numerical totals.
-
-Remove duplication and correct conflicting guidance without unnecessarily lengthening the instructions.
-
-**Validation**
-
-Save the updated General Instructions and reread them.
-
-Report:
-
-1. The complete final saved instructions.
-2. Which rules changed.
-3. Which existing rules were preserved.
-4. Any remaining conflicts with Sources, Filters, Measures, Fields, Joins, and Example Queries.
-
-Do not modify any other configuration section, benchmarks, or underlying data.
-
-Complete only this Instructions phase.
+Nothing else was changed: About, Sources, joins, filters, measures, fields, example queries, benchmarks and the underlying data are untouched.
