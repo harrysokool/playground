@@ -1,104 +1,87 @@
-Review and improve the Synonyms and Instructions for the existing Examples configuration in my Genie Agent, "Agent Master and Licensing Analytics".
+Configure ONLY the Benchmarks section of my existing Genie Agent, "Agent Master and Licensing Analytics".
 
-We have completed the cleanup and now have:
+We have completed the About, Sources, Examples, General Instructions, and Synonyms configuration.
 
-12 Example Queries
-6 Filters
-13 Measures
-3 Fields
-3 Joins
+Our goal is to verify that Genie answers business questions accurately.
 
-The SQL logic and business definitions have already been reviewed. Do not redesign them.
+### Task 1: Review existing benchmarks
 
-TASK 1: Inspect existing metadata
+Inspect all existing benchmarks, including their questions and expected SQL.
 
-Read the Synonyms and Instructions for all 22 SQL expressions, including Filters, Measures, and Fields.
+Identify:
 
-Identify which items have missing, unclear, duplicated, or misleading metadata.
+1. Duplicate or redundant benchmarks.
+2. Incorrect SQL calculations.
+3. Incorrect join conditions.
+4. Outdated business definitions.
+5. Missing coverage of important business questions.
 
-TASK 2: Improve Synonyms
+Preserve all correct benchmarks.
 
-Add useful business terms that users might naturally use.
+### Task 2: Correct known problems
 
-Examples:
+There are five known benchmark issues:
 
-Active Agency agents:
-in force agents, current Agency agents, active insurance agents
+1. Agent status categories must group codes 00 and 10 as "In force".
+2. Licence expiry categories must use "Expiry in 2099 or later" and "Expiring after 30 days", matching the saved Field.
+3. PD technical representative counts must describe database records, not unique individuals.
+4. Two currently effective licence benchmarks must follow the saved validity definition, requiring a populated licence type and inclusive effective and expiry dates.
 
-Active PD firms:
-active broker firms, in force PD firms
+Check all five carefully and correct their expected SQL and question wording where needed.
 
-Number of Agency agents:
-Agency agent count, total Agency agents
+### Task 3: Improve benchmark coverage
 
-Number of education records:
-education entries, qualification records
+Check whether benchmarks cover:
 
-Use approximately 2 to 4 meaningful synonyms where useful.
+1. Active Agency agent counts.
+2. Active PD firm counts.
+3. Agency agents by region and channel.
+4. Active Agency agents with currently effective typed licence records.
+5. Agency agents with education records.
+6. Active PD firms without currently effective typed licence records.
+7. Education level distribution.
+8. Technical representative database record counts.
+9. Agent status categories.
+10. Active Agency agents with both education records and currently effective typed licence records.
 
-Avoid ambiguous synonyms such as "agents" when that could refer to Agency agents, PD firms, or technical representatives.
+Add only important missing benchmarks. Avoid duplication.
 
-Do not add synonyms merely to fill empty fields.
+Use independent SQL answers based on verified business rules.
 
-TASK 3: Improve Instructions
+### Task 4: Investigate SQL compute
 
-For each SQL expression that needs guidance, add short, specific instructions explaining:
+SQL execution has repeatedly been unavailable.
 
-1. When Genie should use the expression.
-2. What the expression calculates or represents.
-3. Important limitations or counting risks.
+Check the assigned SQL warehouse, its current status, and any available error messages.
 
-Prioritize these business rules:
+Determine whether the problem involves warehouse availability, permissions, or another issue.
 
-Agency and PD counts use distinct INTAGTSEQ.
+Do not change warehouse settings or permissions without approval.
 
-PD technical representative record counts are not unique individual headcounts.
+### Task 5: Save and test
 
-Currently effective licence records establish date validity only, not regulatory authorization.
+Save and reread the benchmark configuration.
 
-The licence table includes training, certification, eligibility, and restriction records.
+If SQL compute is available, run the benchmarks and report:
 
-Education record counts must avoid duplication after joins.
+1. Number of benchmarks executed.
+2. Number passed and failed.
+3. Overall accuracy.
+4. Expected versus actual results.
+5. SQL differences for failed questions.
 
-Suspension or special handling indicators do not prove current suspension.
+If compute remains unavailable, do not claim that any benchmark passed.
 
-Expiry dates in 2099 or later do not have a confirmed nonexpiring meaning.
+### Task 6: Final report
 
-Education levels 01, 02, and 03 use the documented Unity Catalog definitions.
+Report:
 
-Do not repeat long SQL calculations in the Instructions fields.
+1. Final benchmark count.
+2. Benchmarks preserved, corrected, added, or removed.
+3. Any unresolved business logic issues.
+4. SQL compute status.
+5. Whether the benchmarks were actually executed.
 
-TASK 4: Review other Examples
+Do not modify About, Sources, Examples, General Instructions, underlying data, or permissions.
 
-Check the three Join usage notes for completeness and consistency.
-
-Keep the 12 Example Queries unchanged unless an actual error is found.
-
-Do not duplicate their SQL or add unnecessary instructions.
-
-TASK 5: Apply supported changes
-
-First determine whether your available editing tools support separate Synonyms and Instructions fields.
-
-If supported, update those fields directly, save, and reread them to verify persistence.
-
-If unsupported, do not put synonyms or long instructions into titles.
-
-Instead, produce a complete, copy ready table containing:
-
-1. Exact existing item name.
-2. Recommended Synonyms.
-3. Recommended Instructions.
-4. Reason for the recommendation.
-
-I will use that table to configure the fields manually.
-
-TASK 6: Final validation
-
-Do not modify any SQL expressions, names, joins, Example Queries, General Instructions, About, Sources, or Benchmarks.
-
-Avoid conflicting, vague, or redundant guidance.
-
-Report which metadata fields were successfully saved and which still require manual configuration.
-
-Complete only this Synonyms and Instructions improvement phase.
+Complete only the Benchmarks phase.
