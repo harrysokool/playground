@@ -1,75 +1,61 @@
-Configure ONLY the Filters in the Examples tab of my existing Genie Agent, "Agent Master and Licensing Analytics".
+I'll re-read the current filters and other SQL snippets so I'm working from the saved state.
 
-First inspect all existing filters and preserve correct definitions. Avoid duplicate or conflicting filters.
+Three of your five filters already exist with exactly the SQL you specified, so I'll keep their definitions and only rename them, adding your synonyms to the titles. The other two filters are new.
 
-Create or update these five reusable SQL filters.
+The quick search didn't find the new titles, probably because of how they're stored, so I'll read the full file to verify.
 
-1. Active Agency agents
+All five filters are saved and a re-read confirms they persisted. None has been tested: the SQL compute was unavailable, so my count checks for each filter didn't run.
 
-Table: gold_agent_master
+Saved filters (exact SQL)
 
-SQL:
-row_type = 'Agency' AND agent_status_code IN ('00', '10')
+#
+Saved title
+Table
+Change
+Exact saved SQL
+1
+Active Agency agents (also: inforce Agency agents, current Agency agents)
+gold_agent_master
+Renamed from "In-force Agency agent"; same definition
+`gold_agent_master`.`row_type` = 'Agency' AND `gold_agent_master`.`agent_status_code` IN ('00', '10')
+2
+Terminated Agency agents (also: former Agency agents)
+gold_agent_master
+Renamed from "Terminated Agency agent"; same definition
+`gold_agent_master`.`row_type` = 'Agency' AND `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81')
+3
+Active PD firms (also: active broker firms, inforce PD firms)
+gold_agent_master
+Renamed from "In-force PD broker firm"; same definition
+`gold_agent_master`.`row_type` = 'PD' AND `gold_agent_master`.`agent_status_code` IN ('00', '10')
+4
+Terminated PD firms (also: terminated broker firms)
+gold_agent_master
+Added
+`gold_agent_master`.`row_type` = 'PD' AND `gold_agent_master`.`agent_status_code` IN ('51', '61', '62', '70', '81')
+5
+Currently effective licence records (also: valid licence periods, unexpired licence records) - date validity only; does not confirm regulatory authorization or permission to sell
+gold_agent_license
+Added
+`gold_agent_license`.`license_type` IS NOT NULL AND `gold_agent_license`.`license_eff_date` IS NOT NULL AND `gold_agent_license`.`license_exp_date` IS NOT NULL AND `gold_agent_license`.`license_eff_date` <= CURRENT_DATE() AND `gold_agent_license`.`license_exp_date` >= CURRENT_DATE()
+For filters 1–3, the only change to the SQL is that it now sits on one line instead of several.
 
-Synonyms: active agency agents, inforce agency agents, current agency agents
+Synonyms and usage guidance: filters have no separate field for synonyms or usage notes. I put your synonyms in each title in brackets, and a short version of the filter 5 guidance (date validity only, not permission to sell) in its title. If you want that guidance spelled out more fully, it would need to go in the general Instructions in a later phase.
 
-2. Terminated Agency agents
+Existing filters kept unchanged, with points to review
 
-Table: gold_agent_master
+Currently valid Agency licence and Currently valid PD licence: these overlap with filter 5 but aren't the same.
 
-SQL:
-row_type = 'Agency' AND agent_status_code IN ('51', '61', '62', '70', '81')
+They limit records to Agency or PD.
+They don't require license_type to be present.
+They don't say that they check dates only.
+I didn't replace them, because removing them is your call. Having both could give slightly different counts.
 
-Synonyms: terminated agency agents, former agency agents
+Agency suspension indicator (suspend_code present and not '00'): this effectively works as the "currently suspended" filter you said not to define. I didn't add one, and I left this existing one alone. You may want to remove it or rename it while that definition is still open.
 
-3. Active PD firms
+Non-expiring licence (expiry on or after 1 January 2099): this relies on the 2099 convention, which hasn't been confirmed.
 
-Table: gold_agent_master
+As you asked, I didn't add a suspended filter or a unique headcount filter for technical representatives. Nothing else was changed: joins, measures, other calculated fields, example queries, About, Sources, Instructions and benchmarks are untouched.
 
-SQL:
-row_type = 'PD' AND agent_status_code IN ('00', '10')
+Still to test: when compute is available, run a count for each filter. For filter 5, also break the counts down by row type, so you can see whether PD firm licences are stored as "PD" or "Agency".
 
-Synonyms: active PD firms, active broker firms, inforce PD firms
-
-4. Terminated PD firms
-
-Table: gold_agent_master
-
-SQL:
-row_type = 'PD' AND agent_status_code IN ('51', '61', '62', '70', '81')
-
-Synonyms: terminated PD firms, terminated broker firms
-
-5. Currently effective licence records
-
-Table: gold_agent_license
-
-SQL:
-license_type IS NOT NULL
-AND license_eff_date IS NOT NULL
-AND license_exp_date IS NOT NULL
-AND license_eff_date <= CURRENT_DATE()
-AND license_exp_date >= CURRENT_DATE()
-
-Synonyms: currently effective licence records, valid licence periods, unexpired licence records
-
-Usage guidance:
-
-This fifth filter checks date validity only. It does not confirm regulatory authorization because license_type includes training, certifications, eligibility flags, and restrictions.
-
-Do not assume that every effective licence record represents permission to sell insurance.
-
-Additional requirements:
-
-1. Follow the supported Genie SQL filter syntax. Qualify column references where needed.
-2. Ensure every filter applies to the correct table.
-3. Preserve existing correct filters. Report any conflicting definitions before replacing them.
-4. Do not define a currently suspended filter because the business definition is unresolved.
-5. Do not define a unique PD technical representative headcount filter.
-6. Do not modify joins, measures, fields, example queries, About, Sources, Instructions, or benchmarks.
-7. Save all supported changes and read the configuration again to verify persistence.
-8. If SQL compute is available, test the filters using aggregate queries. Otherwise, clearly state that they were saved but not executed.
-
-Report the exact saved SQL for each filter and any existing filters that were preserved.
-
-Complete only the Filters configuration.
