@@ -1,87 +1,99 @@
-Configure ONLY the Benchmarks section of my existing Genie Agent, "Agent Master and Licensing Analytics".
+Open Issues, Ambiguities, and Unverified Points in This Genie Space
+This is a review of what remains unclear or unconfirmed across the three tables, based solely on the schema metadata, instructions, and ontology notes already available — no new data assumptions are introduced.
+1. Agency / PD / PD-TR entity definitions
+Table/column: gold_agent_master.row_type
+Current understanding: row_type takes values Agency, PD, and PD-TR. Agency = individual/staff/corporate agents; PD = broker companies and bank agents; PD-TR = technical representatives under PD firms.
+What remains unclear: Whether these are the only possible values of row_type, and whether "Agency" and the legacy "AGT" example value shown in column metadata ("AGT") refer to the same population or to different subsets.
+Source of understanding: Table/column metadata + Genie Space instructions.
+Question for data owner: Is row_type = 'AGT' ever present as a distinct value from 'Agency', and if so, what does it represent?
+Risk if unclarified: Agency agent counts could be understated or double-counted if 'AGT' is a separate, unhandled code.
+2. Primary keys and uniqueness
+Table/column: gold_agent_master.INTAGTSEQ, pd_tr_INTTRAGTSEQ
+Current understanding: INTAGTSEQ uniquely identifies Agency agents and PD firms; PD-TR rows reuse INTAGTSEQ for the parent firm and use pd_tr_INTTRAGTSEQ for the representative record.
+What remains unclear: No formal primary-key constraint is documented for any of the three tables; uniqueness is inferred from instructions, not verified in metadata (e.g. "% distinct: 66.8" for INTAGTSEQ implies non-uniqueness across all rows, which is expected due to PD-TR rows, but hasn't been independently confirmed by row-level testing).
+Source of understanding: Genie Space instructions (not metadata-asserted constraint).
+Question for data owner: Is there a declared/enforced primary key or unique constraint on gold_agent_master, and can duplicate INTAGTSEQ values occur within Agency or PD row types specifically (not just across row types)?
+Risk if unclarified: Counting logic (COUNT(DISTINCT INTAGTSEQ)) could silently undercount or overcount if duplicates exist within a single row_type.
+3. Join relationships
+Table/column: gold_agent_license.INTAGTSEQ / pd_tr_INTTRAGTSEQ, gold_agent_education.INTAGTSEQ
+Current understanding: Licence joins require matching both INTAGTSEQ and row_type (and additionally pd_tr_INTTRAGTSEQ for PD-TR); education joins only apply to Agency rows.
+What remains unclear: Whether referential integrity is enforced (i.e., can a licence or education record exist with no matching master row, or vice versa — an agent with no licence/education row at all, which is expected, versus an orphaned license row with an invalid INTAGTSEQ).
+Source of understanding: Table Relationships configuration (validated by the space), not independently tested against live data.
+Question for data owner: Are there orphaned licence or education records with no corresponding master row, and if so, how should they be handled in reporting?
+Risk if unclarified: Silent record loss under INNER JOIN, or inflated counts if LEFT JOIN is used without deduplication.
+4. Agent status codes
+Table/column: gold_agent_master.agent_status_code
+Current understanding: 00, 10 = in force; 51, 61, 62, 70, 81 = terminated. Confirmed by actual data in the most recent query — descriptions observed were "00-Inforce", "10-Inforce - Withdraw P-Fund", "51-Terminated", "61-Terminated - Vested", "62" (description text oddly reads "61-Terminated-Retired"), "70-Terminated-Deceased", "81-Terminated-New Retirement Program" 
+.
+What remains unclear: Any status code outside this set is explicitly "Unknown" per the schema and instructions — meaning of such codes (if they appear in other time periods) is undocumented. Also, code 62's description text literally begins with "61," which has not been explained — whether this is a labeling inconsistency in the source system or a data quality issue is unverified.
+Source of understanding: Actual data values (this session's query) + Genie Space instructions (status grouping rule).
+Question for data owner: Can new/other agent_status_code values appear in the future, and what causes the "61" prefix inside the 62 description?
+Risk if unclarified: Unknown codes would be excluded from both in-force and terminated totals, understating population counts without visibility into why.
+5. Suspension codes and date logic
+Table/column: gold_agent_master.suspend_code, suspend_effective_date, suspend_expiry_date
+Current understanding: A suspend_code other than '00' flags a suspension or special-handling indicator, not necessarily a currently active suspension; the effective/expiry date fields presumably define the active window.
+What remains unclear: Whether suspend_effective_date/suspend_expiry_date should actually be used to test "is the suspension currently active" (analogous to the licence effective/expiry logic), or whether they serve a different, undocumented purpose. Also, individual suspend code meanings (e.g. A0, G0, E0, C0, 10, 21, 41) are only partially described, and several descriptions literally read "21-'UNKNOWN'" / "41-'UNKNOWN'" in the lookup data itself.
+Source of understanding: Column metadata + example values (several of which are self-described as "UNKNOWN" in the source lookup).
+Question for data owner: Should suspend_effective_date <= today <= suspend_expiry_date be the formal rule for "currently suspended," and what do codes 21 and 41 (and other unlabeled codes) mean?
+Risk if unclarified: Any attempt to report "currently suspended" counts could be materially wrong, since neither the code list nor the date-window logic is confirmed.
+6. Licence type meanings
+Table/column: gold_agent_license.license_type, license_type_desc
+Current understanding: license_type codes (e.g. G002, CO01, T001, G001, I001) cover a mix of regulatory licences, training, exams, certifications, product eligibility, and restriction records.
+What remains unclear: No documented mapping exists from individual codes to their business meaning or to which category (regulatory vs. non-regulatory) each code belongs. license_type_desc is listed as a column but its content/reliability as a translation is not validated in instructions.
+Source of understanding: Column metadata + explicit instruction not to infer meanings of undocumented codes.
+Question for data owner: Is there an authoritative lookup table classifying each license_type code into regulatory licence vs. training/certification/eligibility/restriction, and does license_type_desc reliably reflect that classification?
+Risk if unclarified: Any question asking "how many agents are licensed to sell X" cannot be safely answered — we can only report date validity, not regulatory status, per the configured rule, and that limitation is easy to overlook if not restated every time.
+7. Regulatory licence vs. training/certification/eligibility/restriction records
+Table/column: gold_agent_license (whole table)
+Current understanding: Not every row is a regulatory licence; the table is explicitly documented as mixed-purpose.
+What remains unclear: There is no column or flag distinguishing a true regulatory licence row from a training/certification/eligibility/restriction row. The "currently effective" filter only tests date validity, not this classification.
+Source of understanding: Table description (metadata) + Genie Space instructions.
+Question for data owner: Can a flag or reference table be added that definitively marks which license_type codes represent actual regulatory authorizations?
+Risk if unclarified: Persistent risk of users (or future analysts) misreading "currently effective licence record" as proof an agent is legally authorized to sell, when it is not confirmed as such.
+8. Meaning of 2099 expiry dates
+Table/column: gold_agent_license.license_exp_date
+Current understanding: Dates on or after 2099-01-01 are assumed to represent "open-ended" or non-expiring validity.
+What remains unclear: This convention is explicitly flagged as unconfirmed by source documentation. It's unclear whether 2099 is a system-default placeholder (e.g., for missing data) or an intentional "never expires" marker, and whether all far-future dates land exactly on 2099-12-31 or vary.
+Source of understanding: Column metadata (example value "2099-12-31 00:00:00") + explicit caveat in instructions — an assumption, not a verified fact.
+Question for data owner: What does an expiry date of 2099 or later formally represent in the source system?
+Risk if unclarified: Reporting "licence expiring" distributions could substantially misstate the number of effectively permanent vs. soon-expiring records.
+9. In-force and terminated definitions
+Table/column: gold_agent_master.agent_status_code, termination_effective_date
+Current understanding: Status code — not the termination date — is the authoritative signal for in-force vs. terminated; the two can be temporarily out of sync (e.g., a termination date set but status not yet updated, or vice versa).
+What remains unclear: How frequently, and under what operational process, do agent_status_code and termination_effective_date disagree (e.g., a non-null termination date while status is still "00")? This has not been tested.
+Source of understanding: Genie Space instructions (explicit rule to never let the date override the code) — an operational assumption, not independently data-verified in this session.
+Question for data owner: Can termination_effective_date be populated while agent_status_code still shows an in-force code, and if so, what should be reported as the agent's status?
+Risk if unclarified: Any termination trend analysis could be inconsistent depending on whether status code or date is implicitly trusted by the end user.
+10. Whether PD-TR records can represent duplicate individuals
+Table/column: gold_agent_master.pd_tr_INTTRAGTSEQ, pd_tr_name, pd_tr_ia_code
+Current understanding: PD-TR rows are explicitly documented as database records, not confirmed unique individuals; pd_tr_INTTRAGTSEQ counts are record counts.
+What remains unclear: Whether a single technical representative could appear multiple times (e.g., one record per PD firm they're associated with, or one per renewal/history event), and whether pd_tr_name, pd_tr_ia_code, or pd_tr_corp_name could be used (with fuzzy matching) to approximate deduplication. No guidance is given for this.
+Source of understanding: Table/column metadata + Genie Space instructions (explicit caveat against treating this as a headcount) — not verified by inspecting actual duplicate patterns.
+Question for data owner: Is there any field (e.g., a national ID, licence number, or person-level key) that can reliably deduplicate technical representatives across records?
+Risk if unclarified: Any stated "number of technical representatives" is at risk of materially overstating the real headcount if the same person holds multiple records.
+11. Education codes and verification results
+Table/column: gold_agent_education.agt_edu_academic_qualification_code, agt_edu_verification_type, agt_edu_verification_result, agt_edu__result
+Current understanding: Only agt_edu_level_code (01/02/03) has a documented mapping. agt_edu_academic_qualification_code, agt_edu_verification_type, and agt_edu_verification_result have example values but no documented meaning. agt_edu__result is explicitly flagged as undocumented with no confirmed relationship to agt_edu_verification_result.
+What remains unclear: What qualification code 01–05 etc. mean; what verification types/results like pass/fail/pending states correspond to; why two separate "result" fields exist and whether they can disagree.
+Source of understanding: Column metadata, explicitly marked undocumented; instructions explicitly forbid translating these without evidence.
+Question for data owner: Can a decode table be provided for agt_edu_academic_qualification_code, agt_edu_verification_type, agt_edu_verification_result, and clarification on agt_edu__result's relationship (if any) to agt_edu_verification_result?
+Risk if unclarified: Any question about "verified" vs. "unverified" education, or qualification level breakdowns beyond the three documented level codes, cannot be answered reliably.
+12. Sensitive-data restrictions
+Table/column: Not explicitly tied to a specific column, but the space-wide output rule references "encrypted IDs, bank details, mobile numbers, dates of birth, annual income" as restricted.
+Current understanding: These fields are restricted from being surfaced in query results, and results default to aggregated form, capped at 2,000 detailed rows.
+What remains unclear: None of the three documented tables (gold_agent_master, gold_agent_license, gold_agent_education) actually contain columns explicitly named "bank details," "mobile number," "date of birth," or "annual income" in the schema provided. It's unclear whether these restrictions apply to columns outside the documented schema (i.e., other hidden fields in the source system not exposed here) or are a generic boilerplate warning not applicable to this specific space.
+Source of understanding: Genie Space instructions (output guideline) — not corroborated against the actual column list.
+Question for data owner: Do any of the three tables actually contain the sensitive fields referenced in the restriction rule, or does this rule apply to upstream source tables not exposed in this Genie Space?
+Risk if unclarified: Either an overcautious restriction on data that isn't actually present (reducing usefulness), or — more seriously — an unexposed sensitive field that isn't being adequately governed.
+13. Distinct-counting rules (general)
+Table/column: Cross-table (gold_agent_master, gold_agent_license, gold_agent_education)
+Current understanding: Counting rules are prescribed (distinct INTAGTSEQ for agents/firms, distinct pd_tr_INTTRAGTSEQ for PD-TR records, distinct INTAGTSEQ+agt_edu_seq for education entries, and EXISTS/pre-aggregation to avoid row multiplication after joins).
+What remains unclear: Whether license_seq (on gold_agent_license) is a reliable, always-populated uniqueness key for licence rows, since no granularity/uniqueness statistic is given for it in the schema, unlike other identifying columns.
+Source of understanding: Genie Space instructions + example SQL patterns — not independently tested against license_seq fill rate or uniqueness.
+Question for data owner: Is license_seq guaranteed non-null and unique within an INTAGTSEQ/row_type, and can it serve as the formal row-level key for gold_agent_license?
+Risk if unclarified: Without a confirmed key, deduplication logic for licence rows (e.g., detecting duplicate/renewal records) cannot be fully trusted.
+All items above are flagged as requiring data-owner clarification — none of the uncertain interpretations were resolved by inference or assumption in this review.
 
-We have completed the About, Sources, Examples, General Instructions, and Synonyms configuration.
 
-Our goal is to verify that Genie answers business questions accurately.
 
-### Task 1: Review existing benchmarks
-
-Inspect all existing benchmarks, including their questions and expected SQL.
-
-Identify:
-
-1. Duplicate or redundant benchmarks.
-2. Incorrect SQL calculations.
-3. Incorrect join conditions.
-4. Outdated business definitions.
-5. Missing coverage of important business questions.
-
-Preserve all correct benchmarks.
-
-### Task 2: Correct known problems
-
-There are five known benchmark issues:
-
-1. Agent status categories must group codes 00 and 10 as "In force".
-2. Licence expiry categories must use "Expiry in 2099 or later" and "Expiring after 30 days", matching the saved Field.
-3. PD technical representative counts must describe database records, not unique individuals.
-4. Two currently effective licence benchmarks must follow the saved validity definition, requiring a populated licence type and inclusive effective and expiry dates.
-
-Check all five carefully and correct their expected SQL and question wording where needed.
-
-### Task 3: Improve benchmark coverage
-
-Check whether benchmarks cover:
-
-1. Active Agency agent counts.
-2. Active PD firm counts.
-3. Agency agents by region and channel.
-4. Active Agency agents with currently effective typed licence records.
-5. Agency agents with education records.
-6. Active PD firms without currently effective typed licence records.
-7. Education level distribution.
-8. Technical representative database record counts.
-9. Agent status categories.
-10. Active Agency agents with both education records and currently effective typed licence records.
-
-Add only important missing benchmarks. Avoid duplication.
-
-Use independent SQL answers based on verified business rules.
-
-### Task 4: Investigate SQL compute
-
-SQL execution has repeatedly been unavailable.
-
-Check the assigned SQL warehouse, its current status, and any available error messages.
-
-Determine whether the problem involves warehouse availability, permissions, or another issue.
-
-Do not change warehouse settings or permissions without approval.
-
-### Task 5: Save and test
-
-Save and reread the benchmark configuration.
-
-If SQL compute is available, run the benchmarks and report:
-
-1. Number of benchmarks executed.
-2. Number passed and failed.
-3. Overall accuracy.
-4. Expected versus actual results.
-5. SQL differences for failed questions.
-
-If compute remains unavailable, do not claim that any benchmark passed.
-
-### Task 6: Final report
-
-Report:
-
-1. Final benchmark count.
-2. Benchmarks preserved, corrected, added, or removed.
-3. Any unresolved business logic issues.
-4. SQL compute status.
-5. Whether the benchmarks were actually executed.
-
-Do not modify About, Sources, Examples, General Instructions, underlying data, or permissions.
-
-Complete only the Benchmarks phase.
+1 source
