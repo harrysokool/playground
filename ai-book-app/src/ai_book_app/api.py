@@ -30,15 +30,13 @@ def get_all_books():
 def get_books(isbn: int):
     if isbn not in mock_db:
         raise HTTPException(status_code=404, detail="Book not found")
-
     return mock_db[isbn]
 
 
 @app.post("/books")
 def create_book(book: Book):
-    # check if book exist or not
     if book.isbn in mock_db:
-        raise HTTPException(status_code=400, detail="Book already exist")
+        raise HTTPException(status_code=400, detail="Book already exists")
 
     mock_db[book.isbn] = book
     return {"message": "Book added successfully", "book": book}
@@ -53,10 +51,15 @@ def delete_book(isbn: int):
     return {"message": "Book deleted successfully"}
 
 
-@app.update("/books/{isbn}")
-def update_book(book: Book):
-    if book.isbn not in mock_db:
+@app.put("/books/{isbn}")
+def update_book(isbn: int, book: Book):
+    if isbn not in mock_db:
         raise HTTPException(status_code=404, detail="Book not found")
 
-    mock_db[book.isbn] = book
-    return {"message": "Book updated successfully"}
+    if isbn != book.isbn:
+        raise HTTPException(
+            status_code=400, detail="URL ISBN does not match book payload ISBN"
+        )
+
+    mock_db[isbn] = book
+    return {"message": "Book updated successfully", "book": book}
