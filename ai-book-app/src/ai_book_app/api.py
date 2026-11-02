@@ -20,9 +20,9 @@ def read_root():
 
 
 # get all books
-@app.get("/books")
+@app.get("/books", response_model=list[Book])
 def get_all_books():
-    return mock_db
+    return list(mock_db.values())
 
 
 # get a specific book
@@ -42,3 +42,21 @@ def create_book(book: Book):
 
     mock_db[book.isbn] = book
     return {"message": "Book added successfully", "book": book}
+
+
+@app.delete("/books/{isbn}")
+def delete_book(isbn: int):
+    if isbn not in mock_db:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    del mock_db[isbn]
+    return {"message": "Book deleted successfully"}
+
+
+@app.update("/books/{isbn}")
+def update_book(book: Book):
+    if book.isbn not in mock_db:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    mock_db[book.isbn] = book
+    return {"message": "Book updated successfully"}
