@@ -7,7 +7,8 @@ additional cost and complexity compared with simpler OCR solutions?**
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 9 (current)**, 10 slides | `current/OCR_Benchmark_V9.pptx` | `scripts/generate_ppt_v9.py` | As Version 6, plus `results/v2/extracted_multilingual_*` and the receipt photos |
+| **Version 10 (current)**, 11 slides | `current/OCR_Benchmark_V10.pptx` | `scripts/generate_ppt_v10.py` | As Version 9; the auditor checklist comes from the auditor discussion (not in the repository) |
+| Version 9, 10 slides (archived) | `archive/v9_final/OCR_Benchmark_V9.pptx` (+ PDF preview) | `scripts/generate_ppt_v9.py` (unchanged) | As Version 6, plus `results/v2/extracted_multilingual_*` and the receipt photos |
 | Version 8, 8 slides (archived) | `archive/v8_final/OCR_Benchmark_V8.pptx` (+ PDF preview) | `scripts/generate_ppt_v8.py` (unchanged) | As Version 6 |
 | Version 7, 9 slides (archived) | `archive/v7_final/OCR_Benchmark_V7.pptx` (+ PDF preview) | `scripts/generate_ppt_v7.py` (unchanged) | As Version 6 |
 | Version 6, 10 slides (archived) | `archive/v6_final/OCR_Benchmark_V6.pptx` (+ PDF preview) | `scripts/generate_ppt_v6.py` (unchanged) | As Version 5, plus `results/v2/scores_multilingual/` |
@@ -36,13 +37,14 @@ is typed in by hand.
 | Folder | Contents |
 |---|---|
 | `template/` | Official AIA PowerPoint template (`aia_ppt_template.pptx`). Do not edit. |
-| `current/` | The current deck (Version 9) |
+| `current/` | The current deck (Version 10) |
 | `previews/` | PDF and PNG previews of the current deck |
 | `archive/v1/` | The frozen Version 1 deck and its preview. Never written to by the generators. |
 | `archive/v2_12slides/` | The first, 12-slide Version 2 deck and its PDF preview, kept for reference |
 | `archive/v2_8slides/` | The 8-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_9slides/` | The 9-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_10slides/` | The 10-slide revision before the slide 9 rewrite, and its PDF preview |
+| `archive/v9_final/` | The 10-slide Version 9 deck and its PDF preview |
 | `archive/v8_final/` | The 8-slide Version 8 deck and its PDF preview |
 | `archive/v7_final/` | The 9-slide Version 7 deck and its PDF preview |
 | `archive/v6_final/` | The 10-slide Version 6 deck and its PDF preview |
@@ -54,6 +56,48 @@ is typed in by hand.
 | `archive/v2_final/` | The final Version 2 deck (with PaddleOCR Heavy and the tuned rule accuracies) and its PDF preview |
 | `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py`, `generate_ppt_v6.py`, `generate_ppt_v7.py`, `generate_ppt_v8.py` and `generate_ppt_v9.py` |
 | `scripts/` | The generators |
+
+## Version 10: benchmark results and pilot direction (11 slides)
+
+Updated after the discussion with the business auditors. The project scope is unchanged: Azure only
+processes approved medical receipt data and extracts structured information. Claims records, policy data
+and the audit checks stay in another authorized system. The transfer between the two is not yet designed.
+
+1. Title: Medical Receipt Extraction, benchmark results and pilot direction
+2. **Executive summary.** Recommends Azure DI + AOAI prompt v2 for the next extraction pilot, not production.
+   Shows 96.1% (development result) vs 51.0–70.6% (retrospective baseline).
+3. **Scope and data boundary (new).** Receipt → Azure DI → AOAI → Python checks → structured results →
+   approved transfer (to be designed) → another authorized system → audit checks. Separates the existing
+   Python checks (formats, clean-up, review flags) from the planned ones (required fields, new fields), and
+   lists what is never uploaded to Azure.
+4. Benchmark: three approaches, same 9 receipts (the V9 approach and results slides merged)
+5. Why Azure DI beat PaddleOCR Light (receipt 5)
+6. Why AOAI beat the rules (receipts 6 and 5)
+7. The doctor database approach (proposal, not benchmarked)
+8. Advantages and disadvantages
+9. **What the auditors check (new).** Five categories, summarised from the auditor discussion.
+10. **From audit needs to receipt fields (new).** The 6 benchmarked fields vs 5 fields not yet tested, the
+    data another authorized system adds, "information, not a verdict" (extraction does not decide
+    authenticity, medical necessity or coverage), and analytics as a later potential. Replaces V9's
+    "Beyond six fields" slide.
+11. **Recommendation and next steps.** Define the extraction schema, extend the prompt gradually, test new
+    fields on approved receipts, then agree the transfer and confirm costs. No new fields or audit checks
+    are implemented yet.
+
+`scripts/check_deck_v10.py` = the Version 9 checks for 11 slides, plus:
+- the Azure boundary wording on the executive summary, scope and recommendation slides;
+- the scope slide's "never uploaded", "to be designed" and existing/planned wording;
+- "not a production approval";
+- no claim that extraction decides authenticity, medical necessity or coverage;
+- the receipt-fields slide separates benchmarked from untested fields and marks analytics as potential.
+
+```bash
+python3 ppt/ocr_benchmark/scripts/generate_ppt_v10.py --force
+python3 ppt/ocr_benchmark/scripts/check_deck_v10.py
+```
+
+`scripts/build_v10_on_azure.sh` does the same on Azure ML compute. The Version 9 generator and check are kept
+unchanged to reproduce the archived Version 9 deck.
 
 ## Version 9: real-receipt examples and the doctor database (10 slides)
 
@@ -91,7 +135,7 @@ python3 ppt/ocr_benchmark/scripts/generate_ppt_v9.py --force
 python3 ppt/ocr_benchmark/scripts/check_deck_v9.py
 ```
 
-`scripts/build_v9_on_azure.sh` does the same on Azure ML compute. The Version 8 generator and check are kept
+The Version 8 generator and check are kept
 unchanged to reproduce the archived Version 8 deck.
 
 ## Version 8: concise 8-slide deck
@@ -282,9 +326,9 @@ These need LibreOffice and Poppler:
 
 ```bash
 cd ppt/ocr_benchmark
-soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V9.pptx
-mv previews/OCR_Benchmark_V9.pdf previews/OCR_Benchmark_V9_preview.pdf
-pdftoppm -png -r 80 previews/OCR_Benchmark_V9_preview.pdf previews/slide
+soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V10.pptx
+mv previews/OCR_Benchmark_V10.pdf previews/OCR_Benchmark_V10_preview.pdf
+pdftoppm -png -r 80 previews/OCR_Benchmark_V10_preview.pdf previews/slide
 ```
 
 LibreOffice may substitute fonts, so the preview is for review. PowerPoint renders Arial and

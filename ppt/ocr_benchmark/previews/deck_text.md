@@ -1,10 +1,10 @@
-# OCR_Benchmark_V9.pptx: text, chart data and notes
+# OCR_Benchmark_V10.pptx: text, chart data and notes
 
 
 ## Slide 1
 
-- Medical receipt extraction benchmark / 9 receipts · 6 fields · rules vs AI extraction
-- Can OCR Rules Replace Azure OpenAI?
+- Benchmark results and pilot direction / OCR rules vs Azure OpenAI · 9 receipts · 6 fields
+- Medical Receipt Extraction
 
   Notes: Question: is OCR with hand-written extraction rules enough to replace Azure OpenAI (AOAI) for medical receipts, and what value does AOAI add? Every number comes from the saved benchmark results. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
@@ -12,52 +12,47 @@
 
 - Executive Summary
 - ‹#›
-- OCR + rules is not enough to replace AOAI across varied receipts.
+- Recommendation: Azure DI + AOAI prompt v2 for the next receipt extraction pilot, not production.
 - 96.1% / Azure DI + AOAI (prompt v2) / Development result
 - 51.0–70.6% / OCR + multilingual rules / 51.0% PaddleOCR Light · 70.6% Azure DI / Retrospective baseline
-- Why AOAI may still be needed / Can often handle unfamiliar layouts without new rules (not guaranteed) / Can potentially extract more fields for analytics (not yet benchmarked) / Rules remain fine for simple, clearly labelled checks
+- What we recommend / Azure DI + AOAI prompt v2 for the next extraction pilot / Python validation: format checks today, missing-field checks planned / Only approved receipt data on Azure; audit checks stay in another authorized system / A pilot, not a production approval
 
-  Notes: Azure DI + AOAI with prompt v2: 96.1% (49/51). OCR + general multilingual rules: 51.0% with PaddleOCR Light and 70.6% with Azure DI (26/51 and 36/51). Unfamiliar labels, languages and layouts may require additional rules and retesting; AOAI works from plain-language instructions and could extract further fields (potential, not yet benchmarked). Limits of this evidence: 9 receipts and 51 fields, 7 of them printed, fictional test receipts. 96.1% (prompt v2) is a development result: the prompt was refined after reviewing these receipts. 51.0–70.6% (multilingual rules) is a retrospective baseline: common Chinese labels were added after these receipts were examined, though fixed before scoring. Neither is independent validation: only 4 unseen handwritten receipts exist, and on all 4 Azure DI misread the year 2026 as 2020. Prices are not confirmed. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
+  Notes: Azure DI + AOAI with prompt v2: 96.1% (49/51), a development result (prompt refined on these receipts). OCR + general multilingual rules: 51.0% with PaddleOCR Light and 70.6% with Azure DI (26/51 and 36/51), a retrospective baseline. Neither is independently validated. AOAI handles contextual extraction more flexibly and could extract further fields without manual rules for every layout (not guaranteed); ordinary Python validation stays for formats and missing fields. Scope: Azure processes approved receipt data only; claims records, policy data and the audit checks stay in another authorized system. This is a direction for further testing, not a production approval. Limits of this evidence: 9 receipts and 51 fields, 7 of them printed, fictional test receipts. 96.1% (prompt v2) is a development result: the prompt was refined after reviewing these receipts. 51.0–70.6% (multilingual rules) is a retrospective baseline: common Chinese labels were added after these receipts were examined, though fixed before scoring. Neither is independent validation: only 4 unseen handwritten receipts exist, and on all 4 Azure DI misread the year 2026 as 2020. Prices are not confirmed. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
 ## Slide 3
 
-- What We Compared
+- Scope and Data Boundary
 - ‹#›
-- For each of the 9 receipts, we extract 6 key fields and compare the results across 3 approaches.
-- PaddleOCR Light + rules
-- PaddleOCR Light / open source, own compute
-- Hand-written rules
-- 6 fields
-- Azure DI + rules
-- Azure Document Intelligence / cloud OCR
-- Hand-written rules
-- 6 fields
-- Azure DI + AOAI
-- Azure Document Intelligence / cloud OCR
-- Azure OpenAI instructions
-- 6 fields
-- 1. Read the text (OCR)
-- 2. Find the fields
-- English
-- Bilingual
-- Chinese
-- 9 receipts: 7 printed test receipts (English, bilingual, Chinese layouts) and 2 from the first benchmark round. / 6 fields: doctor, registration no., patient, receipt no., service date, total.
-- 51 of 54 possible fields were scored. 3 receipts do not contain a doctor registration number, so those fields were excluded.
+- PLANNED WORKFLOW · NOT BUILT
+- Azure only reads receipts and extracts data. Audit checks happen in another authorized system.
+- Approved Azure environment: receipt data only
+- Medical receipt / approved receipt only
+- Azure DI / reads the text
+- Azure OpenAI / extracts the fields
+- Python checks / existing: formats, review flags
+- Structured results / e.g. names, date, amounts
+- Today: Azure DI + Azure OpenAI on 6 fields, with existing Python checks (date and amount formats, label clean-up, review flags). / Planned: required-field checks and checks for the new fields.
+- Approved transfer / to be designed
+- Another authorized system / Holds claims records, policy data and claim history / Runs the audit checks: claim comparison, policy checks, duplicates
+- Never uploaded to Azure: claims records, policyholder databases, policy documents or other sensitive business information.
+- Planned workflow. The transfer method must be approved before implementation; the integration and the audit checks are not being built yet.
 
-  Notes: 9 receipts: 7 printed, fictional test receipts photographed with a phone (English, bilingual and Traditional Chinese layouts) and 2 receipts from the first benchmark round. Six fields: doctor, registration number, patient, receipt number, service date, total. 51 of 54 possible fields were scored: 3 receipts do not contain a doctor registration number, so those fields were excluded. Azure OpenAI deployment: gpt-5-mini. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
+  Notes: Planned workflow, not yet built: a medical receipt enters the approved Azure environment; Azure Document Intelligence reads it; Azure OpenAI extracts structured information; Python checks validate the result (existing: date and amount normalisation, registration and doctor-name clean-up, review flags for values not found in the OCR text or a total equal to the subtotal, in receipt_bench/aoai_validation.py; planned: required-field checks and checks for new fields); the results are transferred, by an approved method that is not yet designed, to another authorized system, which holds the claims and policy data and performs the audit checks (claim comparison, policy checks, duplicate detection). Only approved receipt data is processed in Azure. Claims records, policyholder databases, policy documents and other sensitive business information are not uploaded to Azure. Neither the transfer nor the audit checks are being implemented yet.
 
 ## Slide 4
 
-- Rules vs AOAI on the Same Receipts
+- Benchmark: Three Approaches, Same 9 Receipts
 - ‹#›
 - MEASURED · DEVELOPMENT SET
 - Multilingual OCR rules reached 51.0–70.6%; Azure DI + AOAI reached 96.1%.
+- PaddleOCR Light + rules / Open-source OCR  →  Hand-written rules
+- Azure DI + rules / Azure OCR  →  Hand-written rules
+- Azure DI + AOAI / Azure OCR  →  Azure OpenAI
+- 9 receipts · English, bilingual, Chinese layouts / 6 fields: doctor, registration no., patient, receipt no., date, total
   chart 'Accuracy': PaddleOCR Light + multilingual rules* 26/51=51.0, Azure DI + multilingual rules* 36/51=70.6, Azure DI + AOAI prompt v2† 49/51=96.1
-- Multilingual rules* / General rules with common Chinese labels / No receipt-specific rules
-- What explains the gap / PaddleOCR misread labels (slide 5) / Rules missed context that AOAI used (slide 6)
-- * Retrospective baseline   † Development result (prompt refined on these receipts)   Neither is independent validation. 9 receipts, 51 fields.
+- * Retrospective baseline   † Development result   Neither is independent validation. 51 of 54 fields scored (3 receipts have no registration number).
 
-  Notes: Accuracy = correct fields / 51 on the 9 receipts. Multilingual rules = general extraction rules with common Traditional and Simplified Chinese labels and basic bilingual handling (python/receipt_ocr_benchmark/docs/MULTILINGUAL_BASELINE.md); a retrospective baseline. AOAI = prompt v2, a development result: the prompt was refined after reviewing these receipts. Remaining rule errors need new label types, labels inside lines, layout logic or OCR-tolerant matching; PaddleOCR Light also loses fields because its OCR glues words and mixes characters in bilingual labels. Limits of this evidence: 9 receipts and 51 fields, 7 of them printed, fictional test receipts. 96.1% (prompt v2) is a development result: the prompt was refined after reviewing these receipts. 51.0–70.6% (multilingual rules) is a retrospective baseline: common Chinese labels were added after these receipts were examined, though fixed before scoring. Neither is independent validation: only 4 unseen handwritten receipts exist, and on all 4 Azure DI misread the year 2026 as 2020. Prices are not confirmed. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
+  Notes: 9 receipts: 7 printed, fictional test receipts photographed with a phone (English, bilingual and Traditional Chinese layouts) and 2 from the first benchmark round. Six fields: doctor, registration number, patient, receipt number, service date, total. 51 of 54 possible fields were scored: 3 receipts have no doctor registration number. Accuracy = correct fields / 51. Multilingual rules = general extraction rules with common Chinese labels and basic bilingual handling, a retrospective baseline (python/receipt_ocr_benchmark/docs/MULTILINGUAL_BASELINE.md). AOAI = prompt v2, a development result. Why the scores differ: slides 5 and 6. Limits of this evidence: 9 receipts and 51 fields, 7 of them printed, fictional test receipts. 96.1% (prompt v2) is a development result: the prompt was refined after reviewing these receipts. 51.0–70.6% (multilingual rules) is a retrospective baseline: common Chinese labels were added after these receipts were examined, though fixed before scoring. Neither is independent validation: only 4 unseen handwritten receipts exist, and on all 4 Azure DI misread the year 2026 as 2020. Prices are not confirmed. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
 ## Slide 5
 
@@ -130,45 +125,67 @@
   | Maintenance | − Unfamiliar labels or layouts may require additional rules and retesting | + Many changes made in plain-language instructions; still retest | Measured / expected |
   | Flexibility | − Finds only what it was written for | + New fields can be requested in the prompt (not yet benchmarked) | Expected |
   | Auditability | + Every result traceable to a rule | − Harder to explain; keep quoted evidence and logs | Expected |
-  | Reliability | + Same input, same output | − Can return a confident wrong value (e.g. a sub total as the total); model updates need retesting | Measured / expected |
+  | Reliability | + Same input, same output | − Can return a confident wrong value (e.g. a sub total); needs Python validation and retesting | Measured / expected |
 - Green = stronger side. Multilingual rules include common Chinese labels (retrospective baseline). Expected = not measured here.
 
   Notes: Measured: accuracy (multilingual rules 51.0–70.6%, retrospective baseline; AOAI prompt v2 96.1%, development result); speed per receipt (PaddleOCR Light 13.9 s on Azure ML CPU, Azure DI 3.8 s, Azure DI + AOAI prompt v2 6.4 s incl. network); AOAI prompt v2 tokens per receipt (962 input, 243 output); rule effort (69 -> 225 label phrases) and the vet invoice sub-total error. Prices are not confirmed. Flexibility, auditability and model-update effects are expectations. Limits of this evidence: 9 receipts and 51 fields, 7 of them printed, fictional test receipts. 96.1% (prompt v2) is a development result: the prompt was refined after reviewing these receipts. 51.0–70.6% (multilingual rules) is a retrospective baseline: common Chinese labels were added after these receipts were examined, though fixed before scoring. Neither is independent validation: only 4 unseen handwritten receipts exist, and on all 4 Azure DI misread the year 2026 as 2020. Prices are not confirmed. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
 ## Slide 9
 
-- Beyond Six Fields: From Receipts to Insights
+- What the Auditors Check
 - ‹#›
-- POTENTIAL · NOT YET TESTED
-- Today we extract 6 fields. AOAI could also capture what was treated, tested and prescribed.
-- 1. What the receipt shows
-- 2. What AOAI could extract
-- 3. What we could analyse
-  | Item | Type | HK$ |
-  | Specialist consultation | Consultation | 950.00 |
-  | Chest X-ray | Test | 620.00 |
-  | Blood test (CBC) | Test | 380.00 |
-  | Drugs | Medication | 245.50 |
-- Illustration typed from the receipt text, not AOAI output
-- Cost by treatment / Spend on consultations, tests and medicines
-- Provider comparison / Typical charges per test across providers
-- Trends over time / Which treatments and medicines are rising
-- Unusual claims / Combinations or amounts that stand out
-- Potential, not yet tested. Only the 6 current fields have been benchmarked. Diagnoses, symptoms, treatments and medications would need a pilot.
+- We asked the business auditors what they check when sampling claims, and what information they need.
+- 1
+- Receipt authenticity / Letterhead, provider details, signature, stamp, signs of alteration
+- 2
+- Data accuracy and identity / Names, treatment date, diagnosis, amounts; the right patient
+- 3
+- Coverage and eligibility / Policy coverage, waiting periods, deadlines, preapproval
+- 4
+- Necessity and fees / Medically necessary treatment, agreed medical fees
+- 5
+- Assessment and fraud indicators / Calculations and limits, approval authority, duplicates
+- Why it matters: these checks tell us which receipt information is worth extracting.
+- Summarised from our discussion with the business auditors. Not every check uses receipt data.
 
-  Notes: Potential only: extracting these details has not been built or tested. Left: a real line-item section of a hospital receipt in our benchmark. Middle: an illustration of the structured data AOAI could return, typed by us from that receipt's OCR text (checked in the saved Azure DI output); it is not AOAI output. Where receipts show them, diagnoses and symptoms could be captured the same way. With rules, each new kind of detail may require additional labels and logic. Right: examples of analytics this would enable. A pilot would need ground truth, accuracy targets, a privacy review and cost checks.
+  Notes: From our discussion with the business auditors; not part of the benchmark data. When sampling receipts and claims they check: receipt authenticity (letterhead, provider details, signatures, stamps, possible alterations); data integrity (claimant and provider names, treatment date, diagnosis code, receipt and claimed amounts) and patient identity; policy coverage, treatment eligibility, waiting periods and submission deadlines; medical necessity and agreed fees; assessor calculations, deductibles, benefit limits and approval authority; duplicate receipts and other fraud, waste and abuse indicators; preapproval amounts versus actual charges. Much of this needs data from other authorized systems, not just the receipt (next slide).
 
 ## Slide 10
 
-- Recommendation
+- From Audit Needs to Receipt Fields
 - ‹#›
-- Use rules for simple, labelled checks. Use AOAI where receipts vary or richer data is needed.
-- Simple OCR rules are sufficient when… / Layouts are few, known and stable / Fields have clear printed labels / The question is simple, e.g. is a diagnosis comment present? / No API fee and fully traceable output are required
-- AOAI adds real value when… / Providers, layouts and languages vary (Chinese, bilingual) / Fields lack consistent labels: names with titles, totals vs subtotals / We want less scenario-specific code to maintain / Richer medical data is wanted (potential, not yet benchmarked)
-- 1. Freeze / the rules and AOAI prompt v2
-- 2. Validate / 30+ unseen, real, anonymised receipts; count rule changes
-- 3. Pilot extra fields / medications, treatments, symptoms, diagnoses with ground truth
-- 4. Confirm cost / Document Intelligence pages and gpt-5-mini tokens
-- Evidence so far: 9 receipts; results are development or retrospective, not yet validated on unseen receipts.
+- On Azure we extract what the receipt shows. Another authorized system adds the rest and runs the checks.
+  | On the receipt (extracted on Azure) | Supports | Status |
+  | Patient name | Accuracy | Benchmarked |
+  | Doctor / practitioner name | Accuracy | Benchmarked |
+  | Registration number | Authenticity, Accuracy | Benchmarked |
+  | Receipt number | Fraud | Benchmarked |
+  | Treatment date | Coverage | Benchmarked |
+  | Receipt total | Necessity & fees, Fraud | Benchmarked |
+  | Clinic name and address | Authenticity | Not yet tested |
+  | Individual charges | Necessity & fees, Fraud | Not yet tested |
+  | Diagnosis, symptoms (if stated) | Necessity & fees | Not yet tested |
+  | Treatments, tests, medicines | Necessity & fees | Not yet tested |
+  | Signature / stamp present | Authenticity | Not yet tested |
+- approved transfer
+- Another authorized system adds / Claimant, policy and coverage / Claimed and preapproval amounts / Claim history, fee schedules, decisions / …and runs the audit checks
+- Information, not a verdict / Extraction does not decide whether a receipt is genuine, a treatment necessary, or a claim covered.
+- Later: analytics (potential) / Cost by treatment, provider comparison, trends, unusual claims
+- Green = the 6 benchmark fields (96.1%, development result). Other fields are not yet tested and appear only if printed or visible on the receipt.
 
-  Notes: Rules are sufficient where layouts are few and stable, fields have clear labels and the question is simple (for example whether a diagnosis comment is present). AOAI adds value where providers, layouts and languages vary, where fields lack consistent labels, and potentially for richer medical data (not yet benchmarked). Next steps: freeze the rules and prompt v2; test on 30+ unseen, real, anonymised receipts and count the rule changes needed; pilot medications, treatments, symptoms and diagnoses with ground truth; confirm prices. Limits of this evidence: 9 receipts and 51 fields, 7 of them printed, fictional test receipts. 96.1% (prompt v2) is a development result: the prompt was refined after reviewing these receipts. 51.0–70.6% (multilingual rules) is a retrospective baseline: common Chinese labels were added after these receipts were examined, though fixed before scoring. Neither is independent validation: only 4 unseen handwritten receipts exist, and on all 4 Azure DI misread the year 2026 as 2020. Prices are not confirmed. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
+  Notes: Receipt extraction supplies information for the audit checks; it does not decide whether a receipt is genuine, whether treatment was medically necessary, or whether the policy covers the claim. Receipt fields that could support the auditors' checks. The first 6 are the benchmark fields (Azure DI + AOAI prompt v2: 96.1%, a development result, not independently validated). The others have not been extracted or tested yet; each appears only if it is printed or visible on the receipt, and a signature or stamp can only be reported as present, not as genuine. Information that must come from another authorized system: the claimant and policy, claimed amount, coverage and waiting periods, claim history and duplicates across claims, preapproval amounts, agreed fee schedules and assessor decisions. Whether a receipt is genuine and whether treatment was medically necessary remain auditor judgements. Only approved receipt data is processed on Azure; results go to the authorized system by an approved method that is not yet designed. Later, the extracted details (treatments, tests, medicines, charges) could also feed analytics in the authorized system, such as cost by treatment, provider comparisons, trends and unusual claims: potential, not yet tested.
+
+## Slide 11
+
+- Recommendation and Next Steps
+- ‹#›
+- Pilot Azure DI + AOAI prompt v2 for receipt extraction, then grow the extracted fields step by step.
+- Next extraction pilot: Azure DI + AOAI prompt v2, with Python validation / A direction for further testing, not a production approval. Only approved receipt data on Azure.
+- 1. Define the schema / Which receipt fields, formats and “if printed” rules, from the auditors' checklist
+- 2. Extend the prompt / Add fields a few at a time; keep the 6 benchmark fields stable
+- 3. Test new fields / On approved receipt examples, including receipts not used for development
+- 4. Prepare the hand-off / Agree the approved transfer method; confirm costs
+- Rules still fit simple, clearly labelled checks, e.g. whether a diagnosis comment is present.
+- Evidence so far: 9 receipts; development and retrospective results, not independently validated. No new fields or audit checks are implemented yet.
+
+  Notes: Recommendation: Azure DI + AOAI prompt v2, with Python validation, for the next receipt extraction pilot. This is a direction for further testing, not a production approval. Simple, clearly labelled checks (for example whether a diagnosis comment is present) can still use rules. Next steps: define a structured extraction schema from the auditors' checklist; extend the existing prompt gradually, keeping the six benchmark fields stable; test each new field on approved receipt examples, including receipts not used for development; agree the approved transfer method before any integration; confirm Document Intelligence and gpt-5-mini costs. No new fields or audit checks are being implemented yet. Limits of this evidence: 9 receipts and 51 fields, 7 of them printed, fictional test receipts. 96.1% (prompt v2) is a development result: the prompt was refined after reviewing these receipts. 51.0–70.6% (multilingual rules) is a retrospective baseline: common Chinese labels were added after these receipts were examined, though fixed before scoring. Neither is independent validation: only 4 unseen handwritten receipts exist, and on all 4 Azure DI misread the year 2026 as 2020. Prices are not confirmed. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
