@@ -7,7 +7,7 @@ app = FastAPI(title="ai_book_app")
 class Book(BaseModel):
     name: str
     author: str
-    isbn: int
+    isbn: str
     genre: str
 
 
@@ -27,23 +27,23 @@ def get_all_books():
 
 # get a specific book
 @app.get("/books/{isbn}", response_model=Book)
-def get_books(isbn: int):
+def get_books(isbn: str):
     if isbn not in mock_db:
         raise HTTPException(status_code=404, detail="Book not found")
     return mock_db[isbn]
 
 
-@app.post("/books")
+@app.post("/books", status_code=201)
 def create_book(book: Book):
     if book.isbn in mock_db:
-        raise HTTPException(status_code=400, detail="Book already exists")
+        raise HTTPException(status_code=409, detail="Book already exists")
 
     mock_db[book.isbn] = book
     return {"message": "Book added successfully", "book": book}
 
 
 @app.delete("/books/{isbn}")
-def delete_book(isbn: int):
+def delete_book(isbn: str):
     if isbn not in mock_db:
         raise HTTPException(status_code=404, detail="Book not found")
 
@@ -52,7 +52,7 @@ def delete_book(isbn: int):
 
 
 @app.put("/books/{isbn}")
-def update_book(isbn: int, book: Book):
+def update_book(isbn: str, book: Book):
     if isbn not in mock_db:
         raise HTTPException(status_code=404, detail="Book not found")
 
