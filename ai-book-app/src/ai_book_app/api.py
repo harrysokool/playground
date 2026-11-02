@@ -10,6 +10,21 @@ class Book(BaseModel):
     isbn: str
     genre: str
 
+    @field_validator("name", "author", "genre")
+    @classmethod
+    def check_not_empty(cls, value: str, info) -> str:
+        if not value.strip():
+            raise ValueError(f"{info.field_name} cannot be empty or blank space")
+        return value.strip()
+
+    @field_validator("isbn")
+    @classmethod
+    def validate_isbn(cls, value: str) -> str:
+        length = len(value)
+        if length not in (10, 13):
+            raise ValueError("ISBN must be exactly 10 or 13 digits long")
+        return value
+
 
 mock_db = {}
 
