@@ -83,3 +83,32 @@ def test_delete_book(
 
     assert del_res.status_code == 200
     assert get_res.status_code == 404
+
+
+def test_get_all_books(client: TestClient, sample_book: dict[str, str]) -> None:
+    client.post("/books", json=sample_book)
+    res = client.get("/books")
+
+    assert res.status_code == 200
+    assert res.json() == [sample_book]
+
+
+def test_update_book(client: TestClient, sample_book: dict[str, str]) -> None:
+    client.post("/books", json=sample_book)
+    sample_book["name"] = "updated book"
+    res = client.put(f"/books/{sample_book['isbn']}", json=sample_book)
+
+    assert res.status_code == 200
+    assert res.json()["message"] == "Book updated successfully"
+    assert res.json()["book"] == sample_book
+
+
+def test_update_book_with_mismatched_isbn(
+    client: TestClient, sample_book: dict[str, str]
+) -> None:
+    client.post("/books", json=sample_book)
+    sample_book["name"] = "updated book"
+    res = client.put(f"/books/{123123123}", json=sample_book)
+
+    assert res.status_code == 400
+    assert res.json() == {"detail" == "URL ISBN does not match book payload ISBN"}
