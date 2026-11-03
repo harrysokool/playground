@@ -3,6 +3,8 @@ from pydantic import BaseModel, field_validator
 
 app = FastAPI(title="ai_book_app")
 
+mock_db = {}
+
 
 class Book(BaseModel):
     name: str
@@ -15,18 +17,21 @@ class Book(BaseModel):
     def check_not_empty(cls, value: str, info) -> str:
         if not value.strip():
             raise ValueError(f"{info.field_name} cannot be empty or blank space")
+
         return value.strip()
 
     @field_validator("isbn")
     @classmethod
     def validate_isbn(cls, value: str) -> str:
-        length = len(value)
-        if length not in (10, 13):
+        value = value.strip()
+
+        if not value.isdigit():
+            raise ValueError("ISBN must contain digits only")
+
+        if len(value) not in (10, 13):
             raise ValueError("ISBN must be exactly 10 or 13 digits long")
+
         return value
-
-
-mock_db = {}
 
 
 @app.get("/health")
