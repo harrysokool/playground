@@ -28,4 +28,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 8000
 
 # 6. OPTIMIZATION: Run Uvicorn directly out of the PATH environment
-CMD ["uvicorn", "ai_book_app.api:app", "--app-dir", "src", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "ai_book_app.main:app", "--app-dir", "src", "--host", "0.0.0.0", "--port", "8000"]
