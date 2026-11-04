@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: ai-book-postgres
+    environment:
+      POSTGRES_USER: bookuser
+      POSTGRES_PASSWORD: bookpassword
+      POSTGRES_DB: bookdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - book_postgres_data:/var/lib/postgressql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bookuser -d bookdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  book_postgres_data:
