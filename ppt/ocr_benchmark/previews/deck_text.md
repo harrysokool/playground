@@ -1,4 +1,4 @@
-# OCR_Benchmark_V12.pptx: text, chart data and notes
+# OCR_Benchmark_V13.pptx: text, chart data and notes
 
 
 ## Slide 1
@@ -130,12 +130,33 @@
 
 ## Slide 9
 
-- Recommendation
+- Business Value: From Receipts to Audit Analytics
 - ‹#›
-- Most accurate in our test; next, a pilot on approved receipts.
-- Use Azure DI + AOAI for receipt information extraction / Next step: a pilot that adds more receipt fields and tests them on approved receipts.
-- Where it runs / Only receipt data goes to Azure. Audit checks happen in another authorized system; claims and policy data stay there.
-- What auditors need / Receipt details such as names, dates, amounts and treatments. Extraction supplies information; it does not decide whether a claim is valid.
+- Azure DI + AOAI, our recommended approach, lets auditors check claims against what receipts actually show.
+- On Azure: approved receipt data only
+- Another authorized platform
+- Medical receipt / Approved receipts
+- →
+- Azure DI + AOAI / Extraction
+- →
+- Structured results / Names, dates, amounts, items
+- →
+- Authorized platform / Joined with claims data
+- →
+- Data analytics / Receipts vs claims, not only manually entered data
+- Approved transfer method (to be agreed)
+- Potential audit tests  (from the business auditor discussion; not implemented)
+- 1
+- Match to the claim: Patient name and treatment date on the receipt vs the submitted claim
+- 2
+- Amounts: Claimed amount vs the amount printed on the receipt
+- 3
+- Duplicates: The same receipt used across more than one claim
+- 4
+- Unusual fees: Treatment charges or provider fees far from the usual range
+- 5
+- Diagnosis vs treatment: Unusual diagnosis and treatment combinations
+- Important / • Azure processes only approved receipt data. / • Claims records, policy information and historical data stay in another authorized system. / • The transfer method must be approved. / • Potential future uses: not implemented or benchmarked. / • Extraction gives supporting evidence, not a final fraud or claim validity decision.
 - 9 test receipts. The rules and AOAI instructions were developed with these receipts; results are not yet independently validated.
 
-  Notes: Recommendation: Azure DI + AOAI for receipt information extraction, starting with a pilot. Business context: receipts are processed on Azure; audit checks happen in another authorized system, and claims or policy data are not uploaded to Azure; the transfer between them still needs approval. The business auditors need receipt details such as names, dates, amounts and treatments to support their checks; extraction supplies information, it does not decide whether a receipt is genuine or a claim valid. Next step: test more receipt fields on approved receipts. Detail for questions: PaddleOCR + Rules and Azure DI + Rules use the multilingual rules (general rules plus common Chinese labels, written after these receipts were examined, fixed before scoring). Azure DI + AOAI uses instructions refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
+  Notes: Recommendation: Azure DI + AOAI for receipt information extraction. Business value: once structured information is extracted directly from the receipts, the results can be transferred securely to another authorized platform for data analytics and audit testing. Auditors can then compare what is printed on the receipts with what was submitted in the claims system, instead of relying only on manually entered claim data. Potential tests from the discussion with the business auditors: patient names and treatment dates against submitted claims; claimed amounts against receipt amounts; duplicate receipts used across claims; unusual treatment charges or provider fees; unusual diagnosis and treatment combinations; and unusual claim patterns across providers or agents (not shown, since it relies mainly on claims data). Boundary: Azure processes only approved receipt data; claims records, policy information and historical data remain in another authorized system; the transfer method must be approved and is not yet designed. These analytics are potential future uses, not implemented or benchmarked. Extraction provides supporting evidence, not a final fraud or claim validity decision. Next step: a pilot that tests more receipt fields on approved receipts. Detail for questions: PaddleOCR + Rules and Azure DI + Rules use the multilingual rules (general rules plus common Chinese labels, written after these receipts were examined, fixed before scoring). Azure DI + AOAI uses instructions refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
