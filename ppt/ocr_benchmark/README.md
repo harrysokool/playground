@@ -7,7 +7,8 @@ additional cost and complexity compared with simpler OCR solutions?**
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 11 (current)**, 8 slides | `current/OCR_Benchmark_V11.pptx` | `scripts/generate_ppt_v11.py` | `results/v2/scores_multilingual/` and `scores_aoai_improved/` (summary, detail), `results/v2/extracted_multilingual_*`, the receipt photos |
+| **Version 12 (current)**, 9 slides | `current/OCR_Benchmark_V12.pptx` | `scripts/generate_ppt_v12.py` | As Version 11 |
+| Version 11, 8 slides (archived) | `archive/v11_final/OCR_Benchmark_V11.pptx` (+ PDF preview) | `scripts/generate_ppt_v11.py` (unchanged) | `results/v2/scores_multilingual/` and `scores_aoai_improved/` (summary, detail), `results/v2/extracted_multilingual_*`, the receipt photos |
 | Version 10, 11 slides (archived) | `archive/v10_final/OCR_Benchmark_V10.pptx` (+ PDF preview) | `scripts/generate_ppt_v10.py` (unchanged) | As Version 9; the auditor checklist comes from the auditor discussion (not in the repository) |
 | Version 9, 10 slides (archived) | `archive/v9_final/OCR_Benchmark_V9.pptx` (+ PDF preview) | `scripts/generate_ppt_v9.py` (unchanged) | As Version 6, plus `results/v2/extracted_multilingual_*` and the receipt photos |
 | Version 8, 8 slides (archived) | `archive/v8_final/OCR_Benchmark_V8.pptx` (+ PDF preview) | `scripts/generate_ppt_v8.py` (unchanged) | As Version 6 |
@@ -38,13 +39,14 @@ is typed in by hand.
 | Folder | Contents |
 |---|---|
 | `template/` | Official AIA PowerPoint template (`aia_ppt_template.pptx`). Do not edit. |
-| `current/` | The current deck (Version 11) |
+| `current/` | The current deck (Version 12) |
 | `previews/` | PDF and PNG previews of the current deck |
 | `archive/v1/` | The frozen Version 1 deck and its preview. Never written to by the generators. |
 | `archive/v2_12slides/` | The first, 12-slide Version 2 deck and its PDF preview, kept for reference |
 | `archive/v2_8slides/` | The 8-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_9slides/` | The 9-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_10slides/` | The 10-slide revision before the slide 9 rewrite, and its PDF preview |
+| `archive/v11_final/` | The 8-slide Version 11 deck and its PDF preview |
 | `archive/v10_final/` | The 11-slide Version 10 deck and its PDF preview |
 | `archive/v9_final/` | The 10-slide Version 9 deck and its PDF preview |
 | `archive/v8_final/` | The 8-slide Version 8 deck and its PDF preview |
@@ -58,6 +60,30 @@ is typed in by hand.
 | `archive/v2_final/` | The final Version 2 deck (with PaddleOCR Heavy and the tuned rule accuracies) and its PDF preview |
 | `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py`, `generate_ppt_v6.py`, `generate_ppt_v7.py`, `generate_ppt_v8.py` and `generate_ppt_v9.py` |
 | `scripts/` | The generators |
+
+## Version 12: Version 11 plus the doctor database proposal (9 slides)
+
+Version 11 with one new slide after the two receipt examples:
+
+7. **Manager's proposal: the doctor database (not benchmarked).** How it works (OCR reads the receipt, look up
+   the registry of ~40,000 doctors / up to ~80,000 English and Chinese name variants, strict exact match without
+   AOAI); advantages (simple, low additional cost, consistent, easy to verify); limitations with real cases
+   (receipt 6 referring doctor Dr. Kwok Man Hin vs physiotherapist CHEUNG Hoi Ying; receipt 9 clinician and
+   signing vet; "Dr. Lok Yi Choi" read as "Dr. Lok Vichol") and one labelled hypothetical (the patient is a
+   doctor); and the fair point that exact matching may be sufficient if we only need to know whether a
+   registered doctor appears. Every real example is asserted against the saved OCR text and ground truth.
+
+The other slides are unchanged, except that the doctor database card is removed from the final slide (now
+slide 9) and slide references are renumbered. `scripts/check_deck_v12.py` = the Version 11 checks for 9
+slides, plus the content of slide 7 and no doctor database repeat on slide 9.
+
+```bash
+python3 ppt/ocr_benchmark/scripts/generate_ppt_v12.py --force
+python3 ppt/ocr_benchmark/scripts/check_deck_v12.py
+```
+
+`scripts/build_v12_on_azure.sh` does the same on Azure ML compute. The Version 11 generator and check are kept
+unchanged to reproduce the archived Version 11 deck.
 
 ## Version 11: which extraction approach, and why (8 slides)
 
@@ -91,8 +117,7 @@ python3 ppt/ocr_benchmark/scripts/generate_ppt_v11.py --force
 python3 ppt/ocr_benchmark/scripts/check_deck_v11.py
 ```
 
-`scripts/build_v11_on_azure.sh` does the same on Azure ML compute. The Version 10 generator and check are kept
-unchanged to reproduce the archived Version 10 deck.
+The Version 10 generator and check are kept unchanged to reproduce the archived Version 10 deck.
 
 ## Version 10: benchmark results and pilot direction (11 slides)
 
@@ -363,9 +388,9 @@ These need LibreOffice and Poppler:
 
 ```bash
 cd ppt/ocr_benchmark
-soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V11.pptx
-mv previews/OCR_Benchmark_V11.pdf previews/OCR_Benchmark_V11_preview.pdf
-pdftoppm -png -r 80 previews/OCR_Benchmark_V11_preview.pdf previews/slide
+soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V12.pptx
+mv previews/OCR_Benchmark_V12.pdf previews/OCR_Benchmark_V12_preview.pdf
+pdftoppm -png -r 80 previews/OCR_Benchmark_V12_preview.pdf previews/slide
 ```
 
 LibreOffice may substitute fonts, so the preview is for review. PowerPoint renders Arial and

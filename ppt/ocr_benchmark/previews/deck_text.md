@@ -1,4 +1,4 @@
-# OCR_Benchmark_V11.pptx: text, chart data and notes
+# OCR_Benchmark_V12.pptx: text, chart data and notes
 
 
 ## Slide 1
@@ -19,7 +19,7 @@
 - Reads the context / Picks the right name, date or amount where fixed rules pick the wrong one (slide 6).
 - 3
 - Easier to extend / New layouts and fields can often be handled through instructions, with fewer hand-written rules to maintain.
-- Where it runs: receipts are processed on Azure; audit checks happen in another authorized system (slide 8).
+- Where it runs: receipts are processed on Azure; audit checks happen in another authorized system (slide 9).
 
   Notes: Three reasons: it was the most accurate overall and on every field; it uses the context of the receipt to pick the right name, date or amount where fixed rules pick the wrong one; and new layouts and fields can often be handled through its instructions instead of new hand-written rules (not guaranteed). Receipt extraction runs on Azure; audit checks happen in another authorized system. Detail for questions: PaddleOCR + Rules and Azure DI + Rules use the multilingual rules (general rules plus common Chinese labels, written after these receipts were examined, fixed before scoring). Azure DI + AOAI uses instructions refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
@@ -84,6 +84,37 @@
 
 ## Slide 7
 
+- Manager's Proposal: The Doctor Database
+- ‹#›
+- Exact matching can find registered doctor names, but cannot reliably tell who treated the patient.
+- How it works
+- 1
+- OCR reads the receipt / Text from the receipt image
+- 2
+- Look up the doctor registry / ~40,000 registered doctors · up to ~80,000 English and Chinese name variants
+- 3
+- Strict exact match / Names must match exactly · no AOAI
+- Advantages
+- ✓ Simple to implement
+- ✓ Low additional cost
+- ✓ Consistent matching
+- ✓ Easy to verify
+- Limitations: a name match is not the treating practitioner
+- Receipt 6
+- Referring doctor / “Referred by Dr. Kwok Man Hin”, but the treatment was by physiotherapist CHEUNG Hoi Ying.
+- Receipt 9
+- Several practitioners / A clinician (Angel Tseng) and a signing vet (Dr. Lok Yi Choi). Which one treated?
+- Receipt 9
+- OCR error / “Dr. Lok Yi Choi” was read as “Dr. Lok Vichol”, so exact matching finds nothing.
+- Hypothetical
+- Doctor is the patient / The patient's own name could match the registry, although they did not treat anyone.
+- To be fair: if we only need to know whether a registered doctor appears, exact matching may be sufficient.
+- Proposal only: not benchmarked, and no implementation is needed now. Receipt names are fictional, so registry match rates were not measured.
+
+  Notes: Proposal: OCR reads the receipt, then the recognised text is matched against the registry of about 40,000 registered doctors (potentially about 80,000 English and Chinese name variants) using strict exact matching, without AOAI. Advantages: simple to implement, low additional cost, consistent results, and every match is easy to verify against the registry. Limitations, from our receipts: receipt 6 names a referring doctor (Dr. Kwok Man Hin) while the treatment was by physiotherapist CHEUNG Hoi Ying, and the rules already took the referring doctor; receipt 9 (a vet invoice) lists a clinician (Angel Tseng) and a signing vet (Dr. Lok Yi Choi); and Azure DI read 'Dr. Lok Yi Choi' as 'Dr. Lok Vichol', so an exact match finds nothing. Hypothetical, not in our receipts: a patient who is a registered doctor would match the registry. To be fair: if the requirement is only to know whether a registered doctor's name appears, exact matching may be sufficient. Matching also depends on the registry containing the practitioner (dentists, physiotherapists and vets may be on other registers). Not benchmarked; no implementation is planned for this deck. The names on our test receipts are fictional, so registry match rates were not measured.
+
+## Slide 8
+
 - Advantages and Disadvantages
 - ‹#›
 - Azure DI + AOAI wins on accuracy and flexibility; rules win on cost and transparency.
@@ -97,7 +128,7 @@
 
   Notes: Accuracy as on slide 3. New layouts: rules may need new hand-written rules and retesting; AOAI can often handle varied wording through its instructions, not guaranteed. Cost: PaddleOCR runs on our own compute with no per-receipt fee; Azure services charge per receipt (prices to be confirmed). Transparency: every rule result can be traced to a rule; AOAI is harder to explain and can return a confident wrong value, so results still need checking. Detail for questions: PaddleOCR + Rules and Azure DI + Rules use the multilingual rules (general rules plus common Chinese labels, written after these receipts were examined, fixed before scoring). Azure DI + AOAI uses instructions refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
-## Slide 8
+## Slide 9
 
 - Recommendation
 - ‹#›
@@ -105,7 +136,6 @@
 - Use Azure DI + AOAI for receipt information extraction / Next step: a pilot that adds more receipt fields and tests them on approved receipts.
 - Where it runs / Only receipt data goes to Azure. Audit checks happen in another authorized system; claims and policy data stay there.
 - What auditors need / Receipt details such as names, dates, amounts and treatments. Extraction supplies information; it does not decide whether a claim is valid.
-- Doctor database / Matching names is easy, but it cannot tell who actually treated the patient.
 - 9 test receipts. The rules and AOAI instructions were developed with these receipts; results are not yet independently validated.
 
-  Notes: Recommendation: Azure DI + AOAI for receipt information extraction, starting with a pilot. Business context: receipts are processed on Azure; audit checks happen in another authorized system, and claims or policy data are not uploaded to Azure; the transfer between them still needs approval. The business auditors need receipt details such as names, dates, amounts and treatments to support their checks; extraction supplies information, it does not decide whether a receipt is genuine or a claim valid. Doctor database: exact name matching against the registry is simple, but a name on the receipt is not always the treating doctor (referring doctors, several doctors, OCR misreads). Next step: test more receipt fields on approved receipts. Detail for questions: PaddleOCR + Rules and Azure DI + Rules use the multilingual rules (general rules plus common Chinese labels, written after these receipts were examined, fixed before scoring). Azure DI + AOAI uses instructions refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
+  Notes: Recommendation: Azure DI + AOAI for receipt information extraction, starting with a pilot. Business context: receipts are processed on Azure; audit checks happen in another authorized system, and claims or policy data are not uploaded to Azure; the transfer between them still needs approval. The business auditors need receipt details such as names, dates, amounts and treatments to support their checks; extraction supplies information, it does not decide whether a receipt is genuine or a claim valid. Next step: test more receipt fields on approved receipts. Detail for questions: PaddleOCR + Rules and Azure DI + Rules use the multilingual rules (general rules plus common Chinese labels, written after these receipts were examined, fixed before scoring). Azure DI + AOAI uses instructions refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
