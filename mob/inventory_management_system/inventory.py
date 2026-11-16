@@ -23,13 +23,27 @@ class Inventory:
         self.inventory[product.sku] = product
         return True
 
-    def restock_product(self, sku: str) -> bool:
-        pass
+    def restock_product(self, sku: str, num: int) -> bool:
+        if sku not in self.inventory:
+            return False
 
-    def process_order(self, products: dict) -> None:
-        pass
+        if num < 0:
+            return False
 
-    def low_stock_report(self) -> list[Product]:
+        self.inventory[sku] += num
+        return True
+
+    def process_order(self, products: dict) -> bool:
+        for sku in products.keys():
+            if self.Inventory[sku] < products[sku]:
+                return False
+
+        for sku in products.keys():
+            self.inventory[sku] -= products[sku]
+
+        return True
+
+    def low_stock_report(self, threshold: int) -> list[Product]:
         pass
 
     def inventory_value(self) -> float:
