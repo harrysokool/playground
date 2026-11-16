@@ -1,0 +1,24 @@
+Try building this specification in 45–60 minutes using clean Python:
+
+Core Requirements:
+
+1. Add / Register Item: Add a new product with a unique sku (string), 
+name (string), price (float), and initial quantity (int). Reject duplicate 
+SKUs or negative prices/quantities.
+
+2. Restock Item: Increase the quantity of an existing SKU. 
+Handle cases where the SKU doesn't exist.
+
+3. Process Order (Multi-Item): Given a dictionary of {sku: requested_qty}, 
+deduct stock for all items. Rule: Orders are atomic—if any item in the order 
+has insufficient stock, reject the entire order without deducting anything.
+
+4. Low-Stock Report: Return a list of items whose current quantity is below
+a given threshold, sorted from lowest quantity to highest.
+
+5. Total Inventory Value: Calculate the total monetary value of all items 
+currently in stock.
+
+Stretch Requirement (Try adding this after 35 minutes):
+• Transaction History: Track a log of all restocks and fulfilled orders 
+with timestamps so you can print an audit trail for any SKU.
