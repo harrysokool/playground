@@ -12,6 +12,7 @@ def inv():
     return inventory
 
 
+########### reg_product ###########
 def test_reg_product_success():
     inventory = Inventory()
     assert inventory.reg_product(Product("1", "apple", 10.0, 10))
@@ -24,6 +25,7 @@ def test_reg_product_fail(inv):
     assert inv.reg_product(Product("4", "mango", 10.0, -10)) is False
 
 
+########### restock_product ###########
 def test_restock_product(inv):
     assert inv.restock_product("1", 10) is True
     assert inv.inventory["1"].quantity == 20
@@ -31,11 +33,38 @@ def test_restock_product(inv):
     assert inv.restock_product("1", -10) is False
 
 
-def test_process_order(inv):
+########### process_order ###########
+def test_process_order_success(inv):
     test_products = {
         "1": 5,
         "2": 2,
     }
 
     assert inv.process_order(test_products) is True
-    assesrt
+    assert inv.inventory["1"] == 5
+    assert inv.inventory["2"] == 1
+
+
+def test_process_order_fail_sku_not_found(inv):
+    test_products = {
+        "4": 2,
+    }
+
+    assert inv.process_order(test_products) is False
+
+
+def test_process_order_fail_empty_product(inv):
+    test_products = {}
+
+    assert inv.process_order(test_products) is False
+
+
+def test_process_order_fail_invalid_qty(inv):
+    test_products = {
+        "1": -5,
+        "2": 2,
+    }
+
+    assert inv.process_order(test_products) is False
+    assert inv.inventory["1"] == 10
+    assert inv.inventory["2"] == 3
