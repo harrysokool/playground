@@ -7,7 +7,8 @@ additional cost and complexity compared with simpler OCR solutions?**
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 13 (current)**, 9 slides | `current/OCR_Benchmark_V13.pptx` | `scripts/generate_ppt_v13.py` | As Version 11; the audit test examples come from the auditor discussion (not in the repository) |
+| **Version 14 (current)**, 9 slides | `current/OCR_Benchmark_V14.pptx` | `scripts/generate_ppt_v14.py` | As Version 13 |
+| Version 13, 9 slides (archived; as last saved in PowerPoint, commit `2e7b4eb`) | `archive/v13_final/OCR_Benchmark_V13.pptx` (+ PDF preview of the generated version) | `scripts/generate_ppt_v13.py` (unchanged; without the PowerPoint edits) | As Version 11; the audit test examples come from the auditor discussion (not in the repository) |
 | Version 12, 9 slides (archived) | `archive/v12_final/OCR_Benchmark_V12.pptx` (+ PDF preview) | `scripts/generate_ppt_v12.py` (unchanged) | As Version 11 |
 | Version 11, 8 slides (archived) | `archive/v11_final/OCR_Benchmark_V11.pptx` (+ PDF preview) | `scripts/generate_ppt_v11.py` (unchanged) | `results/v2/scores_multilingual/` and `scores_aoai_improved/` (summary, detail), `results/v2/extracted_multilingual_*`, the receipt photos |
 | Version 10, 11 slides (archived) | `archive/v10_final/OCR_Benchmark_V10.pptx` (+ PDF preview) | `scripts/generate_ppt_v10.py` (unchanged) | As Version 9; the auditor checklist comes from the auditor discussion (not in the repository) |
@@ -40,13 +41,14 @@ is typed in by hand.
 | Folder | Contents |
 |---|---|
 | `template/` | Official AIA PowerPoint template (`aia_ppt_template.pptx`). Do not edit. |
-| `current/` | The current deck (Version 13) |
+| `current/` | The current deck (Version 14) |
 | `previews/` | PDF and PNG previews of the current deck |
 | `archive/v1/` | The frozen Version 1 deck and its preview. Never written to by the generators. |
 | `archive/v2_12slides/` | The first, 12-slide Version 2 deck and its PDF preview, kept for reference |
 | `archive/v2_8slides/` | The 8-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_9slides/` | The 9-slide revision of Version 2 and its PDF preview, kept for reference |
 | `archive/v2_10slides/` | The 10-slide revision before the slide 9 rewrite, and its PDF preview |
+| `archive/v13_final/` | The Version 13 deck (with the PowerPoint edits) and its PDF preview |
 | `archive/v12_final/` | The 9-slide Version 12 deck and its PDF preview |
 | `archive/v11_final/` | The 8-slide Version 11 deck and its PDF preview |
 | `archive/v10_final/` | The 11-slide Version 10 deck and its PDF preview |
@@ -62,6 +64,35 @@ is typed in by hand.
 | `archive/v2_final/` | The final Version 2 deck (with PaddleOCR Heavy and the tuned rule accuracies) and its PDF preview |
 | `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py`, `generate_ppt_v6.py`, `generate_ppt_v7.py`, `generate_ppt_v8.py` and `generate_ppt_v9.py` |
 | `scripts/` | The generators |
+
+## Version 14: simpler alternative-approach slide (9 slides)
+
+Version 13 with only slide 7 replaced, plus the three edits made to Version 13 in PowerPoint (commit `2e7b4eb`),
+now built into the generator: the slide 3 footnote removed, the slide 4 subtitle shortened to "Azure DI + AOAI was
+the most accurate on every field.", and slide 7 titled "Alternative Approach (with no AI)". Slides 1–6, 8 and 9
+match the edited Version 13.
+
+Slide 7 explains the manager's proposal simply and fairly:
+- How it works: OCR reads the receipt; a regex search looks for the ~40,000 registered doctor names in the OCR
+  text; matching names are returned, and receipts with no match or several matches are flagged for manual review.
+- Advantages: simple and practical; no AI needed for doctor name matching; low additional cost; uncertain results
+  go to manual review.
+- Main limitation: it identifies doctor names only; patient names, treatment dates, amounts and diagnoses need
+  additional rules or AI. Both rule methods were less accurate than Azure DI + AOAI on all six fields (asserted at
+  build time); the doctor database matching itself was not benchmarked.
+- Key takeaway, as agreed. Multiple doctor names are no longer shown as a weakness (they go to manual review).
+
+`scripts/check_deck_v14.py` = the Version 13 checks, with the slide 7 checks replaced (steps, advantages, limitation,
+"not benchmarked", the key takeaway verbatim, no multiple-practitioner limitation) and the footnote required on
+slides 4 and 9.
+
+```bash
+python3 ppt/ocr_benchmark/scripts/generate_ppt_v14.py --force
+python3 ppt/ocr_benchmark/scripts/check_deck_v14.py
+```
+
+`scripts/build_v14_on_azure.sh` does the same on Azure ML compute. The Version 13 generator and check are kept
+unchanged to reproduce the generated Version 13 deck (without the PowerPoint edits).
 
 ## Version 13: business value on the final slide (9 slides)
 
@@ -87,8 +118,7 @@ python3 ppt/ocr_benchmark/scripts/generate_ppt_v13.py --force
 python3 ppt/ocr_benchmark/scripts/check_deck_v13.py
 ```
 
-`scripts/build_v13_on_azure.sh` does the same on Azure ML compute. The Version 12 generator and check are kept
-unchanged to reproduce the archived Version 12 deck.
+The Version 12 generator and check are kept unchanged to reproduce the archived Version 12 deck.
 
 ## Version 12: Version 11 plus the doctor database proposal (9 slides)
 
@@ -416,9 +446,9 @@ These need LibreOffice and Poppler:
 
 ```bash
 cd ppt/ocr_benchmark
-soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V13.pptx
-mv previews/OCR_Benchmark_V13.pdf previews/OCR_Benchmark_V13_preview.pdf
-pdftoppm -png -r 80 previews/OCR_Benchmark_V13_preview.pdf previews/slide
+soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V14.pptx
+mv previews/OCR_Benchmark_V14.pdf previews/OCR_Benchmark_V14_preview.pdf
+pdftoppm -png -r 80 previews/OCR_Benchmark_V14_preview.pdf previews/slide
 ```
 
 LibreOffice may substitute fonts, so the preview is for review. PowerPoint renders Arial and

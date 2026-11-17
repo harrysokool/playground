@@ -1,4 +1,4 @@
-# OCR_Benchmark_V13.pptx: text, chart data and notes
+# OCR_Benchmark_V14.pptx: text, chart data and notes
 
 
 ## Slide 1
@@ -32,7 +32,6 @@
 - PaddleOCR + Rules / Open-source text reading, then hand-written rules
 - Azure DI + Rules / Azure text reading, then the same rules
 - Azure DI + AOAI / Azure text reading, then AI extraction
-- 9 test receipts. The rules and AOAI instructions were developed with these receipts; results are not yet independently validated.
 
   Notes: Accuracy = correct fields out of 51 (9 receipts, 6 fields; 3 receipts have no registration number). PaddleOCR + Rules: 51.0% (26/51); Azure DI + Rules: 70.6% (36/51); Azure DI + AOAI: 96.1% (49/51). Detail for questions: PaddleOCR + Rules and Azure DI + Rules use the multilingual rules (general rules plus common Chinese labels, written after these receipts were examined, fixed before scoring). Azure DI + AOAI uses instructions refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
@@ -40,7 +39,7 @@
 
 - Accuracy by Field
 - ‹#›
-- Azure DI + AOAI was the most accurate on every field, with the biggest gains on doctor and registration no.
+- Azure DI + AOAI was the most accurate on every field.
   | Field | PaddleOCR + Rules | Azure DI + Rules | Azure DI + AOAI |
   | Doctor | 44.4%  (4/9) | 55.6%  (5/9) | 88.9%  (8/9) |
   | Registration no. | 16.7%  (1/6) | 50.0%  (3/6) | 100.0%  (6/6) |
@@ -84,34 +83,26 @@
 
 ## Slide 7
 
-- Manager's Proposal: The Doctor Database
+- Alternative Approach (with no AI)
 - ‹#›
-- Exact matching can find registered doctor names, but cannot reliably tell who treated the patient.
+- A practical way to find registered doctor names; other receipt fields still need rules or AI.
 - How it works
 - 1
 - OCR reads the receipt / Text from the receipt image
 - 2
-- Look up the doctor registry / ~40,000 registered doctors · up to ~80,000 English and Chinese name variants
+- Regex search against the doctor database / About 40,000 registered doctor names
 - 3
-- Strict exact match / Names must match exactly · no AOAI
+- Return matching names / No match or several matches → flag for manual review
 - Advantages
-- ✓ Simple to implement
-- ✓ Low additional cost
-- ✓ Consistent matching
-- ✓ Easy to verify
-- Limitations: a name match is not the treating practitioner
-- Receipt 6
-- Referring doctor / “Referred by Dr. Kwok Man Hin”, but the treatment was by physiotherapist CHEUNG Hoi Ying.
-- Receipt 9
-- Several practitioners / A clinician (Angel Tseng) and a signing vet (Dr. Lok Yi Choi). Which one treated?
-- Receipt 9
-- OCR error / “Dr. Lok Yi Choi” was read as “Dr. Lok Vichol”, so exact matching finds nothing.
-- Hypothetical
-- Doctor is the patient / The patient's own name could match the registry, although they did not treat anyone.
-- To be fair: if we only need to know whether a registered doctor appears, exact matching may be sufficient.
-- Proposal only: not benchmarked, and no implementation is needed now. Receipt names are fictional, so registry match rates were not measured.
+- ✓  Simple and practical to implement
+- ✓  No AI needed for doctor name matching
+- ✓  Low additional cost
+- ✓  Uncertain results flagged for manual review
+- Main limitation: it identifies doctor names only. Patient names, treatment dates, amounts and diagnoses need additional extraction rules or AI. / In our benchmark, PaddleOCR + Rules and Azure DI + Rules were less accurate than Azure DI + AOAI on all six fields (slides 3 and 4).
+- Key takeaway: OCR with regex and a doctor database is a practical approach for identifying registered doctor names and flagging exceptions. However, extracting other receipt information accurately still requires additional rules or AI.
+- The doctor database matching approach itself was not benchmarked; no implementation is needed now.
 
-  Notes: Proposal: OCR reads the receipt, then the recognised text is matched against the registry of about 40,000 registered doctors (potentially about 80,000 English and Chinese name variants) using strict exact matching, without AOAI. Advantages: simple to implement, low additional cost, consistent results, and every match is easy to verify against the registry. Limitations, from our receipts: receipt 6 names a referring doctor (Dr. Kwok Man Hin) while the treatment was by physiotherapist CHEUNG Hoi Ying, and the rules already took the referring doctor; receipt 9 (a vet invoice) lists a clinician (Angel Tseng) and a signing vet (Dr. Lok Yi Choi); and Azure DI read 'Dr. Lok Yi Choi' as 'Dr. Lok Vichol', so an exact match finds nothing. Hypothetical, not in our receipts: a patient who is a registered doctor would match the registry. To be fair: if the requirement is only to know whether a registered doctor's name appears, exact matching may be sufficient. Matching also depends on the registry containing the practitioner (dentists, physiotherapists and vets may be on other registers). Not benchmarked; no implementation is planned for this deck. The names on our test receipts are fictional, so registry match rates were not measured.
+  Notes: How it works: OCR reads the receipt; a regex search looks for the approximately 40,000 registered doctor names in the OCR text; matching names are returned, and a receipt with no match or several matches is flagged for manual review. Advantages: simple and practical to implement, no AI needed for doctor name matching, low additional cost, and uncertain results go to manual review. Main limitation: it is designed to identify registered doctor names. Other receipt information (patient name, treatment date, amount, diagnosis) needs additional extraction rules or AI. In our benchmark, PaddleOCR + Rules and Azure DI + Rules were less accurate than Azure DI + AOAI on all six fields (slides 3 and 4). The doctor database matching itself was not benchmarked, and no implementation is needed now. Key takeaway: OCR with regex and a doctor database is a practical approach for identifying registered doctor names and flagging exceptions. However, extracting other receipt information accurately still requires additional rules or AI. Detail for questions: PaddleOCR + Rules and Azure DI + Rules use the multilingual rules (general rules plus common Chinese labels, written after these receipts were examined, fixed before scoring). Azure DI + AOAI uses instructions refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_improved and scores_aoai_improved (summary.csv, detail.csv), results/v1_heldout, and extraction JSON.
 
 ## Slide 8
 
