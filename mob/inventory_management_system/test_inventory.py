@@ -68,3 +68,22 @@ def test_process_order_fail_invalid_qty(inv):
     assert inv.process_order(test_products) is False
     assert inv.inventory["1"] == 10
     assert inv.inventory["2"] == 3
+
+
+########### low_stock_report ###########
+@pytest.mark.parametrize(
+    "threshold, expected",
+    [
+        (11, [("pear", 3), ("apple", 10)]),
+        (10, [("pear", 3)]),
+    ],
+)
+def test_low_stock_report(inv, threshold, expected):
+    report = inv.low_stock_report(threshold)
+    assert report == expected
+
+
+########### inventory_value ###########
+def test_inventory_value(inv):
+    value = inv.inventory_value()
+    assert value == 165.0
