@@ -28,10 +28,13 @@ class Inventory:
         return True
 
     def restock_product(self, sku: str, num: int) -> bool:
+        if not isinstance(sku, str) or not isinstance(num, int):
+            return
+
         if sku not in self.inventory:
             return False
 
-        if num < 0:
+        if num <= 0:
             return False
 
         product: Product = self.inventory[sku]
@@ -41,6 +44,9 @@ class Inventory:
         return True
 
     def process_order(self, products: dict) -> bool:
+        if not isinstance(products, dict):
+            return False
+
         if not products:
             return False
 
@@ -59,6 +65,9 @@ class Inventory:
         return True
 
     def low_stock_report(self, threshold: int) -> list[tuple[str, int]]:
+        if not isinstance(threshold, int):
+            return []
+
         res = []
 
         for sku in self.inventory:

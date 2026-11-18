@@ -41,8 +41,8 @@ def test_process_order_success(inv):
     }
 
     assert inv.process_order(test_products) is True
-    assert inv.inventory["1"] == 5
-    assert inv.inventory["2"] == 1
+    assert inv.inventory["1"].quantity == 5
+    assert inv.inventory["2"].quantity == 1
 
 
 def test_process_order_fail_sku_not_found(inv):
@@ -66,8 +66,8 @@ def test_process_order_fail_invalid_qty(inv):
     }
 
     assert inv.process_order(test_products) is False
-    assert inv.inventory["1"] == 10
-    assert inv.inventory["2"] == 3
+    assert inv.inventory["1"].quantity == 10
+    assert inv.inventory["2"].quantity == 3
 
 
 ########### low_stock_report ###########
