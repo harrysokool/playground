@@ -1,115 +1,78 @@
-# OCR_Benchmark_V15.pptx: text, chart data and notes
+# OCR_Benchmark_V16.pptx: text, chart data and notes
 
 
 ## Slide 1 (cover)
 
-- Turning medical receipts into structured, reusable audit data / Proposed approach, evidence and next steps
-- Medical Receipt Data Extraction for Internal Audit
+- An Internal Audit AI innovation idea / What we built, what we tested and where it could go
+- AI-Assisted Medical Receipt Extraction
 
-  Notes: This deck explains the receipt-data problem, the proposed extraction solution, the value it could bring to Internal Audit, why we prefer the AI approach, and how the solution and later audit tests would be governed. The current priority is reliable extraction of important receipt information into structured data. Downstream audit tests are possible later uses of that data, not the current scope.
+  Notes: This is an AI innovation idea from our team. We identified repetitive manual audit work, demonstrated a working receipt extraction workflow with Azure Document Intelligence and Azure OpenAI, compared three approaches, and explored how structured receipt data could improve Internal Audit. We are sharing what we built and learned and its potential value; this is an exploration, not a finished product.
 
 ## Slide 2 (main slide 1)
 
-- The Problem and Our Proposed Solution
+- The Problem: Manual Receipt Reviews Take Time
 - ‹#›
-- CURRENT PROJECT SCOPE
-- Build a reliable receipt-data extraction layer so auditors can use receipt information at greater scale.
-- The problem
-- Important information is locked inside unstructured medical receipts.
-- Business auditors read sampled receipts by hand and compare them with the claims system.
-- Manual extraction limits how many receipts can be reviewed.
-- Proposed solution
-- 1
-- Read: Azure Document Intelligence (DI) reads the receipt text and layout.
-- 2
-- Extract: Azure OpenAI identifies the audit-relevant fields and returns them in a fixed structure.
-- 3
-- Export: The structured data is exported for later audit testing and analysis.
-- Current focus: reliable extraction and structured export. Audit tests that use the data are a later stage.
+- ESTIMATES · NOT MEASURED
+- Reading receipts by hand takes auditor time, which limits how many claims we can cover.
+- ~25 / receipts per sample / 5–10 min / per receipt / ≈ 2–4 hours of reading per sample. Team estimates, not measured.
+- What auditors check on each receipt   from the business auditor checklist
+- Authenticity:  Letterhead, provider registration number, signature and stamp
+- Data integrity:  Claimant, provider, treatment date, diagnosis and amounts vs the claims system
+- Coverage:  Service date within the policy period; diagnosis covered; charges within agreed fees
+- Fraud indicators:  Duplicate receipts by receipt number, treatment date, amount and provider
+- The bottleneck: auditor time and effort. Reading each receipt by hand keeps coverage to a small sample.
 
-  Notes: Problem: important information is locked inside unstructured medical receipts. Business auditors read sampled receipts by hand and compare them with the claims system, which limits how many receipts can be reviewed. Solution: Azure Document Intelligence reads the receipt; Azure OpenAI identifies the audit-relevant fields and returns them in a fixed structure; the structured data is exported for later audit testing and analysis. The current project covers reading, extraction and structured export. Audit tests that use the data are a later stage.
+  Notes: For each audit sample, business auditors review around 25 receipts by hand. Each receipt takes an estimated 5 to 10 minutes, roughly 2 to 4 hours of reading per sample (25 x 5-10 minutes). These are the team's estimates, not measured figures. The checks come from the business auditor checklist: authenticity (letterhead with the provider's legal name, address and registration or licence number; signature and company stamp; no unauthorised alteration); data integrity (claimant name, provider name, treatment date, diagnosis code, receipt amount and claimed amount against the claims system); coverage (date of service within the policy period, diagnosis within coverage, charges within agreed fees); and fraud, waste and abuse indicators such as duplicate receipts by receipt number, treatment date, amount and provider. The bottleneck is auditor time and effort, which keeps coverage to a small sample.
 
 ## Slide 3 (main slide 2)
 
-- What Reliable Receipt Data Could Bring
+- Our AI Solution and Business Value
 - ‹#›
-- FUTURE POSSIBILITY
-- Structured receipt data can widen coverage, reduce manual work and support new audit tests.
-- 1
-- Broader coverage / Move from a limited manual sample toward population-scale screening of available, supported receipts.
-- 2
-- Improved efficiency / Less manual reading, field identification and transcription. More auditor time for exceptions and judgement.
-- 3
-- Automation of manual testing / Structured fields can later be compared automatically with claims-system and policy data.
-- 4
-- Additional insight / Supports duplicate screening, practitioner checks, pattern analysis and other future tests.
-- Potential, not yet measured. Auditors keep responsibility for judgement and conclusions.
+- WORKING DEMONSTRATION
+- We built a working workflow that turns a receipt photo into structured data.
+- Receipt photo
+- →
+- Azure DI reads the text
+- →
+- Azure OpenAI selects the fields
+- →
+- Structured data
+- →
+  | Extracted output |  |
+  | Practitioner | Dr. Siu Ka Wai |
+  | Registration no. | M19903 |
+  | Patient | 蔡嘉穎 |
+  | Receipt no. | MC-2609-3391 |
+  | Treatment date | 3 Sep 2026 |
+  | Total amount | HK$795 |
+- Benchmark receipt 8 (fictional) and its saved output.
+- Less manual work / Less reading and retyping of receipt details by hand.
+- Wider coverage / Check far more receipts than a small manual sample.
+- Reusable data / The same structured data can feed many audit tests.
+- Initial future target: 500 to 1,000 receipts and more fields from the auditor checklist. Not yet demonstrated.
 
-  Notes: Four areas of potential value. Broader coverage: move from a limited sample toward population-scale screening of the available and supported receipts. Improved efficiency: less manual reading, field identification and transcription, so auditors spend more time on exceptions and judgement. Automation of manual testing: structured receipt fields can later be compared automatically with claims-system and policy data. Additional insight: duplicate screening, practitioner checks, pattern analysis and other future tests. These are potential benefits: none has been measured yet, and the data does not provide full audit assurance. Auditors keep responsibility for judgement and conclusions.
+  Notes: The workflow runs today on our benchmark receipts: Azure Document Intelligence reads the receipt text and layout, Azure OpenAI selects the audit-relevant fields, and the result is structured data. The example is benchmark receipt 8, a fictional bilingual medical-centre receipt that was printed and photographed. The output shown is the saved extraction result; all six fields match the ground truth. The receipt also names a nurse and an amount covered by the health plan; the AI returned the attending doctor and the receipt total. Potential benefits: less manual reading and transcription, wider coverage than a small sample, and data that can be reused across audit tests. Our initial future target is 500 to 1,000 receipts and more fields from the auditor checklist, such as diagnosis, clinic name and itemised charges. That target has not been demonstrated; so far the workflow has been run on 9 development receipts for six fields.
 
 ## Slide 4 (main slide 3)
 
-- Why the Current Process Does Not Scale
-- ‹#›
-- The bottleneck is access to receipt data, not auditor effort.
-- ~25 / receipts in a manual sample / Illustrative example only, not a confirmed audit sample size.
-- Limited sample:  Only a small number of receipts can be read and checked by hand.
-- Varied formats:  Clinics, hospitals and practitioners use different languages, labels and layouts.
-- Manual identification:  Practitioner, patient, treatment date, diagnosis, treatment items and amount are found by eye.
-- Repetitive work:  The same reading and transcription is repeated for each receipt and procedure.
-- Not reusable:  Receipt information stays unstructured, so cross-claim and population analysis is hard.
-- In short: this is a data-access and scalability problem. Structured receipt data would let auditors look further than a small sample.
-
-  Notes: Today business auditors review a limited sample of receipts; around 25 is used here only as an illustrative example, not a confirmed audit sample size. Receipt formats vary across clinics, hospitals, practitioners, languages and layouts. Auditors identify the practitioner, patient, treatment date, diagnosis, treatment items and amount by hand, which is repetitive and time-consuming. The information stays unstructured and hard to reuse, and small samples limit cross-claim and population-level analysis. This is a data-access and scalability problem, not a criticism of the auditors' work.
-
-## Slide 5 (main slide 4)
-
-- How AI Changes the Audit Process
-- ‹#›
-- Extract once, then reuse the structured data across many audit tests.
-- Proposed extraction scope
-- Future stage (not being built now)
-- Medical receipts / Images or PDFs
-- →
-- OCR / Azure DI reads the text
-- →
-- AI extraction / Azure OpenAI finds the fields
-- →
-- Structured dataset / Exported receipt data
-- →
-- Audit testing / Compare with claims and policy
-- →
-- Auditor review / Exceptions and judgement
-  | Current approach | AI-enabled approach |
-  | Limited manual sample | Potential population-scale receipt processing |
-  | Manual reading and transcription | Automated field extraction |
-  | Receipt reviewed separately for each procedure | Structured data reused across tests |
-  | Auditor effort spent on normal and exceptional cases | Greater focus on exceptions |
-  | Limited cross-claim analysis | Potential additional analytics and insights |
-- The current project covers extraction and structured export. Audit testing and review that use the data are a later stage.
-
-  Notes: Future flow: medical receipts, then OCR (Azure Document Intelligence), then AI extraction (Azure OpenAI), then a structured receipt dataset that is exported. These first four steps, including the structured export, are the proposed extraction scope. Downstream audit testing and auditor review are a future stage. The table compares today's approach with what an AI-enabled approach could offer; the right-hand column describes potential, not results already achieved.
-
-## Slide 6 (main slide 5)
-
 - Three Approaches Tested
 - ‹#›
-- TESTED · DEVELOPMENT SET
-- Azure DI + Azure OpenAI was the most accurate approach on our development set.
+- DEVELOPMENT RESULTS
+- Azure DI + Azure OpenAI was the most accurate of the three approaches.
   chart 'Accuracy': PaddleOCR + rules 26 of 51 fields=51.0, Azure DI + rules 36 of 51 fields=70.6, Azure DI + Azure OpenAI 49 of 51 fields=96.1
 - PaddleOCR + rules / Open-source text reading, then hand-written rules
 - Azure DI + rules / Azure text reading, then the same rules
 - Azure DI + Azure OpenAI / Azure text reading, then AI extraction
-- How to read these results / Measured on a small development set of 9 receipts, mainly fictional mock receipts. Directional only: they do not establish production accuracy. An independent, representative validation set is still required.
+- Development results, not production accuracy / Measured on 9 development receipts, mainly fictional mock receipts. Accuracy on new, representative receipts still needs independent validation.
 
-  Notes: We ran three approaches on the same 9 receipts and scored six fields: practitioner, registration number, patient, receipt number, treatment date and total amount. Accuracy = correct fields out of 51 (9 receipts x 6 fields, less 3 receipts with no registration number). PaddleOCR + rules: 26/51 (51.0%); Azure DI + rules: 36/51 (70.6%); Azure DI + Azure OpenAI: 49/51 (96.1%). The dataset is a small development set of 9 receipts, mainly fictional mock receipts: seven fictional receipts printed and photographed with a phone, plus two sample receipts carried over from an earlier test round. The results are directional only and do not establish production accuracy. An independent and representative validation set is still required. Accuracy by field is in appendix A1. Benchmark detail for questions: the two rule methods use the same general rules plus common Chinese labels, written after these receipts were examined and fixed before scoring. The AI instructions were refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_multilingual and scores_aoai_improved (summary.csv, detail.csv) and the saved extraction results.
+  Notes: We ran three approaches on the same 9 receipts and scored six fields: practitioner, registration number, patient, receipt number, treatment date and total amount. Accuracy = correct fields out of 51 (9 receipts x 6 fields, less 3 receipts with no registration number). PaddleOCR + rules: 26/51 (51.0%); Azure DI + rules: 36/51 (70.6%); Azure DI + Azure OpenAI: 49/51 (96.1%). These are development results from nine receipts, mainly fictional mock receipts: seven printed and photographed, two carried over from an earlier test round. They are not production accuracy. Accuracy by field is in appendix A1. Benchmark detail for questions: the two rule methods use the same general rules plus common Chinese labels, written after these receipts were examined and fixed before scoring. The AI instructions were refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_multilingual and scores_aoai_improved (summary.csv, detail.csv) and the saved extraction results.
 
-## Slide 7 (main slide 6)
+## Slide 5 (main slide 4)
 
-- What the Differences Look Like on a Receipt
+- Why AI Instead of OCR and Rules?
 - ‹#›
-- TESTED · DEVELOPMENT SET
-- Reading the text is not enough: extraction must understand what the text means.
+- DEVELOPMENT RESULTS
+- OCR reads the text; AI uses the context to pick the correct field.
 - 1  Who treated the patient?
   | Correct value | CHEUNG Hoi Ying |
   | PaddleOCR + rules | ✗ Dr. Kwok Man Hin |
@@ -128,84 +91,79 @@
   | Azure DI + rules | ✗ HK$1,750 |
   | Azure DI + Azure OpenAI | ✓ HK$1,575 |
 - The rules took the amount before the 10% member discount.
-- The AI is not perfect either: on one receipt it returned a practitioner name the OCR had misread, so extracted values still need validation.
+- AI can also make mistakes: on one receipt it returned a doctor's name the OCR had misread. Extracted values still need checking.
 
-  Notes: Three examples from the benchmark receipts. Receipt 6 (physiotherapy): both rule methods took the referring doctor, Dr. Kwok Man Hin, as the practitioner, and the date the receipt was issued (17 Jul 2026) as the treatment date; the AI returned the treating physiotherapist, CHEUNG Hoi Ying, and the session date, 16 Jul 2026. Receipt 5 (dental): both rule methods returned HK$1,750, the amount before the 10% member discount; the AI returned the HK$1,575 actually charged. In each case the OCR read the text correctly; the difference is in understanding what the text means. Further detail for questions: on the same dental receipt PaddleOCR also misread labels (words run together, a wrong Chinese character), so the rules could not find the registration number, treatment date and receipt number; Azure DI read them correctly. The AI was not perfect: on receipt 9 (a vet invoice) the OCR misread a clinician's name and the AI returned the misread name (Dr. Lok Vichol); on receipt 10 it returned the wrong date. Extracted values still need validation, especially missing, ambiguous or unsupported values. Benchmark detail for questions: the two rule methods use the same general rules plus common Chinese labels, written after these receipts were examined and fixed before scoring. The AI instructions were refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_multilingual and scores_aoai_improved (summary.csv, detail.csv) and the saved extraction results.
+  Notes: Three examples from the benchmark receipts. Receipt 6 (physiotherapy): both rule methods took the referring doctor, Dr. Kwok Man Hin, as the practitioner, and the date the receipt was issued (17 Jul 2026) as the treatment date; the AI returned the treating physiotherapist, CHEUNG Hoi Ying, and the session date, 16 Jul 2026. Receipt 5 (dental): both rule methods returned HK$1,750, the amount before the 10% member discount; the AI returned the HK$1,575 actually charged. In each case the text was read correctly; the difference is understanding what the text means. On the same dental receipt PaddleOCR also misread several labels, so the rules missed further fields; Azure DI read them correctly. The AI also makes mistakes: on receipt 9 (a vet invoice) the OCR misread a clinician's name and the AI returned the misread name (Dr. Lok Vichol); on receipt 10 it returned the wrong date. Extracted values still need validation. Benchmark detail for questions: the two rule methods use the same general rules plus common Chinese labels, written after these receipts were examined and fixed before scoring. The AI instructions were refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_multilingual and scores_aoai_improved (summary.csv, detail.csv) and the saved extraction results.
+
+## Slide 6 (main slide 5)
+
+- Advantages, Limitations and Alternatives
+- ‹#›
+- Each approach has trade-offs; AI handled varied receipts best in our test.
+  | Approach | Advantages | Limitations |
+  | PaddleOCR + rules | + Runs in-house; transparent rules | − Least accurate in our test; rules break when layouts or labels change |
+  | Azure DI + rules | + Better text reading; predictable, explainable results | − Rules must be written and maintained for each new receipt format |
+  | Azure DI + Azure OpenAI | + Most accurate in our test; uses context; fewer format-specific rules | − Can still make mistakes; needs validation, monitoring and confirmed costs |
+- Feasible alternative: OCR + regex + doctor database  (not benchmarked) / Matches registered doctor names and flags no-match or multiple-match receipts for manual review. It does not extract the other receipt fields, such as patient, dates and amounts.
+
+  Notes: PaddleOCR + rules runs in-house with transparent rules, but was the least accurate in our test and its rules break when layouts or labels change. Azure DI + rules reads text better and gives predictable, explainable results, but the rules must be written and maintained for each new receipt format. Azure DI + Azure OpenAI was the most accurate and uses context, with fewer format-specific rules, but it can still make mistakes and needs validation, monitoring and confirmed Azure costs (prices not yet confirmed). Alternative: OCR + regex + the doctor database. OCR reads the receipt and a regex search looks for registered doctor names (about 40,000 in the database); no match or several matches go to manual review. It is a feasible, low-cost way to match registered doctor names and flag exceptions, but it does not extract the other receipt fields, and it was not benchmarked.
+
+## Slide 7 (main slide 6)
+
+- Future Audit Analytics
+- ‹#›
+- FUTURE · NOT IMPLEMENTED
+- Extracted receipt data could support practical audit tests later.
+- 1
+- Receipt amount vs claim / Does the claimed amount match the amount on the receipt? / Uses: Receipt total, claimed amount
+- 2
+- Treatment dates / Does the treatment date match the claim and fall within the policy period? / Uses: Treatment date, claim and policy dates
+- 3
+- Duplicate receipts / Has the same receipt been used for more than one claim? / Uses: Receipt number, date, amount, provider
+- 4
+- Unusual provider fees / Are charges far from the usual range for the treatment? / Uses: Itemised charges, provider
+- Later, on another authorized platform: joined with claims data. Not implemented yet; any flag still needs auditor review.
+- Some tests need fields beyond the six tested, such as clinic name and itemised charges.
+
+  Notes: Examples that use extracted receipt information, drawn from the business auditor checklist. Receipt amount versus the claimed amount. Treatment date versus the claim and the policy coverage period. Duplicate receipts: the same receipt number, treatment date, amount and provider across claims. Unusual provider fees: charges far from the usual range for a treatment. These tests would run later on another authorized internal platform, where the receipt data can be joined with claims and policy data. They are not implemented yet. Some need fields beyond the six we tested, such as clinic name and itemised charges. Any flag would still need auditor review before it supports a finding.
 
 ## Slide 8 (main slide 7)
 
-- Trade-offs and Scalability
+- Privacy and Platform Design
 - ‹#›
-- The AI approach is preferred, but no option is perfect.
-  | Approach | Advantages | Limitations |
-  | PaddleOCR + rules | Low software dependency; transparent rules | Lower accuracy in the benchmark; more preprocessing; rules depend heavily on layout and wording |
-  | Azure DI + rules | Stronger document reading; deterministic and explainable | Rules must be created and maintained as formats and labels change |
-  | Azure DI + Azure OpenAI | Highest development-set accuracy; stronger contextual interpretation; less dependence on format-specific rules | Needs prompt and schema governance, independent validation, monitoring, PII controls and Azure cost management (prices to be confirmed) |
-- Scalability: rules-only approaches can require repeated maintenance for new receipt formats. Contextual AI may adapt better to format variation, but it still needs controlled prompts, schemas, testing and monitoring.
-- Alternative raised: OCR + regex + doctor database  (not benchmarked) / A simple, low-cost way to identify registered doctor names and flag no-match or multiple-match receipts for manual review. It does not extract the other receipt fields, such as patient, dates and amounts.
+- TO BE AGREED
+- Only approved receipt data goes to Azure; claims, policy and historical records stay internal.
+- Azure: approved receipt data only
+- Receipt  →  Azure DI  →  Azure OpenAI  →  Structured data / Reads receipts and extracts the fields
+- →
+- Another authorized internal platform
+- Claims, policy and historical records / Future audit analytics would run here
+- Still to be agreed
+- PII protection / Method not yet chosen or approved
+- Storage / Where data is kept, and for how long
+- Access controls / Who can see receipts and results
+- Approved transfer / How results move between platforms
 
-  Notes: PaddleOCR + rules: low software dependency and transparent rules, but lower accuracy in the benchmark, more preprocessing, and rules that depend heavily on layout and wording. Azure DI + rules: stronger document reading, deterministic and explainable, but rules must be created and maintained as formats and labels change. Azure DI + Azure OpenAI: highest development-set accuracy, stronger contextual interpretation and less dependence on format-specific rules, but it requires prompt and schema governance, independent validation, monitoring, PII controls and Azure cost management; Azure prices are not yet confirmed. Scalability: rules-only approaches can require repeated maintenance for new receipt formats; contextual AI may adapt better to format variation, but it still needs controlled prompts, schemas, testing and monitoring. Alternative raised by management: OCR + regex + the doctor database. OCR reads the receipt and a regex search looks for registered doctor names (about 40,000 in the database); no match or several matches go to manual review. It is a simple, low-cost way to identify registered names and flag exceptions. It does not extract the other receipt fields (patient, dates, amounts, diagnosis), and it was not benchmarked.
+  Notes: Azure would process only approved receipt data: reading the receipt and extracting the fields. Claims records, policy information and historical data stay on another authorized internal platform, where any future audit analytics would run. Still to be agreed: how personal information is protected (no masking or redaction method has been chosen or approved), where data is stored and for how long, who can access it, and the approved method for transferring structured results between the two platforms.
 
 ## Slide 9 (main slide 8)
 
-- Future Audit Tests the Data Could Support
+- Conclusion and Next Steps
 - ‹#›
-- FUTURE POSSIBILITY
-- Reliable extraction is the foundation for later tests. These tests are not being built now.
-- Possible tests of control (deterministic)
-- Required receipt information is present / Receipt amount matches the claimed amount / Treatment date matches the claims-system date / Service date falls within the policy period / Claim amount follows the approval-authority matrix
-- Possible red-flag tests
-- Possible duplicate receipt / Practitioner cannot be matched or is ambiguous / Diagnosis and treatment appear inconsistent / Unusual claim, clinic, practitioner or receipt patterns
-- Boundary: these tests need separate business rules, internal data, validation and auditor review. An AI-generated red flag is not an audit finding. / Diagnosis and treatment items are not yet extracted or tested.
-
-  Notes: Two kinds of possible future use. Tests of control or deterministic tests: required receipt information is present; the receipt amount matches the claimed amount; the treatment date matches the claims-system date; the service date falls within the policy period; the claim amount follows the approval-authority matrix. Red-flag tests: possible duplicate receipt; the practitioner cannot be matched or is ambiguous; diagnosis and treatment appear inconsistent; unusual claim, clinic, practitioner or receipt patterns. These downstream tests require separate business rules, internal data, validation and auditor review. An AI-generated red flag is not an audit finding. Diagnosis and treatment items were not part of the six-field benchmark, so they are not yet extracted or tested.
-
-## Slide 10 (main slide 9)
-
-- Governance, PII Protection and Platform Design
-- ‹#›
-- OPEN REQUIREMENT
-- Run each activity on the platform best suited to its data, risk and control requirements.
-- Azure application (proposed extraction scope)
-- Receipt / Approved receipts
-- →
-- Azure DI / Reads the text
-- →
-- Azure OpenAI / Extracts the fields
-- →
-- Structured output / Validated, exported
-- PII controls apply across these steps: design to be agreed
-- →
-- Approved internal platform (future stage)
-- Join with internal data → audit tests → auditor review / Claims, policy, approval-authority and historical data stay here. / Transfer from Azure: approved method to be agreed.
-- PII protection: decisions still to make / Which receipt fields contain personal or sensitive medical information / Which components need which fields (extraction may need names) / The masking or redaction method (not yet chosen) / How results stay linked to the correct audit record / Approved Azure services, access controls, retention and logging
-- Why some tests run on another platform / They need internal data that does not belong in the extraction application: / Claims-system records / Policy coverage and benefit information / Approval-authority tables / Historical claims; customer, provider, clinic or agent data
-
-  Notes: PII protection is a required design step, not a completed solution, and no masking method has been chosen. Decisions still to make: which receipt fields contain personal or sensitive medical information; which components need which fields (extraction may itself need names such as the patient and practitioner); the masking or redaction approach; how approved results stay linked to the correct audit record; and approved Azure services, access controls, retention and logging. Platform separation: reading, contextual extraction, PII controls, basic validation and structured export can run within the Azure application. Some downstream tests may need to run on another approved internal platform because they need internal data: claims-system records, policy coverage and benefit information, approval-authority tables, historical claims, and customer, provider, clinic or agent data. The transfer method between the two must be agreed and approved.
-
-## Slide 11 (main slide 10)
-
-- Recommendation and Next Steps
-- ‹#›
-- Continue with Azure DI + Azure OpenAI as the preferred extraction approach.
-- Recommendation: continue with Azure DI + Azure OpenAI as the preferred extraction approach, subject to independent validation and governance approval. / First establish reliable, traceable receipt extraction. Then use the approved structured output to develop additional audit tests on the appropriate internal platforms.
-- Next steps
+- A working AI extraction workflow, with clear next steps to test its value.
+- What we demonstrated / A working receipt-to-structured-data workflow / Three approaches compared; AI was the most accurate / AI handled context that fixed rules missed
+- Why it matters / Less manual reading of receipts / Wider coverage than a small sample / Reusable data for future audit analytics
+- Next priorities: what needs validation
 - 1
-- Finalise the required receipt fields and structured-output schema.
+- Expand receipt extraction / More fields from the auditor checklist, working toward 500 to 1,000 receipts.
 - 2
-- Confirm the PII protection and data-flow design.
+- Validate independently / Test accuracy and practical time benefits on new, representative receipts.
 - 3
-- Build an independent, representative validation dataset.
-- 4
-- Measure accuracy by field, including missing and ambiguous values.
-- 5
-- Define acceptance criteria for critical fields.
-- 6
-- Confirm which downstream tests run in Azure and which on other approved internal platforms.
+- Confirm privacy and platform design / Agree PII protection, storage, access and the approved transfer.
 
-  Notes: Recommendation: continue with Azure Document Intelligence plus Azure OpenAI as the preferred extraction approach, subject to independent validation and governance approval. First establish reliable, traceable receipt extraction. Then use the approved structured output to develop additional audit tests on the appropriate internal platforms. Next steps: (1) Finalise the required receipt fields and structured-output schema. (2) Confirm the PII protection and data-flow design. (3) Build an independent, representative validation dataset. (4) Measure accuracy by field, including missing and ambiguous values. (5) Define acceptance criteria for critical fields. (6) Confirm which downstream tests run in Azure and which on other approved internal platforms. Decision requested: agreement to continue on this basis and to proceed with these next steps.
+  Notes: What we demonstrated: a working receipt extraction workflow with Azure Document Intelligence and Azure OpenAI, and a comparison of three approaches on 9 development receipts, where the AI approach was the most accurate and handled context the rules missed. Why it matters: structured receipt data could reduce manual reading, widen coverage beyond a small sample, and be reused for audit analytics. What needs validation next: (1) Expand receipt extraction: More fields from the auditor checklist, working toward 500 to 1,000 receipts. (2) Validate independently: Test accuracy and practical time benefits on new, representative receipts. (3) Confirm privacy and platform design: Agree PII protection, storage, access and the approved transfer. Processing 500 to 1,000 receipts, broader field extraction, automated audit checks and time savings are future goals, not yet demonstrated.
 
-## Slide 12 (appendix A1)
+## Slide 10 (appendix A1)
 
 - Appendix A1: Accuracy by Field
 - ‹#›
@@ -219,18 +177,18 @@
   | Treatment date | 44.4%  (4/9) | 66.7%  (6/9) | 88.9%  (8/9) |
   | Total amount | 66.7%  (6/9) | 77.8%  (7/9) | 100.0%  (9/9) |
   | All fields | 51.0%  (26/51) | 70.6%  (36/51) | 96.1%  (49/51) |
-- Measured on a small development set of 9 receipts, mainly fictional mock receipts; directional only. Green = best for that field. The registration number is printed on 6 of the 9 receipts.
+- Development results from 9 receipts, mainly fictional mock receipts; not production accuracy. Green = best for that field. The registration number is printed on 6 of the 9 receipts.
 
   Notes: Correct fields per field, from the saved results: Practitioner: PaddleOCR + rules 4/9, Azure DI + rules 5/9, Azure DI + Azure OpenAI 8/9; Registration no.: PaddleOCR + rules 1/6, Azure DI + rules 3/6, Azure DI + Azure OpenAI 6/6; Patient: PaddleOCR + rules 6/9, Azure DI + rules 7/9, Azure DI + Azure OpenAI 9/9; Receipt no.: PaddleOCR + rules 5/9, Azure DI + rules 8/9, Azure DI + Azure OpenAI 9/9; Treatment date: PaddleOCR + rules 4/9, Azure DI + rules 6/9, Azure DI + Azure OpenAI 8/9; Total amount: PaddleOCR + rules 6/9, Azure DI + rules 7/9, Azure DI + Azure OpenAI 9/9. The registration number is printed on 6 of the 9 receipts. Benchmark detail for questions: the two rule methods use the same general rules plus common Chinese labels, written after these receipts were examined and fixed before scoring. The AI instructions were refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_multilingual and scores_aoai_improved (summary.csv, detail.csv) and the saved extraction results.
 
-## Slide 13 (appendix A2)
+## Slide 11 (appendix A2)
 
 - Appendix A2: How the Benchmark Was Run
 - ‹#›
 - APPENDIX
 - A small, controlled comparison to choose an extraction approach, not a production test.
-- What was tested / A small development set of 9 receipts, mainly fictional mock receipts: seven printed and photographed, two carried over from an earlier test round / Six fields: practitioner, registration number, patient, receipt number, treatment date, total amount / 51 scored fields (3 receipts have no registration number) / The same receipt images for all three approaches
+- What was tested / 9 development receipts, mainly fictional mock receipts: seven printed and photographed, two carried over from an earlier test round / Six fields: practitioner, registration number, patient, receipt number, treatment date, total amount / 51 scored fields (3 receipts have no registration number) / The same receipt images for all three approaches
 - Why the results are directional / The rules were written after these receipts were examined (fixed before scoring) / The AI instructions were refined after reviewing errors on these receipts / Too few unseen receipts exist to validate any approach
-- Not yet tested / Diagnosis, treatment items and other receipt fields / Real production receipts, handwriting and poor-quality images at volume / The OCR + regex + doctor database alternative / PII protection, cost and processing time at scale
+- Future goals, not yet tested / More fields from the auditor checklist, such as diagnosis, clinic name and itemised charges / Processing 500 to 1,000 receipts / Automated audit checks and time savings / The OCR + regex + doctor database alternative
 
   Notes: Dataset: seven fictional receipts printed and photographed with a phone (general practitioner, specialist, hospital, Chinese medicine, dental, physiotherapy and medical centre), plus two sample receipts carried over from an earlier test round (a vet invoice and a pharmacy receipt). A pharmacy till slip was not photographed and is not scored. All three approaches read the same image files. Benchmark detail for questions: the two rule methods use the same general rules plus common Chinese labels, written after these receipts were examined and fixed before scoring. The AI instructions were refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_multilingual and scores_aoai_improved (summary.csv, detail.csv) and the saved extraction results.

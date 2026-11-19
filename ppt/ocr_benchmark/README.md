@@ -1,15 +1,16 @@
 # Receipt OCR Benchmark – Decks
 
-**Version 15 (current)** is a management deck for Internal Audit management and business auditors, built
-from [`deck_direction.md`](deck_direction.md): what receipt-data problem we are solving, the proposed
-extraction solution, the audit value it could bring, why AI is the preferred extraction approach, and how the
-solution and later audit tests would be governed. Versions 1–14 answered a narrower question: **is Azure
-Document Intelligence + Azure OpenAI worth its additional cost and complexity compared with simpler OCR
-solutions?** (audience: business and technical stakeholders).
+**Version 16 (current)** is a short deck for senior management screening our AI innovation idea (not approving
+a finished product): we identified repetitive manual audit work, demonstrated a working Azure DI + Azure OpenAI
+receipt extraction workflow, compared three approaches, and explored how structured receipt data could improve
+Internal Audit. Version 15 was a longer management deck built from [`deck_direction.md`](deck_direction.md).
+Versions 1–14 answered a narrower question: **is Azure Document Intelligence + Azure OpenAI worth its additional
+cost and complexity compared with simpler OCR solutions?** (audience: business and technical stakeholders).
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 15 (current)**, cover + 10 slides + 2 appendix | `current/OCR_Benchmark_V15.pptx` | `scripts/generate_ppt_v15.py` | As Version 11; storyline from `deck_direction.md` |
+| **Version 16 (current)**, cover + 8 slides + 2 appendix | `current/OCR_Benchmark_V16.pptx` | `scripts/generate_ppt_v16.py` | As Version 11, plus `results/v2/di_aoai_v2_rows/receipt8.json` (the extracted output on main slide 2); manual-review estimates from the team; checks from the business auditor checklist |
+| Version 15, cover + 10 slides + 2 appendix (archived) | `archive/v15_final/OCR_Benchmark_V15.pptx` (+ PDF preview) | `scripts/generate_ppt_v15.py` (unchanged) | As Version 11; storyline from `deck_direction.md` |
 | Version 14, 9 slides (archived) | `archive/v14_final/OCR_Benchmark_V14.pptx` (+ PDF preview) | `scripts/generate_ppt_v14.py` (unchanged) | As Version 13 |
 | Version 13, 9 slides (archived; as last saved in PowerPoint, commit `2e7b4eb`) | `archive/v13_final/OCR_Benchmark_V13.pptx` (+ PDF preview of the generated version) | `scripts/generate_ppt_v13.py` (unchanged; without the PowerPoint edits) | As Version 11; the audit test examples come from the auditor discussion (not in the repository) |
 | Version 12, 9 slides (archived) | `archive/v12_final/OCR_Benchmark_V12.pptx` (+ PDF preview) | `scripts/generate_ppt_v12.py` (unchanged) | As Version 11 |
@@ -44,10 +45,11 @@ is typed in by hand.
 | Folder | Contents |
 |---|---|
 | `template/` | Official AIA PowerPoint template (`aia_ppt_template.pptx`). Do not edit. |
-| `current/` | The current deck (Version 15) |
+| `current/` | The current deck (Version 16) |
 | `previews/` | PDF and PNG previews of the current deck, and `deck_text.md` (all slide text and notes) |
 | `deck_direction.md` | The direction for Version 15: storyline, required positioning and design rules |
-| `codex_take/` | An alternative auditor-focused deck built with PptxGenJS from the earlier direction plan; not used by Version 15 |
+| `codex_take/` | An alternative auditor-focused deck built with PptxGenJS from the earlier direction plan; not used by Versions 15–16 |
+| `archive/v15_final/` | The Version 15 deck (cover + 10 slides + 2 appendix) and its PDF preview |
 | `archive/v14_final/` | The 9-slide Version 14 deck and its PDF preview |
 | `archive/v1/` | The frozen Version 1 deck and its preview. Never written to by the generators. |
 | `archive/v2_12slides/` | The first, 12-slide Version 2 deck and its PDF preview, kept for reference |
@@ -68,8 +70,50 @@ is typed in by hand.
 | `archive/v3_10slides/` | The 10-slide Version 3 revision and its PDF preview |
 | `archive/v3_first/` | The first Version 3 revision (rule accuracy not shown) and its PDF preview |
 | `archive/v2_final/` | The final Version 2 deck (with PaddleOCR Heavy and the tuned rule accuracies) and its PDF preview |
-| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py`, `generate_ppt_v6.py`, `generate_ppt_v7.py`, `generate_ppt_v8.py` and `generate_ppt_v9.py`; Version 15 adds `crop_v15_*.jpg` |
+| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py`, `generate_ppt_v6.py`, `generate_ppt_v7.py`, `generate_ppt_v8.py` and `generate_ppt_v9.py`; Version 15 adds `crop_v15_*.jpg` (also used by Version 16) and Version 16 adds `full_v16_receipt8.jpg` |
 | `scripts/` | The generators |
+
+## Version 16: senior management screening deck (cover + 8 slides + 2 appendix)
+
+Version 15 reorganised into 8 main slides, shorter and less repetitive, for senior management screening the AI
+innovation idea. It presents our team's practical AI exploration and its potential value, not a request to
+approve a production system. The working extraction workflow is shown as demonstrated; processing 500 to 1,000
+receipts, broader field extraction, automated audit checks and time savings are shown as future goals only.
+
+| Deck slide | Main slide | Title | Key message |
+|---|---|---|---|
+| 1 | — | AI-Assisted Medical Receipt Extraction (cover) | An Internal Audit AI innovation idea: what we built, what we tested and where it could go |
+| 2 | 1 | The Problem: Manual Receipt Reviews Take Time | ~25 receipts per sample at an estimated 5–10 minutes each (team estimates, not measured); what auditors check, from the business auditor checklist; the bottleneck is auditor time |
+| 3 | 2 | Our AI Solution and Business Value | Working receipt → Azure DI → Azure OpenAI → structured data workflow, with benchmark receipt 8 and its saved output; three potential benefits; 500 to 1,000 receipts is an initial future target, not yet demonstrated |
+| 4 | 3 | Three Approaches Tested | 51.0% / 70.6% / 96.1%: development results from nine receipts, not production accuracy |
+| 5 | 4 | Why AI Instead of OCR and Rules? | OCR reads the text; AI uses context (referring doctor, treatment date, discounted total); AI can also make mistakes |
+| 6 | 5 | Advantages, Limitations and Alternatives | Simplified pros and cons; OCR + regex + doctor database as a feasible, not-benchmarked alternative |
+| 7 | 6 | Future Audit Analytics | Receipt amount vs claim, treatment dates, duplicate receipts, unusual provider fees; later, on another authorized platform; not implemented |
+| 8 | 7 | Privacy and Platform Design | Only approved receipt data goes to Azure; PII protection, storage, access controls and transfer still to be agreed |
+| 9 | 8 | Conclusion and Next Steps | What we demonstrated, why it matters; priorities: expand extraction, validate independently, confirm privacy and platform design |
+| 10 | A1 | Accuracy by Field | Per-field figures recomputed from `detail.csv` |
+| 11 | A2 | How the Benchmark Was Run | Dataset, why the results are directional, future goals not yet tested |
+
+The extracted output on main slide 2 is read from the saved result for receipt 8 and must match the ground truth
+for all six fields (asserted at build time). The checklist content on main slide 1 is summarised from the business
+auditor checklist (`manual_sample_test.png`). The 2–4 hours per sample on main slide 1 is 25 × 5–10 minutes,
+labelled as an estimate.
+
+`scripts/check_deck_v16.py` checks: 11 slides with notes; the status tags; the estimates labelled as not measured;
+the receipt 8 output matching the saved result; the chart on main slide 3 holds exactly the three overall figures
+and no other main slide shows a benchmark statistic; every per-field figure in appendix A1; the three receipt
+examples and the AI-mistake point; the doctor database alternative marked not benchmarked; the analytics marked
+not implemented; the privacy items still to be agreed (no masking presented as implemented or approved); the
+500 to 1,000 target only as a future goal; and no avoid-list wording, old or tuned figures, technical jargon, or
+cost or savings figures.
+
+```bash
+python3 ppt/ocr_benchmark/scripts/generate_ppt_v16.py --force
+python3 ppt/ocr_benchmark/scripts/check_deck_v16.py
+```
+
+The Version 15 generator and check are kept unchanged to reproduce the archived Version 15 deck (use `--output`
+to write it outside `archive/`).
 
 ## Version 15: management deck from `deck_direction.md` (cover + 10 slides + 2 appendix)
 
@@ -494,9 +538,9 @@ These need LibreOffice and Poppler:
 
 ```bash
 cd ppt/ocr_benchmark
-soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V15.pptx
-mv previews/OCR_Benchmark_V15.pdf previews/OCR_Benchmark_V15_preview.pdf
-pdftoppm -png -r 80 previews/OCR_Benchmark_V15_preview.pdf previews/slide
+soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V16.pptx
+mv previews/OCR_Benchmark_V16.pdf previews/OCR_Benchmark_V16_preview.pdf
+pdftoppm -png -r 80 previews/OCR_Benchmark_V16_preview.pdf previews/slide
 ```
 
 LibreOffice may substitute fonts, so the preview is for review. PowerPoint renders Arial and
@@ -505,7 +549,7 @@ Microsoft JhengHei (Traditional Chinese).
 ## Outstanding before distribution
 
 1. **Prices.** Compute rate, Document Intelligence page price and gpt-5-mini token prices are
-   still unconfirmed; Version 15 main slide 7 says "prices to be confirmed".
+   still unconfirmed; Version 16 main slide 5 says costs still need confirming.
 2. **Sensitivity label.** The deck carries the template's **[AIA – PUBLIC]** label. Apply the
    correct label in PowerPoint (Home → Sensitivity) before sharing.
 3. **Presenter name and date,** if required.
