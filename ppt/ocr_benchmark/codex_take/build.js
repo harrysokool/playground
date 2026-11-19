@@ -8,6 +8,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { parse } = require("csv-parse/sync");
 const PptxGenJS = require("pptxgenjs");
+const JSZip = require("jszip");
 const { autoFontSize } = require("./pptxgenjs_helpers/text");
 const {
   warnIfSlideHasOverlaps,
@@ -17,6 +18,7 @@ const {
 const results = process.env.BENCHMARK_RESULTS_DIR ||
   path.resolve(__dirname, "../../../python/receipt_ocr_benchmark/results/v2");
 const output = process.argv[2] || path.join(__dirname, "Medical_Receipt_Audit.pptx");
+const aiaTemplate = path.join(__dirname, "../template/aia_ppt_template.pptx");
 
 const fields = {
   doctor_name: "Practitioner name",
@@ -100,12 +102,14 @@ pptx.theme = { headFontFace: font, bodyFontFace: font, lang: "en-GB" };
 const W = 40 / 3;
 const L = 0.68;
 const R = W - L;
+const footerContentRight = 11.96;
 const C = {
-  bg: "F7F6F3", white: "FFFFFF", ink: "182638", muted: "4C5D69", line: "DADFD9",
-  navy: "142638", navyLight: "243B51", navyTint: "E7EEF5",
-  teal: "006D64", tealTint: "E0F1EC", mint: "A9E4D1",
-  violet: "6045A1", violetTint: "EEE8F8",
-  orange: "88431C", orangeTint: "F9E9DD",
+  white: "FFFFFF", ink: "333D47", muted: "59646D", line: "D3CAC3",
+  red: "D31145", redTint: "FBEAF0", palePink: "FFE4EC",
+  warmTint: "F5F2EF", warmGray: "A89B92",
+  blue: "084563", blueTint: "EAF3F8",
+  purple: "4C4793", purpleTint: "F0EDF6",
+  cerise: "8D0847", ceriseTint: "F8EBF1",
 };
 
 function text(slide, value, x, y, w, h, size, options = {}) {
@@ -138,19 +142,18 @@ function arrow(slide, x, y, w, color = C.muted) {
   });
 }
 
-function label(slide, value, x, y, w, color = C.teal) {
+function label(slide, value, x, y, w, color = C.red) {
   text(slide, value, x, y, w, 0.22, 11, { bold: true, color, charSpacing: 0.9 });
 }
 
 function page(slide, section, title, description) {
-  slide.background = { color: C.bg };
-  label(slide, section, L, 0.43, 11);
-  text(slide, title, L, 0.77, R - L, 0.60, 32, { bold: true });
-  text(slide, description, L, 1.46, R - L, 0.39, 16, { color: C.muted });
-  rule(slide, L, R, 6.98);
-  text(slide, "Internal Audit pilot proposal", L, 7.07, 5.2, 0.19, 10, { color: C.muted });
-  text(slide, String(pptx.slides.length).padStart(2, "0"), R - 0.5, 7.07, 0.5, 0.19, 10,
-    { color: C.muted, align: "right" });
+  // The linked AIA layout provides the white canvas, footer and logo.
+  label(slide, section, 0.39, 0.34, 11);
+  text(slide, title, 0.39, 0.59, 12.20, 0.57, 31, { bold: true });
+  text(slide, description, 0.39, 1.28, 12.20, 0.40, 16, { color: C.muted });
+  text(slide, String(pptx.slides.length).padStart(2, "0"), 0.39, 6.94, 0.34, 0.17, 9,
+    { color: C.muted });
+  text(slide, "Internal Audit pilot proposal", 0.79, 7.16, 5.2, 0.13, 8, { color: C.muted });
 }
 
 function note(slide, ...paragraphs) {
@@ -165,43 +168,37 @@ function card(slide, x, y, w, h, heading, body, fill, accent, options = {}) {
   text(slide, body, x + pad, y + bodyY, w - 2 * pad, h - bodyY - 0.14, bodySize, { valign: "top" });
 }
 
-function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
-  rect(slide, L, y, R - L, 0.54, fill);
-  text(slide, copy, L + 0.16, y + 0.12, R - L - 0.32, 0.30, 14.5, { bold: true, color });
+function strip(slide, copy, y) {
+  // Keep the callout clear of the AIA mark at the bottom right of the layout.
+  const w = footerContentRight - L;
+  rect(slide, L, y, w, 0.54, C.redTint);
+  text(slide, copy, L + 0.16, y + 0.12, w - 0.32, 0.30, 14.5, { bold: true, color: C.red });
 }
 
 // 1. Open on the audit decision.
 {
   const s = pptx.addSlide();
-  s.background = { color: C.navy };
-  label(s, "INTERNAL AUDIT  /  PILOT PROPOSAL", L, 0.67, 7.1, C.mint);
-  text(s, "AI-enabled medical\nreceipt testing", L, 1.30, 7.55, 2.12, 47,
+  // The AIA title layout supplies the red background, logo, artwork and footer.
+  const coverLeft = 0.39;
+  label(s, "INTERNAL AUDIT  /  PILOT PROPOSAL", coverLeft, 1.92, 6.2, C.palePink);
+  text(s, "AI-enabled medical\nreceipt testing", coverLeft, 2.36, 6.2, 1.39, 39,
     { color: C.white, bold: true });
   text(s, "Turn receipt images into structured evidence so auditors can screen more claims and focus on exceptions.",
-    L, 3.64, 7.05, 1.13, 23, { color: "D8E6EC", valign: "top" });
+    coverLeft, 3.94, 6.17, 0.58, 17, { color: C.white, valign: "top" });
   const milestones = [
     ["Receipt data", "Read and extract source fields"],
     ["Audit testing", "Compare against claims and policy"],
     ["Auditor review", "Corroborate and resolve exceptions"],
   ];
-  const x = 8.45;
-  const w = 4.19;
+  rule(s, coverLeft, 6.89, 4.73, C.palePink);
   milestones.forEach(([heading, body], i) => {
-    const y = 1.29 + i * 1.36;
-    // The dark backing intentionally contains both text boxes.
-    rect(s, x, y, w, 1.09, C.navyLight, "3E5970");
-    text(s, heading, x + 0.23, y + 0.15, w - 0.46, 0.37, 19, { bold: true, color: i === 2 ? C.mint : C.white });
-    text(s, body, x + 0.23, y + 0.62, w - 0.46, 0.24, 13.5, { color: "D8E6EC" });
-    if (i < milestones.length - 1) {
-      s.addShape(pptx.ShapeType.line, {
-        x: x + w / 2, y: y + 1.12, w: 0, h: 0.17,
-        line: { color: C.mint, width: 1.1, endArrowType: "triangle" },
-      });
-    }
+    const x = coverLeft + i * 2.22;
+    text(s, heading, x, 4.93, 2.02, 0.32, 15.5, { bold: true, color: C.white });
+    text(s, body, x, 5.33, 1.94, 0.46, 12.5, { color: C.white, valign: "top" });
   });
-  rule(s, L, R, 6.24, "496177");
-  label(s, "DECISION REQUESTED", L, 6.51, 2.28, C.mint);
-  text(s, "Approve a controlled pilot and independent validation.", 3.10, 6.42, 9.51, 0.40, 19,
+  rule(s, coverLeft, 6.89, 5.98, C.palePink);
+  label(s, "DECISION REQUESTED", coverLeft, 6.13, 6, C.palePink);
+  text(s, "Approve a controlled pilot and independent validation.", coverLeft, 6.41, 6.50, 0.33, 16,
     { bold: true, color: C.white });
   note(s, "Audience: business auditors and Internal Audit management. Present this as a pilot proposal.",
     "Sources: new_deck_direction_execution_plan.md and OCR_Benchmark_V14.pptx. The nine-receipt extraction proof of concept supports the proposed pilot. Population screening, operational savings and downstream audit outcomes are proposed benefits to measure.");
@@ -212,11 +209,11 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
   const s = pptx.addSlide();
   page(s, "CURRENT PROCESS", "Manual testing limits receipt coverage",
     "Auditors inspect source documents, reconcile details to claims and investigate differences.");
-  rect(s, L, 2.15, 3.62, 3.77, C.navy);
-  text(s, "≈25", L + 0.24, 2.49, 3.14, 1.22, 67, { bold: true, color: C.mint });
+  rect(s, L, 2.15, 3.62, 3.77, C.red);
+  text(s, "≈25", L + 0.24, 2.49, 3.14, 1.22, 67, { bold: true, color: C.white });
   text(s, "receipts in an example manual sample", L + 0.26, 4.02, 3.08, 0.85, 22,
     { bold: true, color: C.white, valign: "top" });
-  text(s, "Confirm the baseline for the pilot.", L + 0.26, 5.26, 3.08, 0.35, 13, { color: "D8E6EC" });
+  text(s, "Confirm the baseline for the pilot.", L + 0.26, 5.26, 3.08, 0.35, 13, { color: C.palePink });
   const rows = [
     ["Read and transcribe", "Find names, service dates, amounts and other details in receipt images or PDFs."],
     ["Reconcile to the claim", "Check whether the receipt agrees with claim-system records and supporting documents."],
@@ -239,11 +236,11 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
   page(s, "PROPOSED OPERATING MODEL", "Screen the available population and route exceptions",
     "Track every in-scope receipt through extraction, testing and any review it requires.");
   const steps = [
-    ["Inventory", "Count available and supported receipts.", C.navyTint, C.navy],
-    ["Extract", "Capture fields and link to the source.", C.tealTint, C.teal],
-    ["Run tests", "Apply approved comparisons and checks.", C.violetTint, C.violet],
-    ["Triage", "Prioritise failures and material flags.", C.orangeTint, C.orange],
-    ["Resolve", "Auditor reviews and records disposition.", C.navyTint, C.navy],
+    ["Inventory", "Count available and supported receipts.", C.warmTint, C.ink],
+    ["Extract", "Capture fields and link to the source.", C.blueTint, C.blue],
+    ["Run tests", "Apply approved comparisons and checks.", C.purpleTint, C.purple],
+    ["Triage", "Prioritise failures and material flags.", C.ceriseTint, C.cerise],
+    ["Resolve", "Auditor reviews and records disposition.", C.warmTint, C.ink],
   ];
   steps.forEach(([heading, body, fill, accent], i) => {
     const x = L + i * 2.47;
@@ -251,10 +248,10 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
     if (i < steps.length - 1) arrow(s, x + 2.16, 3.00, 0.24);
   });
   card(s, L, 4.22, 5.84, 1.58, "Completed",
-    "Keep test results and evidence links. Sample completed cases for quality checks.", C.white, C.teal,
+    "Keep test results and evidence links. Sample completed cases for quality checks.", C.warmTint, C.blue,
     { bodySize: 16 });
   card(s, 6.80, 4.22, 5.84, 1.58, "Needs review, failed or unsupported",
-    "Route exceptions or log coverage gaps. Record who resolved each case.", C.white, C.orange,
+    "Route exceptions or log coverage gaps. Record who resolved each case.", C.warmTint, C.cerise,
     { bodySize: 16 });
   strip(s, "Coverage = receipts that completed approved screening ÷ all in-scope receipts.", 6.17);
   note(s, "The denominator includes available in-scope receipts that were unsupported, failed or did not complete the relevant screening. Report each status and why items failed or were excluded.",
@@ -279,7 +276,7 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
     rule(s, L + 0.02, 6.30, y + 0.73);
   });
   // The light panel intentionally contains the illustrative reconciliation and its labels.
-  rect(s, 6.66, 2.18, 5.99, 3.78, C.white, C.line);
+  rect(s, 6.66, 2.18, 5.99, 3.78, C.warmTint, C.line);
   label(s, "ILLUSTRATIVE AMOUNT CHECK", 6.92, 2.44, 5.43);
   const amounts = [
     ["Claimed amount (illustrative)", formatAmount(illustrativeClaim)],
@@ -289,7 +286,7 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
   amounts.forEach(([name, amount], i) => {
     const y = 2.89 + i * 0.69;
     text(s, name, 6.92, y, 3.47, 0.33, 15.5, { bold: i === 2 });
-    text(s, amount, 10.54, y, 1.83, 0.33, 17, { bold: true, align: "right", color: i === 2 ? C.orange : C.ink });
+    text(s, amount, 10.54, y, 1.83, 0.33, 17, { bold: true, align: "right", color: i === 2 ? C.cerise : C.ink });
     if (i < 2) rule(s, 6.92, 12.39, y + 0.49);
   });
   text(s, "Review the source, discount and applicable policy before deciding how to resolve the difference.",
@@ -304,25 +301,25 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
   const s = pptx.addSlide();
   page(s, "TECHNOLOGY AND DATA BOUNDARY", "OCR reads the receipt. Contextual AI selects the fields.",
     "A single extraction can supply receipt fields for multiple audit tests.");
-  rect(s, L, 2.15, 6.39, 2.66, C.tealTint);
+  rect(s, L, 2.15, 6.39, 2.66, C.blueTint);
   label(s, "AZURE  /  APPROVED RECEIPT DATA ONLY", L + 0.19, 2.37, 5.98);
-  card(s, L + 0.19, 2.84, 2.79, 1.62, "Document Intelligence", "Reads text and layout from the receipt.", C.white, C.teal,
+  card(s, L + 0.19, 2.84, 2.79, 1.62, "Document Intelligence", "Reads text and layout from the receipt.", C.white, C.blue,
     { headingSize: 15.5, bodySize: 15 });
-  arrow(s, 3.74, 3.57, 0.23, C.teal);
-  card(s, 4.05, 2.84, 2.80, 1.62, "Azure OpenAI", "Extracts defined fields and flags uncertainty.", C.white, C.violet,
+  arrow(s, 3.74, 3.57, 0.23, C.blue);
+  card(s, 4.05, 2.84, 2.80, 1.62, "Azure OpenAI", "Extracts defined fields and flags uncertainty.", C.white, C.purple,
     { headingSize: 16, bodySize: 15 });
-  arrow(s, 7.17, 3.56, 0.46, C.teal);
-  rect(s, 7.75, 2.15, 4.90, 2.66, C.navyTint);
-  label(s, "AUTHORIZED AUDIT ENVIRONMENT", 7.95, 2.37, 4.50, C.navy);
+  arrow(s, 7.17, 3.56, 0.46, C.blue);
+  rect(s, 7.75, 2.15, 4.90, 2.66, C.warmTint);
+  label(s, "AUTHORIZED AUDIT ENVIRONMENT", 7.95, 2.37, 4.50, C.ink);
   text(s, "Deterministic analytics and auditor review", 7.95, 2.83, 4.45, 0.64, 19,
     { bold: true });
   text(s, "Join structured fields to claims, policy, history and approved reference data.",
     7.95, 3.64, 4.41, 0.65, 15.5);
   text(s, "Transfer of approved structured output requires agreement and approval.",
     L, 4.94, R - L, 0.36, 14, { color: C.muted, bold: true });
-  card(s, L, 5.47, R - L, 1.17, "Why context matters",
+  card(s, L, 5.47, footerContentRight - L, 1.17, "Why context matters",
     "On a physiotherapy receipt, the rules picked the referring doctor and issue date. Azure OpenAI identified the treating practitioner and service date.",
-    C.white, C.violet, { bodyY: 0.60, headingH: 0.31, bodySize: 15 });
+    C.warmTint, C.purple, { bodyY: 0.60, headingH: 0.31, bodySize: 15 });
   note(s, "Both extraction methods used the same Azure DI text for this example. Source: OCR_Benchmark_V14.pptx slide 6 and the saved multilingual and Azure OpenAI scores for receipt 6.",
     "Keep claims, policy and historical data in the authorized audit environment. Agree field minimization, transfer, access, retention and deletion before the pilot. Contextual extraction can reduce dependence on layout-specific rules. It still requires evaluation, change control and review.");
 }
@@ -339,7 +336,7 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
     values: scores.map(method => method.pct / 100),
   }], {
     x: L, y: 2.20, w: 7.40, h: 3.69, barDir: "col", barGrouping: "clustered",
-    chartColors: ["7F94A5", "467B83", C.teal], showLegend: false,
+    chartColors: [C.warmGray, C.ink, C.red], showLegend: false,
     showValue: true, dataLabelPosition: "outEnd", dataLabelFormatCode: "0.0%",
     dataLabelColor: C.ink, dataLabelFontFace: font, dataLabelFontSize: 14,
     catAxisLabelFontFace: font, catAxisLabelFontSize: 12, catAxisLabelColor: C.ink,
@@ -348,8 +345,8 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
     valGridLine: { color: C.line, width: 0.6 }, catGridLine: { style: "none" },
     gapWidthPct: 75,
   });
-  rect(s, 8.34, 2.22, 4.31, 3.63, C.orangeTint);
-  label(s, "DEVELOPMENT-SET RESULTS", 8.56, 2.47, 3.91, C.orange);
+  rect(s, 8.34, 2.22, 4.31, 3.63, C.redTint);
+  label(s, "DEVELOPMENT-SET RESULTS", 8.56, 2.47, 3.91, C.red);
   text(s, "The team had already reviewed these receipts when adapting the rules and refining the AI instructions.",
     8.56, 2.88, 3.82, 1.02, 17, { bold: true, valign: "top" });
   text(s, "Validate on independent receipts. Measure accuracy by field and classify errors by severity.",
@@ -375,14 +372,14 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
   ];
   const columns = [L + 0.16, 4.26, 9.50];
   const widths = [3.38, 5.02, 2.95];
-  rect(s, L, 2.16, R - L, 0.49, C.navy);
+  rect(s, L, 2.16, R - L, 0.49, C.red);
   ["Audit test", "Evidence and logic", "Preferred mechanism"].forEach((head, i) =>
     text(s, head, columns[i], 2.25, widths[i], 0.26, 14, { bold: true, color: C.white }));
   table.forEach((row, i) => {
     const y = 2.68 + i * 0.64;
-    rect(s, L, y, R - L, 0.60, i % 2 ? C.navyTint : C.white);
+    rect(s, L, y, R - L, 0.60, i % 2 ? C.warmTint : C.white);
     row.forEach((value, j) => text(s, value, columns[j], y + 0.08, widths[j], 0.44, 14,
-      { bold: j === 0, color: j === 2 ? C.teal : C.ink }));
+      { bold: j === 0, color: j === 2 ? C.blue : C.ink }));
   });
   strip(s, "A registry match can identify a named practitioner. Review the receipt to establish their role.", 6.18);
   note(s, "Examples from manual_sample_test.png and the new deck direction plan. V14 and the benchmark README describe exact doctor-registry matching as a proposal, which was not benchmarked. The lookup may surface referring doctors, signatories or ambiguous matches.",
@@ -396,13 +393,13 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
     "Both depend on defined criteria and traceable evidence.");
   const panels = [
     {
-      x: L, color: C.teal, fill: C.tealTint, title: "Test of control",
+      x: L, color: C.blue, fill: C.blueTint, title: "Test of control",
       copy: "Evaluate whether a defined control operated as required.",
       example: "Verify the approval amount and approver against the applicable authority matrix.",
       evidence: "Retain the approval record, matrix version, test result and any exception disposition.",
     },
     {
-      x: 6.80, color: C.orange, fill: C.orangeTint, title: "Red-flag screening",
+      x: 6.80, color: C.cerise, fill: C.ceriseTint, title: "Red-flag screening",
       copy: "Prioritise a transaction for audit follow-up.",
       example: "Flag two claims with the same receipt number, provider, amount and service date.",
       evidence: "Review both documents and claim histories to determine whether the apparent duplicate is valid.",
@@ -428,10 +425,10 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
   page(s, "GOVERNANCE", "Build privacy, traceability and review into the pilot",
     "Agree the owners and controls for each step before processing approved receipts.");
   const controls = [
-    [L, 2.20, "Approve data and access", "Minimise receipt data sent to Azure. Approve access, transfer, retention and deletion.", C.tealTint, C.teal],
-    [6.80, 2.20, "Version and validate changes", "Record the model deployment, prompt and schema. Retest material changes before release.", C.violetTint, C.violet],
-    [L, 4.00, "Preserve the evidence trail", "Link outputs to the receipt, processing status, run version, test result and review outcome.", C.navyTint, C.navy],
-    [6.80, 4.00, "Route and resolve exceptions", "Assign failed, uncertain and material cases to auditors. Record decisions and overrides.", C.orangeTint, C.orange],
+    [L, 2.20, "Approve data and access", "Minimise receipt data sent to Azure. Approve access, transfer, retention and deletion.", C.blueTint, C.blue],
+    [6.80, 2.20, "Version and validate changes", "Record the model deployment, prompt and schema. Retest material changes before release.", C.purpleTint, C.purple],
+    [L, 4.00, "Preserve the evidence trail", "Link outputs to the receipt, processing status, run version, test result and review outcome.", C.warmTint, C.ink],
+    [6.80, 4.00, "Route and resolve exceptions", "Assign failed, uncertain and material cases to auditors. Record decisions and overrides.", C.ceriseTint, C.cerise],
   ];
   for (const [x, y, heading, body, fill, accent] of controls) {
     card(s, x, y, 5.85, 1.51, heading, body, fill, accent, { bodySize: 16 });
@@ -447,10 +444,10 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
   page(s, "PILOT SCORECARD", "Measure extraction quality and the impact on audit work",
     "Use a representative holdout and agreed acceptance criteria before any wider use.");
   const sections = [
-    ["Extraction quality", "Score by field and by severity. Track wrong, missing and unsupported values, especially amounts and service dates.", C.tealTint, C.teal],
-    ["Coverage and reliability", "Report screened, failed, unsupported and needs-review rates against the full in-scope population.", C.navyTint, C.navy],
-    ["Audit test performance", "Measure false positives by test, auditor overrides and missed exceptions in a reviewed sample.", C.violetTint, C.violet],
-    ["Capacity and effort", "Measure time per receipt and batch, cost per 1,000 receipts and net auditor hours saved against the manual baseline.", C.orangeTint, C.orange],
+    ["Extraction quality", "Score by field and by severity. Track wrong, missing and unsupported values, especially amounts and service dates.", C.blueTint, C.blue],
+    ["Coverage and reliability", "Report screened, failed, unsupported and needs-review rates against the full in-scope population.", C.warmTint, C.ink],
+    ["Audit test performance", "Measure false positives by test, auditor overrides and missed exceptions in a reviewed sample.", C.purpleTint, C.purple],
+    ["Capacity and effort", "Measure time per receipt and batch, cost per 1,000 receipts and net auditor hours saved against the manual baseline.", C.ceriseTint, C.cerise],
   ];
   sections.forEach(([heading, body, fill, accent], i) => {
     const x = i % 2 === 0 ? L : 6.80;
@@ -468,9 +465,9 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
   page(s, "RECOMMENDATION", "Approve a controlled pilot of receipt screening",
     "Use Azure Document Intelligence and Azure OpenAI for extraction, with audit testing in the authorized environment.");
   const stages = [
-    ["Define scope", "Confirm owners, approved receipt sources, transfer method and the manual baseline.", C.tealTint, C.teal],
-    ["Run in parallel", "Start with amount and service-date reconciliation. Have auditors verify exceptions and sample completed cases.", C.navyTint, C.navy],
-    ["Decide whether to expand", "Compare results with agreed thresholds. Expand coverage and fields in phases if the evidence supports it.", C.violetTint, C.violet],
+    ["Define scope", "Confirm owners, approved receipt sources, transfer method and the manual baseline.", C.blueTint, C.blue],
+    ["Run in parallel", "Start with amount and service-date reconciliation. Have auditors verify exceptions and sample completed cases.", C.warmTint, C.ink],
+    ["Decide whether to expand", "Compare results with agreed thresholds. Expand coverage and fields in phases if the evidence supports it.", C.purpleTint, C.purple],
   ];
   stages.forEach(([heading, body, fill, accent], i) => {
     const x = L + i * 4.09;
@@ -485,12 +482,68 @@ function strip(slide, copy, y, fill = C.tealTint, color = C.teal) {
     "Expand to additional fields and downstream tests only after accuracy, coverage, false positives, operational cost, time and governance meet the agreed pilot criteria. The proposal does not authorize production use.");
 }
 
+function fitClassificationMark(master) {
+  const shapes = /<p:sp>[\s\S]*?<\/p:sp>/g;
+  return master.replace(shapes, shape => {
+    if (!shape.includes("<p184:classification")) return shape;
+    // Widen the existing template marking so it stays on one line above the slide edge.
+    return shape
+      .replace(/(<a:ext cx=")\d+/, (_, prefix) => prefix + 1280160)
+      .replace(/<a:bodyPr(?![^>]*\bwrap=)/, '<a:bodyPr wrap="none"');
+  });
+}
+
+async function applyAiaTemplate(generated) {
+  const [deck, template] = await Promise.all([
+    JSZip.loadAsync(generated),
+    JSZip.loadAsync(fs.readFileSync(aiaTemplate)),
+  ]);
+
+  // PptxGenJS authors the editable slide objects. The original AIA master,
+  // layouts, theme and vector artwork supply the branding in PowerPoint.
+  const masterPart = /^ppt\/(?:slideMasters\/|slideLayouts\/|theme\/theme1\.xml$)/;
+  const mediaPart = /^ppt\/media\//;
+  const cover = await template.file("ppt/slideLayouts/slideLayout1.xml").async("string");
+  const content = await template.file("ppt/slideLayouts/slideLayout2.xml").async("string");
+  assert.match(cover, /name="AIA_TitleSlidePlain"/);
+  assert.match(content, /name="AIA_subheader white"/);
+  for (const part of template.filter((name, entry) => !entry.dir && (masterPart.test(name) || mediaPart.test(name)))) {
+    if (mediaPart.test(part.name)) {
+      assert.ok(!deck.file(part.name), `AIA template media conflicts with ${part.name}`);
+    }
+    const bytes = part.name === "ppt/slideMasters/slideMaster1.xml"
+      ? fitClassificationMark(await part.async("string"))
+      : await part.async("nodebuffer");
+    deck.file(part.name, bytes);
+  }
+
+  const typesPath = "[Content_Types].xml";
+  const types = await deck.file(typesPath).async("string");
+  const templateTypes = await template.file(typesPath).async("string");
+  const layoutOverride = /<Override PartName="\/ppt\/(?:slideMasters|slideLayouts)\/[^"]+"[^>]*\/>/g;
+  deck.file(typesPath, types.replace(layoutOverride, "").replace(
+    "</Types>",
+    (templateTypes.match(layoutOverride) || []).join("") + "</Types>",
+  ));
+
+  // Keep each generated slide's notes and chart relationships intact.
+  for (let index = 2; index <= pptx.slides.length; index++) {
+    const relsPath = `ppt/slides/_rels/slide${index}.xml.rels`;
+    const rels = await deck.file(relsPath).async("string");
+    const originalLayoutTarget = 'Target="../slideLayouts/slideLayout1.xml"';
+    assert.ok(rels.includes(originalLayoutTarget), `Missing layout relationship for slide ${index}`);
+    deck.file(relsPath, rels.replace(originalLayoutTarget, 'Target="../slideLayouts/slideLayout2.xml"'));
+  }
+  return deck.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
+}
+
 async function main() {
   for (const slide of pptx.slides) {
     warnIfSlideHasOverlaps(slide, pptx);
     warnIfSlideElementsOutOfBounds(slide, pptx);
   }
-  await pptx.writeFile({ fileName: output, compression: true });
+  const generated = await pptx.write({ outputType: "nodebuffer" });
+  fs.writeFileSync(output, await applyAiaTemplate(generated));
   console.log(`Wrote ${output} (${pptx.slides.length} slides)`);
 }
 
