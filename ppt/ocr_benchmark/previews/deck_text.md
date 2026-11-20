@@ -1,4 +1,4 @@
-# OCR_Benchmark_V17.pptx: text, chart data and notes
+# OCR_Benchmark_V18.pptx: text, chart data and notes
 
 
 ## Slide 1 (cover)
@@ -11,7 +11,7 @@
 ## Slide 2 (main slide 1)
 
 - Manual Receipt Review Limits Audit Coverage
-- ‹#›
+- 2
 - ESTIMATES · NOT MEASURED
 - Reading and retyping receipts by hand takes auditor time, so only a small sample can be checked.
 - ~25 / receipts in a typical audit sample / Every one / read and retyped by hand before testing begins / Sample size is a team estimate. Time per receipt not yet measured.
@@ -27,7 +27,7 @@
 ## Slide 3 (main slide 2)
 
 - The Business Value We Are Working Toward
-- ‹#›
+- 3
 - POTENTIAL · NOT MEASURED
 - Structured receipt data could free auditor time and extend audit coverage.
 - Less manual effort
@@ -49,7 +49,7 @@
 ## Slide 4 (main slide 3)
 
 - Our Working Solution
-- ‹#›
+- 4
 - WORKING DEMONSTRATION
 - We built and demonstrated a workflow that turns a receipt photo into structured data.
 - Receipt photo
@@ -78,7 +78,7 @@
 ## Slide 5 (main slide 4)
 
 - Why We Tested Three Approaches
-- ‹#›
+- 5
 - BENCHMARK DESIGN
 - OCR reads the words on a receipt; the hard part is deciding which value belongs in each audit field.
 - The challenge:  a receipt often shows several names, dates and amounts. OCR reads them all, but does not decide which is the treating practitioner, the treatment date or the amount actually charged.
@@ -93,7 +93,7 @@
 ## Slide 6 (main slide 5)
 
 - Benchmark Results
-- ‹#›
+- 6
 - DEVELOPMENT RESULTS
 - Azure DI + Azure OpenAI achieved the highest accuracy on our development set.
   chart 'Accuracy': PaddleOCR + rules 26 of 51 fields=51.0, Azure DI + rules 36 of 51 fields=70.6, Azure DI + Azure OpenAI 49 of 51 fields=96.1
@@ -105,7 +105,7 @@
 ## Slide 7 (main slide 6)
 
 - Why Context Matters: Receipt Examples
-- ‹#›
+- 7
 - DEVELOPMENT RESULTS
 - In each case the text was read correctly; the rules picked the wrong value and the AI used the context.
 - 1  Who treated the patient?
@@ -133,7 +133,7 @@
 ## Slide 8 (main slide 7)
 
 - Advantages, Limitations and Alternatives
-- ‹#›
+- 8
 - Contextual AI handled field ambiguity best in the development benchmark; each approach has trade-offs.
   | Approach | Advantages | Limitations |
   | PaddleOCR + rules | + Runs in-house; transparent rules | − Least accurate in our test; rules break when layouts or labels change |
@@ -146,9 +146,9 @@
 ## Slide 9 (main slide 8)
 
 - Future Audit Analytics: Example Tests
-- ‹#›
+- 9
 - FUTURE · NOT IMPLEMENTED
-- Specific audit tests the extracted receipt data could support later, on another authorized platform.
+- Specific audit tests the extracted receipt data could support later, on the Internal Data Platform.
 - 1
 - Receipt amount vs claim / Does the claimed amount match the amount on the receipt? / Uses: Receipt total, claimed amount
 - 2
@@ -157,35 +157,46 @@
 - Duplicate receipts / Has the same receipt been used for more than one claim? / Uses: Receipt number, date, amount, provider
 - 4
 - Unusual provider fees / Are charges far from the usual range for the treatment? / Uses: Itemised charges, provider
-- Later, on another authorized platform: joined with claims data. Not implemented yet; any flag still needs auditor review.
+- Later, on the Internal Data Platform: joined with claims data. Not implemented yet; any flag still needs auditor review.
 - Some tests need fields beyond the six tested, such as clinic name and itemised charges.
 
-  Notes: Examples of tests that use extracted receipt information, drawn from the business auditor checklist. Receipt amount versus the claimed amount. Treatment date versus the claim and the policy coverage period. Duplicate receipts: the same receipt number, treatment date, amount and provider across claims. Unusual provider fees: charges far from the usual range for a treatment. These tests would run later on another authorized internal platform, where the receipt data can be joined with claims and policy data. They are not implemented yet. Some need fields beyond the six we tested, such as clinic name and itemised charges. Any flag would still need auditor review before it supports a finding.
+  Notes: Examples of tests that use extracted receipt information, drawn from the business auditor checklist. Receipt amount versus the claimed amount. Treatment date versus the claim and the policy coverage period. Duplicate receipts: the same receipt number, treatment date, amount and provider across claims. Unusual provider fees: charges far from the usual range for a treatment. These tests would run later on the Internal Data Platform, where the receipt data can be joined with claims and policy data. They are not implemented yet. Some need fields beyond the six we tested, such as clinic name and itemised charges. Any flag would still need auditor review before it supports a finding.
 
 ## Slide 10 (main slide 9)
 
-- Privacy and Governance
-- ‹#›
-- TO BE AGREED
-- Extraction would run on Azure; claims, policy and historical records stay on an internal platform.
-- On Azure: receipt extraction
-- 1  Receipt image sent to Azure DI / 2  Text it reads sent to Azure OpenAI / 3  Structured fields exported
-- →
-- Another authorized internal platform
-- 4  Claims, policy and historical records stay here / 5  A linkage key reconnects results to audit records / Future audit analytics would run here
-- The design difficulty: a full receipt image can show diagnosis and contact details, and some required outputs, such as patient and practitioner names, are personal data. Protection must minimise exposure without removing fields the extraction needs.
-- Still to be agreed
-- PII protection / Method not yet chosen or approved
-- Storage / Where data is kept, and for how long
-- Access controls / Who can see receipts and results
-- Transfer and linkage / How results move and reconnect to audit records
+- Proposed Architecture and Data Flow
+- 11
+- PROPOSED · NOT IMPLEMENTED
+- A proposed design, not yet implemented: only masked OCR text would reach Azure OpenAI.
+- The benchmark sent unmasked OCR text to Azure OpenAI, so accuracy on masked text is not yet tested. Masking, transfers and controls still need approval.
 
-  Notes: What would go where. On Azure: (1) the receipt image is sent to Azure Document Intelligence; (2) the text it reads is sent to Azure OpenAI; (3) the structured fields are exported. On another authorized internal platform: (4) claims, policy and historical records stay there; (5) a linkage key, still to be designed, reconnects the extracted fields to audit records. Future audit analytics would run on the internal platform. The design difficulty: a full receipt image can show diagnosis, the patient's name and contact details, and some required outputs, such as patient and practitioner names, are themselves personal data. Protection must minimise unnecessary exposure without removing fields the extraction needs. Still to be agreed: how personal information is protected (no masking or redaction method has been chosen or approved), where data is stored and for how long, who can access it, and the approved method for transferring structured results between the two platforms.
+  Notes: This slide shows a proposed architecture for future use; it is not implemented or approved. It is different from the benchmark workflow, where Azure Document Intelligence read the receipt images and the unmasked OCR text went straight to Azure OpenAI. The proposed flow has three areas: the Internal Data Platform, an authorized internal environment; SharePoint, a controlled file exchange; and Azure for OCR and AI processing. (1) Approved receipt images are uploaded to SharePoint. (2) Azure Document Intelligence reads the original images, which requires PII approval, and (3) returns the OCR text, which is unmasked and may contain personal information. (4) The Internal Data Platform retrieves the text and masks personal information; customer, claims and policy records stay internal. (5) The masked text is uploaded and (6) Azure OpenAI extracts the fields from masked text only. (7) The results return to SharePoint and (8) the Internal Data Platform retrieves them and links them to the original receipts for audit tests against claims and records. The benchmark used unmasked OCR text, so accuracy on masked text still needs testing. The masking method, data transfers and security controls still require review and approval; the open decisions are on the next slide.
 
 ## Slide 11 (main slide 10)
 
+- Privacy and Governance
+- 10
+- TO BE AGREED
+- Masking and data handling must be agreed and approved before real receipts are processed.
+- Masking must keep required fields
+- Patient and practitioner names are required fields. Masking must protect personal data without losing them, or they must be linked back on the Internal Data Platform.
+- Azure DI receives original images
+- The full receipt image, which can show diagnosis and contact details, goes to Azure DI. This needs approved data handling controls.
+- SharePoint may hold unmasked text
+- OCR text returned by Azure DI may sit unmasked in SharePoint before masking. This needs approved data handling controls.
+- Benchmark note: the benchmark used unmasked OCR text. Accuracy on masked text must be re-tested.
+- Still to be agreed and approved
+- PII masking method / Not yet chosen or approved
+- Storage and retention / Where data is kept, including SharePoint, and for how long
+- Access controls / Who can see receipts, OCR text and results
+- Transfer and linkage / How results move and link back to audit records
+
+  Notes: These are the privacy and governance decisions still open for the proposed architecture. Nothing here is implemented or approved, and no masking or redaction method has been chosen. First, masking must keep what the extraction needs: patient and practitioner names are required fields, and the practitioner name is where the AI used context in our examples. The design must protect personal data without losing those fields, or they must be linked back on the Internal Data Platform after extraction. Second, Azure Document Intelligence receives the original receipt images, which can show diagnosis, the patient's name and contact details; this needs approved data handling controls. Third, the OCR text returned to SharePoint is unmasked until masking, so SharePoint may temporarily hold personal information; this also needs approved controls. The benchmark used unmasked OCR text, so extraction accuracy on masked text must be re-tested. Still to be agreed and approved: the PII masking method; where data is stored, including SharePoint, and for how long; who can access receipts, OCR text and results; and how results are transferred and linked back to audit records on the Internal Data Platform, where claims, policy and historical records stay.
+
+## Slide 12 (main slide 11)
+
 - Conclusion and Next Steps
-- ‹#›
+- 12
 - A working AI extraction workflow, with clear next steps to validate its value.
 - What we have achieved / A working receipt-to-structured-data workflow / Three approaches benchmarked on development receipts / AI had the highest accuracy and handled context
 - Future opportunities / Less manual effort and wider coverage / Reusable data for future audit analytics / Auditor time focused on exceptions
@@ -195,15 +206,15 @@
 - 2
 - Validate independently / Field-level accuracy and practical time benefits on new, representative receipts (proposed volume 500 to 1,000, to be confirmed).
 - 3
-- Agree privacy and governance / PII protection, storage, access, transfer and linkage.
-- Support requested: the next validation phase, to expand the extraction fields, test on representative receipts independently and agree the privacy and governance design.
+- Approve architecture and privacy / Review and approve the proposed architecture, PII masking, storage, access, transfer and linkage.
+- Support requested: the next validation phase, to expand the extraction fields, test on representative receipts independently and review and approve the proposed architecture and privacy controls.
 
-  Notes: What we have achieved: a working receipt extraction workflow with Azure Document Intelligence and Azure OpenAI, and a comparison of three approaches on 9 development receipts, where the AI approach achieved the highest accuracy and handled context the rules missed. Future opportunities: less manual reading, the capability to screen a larger receipt population, reusable data for audit analytics, and auditor time focused on exceptions. What still needs validation: (1) Expand receipt extraction: More fields from the auditor checklist, such as diagnosis, clinic name and itemised charges. (2) Validate independently: Field-level accuracy and practical time benefits on new, representative receipts (proposed volume 500 to 1,000, to be confirmed). (3) Agree privacy and governance: PII protection, storage, access, transfer and linkage. The 500 to 1,000 receipt volume is a proposed validation volume for the next phase, to be confirmed; it is a future goal, not yet demonstrated. Broader field extraction, automated audit checks and time savings are also future goals. Support requested: the next validation phase, to expand the extraction fields, test on representative receipts independently and agree the privacy and governance design.
+  Notes: What we have achieved: a working receipt extraction workflow with Azure Document Intelligence and Azure OpenAI, and a comparison of three approaches on 9 development receipts, where the AI approach achieved the highest accuracy and handled context the rules missed. Future opportunities: less manual reading, the capability to screen a larger receipt population, reusable data for audit analytics, and auditor time focused on exceptions. What still needs validation: (1) Expand receipt extraction: More fields from the auditor checklist, such as diagnosis, clinic name and itemised charges. (2) Validate independently: Field-level accuracy and practical time benefits on new, representative receipts (proposed volume 500 to 1,000, to be confirmed). (3) Approve architecture and privacy: Review and approve the proposed architecture, PII masking, storage, access, transfer and linkage. The 500 to 1,000 receipt volume is a proposed validation volume for the next phase, to be confirmed; it is a future goal, not yet demonstrated. Broader field extraction, automated audit checks and time savings are also future goals. Support requested: the next validation phase, to expand the extraction fields, test on representative receipts independently and review and approve the proposed architecture and privacy controls.
 
-## Slide 12 (appendix A1)
+## Slide 13 (appendix A1)
 
 - Appendix A1: Accuracy by Field
-- ‹#›
+- 13
 - APPENDIX
 - Azure DI + Azure OpenAI was the most accurate on every one of the six fields.
   | Field | PaddleOCR + rules | Azure DI + rules | Azure DI + Azure OpenAI |
@@ -218,10 +229,10 @@
 
   Notes: Correct fields per field, from the saved results: Practitioner: PaddleOCR + rules 4/9, Azure DI + rules 5/9, Azure DI + Azure OpenAI 8/9; Registration no.: PaddleOCR + rules 1/6, Azure DI + rules 3/6, Azure DI + Azure OpenAI 6/6; Patient: PaddleOCR + rules 6/9, Azure DI + rules 7/9, Azure DI + Azure OpenAI 9/9; Receipt no.: PaddleOCR + rules 5/9, Azure DI + rules 8/9, Azure DI + Azure OpenAI 9/9; Treatment date: PaddleOCR + rules 4/9, Azure DI + rules 6/9, Azure DI + Azure OpenAI 8/9; Total amount: PaddleOCR + rules 6/9, Azure DI + rules 7/9, Azure DI + Azure OpenAI 9/9. The registration number is printed on 6 of the 9 receipts. The overall figure combines fields of different importance, so field-level results matter. Benchmark detail for questions: the two rule methods use the same general rules plus common Chinese labels, written after these receipts were examined and fixed before scoring. The AI instructions were refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_multilingual and scores_aoai_improved (summary.csv, detail.csv) and the saved extraction results.
 
-## Slide 13 (appendix A2)
+## Slide 14 (appendix A2)
 
 - Appendix A2: How the Benchmark Was Run
-- ‹#›
+- 14
 - APPENDIX
 - A small, controlled comparison to choose an extraction approach, not a production test.
 - What was tested / 9 development receipts, mainly fictional mock receipts: seven printed and photographed, two carried over from an earlier test round / Six fields: practitioner, registration number, patient, receipt number, treatment date, total amount / 51 scored fields (3 receipts have no registration number) / The same receipt images for all three approaches
