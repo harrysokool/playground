@@ -1,0 +1,118 @@
+Overall, V16 is strong and much better focused than V15. The main deck now tells a coherent story in nine slides: manual problem, working solution, benchmark, why AI performs better, trade-offs, future value, governance, and next steps.
+
+What works well
+Slide 2 grounds the project in real audit work. The authenticity, data-integrity, coverage, and duplicate-receipt checks make the problem concrete.
+Slide 3 is the strongest business slide. It demonstrates an actual receipt-to-structured-data workflow and connects it to less manual work, wider coverage, and reusable data.
+Slides 4–6 form a logical evidence section: benchmark result, concrete examples, then trade-offs.
+Slide 5 explains the real advantage of AI clearly: OCR can read the words, but contextual AI can distinguish the treating practitioner from the referring doctor, treatment date from issue date, and final charge from pre-discount amount.
+The deck is appropriately honest. It repeatedly distinguishes nine development receipts from independent production validation.
+The ending is no longer repetitive. Slides 7–9 have separate purposes: future analytics, privacy/platform design, and next steps.
+Highest-priority improvements
+1. Remove or soften the unsupported time estimates
+
+Slide 2 uses approximately 25 receipts, 5–10 minutes per receipt, and 2–4 hours per sample, but labels them as unmeasured team estimates.
+
+The 25-receipt sample is useful if confirmed by business auditors. The 5–10 minutes is more vulnerable because receipt review involves more than reading. Someone may challenge whether two to four hours represents the full testing effort.
+
+Use:
+
+A typical audit sample may include approximately 25 receipts, requiring repeated manual reading and transcription before testing can begin.
+
+Move the time estimate to speaker notes until a short time study supports it. Alternatively, measure 10–20 receipts and report the median extraction-preparation time separately from investigation time.
+
+2. Clarify the 500–1,000 target
+
+Slides 3 and 9 mention working toward processing 500–1,000 receipts, but the basis for that number is not explained.
+
+Either explain that this is a proposed pilot volume or remove the number. A safer formulation is:
+
+Next phase: validate more fields on a representative receipt population before scaling to hundreds of receipts.
+
+If management already proposed 500–1,000, label it clearly as a proposed validation volume, not an established target.
+
+3. Avoid saying rules are needed “for each new receipt format”
+
+Slide 6 says Azure DI plus rules requires rules “for each new receipt format.”
+
+That is slightly overstated. Well-designed label- and pattern-based rules can generalize across several formats. The real problem is that maintenance grows as layouts, labels, languages, and semantic ambiguity increase.
+
+Replace it with:
+
+Rules require ongoing updates as new layouts, labels, languages, and ambiguous field patterns appear.
+
+This is technically fairer and harder to challenge.
+
+4. Tighten the comparison with the doctor-database alternative
+
+The OCR, regex, and doctor-database option is not equivalent to the three benchmarked approaches. It addresses only practitioner matching, not general receipt extraction.
+
+Rename it:
+
+Limited-scope alternative: OCR + doctor-name matching
+
+Then say:
+
+Useful for practitioner screening, but not a substitute for multi-field receipt extraction.
+
+I would place it in the appendix unless stakeholders explicitly asked for it.
+
+5. Strengthen the privacy slide
+
+Slide 8 honestly states that PII protection has not been chosen, but it is currently too general.
+
+Add one specific design difficulty:
+
+Some required outputs, such as patient and practitioner names, are themselves personal data. The masking design must minimize unnecessary exposure without removing fields required for extraction.
+
+Also distinguish:
+
+Receipt image sent to Azure
+OCR output sent to Azure OpenAI
+Structured fields exported
+Claims and policy data remaining internal
+Linkage key used to reconnect outputs to audit records
+
+The phrase“only approved receipt data goes to Azure” is potentially vague because a complete receipt image may contain diagnosis, patient name, contact information, and other sensitive data.
+
+6. Make Slide 9 slightly more decisive
+
+The conclusion accurately summarizes everything, but it does not state what the audience should approve.
+
+End with one decision request:
+
+Decision requested: support the next validation phase to expand the extraction schema, test representative receipts independently, and agree the privacy and platform design.
+
+This makes the presentation actionable without presenting the application as production-ready.
+
+Smaller wording changes
+Current wording	Recommended wording“Manual Receipt Reviews Take Time”	“Manual Receipt Review Limits Audit Coverage”
+“Check far more receipts than a small manual sample”	“Create the capability to screen a materially larger receipt population”
+“AI was the most accurate”	“The AI approach achieved the highest development-set accuracy”
+“AI handled varied receipts best in our test”	“Contextual AI handled field ambiguity best in the development benchmark”
+“Extracted values still need checking”	“Independent validation and exception handling are required before audit use”
+One methodological issue to watch
+
+The 96.1% overall accuracy combines fields with different importance. Practitioner and treatment date each scored 8/9, while patient, receipt number, and total amount each scored 9/9.
+
+In the next phase, do not rely only on overall accuracy. Report:
+
+Accuracy by field
+Missing-value rate
+Incorrect-value rate
+False extraction when a field is absent
+Document processing failure rate
+Accuracy for critical fields
+Results on a locked holdout set
+Final assessment
+
+V16 is presentation-ready as an innovation and exploration deck, provided the numerical estimates are clearly labelled and the privacy design is not presented as resolved.
+
+The remaining work is targeted:
+
+Remove or validate the time estimate.
+Explain or soften the 500–1,000 target.
+Make the rules comparison more technically balanced.
+Clarify sensitive-data flow.
+Add a specific decision request to the final slide.
+
+No major restructuring is needed.
