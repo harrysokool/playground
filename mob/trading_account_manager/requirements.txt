@@ -1,0 +1,134 @@
+UBS MOCK INTERVIEW REQUIREMENTS
+
+Problem: Trading Account Manager
+
+Objective
+Build an in-memory system that manages trading accounts and processes cash transfers.
+
+DATA MODEL
+
+Create an Account dataclass containing:
+
+    account_id: str
+    owner_name: str
+    balance: float
+    currency: str
+    active: bool = True
+
+Create an AccountManager class.
+
+CORE REQUIREMENTS
+
+1. Register an Account
+
+Method:
+    register_account(account: Account) -> bool
+
+Register a new account.
+
+Reject the operation when:
+- account_id is not a non-empty string.
+- owner_name is not a non-empty string.
+- balance is negative.
+- currency is not one of: "HKD", "USD", or "EUR".
+- The account ID already exists.
+
+2. Deposit Funds
+
+Method:
+    deposit(account_id: str, amount: float) -> bool
+
+Increase the account balance.
+
+Reject the operation when:
+- The account does not exist.
+- The account is inactive.
+- The amount is zero or negative.
+- The amount is not a valid number.
+
+3. Transfer Funds
+
+Method:
+    transfer(
+        from_account_id: str,
+        to_account_id: str,
+        amount: float
+    ) -> bool
+
+Transfer money between two accounts.
+
+Rules:
+- Both accounts must exist and be active.
+- Both accounts must use the same currency.
+- The source and destination accounts must be different.
+- The amount must be positive.
+- The source account must have sufficient funds.
+- The transfer must be atomic. If any validation fails, neither balance changes.
+
+4. Process Batch Transfers
+
+Method:
+    process_batch(transfers: list[tuple[str, str, float]]) -> bool
+
+Process several transfers as one transaction.
+
+Example:
+    [
+        ("A001", "A002", 100.0),
+        ("A002", "A003", 50.0),
+    ]
+
+Rules:
+- Transfers must be evaluated in the order provided.
+- Later transfers may use money received from earlier transfers.
+- If any transfer fails, every account must return to its original balance.
+- An empty batch is invalid.
+
+5. Account Summary
+
+Method:
+    account_summary(currency: str) -> list[tuple[str, float]]
+
+Return active accounts using the specified currency in the following format:
+
+    (account_id, balance)
+
+Sort the results by:
+1. Balance from highest to lowest.
+2. Account ID alphabetically when balances are equal.
+
+6. Total Funds
+
+Method:
+    total_funds(currency: str) -> float
+
+Return the combined balance of all active accounts using the specified currency.
+
+STRETCH REQUIREMENT
+
+Track successful deposits, transfers, and batch transfers.
+
+Method:
+    transaction_history(account_id: str) -> list[str]
+
+Each record should contain:
+- Timestamp.
+- Transaction type.
+- Amount.
+- Related account ID, where applicable.
+
+Failed operations must not appear in the transaction history.
+
+INTERVIEW CONSTRAINTS
+
+- Target time: 45-60 minutes.
+- Use clean Python with type hints.
+- Do not use external packages.
+- Do not write tests yet.
+- Avoid raising exceptions for ordinary business-rule failures; return False.
+- Do not mutate any balance until the relevant validation has succeeded.
+
+DELIVERABLE
+
+Implement the solution in:
+    account_manager.py
