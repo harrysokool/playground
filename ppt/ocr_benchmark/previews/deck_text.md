@@ -1,4 +1,4 @@
-# OCR_Benchmark_V18.pptx: text, chart data and notes
+# OCR_Benchmark_V19.pptx: text, chart data and notes
 
 
 ## Slide 1 (cover)
@@ -13,16 +13,16 @@
 - Manual Receipt Review Limits Audit Coverage
 - 2
 - ESTIMATES · NOT MEASURED
-- Reading and retyping receipts by hand takes auditor time, so only a small sample can be checked.
-- ~25 / receipts in a typical audit sample / Every one / read and retyped by hand before testing begins / Sample size is a team estimate. Time per receipt not yet measured.
+- Manually reviewing medical receipts takes significant auditor time and effort, limiting how many receipts can be checked.
+- ~25 / receipts in a typical audit sample / Every one / reviewed manually by an auditor / Sample size is a team estimate. Time per receipt not yet measured.
 - What auditors check on each receipt   from the business auditor checklist
 - Authenticity:  Letterhead, provider registration number, signature and stamp
 - Data integrity:  Claimant, provider, treatment date, diagnosis and amounts vs the claims system
 - Coverage:  Service date within the policy period; diagnosis covered; charges within agreed fees
 - Fraud indicators:  Duplicate receipts by receipt number, treatment date, amount and provider
-- The bottleneck: auditor time and effort. Reading each receipt by hand keeps coverage to a small sample.
+- The bottleneck: auditor time and effort. Reviewing each receipt manually keeps coverage to a small sample.
 
-  Notes: A typical audit sample includes around 25 receipts. Each one is read by hand and its details retyped before testing can begin. The sample size is the team's estimate. We have not measured the time per receipt; our rough team estimate is 5 to 10 minutes for reading and transcription alone, which we plan to confirm with a short time study in the next phase, separating extraction time from investigation time. The checks come from the business auditor checklist: authenticity (letterhead with the provider's legal name, address and registration or licence number; signature and company stamp; no unauthorised alteration); data integrity (claimant name, provider name, treatment date, diagnosis code, receipt amount and claimed amount against the claims system); coverage (date of service within the policy period, diagnosis within coverage, charges within agreed fees); and fraud, waste and abuse indicators such as duplicate receipts by receipt number, treatment date, amount and provider. The bottleneck is auditor time and effort, which keeps coverage to a small sample.
+  Notes: A typical audit sample includes around 25 receipts. Each one is reviewed manually by an auditor. The sample size is the team's estimate. We have not measured the time per receipt; our rough team estimate is 5 to 10 minutes per receipt, which we plan to confirm with a short time study in the next phase, separating the time spent finding receipt details from investigation time. The checks come from the business auditor checklist: authenticity (letterhead with the provider's legal name, address and registration or licence number; signature and company stamp; no unauthorised alteration); data integrity (claimant name, provider name, treatment date, diagnosis code, receipt amount and claimed amount against the claims system); coverage (date of service within the policy period, diagnosis within coverage, charges within agreed fees); and fraud, waste and abuse indicators such as duplicate receipts by receipt number, treatment date, amount and provider. The bottleneck is auditor time and effort, which keeps coverage to a small sample.
 
 ## Slide 3 (main slide 2)
 
@@ -31,20 +31,20 @@
 - POTENTIAL · NOT MEASURED
 - Structured receipt data could free auditor time and extend audit coverage.
 - Less manual effort
-- TODAY / Auditors read and retype each receipt.
+- TODAY / Auditors review each receipt manually.
 - WITH EXTRACTED RECEIPT DATA / Receipt details arrive as structured data, ready to check.
 - Wider coverage
 - TODAY / Coverage is limited to a small sample.
 - WITH EXTRACTED RECEIPT DATA / The capability to screen a materially larger receipt population.
 - Reusable structured data
-- TODAY / Details are captured again for each test.
+- TODAY / Receipt details are not held as structured data.
 - WITH EXTRACTED RECEIPT DATA / Extract once, reuse the same data across many audit tests.
 - Focus on exceptions
-- TODAY / Most time goes on reading routine receipts.
+- TODAY / Time goes on manually reviewing routine receipts.
 - WITH EXTRACTED RECEIPT DATA / Auditor time goes to the receipts that need judgement.
 - Where we are: the extraction workflow is built and demonstrated. These benefits are the expected value; none has been measured yet.
 
-  Notes: These are the benefits we expect if receipt extraction proves reliable at scale. Less manual effort: receipt details arrive as structured data instead of being read and retyped. Wider coverage: the capability to screen a materially larger receipt population than a small manual sample. Reusable structured data: extract once and reuse the same data across audit tests. Focus on exceptions: auditor time goes to the receipts that need judgement. None of these has been measured yet. What is demonstrated today is the extraction workflow itself, on 9 development receipts; time savings and wider coverage would be measured in the next phase. Specific examples of audit tests come later in the deck.
+  Notes: These are the benefits we expect if receipt extraction proves reliable at scale. Less manual effort: receipt details arrive as structured data instead of being found manually on each receipt. Wider coverage: the capability to screen a materially larger receipt population than a small manual sample. Reusable structured data: extract once and reuse the same data across audit tests. Focus on exceptions: auditor time goes to the receipts that need judgement. None of these has been measured yet. What is demonstrated today is the extraction workflow itself, on 9 development receipts; time savings and wider coverage would be measured in the next phase. Specific examples of audit tests come later in the deck.
 
 ## Slide 4 (main slide 3)
 
@@ -156,11 +156,11 @@
 - 3
 - Duplicate receipts / Has the same receipt been used for more than one claim? / Uses: Receipt number, date, amount, provider
 - 4
-- Unusual provider fees / Are charges far from the usual range for the treatment? / Uses: Itemised charges, provider
+- Line item arithmetic / Do the individual charges and discounts add up correctly to the final receipt total? / Uses: Itemised charges, discounts and receipt total (not among the six tested fields)
 - Later, on the Internal Data Platform: joined with claims data. Not implemented yet; any flag still needs auditor review.
-- Some tests need fields beyond the six tested, such as clinic name and itemised charges.
+- Some tests need fields beyond the six tested, such as itemised charges and discounts.
 
-  Notes: Examples of tests that use extracted receipt information, drawn from the business auditor checklist. Receipt amount versus the claimed amount. Treatment date versus the claim and the policy coverage period. Duplicate receipts: the same receipt number, treatment date, amount and provider across claims. Unusual provider fees: charges far from the usual range for a treatment. These tests would run later on the Internal Data Platform, where the receipt data can be joined with claims and policy data. They are not implemented yet. Some need fields beyond the six we tested, such as clinic name and itemised charges. Any flag would still need auditor review before it supports a finding.
+  Notes: Examples of tests that use extracted receipt information; the first three are drawn from the business auditor checklist. Receipt amount versus the claimed amount. Treatment date versus the claim and the policy coverage period. Duplicate receipts: the same receipt number, treatment date, amount and provider across claims. Line item arithmetic: whether the individual charges and discounts add up correctly to the final receipt total. Itemised charges and discounts were not among the six benchmark fields, so this test needs broader extraction first. These tests would run later on the Internal Data Platform, where the receipt data can be joined with claims and policy data. They are not implemented yet. Some need fields beyond the six we tested, such as itemised charges and discounts. Any flag would still need auditor review before it supports a finding.
 
 ## Slide 10 (main slide 9)
 
