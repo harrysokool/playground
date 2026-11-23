@@ -1,16 +1,17 @@
 # Receipt OCR Benchmark – Decks
 
-**Version 18 (current)** is a progress update for senior Internal Audit management on our active medical receipt
+**Version 19 (current)** is a progress update for senior Internal Audit management on our active medical receipt
 AI extraction project: the problem, the overall business value, the working Azure DI + Azure OpenAI workflow, why
 and how three approaches were benchmarked, real receipt examples and trade-offs, example future audit tests, the
-proposed architecture, privacy and governance, and next steps. It is built from Version 17 as edited by hand in
-PowerPoint. Version 16 was the shorter screening deck Version 17 refined. Version 15 was a longer management deck built from [`deck_direction.md`](deck_direction.md).
+proposed architecture, privacy and governance, and next steps. Version 19 makes two wording changes to Version 18,
+which was built from Version 17 as edited by hand in PowerPoint. Version 16 was the shorter screening deck Version 17 refined. Version 15 was a longer management deck built from [`deck_direction.md`](deck_direction.md).
 Versions 1–14 answered a narrower question: **is Azure Document Intelligence + Azure OpenAI worth its additional
 cost and complexity compared with simpler OCR solutions?** (audience: business and technical stakeholders).
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 18 (current)**, cover + 11 slides + 2 appendix | `current/OCR_Benchmark_V18.pptx` | `scripts/make_v18_from_v17.py` (edits the archived Version 17 deck) | As Version 17; the architecture flowchart image was added by hand in Version 17 |
+| **Version 19 (current)**, cover + 11 slides + 2 appendix | `current/OCR_Benchmark_V19.pptx` | `scripts/make_v19_from_v18.py` (edits the archived Version 18 deck) | As Version 18 |
+| Version 18, cover + 11 slides + 2 appendix (archived) | `archive/v18_final/OCR_Benchmark_V18.pptx` (+ PDF preview) | `scripts/make_v18_from_v17.py` (edits the archived Version 17 deck) | As Version 17; the architecture flowchart image was added by hand in Version 17 |
 | Version 17, cover + 11 slides + 2 appendix (archived; as last edited in PowerPoint, commit `2449a94`) | `archive/v17_final/OCR_Benchmark_V17.pptx` (+ PDF preview of the edited deck) | `scripts/generate_ppt_v17.py` (unchanged; without the PowerPoint edits: the architecture slide and one word on the privacy slide) | As Version 16; reviewer comments on Version 16 (since removed from the repository) |
 | Version 16, cover + 8 slides + 2 appendix (archived) | `archive/v16_final/OCR_Benchmark_V16.pptx` (+ PDF preview) | `scripts/generate_ppt_v16.py` (unchanged; pass `--template ppt/template/aia_ppt_template.pptx` since the template moved) | As Version 11, plus `results/v2/di_aoai_v2_rows/receipt8.json` (the extracted output on main slide 2); manual-review estimates from the team; checks from the business auditor checklist |
 | Version 15, cover + 10 slides + 2 appendix (archived) | `archive/v15_final/OCR_Benchmark_V15.pptx` (+ PDF preview) | `scripts/generate_ppt_v15.py` (unchanged) | As Version 11; storyline from `deck_direction.md` |
@@ -48,9 +49,10 @@ is typed in by hand.
 | Folder | Contents |
 |---|---|
 | `../template/` | Official AIA PowerPoint template (`ppt/template/aia_ppt_template.pptx`, shared by the decks). Do not edit. |
-| `current/` | The current deck (Version 18) |
+| `current/` | The current deck (Version 19) |
 | `previews/` | PDF and PNG previews of the current deck, and `deck_text.md` (all slide text and notes) |
 | `deck_direction.md` | The direction for Version 15: storyline, required positioning and design rules |
+| `archive/v18_final/` | The Version 18 deck (cover + 11 slides + 2 appendix) and its PDF preview |
 | `archive/v17_final/` | The Version 17 deck as edited in PowerPoint (cover + 11 slides + 2 appendix) and its PDF preview |
 | `archive/v16_final/` | The Version 16 deck (cover + 8 slides + 2 appendix) and its PDF preview |
 | `archive/v15_final/` | The Version 15 deck (cover + 10 slides + 2 appendix) and its PDF preview |
@@ -76,6 +78,27 @@ is typed in by hand.
 | `archive/v2_final/` | The final Version 2 deck (with PaddleOCR Heavy and the tuned rule accuracies) and its PDF preview |
 | `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py`, `generate_ppt_v6.py`, `generate_ppt_v7.py`, `generate_ppt_v8.py` and `generate_ppt_v9.py`; Version 15 adds `crop_v15_*.jpg` (also used by Versions 16–17) and Version 16 adds `full_v16_receipt8.jpg` (also used by Version 17) |
 | `scripts/` | The generators |
+
+## Version 19: general review wording and a new future test (cover + 11 slides + 2 appendix)
+
+Two small changes to Version 18. Slide order, design, benchmark figures, receipt examples and the architecture
+diagram are unchanged. `scripts/make_v19_from_v18.py` edits the archived Version 18 deck run by run, so formatting
+is kept.
+
+| Deck slide | Main slide | Change from Version 18 |
+|---|---|---|
+| 2 | 1 | We are not certain how business auditors perform their reviews, so there is no claim that they retype, transcribe or read receipts "by hand". Message: "Manually reviewing medical receipts takes significant auditor time and effort, limiting how many receipts can be checked."; "Every one reviewed manually by an auditor"; the bottleneck strip and speaker notes are reworded to match (the 5–10 minute team estimate in the notes is now "per receipt") |
+| 3 | 2 | The "Today" lines: "Auditors review each receipt manually", "Receipt details are not held as structured data", "Time goes on manually reviewing routine receipts"; speaker notes to match |
+| 9 | 8 | "Unusual provider fees" becomes **Line item arithmetic**: "Do the individual charges and discounts add up correctly to the final receipt total?" Uses itemised charges, discounts and receipt total, marked "not among the six tested fields". The footnote and notes say these fields are beyond the six benchmark fields; the notes now say only the first three tests come from the business auditor checklist |
+
+`scripts/check_deck_v19.py` runs every Version 18 check, then checks that no slide or note contains retype,
+transcription or "by hand" wording, that the new sentence and the line item arithmetic test are present, and that
+every slide other than 2, 3 and 9 is identical in text and notes to the archived Version 18 deck.
+
+```bash
+python3 ppt/ocr_benchmark/scripts/make_v19_from_v18.py --force
+python3 ppt/ocr_benchmark/scripts/check_deck_v19.py
+```
 
 ## Version 18: proposed architecture and privacy (cover + 11 slides + 2 appendix)
 
@@ -626,9 +649,9 @@ These need LibreOffice and Poppler:
 
 ```bash
 cd ppt/ocr_benchmark
-soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V18.pptx
-mv previews/OCR_Benchmark_V18.pdf previews/OCR_Benchmark_V18_preview.pdf
-pdftoppm -png -r 80 previews/OCR_Benchmark_V18_preview.pdf previews/slide
+soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V19.pptx
+mv previews/OCR_Benchmark_V19.pdf previews/OCR_Benchmark_V19_preview.pdf
+pdftoppm -png -r 80 previews/OCR_Benchmark_V19_preview.pdf previews/slide
 ```
 
 LibreOffice may substitute fonts, so the preview is for review. PowerPoint renders Arial and
@@ -637,7 +660,7 @@ Microsoft JhengHei (Traditional Chinese).
 ## Outstanding before distribution
 
 1. **Prices.** Compute rate, Document Intelligence page price and gpt-5-mini token prices are
-   still unconfirmed; Version 18 main slide 7 says costs still need confirming.
+   still unconfirmed; Version 19 main slide 7 says costs still need confirming.
 2. **Sensitivity label.** The deck carries the template's **[AIA – PUBLIC]** label. Apply the
    correct label in PowerPoint (Home → Sensitivity) before sharing.
 3. **Presenter name and date,** if required.
