@@ -1,17 +1,19 @@
 # Receipt OCR Benchmark – Decks
 
-**Version 20 (current)** is a progress update for senior Internal Audit management on our active medical receipt
+**Version 21 (current)** is a progress update for senior Internal Audit management on our active medical receipt
 AI extraction project: the problem, the overall business value, the working Azure DI + Azure OpenAI workflow, why
 and how three approaches were benchmarked, real receipt examples and trade-offs, example future audit tests, the
-proposed architecture, privacy and governance, and the project timeline with the target rollout. Version 20
-replaces the conclusion of Version 19 with that timeline; Versions 18–19 were built from Version 17 as edited by
+two proposed masking architectures (Option A, internal platform masking; Option B, local LLM masking in Azure),
+privacy and governance, and the project timeline with the target rollout. Version 21 adds the two Figma
+architecture diagrams; Version 20 replaced the conclusion of Version 19 with the timeline; Versions 18–19 were built from Version 17 as edited by
 hand in PowerPoint. Version 16 was the shorter screening deck Version 17 refined. Version 15 was a longer management deck built from [`deck_direction.md`](deck_direction.md).
 Versions 1–14 answered a narrower question: **is Azure Document Intelligence + Azure OpenAI worth its additional
 cost and complexity compared with simpler OCR solutions?** (audience: business and technical stakeholders).
 
 | Version | Deck | Generator | Source of truth (under `python/receipt_ocr_benchmark/`) |
 |---|---|---|---|
-| **Version 20 (current)**, cover + 11 slides + 2 appendix | `current/OCR_Benchmark_V20.pptx` | `scripts/make_v20_from_v19.py` (edits the archived Version 19 deck) | As Version 19; project milestones and target dates from the project team |
+| **Version 21 (current)**, cover + 12 slides + 2 appendix | `current/OCR_Benchmark_V21.pptx` | `scripts/make_v21_from_v20.py` (edits the archived Version 20 deck) | As Version 20; architecture diagrams exported from Figma: `assets_v2/architecture_internal_masking.png`, `assets_v2/architecture_local_llm_masking.png` |
+| Version 20, cover + 11 slides + 2 appendix (archived) | `archive/v20_final/OCR_Benchmark_V20.pptx` (+ PDF preview) | `scripts/make_v20_from_v19.py` (edits the archived Version 19 deck) | As Version 19; project milestones and target dates from the project team |
 | Version 19, cover + 11 slides + 2 appendix (archived) | `archive/v19_final/OCR_Benchmark_V19.pptx` (+ PDF preview) | `scripts/make_v19_from_v18.py` (edits the archived Version 18 deck) | As Version 18 |
 | Version 18, cover + 11 slides + 2 appendix (archived) | `archive/v18_final/OCR_Benchmark_V18.pptx` (+ PDF preview) | `scripts/make_v18_from_v17.py` (edits the archived Version 17 deck) | As Version 17; the architecture flowchart image was added by hand in Version 17 |
 | Version 17, cover + 11 slides + 2 appendix (archived; as last edited in PowerPoint, commit `2449a94`) | `archive/v17_final/OCR_Benchmark_V17.pptx` (+ PDF preview of the edited deck) | `scripts/generate_ppt_v17.py` (unchanged; without the PowerPoint edits: the architecture slide and one word on the privacy slide) | As Version 16; reviewer comments on Version 16 (since removed from the repository) |
@@ -51,9 +53,10 @@ is typed in by hand.
 | Folder | Contents |
 |---|---|
 | `../template/` | Official AIA PowerPoint template (`ppt/template/aia_ppt_template.pptx`, shared by the decks). Do not edit. |
-| `current/` | The current deck (Version 20) |
+| `current/` | The current deck (Version 21) |
 | `previews/` | PDF and PNG previews of the current deck, and `deck_text.md` (all slide text and notes) |
 | `deck_direction.md` | The direction for Version 15: storyline, required positioning and design rules |
+| `archive/v20_final/` | The Version 20 deck (cover + 11 slides + 2 appendix) and its PDF preview |
 | `archive/v19_final/` | The Version 19 deck (cover + 11 slides + 2 appendix) and its PDF preview |
 | `archive/v18_final/` | The Version 18 deck (cover + 11 slides + 2 appendix) and its PDF preview |
 | `archive/v17_final/` | The Version 17 deck as edited in PowerPoint (cover + 11 slides + 2 appendix) and its PDF preview |
@@ -79,8 +82,33 @@ is typed in by hand.
 | `archive/v3_10slides/` | The 10-slide Version 3 revision and its PDF preview |
 | `archive/v3_first/` | The first Version 3 revision (rule accuracy not shown) and its PDF preview |
 | `archive/v2_final/` | The final Version 2 deck (with PaddleOCR Heavy and the tuned rule accuracies) and its PDF preview |
-| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py`, `generate_ppt_v6.py`, `generate_ppt_v7.py`, `generate_ppt_v8.py` and `generate_ppt_v9.py`; Version 15 adds `crop_v15_*.jpg` (also used by Versions 16–17) and Version 16 adds `full_v16_receipt8.jpg` (also used by Version 17) |
+| `assets_v2/` | Receipt crops and thumbnails produced by `generate_ppt_v2.py`, `generate_ppt_v3.py`, `generate_ppt_v4.py`, `generate_ppt_v5.py`, `generate_ppt_v6.py`, `generate_ppt_v7.py`, `generate_ppt_v8.py` and `generate_ppt_v9.py`; Version 15 adds `crop_v15_*.jpg` (also used by Versions 16–17) and Version 16 adds `full_v16_receipt8.jpg` (also used by Version 17); Version 21 adds the two Figma architecture exports, `architecture_internal_masking.png` and `architecture_local_llm_masking.png` (4800 × 2700) |
 | `scripts/` | The generators |
+
+## Version 21: two proposed masking architectures (cover + 12 slides + 2 appendix)
+
+The single architecture slide becomes two proposed options, using diagrams exported from Figma, and the privacy
+slide covers both. Neither option is presented as selected. All other slides are unchanged; page numbers are
+slide-number fields, so slides 12–15 renumber themselves. `scripts/make_v21_from_v20.py` edits the archived
+Version 20 deck.
+
+| Deck slide | Main slide | Title | Change from Version 20 |
+|---|---|---|---|
+| 10 | 9 | Option A: Internal Platform Masking | The Figma internal-masking diagram replaces the old one. Picture cropping hides the diagram's own label, title, subtitle and status pill, so nothing is duplicated; the red message line is dropped so the diagram can be larger (about 11 inches wide). One line under the diagram: masking on the Internal Data Platform, only masked text reaches Azure OpenAI; accuracy on masked text is not yet tested. Tag: PROPOSED · NOT IMPLEMENTED |
+| 11 | 10 | Option B: Local LLM Masking in Azure | **New.** The Figma local LLM masking diagram, laid out the same way. Key benefit: masking within Azure Compute, one fewer SharePoint round trip (fewer data transfers between systems). Accuracy, feasibility and privacy controls still require validation. Tag: PROPOSED · NOT IMPLEMENTED |
+| 12 | 11 | Privacy and Governance | Message: neither masking option is selected. The third requirement becomes "Where masking happens is open" (Option A: SharePoint may first hold unmasked OCR text; Option B: the local LLM still needs validation). Benchmark note: accuracy on masked text must be re-tested for either option. PII masking method: Option A or B, not yet chosen or approved. Speaker notes cover both options |
+| 13–15 | 12, A1–A2 | Timeline and appendix | Unchanged (page numbers only) |
+
+`scripts/check_deck_v21.py` runs every Version 20 check (renumbered), checks that each option slide holds exactly
+the matching Figma export from `assets_v2/` with its header cropped off, that both are tagged proposed and not
+implemented and do not repeat the diagram titles, that Option B states its benefit and validation caveat, that
+the privacy slide covers both options without either being selected, that every content slide has a slide-number
+field, and that all other slides are identical in text and notes to the archived Version 20 deck.
+
+```bash
+python3 ppt/ocr_benchmark/scripts/make_v21_from_v20.py --force
+python3 ppt/ocr_benchmark/scripts/check_deck_v21.py
+```
 
 ## Version 20: project timeline and target rollout (cover + 11 slides + 2 appendix)
 
@@ -676,9 +704,9 @@ These need LibreOffice and Poppler:
 
 ```bash
 cd ppt/ocr_benchmark
-soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V20.pptx
-mv previews/OCR_Benchmark_V20.pdf previews/OCR_Benchmark_V20_preview.pdf
-pdftoppm -png -r 80 previews/OCR_Benchmark_V20_preview.pdf previews/slide
+soffice --headless --convert-to pdf --outdir previews current/OCR_Benchmark_V21.pptx
+mv previews/OCR_Benchmark_V21.pdf previews/OCR_Benchmark_V21_preview.pdf
+pdftoppm -png -r 80 previews/OCR_Benchmark_V21_preview.pdf previews/slide
 ```
 
 LibreOffice may substitute fonts, so the preview is for review. PowerPoint renders Arial and
@@ -687,7 +715,7 @@ Microsoft JhengHei (Traditional Chinese).
 ## Outstanding before distribution
 
 1. **Prices.** Compute rate, Document Intelligence page price and gpt-5-mini token prices are
-   still unconfirmed; Version 20 main slide 7 says costs still need confirming.
+   still unconfirmed; Version 21 main slide 7 says costs still need confirming.
 2. **Sensitivity label.** The deck carries the template's **[AIA – PUBLIC]** label. Apply the
    correct label in PowerPoint (Home → Sensitivity) before sharing.
 3. **Presenter name and date,** if required.

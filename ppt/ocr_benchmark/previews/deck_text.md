@@ -1,4 +1,4 @@
-# OCR_Benchmark_V20.pptx: text, chart data and notes
+# OCR_Benchmark_V21.pptx: text, chart data and notes
 
 
 ## Slide 1 (cover)
@@ -164,36 +164,44 @@
 
 ## Slide 10 (main slide 9)
 
-- Proposed Architecture and Data Flow
+- Option A: Internal Platform Masking
 - 11
 - PROPOSED · NOT IMPLEMENTED
-- A proposed design, not yet implemented: only masked OCR text would reach Azure OpenAI.
-- The benchmark sent unmasked OCR text to Azure OpenAI, so accuracy on masked text is not yet tested. Masking, transfers and controls still need approval.
+- Masking on the Internal Data Platform; only masked text reaches Azure OpenAI.  Accuracy on masked text is not yet tested.
 
-  Notes: This slide shows a proposed architecture for future use; it is not implemented or approved. It is different from the benchmark workflow, where Azure Document Intelligence read the receipt images and the unmasked OCR text went straight to Azure OpenAI. The proposed flow has three areas: the Internal Data Platform, an authorized internal environment; SharePoint, a controlled file exchange; and Azure for OCR and AI processing. (1) Approved receipt images are uploaded to SharePoint. (2) Azure Document Intelligence reads the original images, which requires PII approval, and (3) returns the OCR text, which is unmasked and may contain personal information. (4) The Internal Data Platform retrieves the text and masks personal information; customer, claims and policy records stay internal. (5) The masked text is uploaded and (6) Azure OpenAI extracts the fields from masked text only. (7) The results return to SharePoint and (8) the Internal Data Platform retrieves them and links them to the original receipts for audit tests against claims and records. The benchmark used unmasked OCR text, so accuracy on masked text still needs testing. The masking method, data transfers and security controls still require review and approval; the open decisions are on the next slide.
+  Notes: Option A, a proposed architecture: it is not implemented, approved or selected. It is different from the benchmark workflow, where Azure Document Intelligence read the receipt images and the unmasked OCR text went straight to Azure OpenAI. In Option A: (1) approved receipt images from the internal document source are uploaded to SharePoint; (2) Azure Document Intelligence in Azure Compute converts them to OCR text, and (3) the unmasked OCR text returns to SharePoint, where it may contain personal information; (4) the Internal Data Platform takes the text for PII masking, where customer, claims and policy data are available, and (5) uploads the masked text to SharePoint; (6) only the masked OCR text is sent to Azure OpenAI, the only step that leaves Hong Kong; (7) the structured results return to SharePoint and (8) the Internal Data Platform retrieves them and links them to the receipts for audit testing. The benchmark used unmasked OCR text, so accuracy on masked text still needs testing. The next slide shows an alternative, Option B. The open privacy and governance decisions for both options follow.
 
 ## Slide 11 (main slide 10)
+
+- Option B: Local LLM Masking in Azure
+- 11
+- PROPOSED · NOT IMPLEMENTED
+- Key benefit: masking within Azure Compute, one fewer SharePoint round trip.  Accuracy, feasibility and privacy controls still require validation.
+
+  Notes: Option B, a proposed alternative: it is not implemented, approved or selected. The key benefit is that masking takes place within Azure Compute, which removes one SharePoint round trip and reduces data transfers between systems: the unmasked OCR text no longer returns to SharePoint or goes to the Internal Data Platform for masking. In Option B: (1) approved receipt images are uploaded to SharePoint; (2) Azure Document Intelligence converts them to OCR text; (3) a local LLM in Azure Compute masks the personal data in the OCR text; (4) only the masked OCR text is sent to Azure OpenAI, the only step that leaves Hong Kong; (5) the structured results return to SharePoint and (6) the Internal Data Platform retrieves them and links them to the receipts for audit testing, where customer, claims and policy data stay. The local LLM masking has not been built or tested: its masking accuracy, its feasibility in Azure Compute and its privacy controls still require validation, and extraction accuracy on masked text is not yet tested for either option.
+
+## Slide 12 (main slide 11)
 
 - Privacy and Governance
 - 10
 - TO BE AGREED
-- Masking and data handling must be agreed and approved before real receipts are processed.
+- Neither masking option is selected; data handling must be approved before real receipts are processed.
 - Masking must keep required fields
 - Patient and practitioner names are required fields. Masking must protect personal data without losing them, or they must be linked back on the Internal Data Platform.
 - Azure DI receives original images
 - The full receipt image, which can show diagnosis and contact details, goes to Azure DI. This needs approved data handling controls.
-- SharePoint may hold unmasked text
-- OCR text returned by Azure DI may sit unmasked in SharePoint before masking. This needs approved data handling controls.
-- Benchmark note: the benchmark used unmasked OCR text. Accuracy on masked text must be re-tested.
+- Where masking happens is open
+- Option A: Internal Data Platform; SharePoint may first hold unmasked OCR text. Option B: local LLM in Azure Compute; still needs validation.
+- Benchmark note: the benchmark used unmasked OCR text. Accuracy on masked text must be re-tested for either option.
 - Still to be agreed and approved
-- PII masking method / Not yet chosen or approved
+- PII masking method / Option A or B; not yet chosen or approved
 - Storage and retention / Where data is kept, including SharePoint, and for how long
 - Access controls / Who can see receipts, OCR text and results
 - Transfer and linkage / How results move and link back to audit records
 
-  Notes: These are the privacy and governance decisions still open for the proposed architecture. Nothing here is implemented or approved, and no masking or redaction method has been chosen. First, masking must keep what the extraction needs: patient and practitioner names are required fields, and the practitioner name is where the AI used context in our examples. The design must protect personal data without losing those fields, or they must be linked back on the Internal Data Platform after extraction. Second, Azure Document Intelligence receives the original receipt images, which can show diagnosis, the patient's name and contact details; this needs approved data handling controls. Third, the OCR text returned to SharePoint is unmasked until masking, so SharePoint may temporarily hold personal information; this also needs approved controls. The benchmark used unmasked OCR text, so extraction accuracy on masked text must be re-tested. Still to be agreed and approved: the PII masking method; where data is stored, including SharePoint, and for how long; who can access receipts, OCR text and results; and how results are transferred and linked back to audit records on the Internal Data Platform, where claims, policy and historical records stay.
+  Notes: These are the privacy and governance decisions still open for both proposed options. Neither option is selected, nothing here is implemented or approved, and no masking method has been chosen. First, masking must keep what the extraction needs: patient and practitioner names are required fields, and the practitioner name is where the AI used context in our examples. The design must protect personal data without losing those fields, or they must be linked back on the Internal Data Platform after extraction. Second, in both options Azure Document Intelligence receives the original receipt images, which can show diagnosis, the patient's name and contact details; this needs approved data handling controls. Third, where masking happens is open. In Option A, masking runs on the Internal Data Platform, so the OCR text returned to SharePoint is unmasked until masking and SharePoint may temporarily hold personal information. In Option B, a local LLM masks the text within Azure Compute, which removes that SharePoint round trip, but its masking accuracy, feasibility and privacy controls still require validation. The benchmark used unmasked OCR text, so extraction accuracy on masked text must be re-tested for either option. Still to be agreed and approved: the PII masking option and method; where data is stored, including SharePoint, and for how long; who can access receipts, OCR text and results; and how results are transferred and linked back to audit records on the Internal Data Platform, where claims, policy and historical records stay.
 
-## Slide 12 (main slide 11)
+## Slide 13 (main slide 12)
 
 - Project Timeline and Target Rollout
 - 12
@@ -226,7 +234,7 @@
 
   Notes: Where the project stands and where it is going. Completed: we kicked off in mid June 2026; by mid July 2026 we had completed the MVP and presented it to the Internal Audit team; from August to October 2026 we improved the application, benchmarked the extraction approaches and explored additional audit use cases; and in November 2026 we consulted business auditors to understand their manual audit tests and business requirements. Planned: in December 2026, test real masked medical receipts and evaluate extraction accuracy; in January and February 2027, improve accuracy based on the test results and complete application development; in March 2027, complete final validation, user acceptance testing and the required approvals; and in early April 2027, the target rollout for actual audit use. The planned dates are proposed targets, not confirmed commitments. They depend on the test results and on the required approvals, including the privacy and data handling controls on the previous slide.
 
-## Slide 13 (appendix A1)
+## Slide 14 (appendix A1)
 
 - Appendix A1: Accuracy by Field
 - 13
@@ -244,7 +252,7 @@
 
   Notes: Correct fields per field, from the saved results: Practitioner: PaddleOCR + rules 4/9, Azure DI + rules 5/9, Azure DI + Azure OpenAI 8/9; Registration no.: PaddleOCR + rules 1/6, Azure DI + rules 3/6, Azure DI + Azure OpenAI 6/6; Patient: PaddleOCR + rules 6/9, Azure DI + rules 7/9, Azure DI + Azure OpenAI 9/9; Receipt no.: PaddleOCR + rules 5/9, Azure DI + rules 8/9, Azure DI + Azure OpenAI 9/9; Treatment date: PaddleOCR + rules 4/9, Azure DI + rules 6/9, Azure DI + Azure OpenAI 8/9; Total amount: PaddleOCR + rules 6/9, Azure DI + rules 7/9, Azure DI + Azure OpenAI 9/9. The registration number is printed on 6 of the 9 receipts. The overall figure combines fields of different importance, so field-level results matter. Benchmark detail for questions: the two rule methods use the same general rules plus common Chinese labels, written after these receipts were examined and fixed before scoring. The AI instructions were refined after reviewing errors on these receipts. Only 4 unseen receipts exist, too few to validate. Source: python/receipt_ocr_benchmark/results/v2/scores_multilingual and scores_aoai_improved (summary.csv, detail.csv) and the saved extraction results.
 
-## Slide 14 (appendix A2)
+## Slide 15 (appendix A2)
 
 - Appendix A2: How the Benchmark Was Run
 - 14
