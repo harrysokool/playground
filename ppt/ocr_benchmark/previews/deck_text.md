@@ -1,4 +1,4 @@
-# OCR_Benchmark_V19.pptx: text, chart data and notes
+# OCR_Benchmark_V20.pptx: text, chart data and notes
 
 
 ## Slide 1 (cover)
@@ -195,21 +195,36 @@
 
 ## Slide 12 (main slide 11)
 
-- Conclusion and Next Steps
+- Project Timeline and Target Rollout
 - 12
-- A working AI extraction workflow, with clear next steps to validate its value.
-- What we have achieved / A working receipt-to-structured-data workflow / Three approaches benchmarked on development receipts / AI had the highest accuracy and handled context
-- Future opportunities / Less manual effort and wider coverage / Reusable data for future audit analytics / Auditor time focused on exceptions
-- What still needs validation
-- 1
-- Expand receipt extraction / More fields from the auditor checklist, such as diagnosis, clinic name and itemised charges.
-- 2
-- Validate independently / Field-level accuracy and practical time benefits on new, representative receipts (proposed volume 500 to 1,000, to be confirmed).
-- 3
-- Approve architecture and privacy / Review and approve the proposed architecture, PII masking, storage, access, transfer and linkage.
-- Support requested: the next validation phase, to expand the extraction fields, test on representative receipts independently and review and approve the proposed architecture and privacy controls.
+- PLANNED DATES ARE TARGETS
+- Built and benchmarked since June 2026; target rollout for audit use in early April 2027.
+- COMPLETED
+- PLANNED  ·  PROPOSED TARGETS, NOT CONFIRMED
+- Mid June 2026
+- ✓
+- Project kickoff
+- Mid July 2026
+- ✓
+- MVP completed and presented to the Internal Audit team
+- Aug – Oct 2026
+- ✓
+- Application improved, extraction approaches benchmarked and more audit use cases explored
+- Nov 2026
+- ✓
+- Business auditors consulted on their manual audit tests and requirements
+- Dec 2026
+- Test real masked medical receipts and evaluate extraction accuracy
+- Jan – Feb 2027
+- Improve accuracy from test results and complete application development
+- Mar 2027
+- Final validation, user acceptance testing and required approvals
+- Early Apr 2027
+- ★
+- TARGET ROLLOUT / For actual audit use
+- Planned dates are proposed targets, not confirmed commitments. They depend on test results and the required approvals, including the privacy controls.
 
-  Notes: What we have achieved: a working receipt extraction workflow with Azure Document Intelligence and Azure OpenAI, and a comparison of three approaches on 9 development receipts, where the AI approach achieved the highest accuracy and handled context the rules missed. Future opportunities: less manual reading, the capability to screen a larger receipt population, reusable data for audit analytics, and auditor time focused on exceptions. What still needs validation: (1) Expand receipt extraction: More fields from the auditor checklist, such as diagnosis, clinic name and itemised charges. (2) Validate independently: Field-level accuracy and practical time benefits on new, representative receipts (proposed volume 500 to 1,000, to be confirmed). (3) Approve architecture and privacy: Review and approve the proposed architecture, PII masking, storage, access, transfer and linkage. The 500 to 1,000 receipt volume is a proposed validation volume for the next phase, to be confirmed; it is a future goal, not yet demonstrated. Broader field extraction, automated audit checks and time savings are also future goals. Support requested: the next validation phase, to expand the extraction fields, test on representative receipts independently and review and approve the proposed architecture and privacy controls.
+  Notes: Where the project stands and where it is going. Completed: we kicked off in mid June 2026; by mid July 2026 we had completed the MVP and presented it to the Internal Audit team; from August to October 2026 we improved the application, benchmarked the extraction approaches and explored additional audit use cases; and in November 2026 we consulted business auditors to understand their manual audit tests and business requirements. Planned: in December 2026, test real masked medical receipts and evaluate extraction accuracy; in January and February 2027, improve accuracy based on the test results and complete application development; in March 2027, complete final validation, user acceptance testing and the required approvals; and in early April 2027, the target rollout for actual audit use. The planned dates are proposed targets, not confirmed commitments. They depend on the test results and on the required approvals, including the privacy and data handling controls on the previous slide.
 
 ## Slide 13 (appendix A1)
 
